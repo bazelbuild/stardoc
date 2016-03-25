@@ -1,0 +1,240 @@
+// Copyright 2016 The Bazel Authors. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+$primary-color: #4caf50;
+
+body {
+  background-color: #fafafa;
+}
+
+pre,
+code {
+  font-family: 'Liberation Mono', Consolas, Monaco, 'Andale Mono', monospace;
+}
+
+pre {
+  background-color: #eee;
+  padding: 20px;
+  overflow-x: auto;
+  word-wrap: normal;
+
+  code {
+    overflow-wrap: normal;
+    white-space: pre;
+  }
+}
+
+code {
+  display: inline-block;
+  font-size: 90%;
+  white-space: pre-wrap;
+}
+
+.mdl-layout__drawer {
+  background-color: #fff;
+
+  .mdl-layout-title {
+    border-bottom: 1px solid #e0e0e0;
+    padding-left: 24px;
+  }
+}
+
+.drawer-nav {
+  ul {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      display: block;
+      padding: 0;
+
+      ul {
+        li {
+          a {
+            padding-left: 44px;
+            font-weight: 400;
+          }
+        }
+      }
+
+      a {
+        display: block;
+        flex-shrink: 0;
+        padding: 15px 0 15px 22px;
+        margin: 0;
+        font-weight: 600;
+        color: #757575;
+        line-height: 1em;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:active,
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
+
+      &.active {
+        a {
+          color: $primary-color;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+h1.page-title {
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 40px;
+  margin-bottom: 30px;
+  color: $primary-color;
+}
+
+p.lead {
+  font-size: 20px;
+  line-height: 32px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: #fff;
+  table-layout: auto;
+
+  thead {
+    th {
+      background-color: #fafafa;
+      border: 1px solid #eee;
+      color: #757575;
+      padding: 12px 12px 12px 24px;
+      vertical-align: top;
+    }
+  }
+
+  tbody {
+    td {
+      border: 1px solid #eee;
+      padding: 12px 12px 12px 24px;
+      vertical-align: top;
+    }
+  }
+}
+
+table.params-table {
+  width: 100%;
+
+  col.col-param{
+    width: 25%;
+  }
+
+  col.col-description {
+    width: 75%;
+  }
+}
+
+hr {
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+nav.toc {
+  border-left: 5px solid $primary-color;
+  padding-left: 20px;
+  margin-bottom: 48px;
+
+  h1,
+  h2 {
+    font-size: 15px;
+    line-height: 16px;
+    padding-bottom: 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    color: #757575;
+  }
+
+  ul {
+    list-style: none;
+    margin-top: 0;
+    padding-left: 0;
+
+    li {
+      font-size: 20px;
+      line-height: 40px;
+
+      a {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+.page-content {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 60px;
+  padding-bottom: 60px;
+    width: 760px;
+
+  a {
+    text-decoration: none;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 40px;
+    margin-bottom: 30px;
+    color: $primary-color;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    margin-bottom: 30px;
+    color: $primary-color;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 32px;
+    margin-bottom: 30px;
+    color: $primary-color;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-content {
+    width: 360px;
+  }
+}
+
+@media (min-width: 768px) {
+  .page-content {
+    width: 760px;
+  }
+}
+
+@media (min-width: 1476px) {
+  .page-content {
+    width: 1160px;
+  }
+}
+
+.mdl-mini-footer {
+  padding-left: 40px;
+}
