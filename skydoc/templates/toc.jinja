@@ -16,11 +16,11 @@ limitations under the License.
 <nav class="toc">
   <h2>Rules</h2>
   <ul>
-{% if ruleset.description %}
+% if ruleset.description:
     <li><a href="#overview">Overview</a></li>
-{% endif %}
-{% for rule in ruleset.rules %}
+% endif
+% for rule in ruleset.rules:
     <li><a href="#{{ rule.name }}">{{ rule.name }}</a></li>
-{% endfor %}
+% endfor
   </ul>
 </nav>

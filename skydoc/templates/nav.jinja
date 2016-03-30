@@ -13,16 +13,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 #}
-{% for ruleset in rulesets %}
+% for ruleset in rulesets:
 <li>
   <a href="{{ ruleset.name }}.html">{{ ruleset.name }}</a>
   <ul>
-{% if ruleset.description %}
+% if ruleset.description:
     <li><a href="{{ ruleset.name }}.html#overview">Overview</a></li>
-{% endif %}
-{% for rule in ruleset.rules %}
+% endif
+% for rule in ruleset.rules:
     <li><a href="{{ ruleset.name }}.html#{{ rule.name }}">{{ rule.name }}</a></li>
-{% endfor %}
+% endfor
   </ul>
 </li>
-{% endfor %}
+% endfor

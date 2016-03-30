@@ -134,7 +134,8 @@ class MarkdownWriter(object):
   def _write_ruleset(self, output_dir, ruleset):
     # Load template and render Markdown.
     env = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(_runfile_path(TEMPLATE_PATH)))
+        loader=jinja2.FileSystemLoader(_runfile_path(TEMPLATE_PATH)),
+        line_statement_prefix='%')
     template = env.get_template('markdown.jinja')
     out = template.render(ruleset=ruleset)
 
@@ -152,7 +153,8 @@ class HtmlWriter(object):
     self.__output_file = output_file
     self.__output_zip = output_zip
     self.__env = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(_runfile_path(TEMPLATE_PATH)))
+        loader=jinja2.FileSystemLoader(_runfile_path(TEMPLATE_PATH)),
+        line_statement_prefix='%')
 
   def write(self, rulesets):
     # Generate navigation used for all rules.

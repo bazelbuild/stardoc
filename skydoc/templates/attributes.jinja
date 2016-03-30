@@ -19,7 +19,7 @@ limitations under the License.
     <col class="col-description" />
   </colgroup>
   <tbody>
-{% for attribute in rule.attributes %}
+% for attribute in rule.attributes:
     <tr id="{{ rule.name }}.{{ attribute.name }}">
       <td><code>{{ attribute.name }}</code></td>
       <td>
@@ -27,6 +27,6 @@ limitations under the License.
         {{ attribute.documentation }}
       </td>
     </tr>
-{% endfor %}
+% endfor
   </tbody>
 </table>
