@@ -17,6 +17,8 @@ HTML. Skydoc generates one documentation page per `.bzl` file.
   * [Multiple Targets](#usage-multiple-targets)
 * [Roadmap](#roadmap)
 
+![A screenshot of Skydoc generated HTML documentation](https://raw.githubusercontent.com/bazelbuild/skydoc/master/skydoc-screenshot.png)
+
 <a name="setup"></a>
 ## Setup
 
@@ -34,13 +36,13 @@ sass_repositories()
 git_repository(
     name = "io_bazel_skydoc",
     remote = "https://github.com/bazelbuild/skydoc.git",
-    tag = "0.0.1",
+    tag = "0.0.2",
 )
 load("@io_bazel_skydoc//skylark:skylark.bzl", "skydoc_repositories")
 skydoc_repositories()
 ```
 
-Note that the Sass repositoires also need to be loaded since Skydoc uses the
+Note that the Sass repositories also need to be loaded since Skydoc uses the
 Bazel Sass rules.
 
 If you would like to load all Skydoc rules by default using Bazel's prelude, add
