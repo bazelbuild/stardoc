@@ -21,31 +21,32 @@ class CommonTest(unittest.TestCase):
   """Unit tests for common functions."""
 
   def test_rule_doc_only(self):
-    doc = '"""Rule documentation only docstring."""\n'
-    doc, attr_doc = common.parse_attribute_doc(doc)
+    docstring = 'Rule documentation only docstring.'
+    doc, attr_doc, example_doc = common.parse_docstring(docstring)
     self.assertEqual('Rule documentation only docstring.', doc)
     self.assertDictEqual({}, attr_doc)
+    self.assertEqual('', example_doc)
 
   def test_rule_and_attribute_doc(self):
-    doc = (
-        '"""Rule and attribute documentation.\n'
+    docstring = (
+        'Rule and attribute documentation.\n'
         '\n'
         'Args:\n'
         '  name: A unique name for this rule.\n'
-        '  visibility: The visibility of this rule.\n'
-        '"""\n')
+        '  visibility: The visibility of this rule.\n')
     expected_attrs = {
         'name': 'A unique name for this rule.',
         'visibility': 'The visibility of this rule.'
     }
 
-    doc, attr_doc = common.parse_attribute_doc(doc)
+    doc, attr_doc, example_doc = common.parse_docstring(docstring)
     self.assertEqual('Rule and attribute documentation.', doc)
     self.assertDictEqual(expected_attrs, attr_doc)
+    self.assertEqual('', example_doc)
 
   def test_multi_line_doc(self):
-    doc = (
-        '"""Multi-line rule and attribute documentation.\n'
+    docstring = (
+        'Multi-line rule and attribute documentation.\n'
         '\n'
         'Rule doc continued here.\n'
         '\n'
@@ -55,31 +56,95 @@ class CommonTest(unittest.TestCase):
         '    Documentation for name continued here.\n'
         '  visibility: The visibility of this rule.\n'
         '\n'
-        '    Documentation for visibility continued here.\n'
-        '"""\n')
+        '    Documentation for visibility continued here.\n')
     expected_doc = (
         'Multi-line rule and attribute documentation.\n'
+        '\n'
         'Rule doc continued here.')
     expected_attrs = {
-        'name': ('A unique name for this rule.\n'
-            'Documentation for name continued here'),
-        'visibility': ('The visibility of this rule.\n'
+        'name': ('A unique name for this rule.\n\n'
+            'Documentation for name continued here.'),
+        'visibility': ('The visibility of this rule.\n\n'
             'Documentation for visibility continued here.')
     }
 
-    doc, attr_doc = common.parse_attribute_doc(doc)
+    doc, attr_doc, example_doc = common.parse_docstring(docstring)
     self.assertEqual(expected_doc, doc)
     self.assertDictEqual(expected_attrs, attr_doc)
+    self.assertEqual('', example_doc)
 
   def test_invalid_args(self):
-    doc = (
-        '"""Rule and attribute documentation.\n'
+    docstring = (
+        'Rule and attribute documentation.\n'
         '\n'
         'Foo:\n'
         '  name: A unique name for this rule.\n'
-        '  visibility: The visibility of this rule.\n'
-        '"""\n')
+        '  visibility: The visibility of this rule.\n')
 
-    doc, attr_doc = common.parse_attribute_doc(doc)
-    self.assertEqual('Rule and attribute documentation.', doc)
+    doc, attr_doc, example_doc = common.parse_docstring(docstring)
+    self.assertEqual(docstring.strip(), doc)
     self.assertDictEqual({}, attr_doc)
+    self.assertEqual('', example_doc)
+
+  def test_example(self):
+    docstring = (
+        'Documentation with example\n'
+        '\n'
+        'Examples:\n'
+        '  An example of how to use this rule:\n'
+        '\n'
+        '      example_rule()\n'
+        '\n'
+        '  Note about this example.\n'
+        '\n'
+        'Args:\n'
+        '  name: A unique name for this rule.\n'
+        '  visibility: The visibility of this rule.\n')
+    expected_attrs = {
+        'name': 'A unique name for this rule.',
+        'visibility': 'The visibility of this rule.'
+    }
+    expected_example_doc = (
+        'An example of how to use this rule:\n'
+        '\n'
+        '    example_rule()\n'
+        '\n'
+        'Note about this example.')
+
+    doc, attr_doc, example_doc = common.parse_docstring(docstring)
+    self.assertEqual('Documentation with example', doc)
+    self.assertDictEqual(expected_attrs, attr_doc)
+    self.assertEqual(expected_example_doc, example_doc)
+
+  def test_example_after_attrs(self):
+    docstring = (
+        'Documentation with example\n'
+        '\n'
+        'Args:\n'
+        '  name: A unique name for this rule.\n'
+        '  visibility: The visibility of this rule.\n'
+        '\n'
+        'Examples:\n'
+        '  An example of how to use this rule:\n'
+        '\n'
+        '      example_rule()\n'
+        '\n'
+        '  Note about this example.\n')
+    expected_attrs = {
+        'name': 'A unique name for this rule.',
+        'visibility': 'The visibility of this rule.'
+    }
+    expected_example_doc = (
+        'An example of how to use this rule:\n'
+        '\n'
+        '    example_rule()\n'
+        '\n'
+        'Note about this example.')
+
+    doc, attr_doc, example_doc = common.parse_docstring(docstring)
+    self.assertEqual('Documentation with example', doc)
+    self.assertDictEqual(expected_attrs, attr_doc)
+    self.assertEqual(expected_example_doc, example_doc)
+
+if __name__ == '__main__':
+  unittest.main()

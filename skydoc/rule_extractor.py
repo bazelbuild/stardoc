@@ -77,15 +77,16 @@ class RuleDocExtractor(object):
       name: The name of the rule.
       doc: The docstring extracted for the rule.
     """
-    doc, attr_doc = common.parse_attribute_doc(doc)
+    doc, attr_doc, example_doc = common.parse_docstring(doc)
     if name in self.__extracted_rules:
       rule = self.__extracted_rules[name]
-      rule.doc = doc.strip()
+      rule.doc = doc
+      rule.example_doc = example_doc
       for attr_name, attr_doc in attr_doc.iteritems():
         if attr_name in rule.attrs:
           rule.attrs[attr_name].doc = attr_doc
 
-  def _parse_docstrings(self, bzl_file):
+  def _extract_docstrings(self, bzl_file):
     """Extracts the docstrings for all public rules in the .bzl file.
 
     This function parses the .bzl file and extracts the docstrings for all
@@ -129,6 +130,7 @@ class RuleDocExtractor(object):
       rule = self.__language.rule.add()
       rule.name = rule_desc.name
       rule.documentation = rule_desc.doc
+      rule.example_documentation = rule_desc.example_doc
 
       attrs = sorted(rule_desc.attrs.values(), cmp=attr.attr_compare)
       for attr_desc in attrs:
@@ -155,7 +157,7 @@ class RuleDocExtractor(object):
       bzl_file: The .bzl file to extract rule documentation from.
     """
     self._process_skylark(bzl_file)
-    self._parse_docstrings(bzl_file)
+    self._extract_docstrings(bzl_file)
     self._assemble_protos()
 
   def proto(self):

@@ -88,7 +88,8 @@ class Rule(object):
   def __init__(self, proto):
     self.__proto = proto
     self.name = proto.name
-    self.documentation = proto.documentation
+    self.documentation = mistune.markdown(proto.documentation)
+    self.example_documentation = mistune.markdown(proto.example_documentation)
     self.signature = self._get_signature(proto)
     self.attributes = []
     for attribute in proto.attribute:

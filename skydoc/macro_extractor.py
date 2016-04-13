@@ -72,8 +72,9 @@ class MacroDocExtractor(object):
 
     doc = ast.get_docstring(stmt)
     if doc:
-      doc, attr_doc = common.parse_attribute_doc(doc)
-      rule.documentation = doc.strip()
+      doc, attr_doc, example_doc = common.parse_docstring(doc)
+      rule.documentation = doc
+      rule.example_documentation = example_doc
     else:
       doc = ""
       attr_doc = {}

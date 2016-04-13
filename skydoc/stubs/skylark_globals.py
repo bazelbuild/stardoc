@@ -43,7 +43,8 @@ class Label(object):
 class RuleDescriptor(object):
   def __init__(self, implementation, test=False, attrs={}, outputs=None,
                executable=False, output_to_genfiles=False, fragments=[],
-               host_fragments=[], local=False, doc='', type='rule'):
+               host_fragments=[], local=False, doc='', example_doc='',
+               type='rule'):
     """Constructor for RuleDescriptor
 
     Args:
@@ -63,6 +64,10 @@ class RuleDescriptor(object):
           (Only used if type='repository').
       doc: Documentation for this rule. This parameter is used internally by
           skydoc and is not set by any Skylark code in .bzl files.
+      example_doc: Example documentation for this rule. This parameter is used
+          internally by skydoc and is not set by any Skylark code in .bzl files.
+      type: The type of rule (rule, repository_rule). This parameter is used
+          by skydoc and is not set by any Skylark code in .bzl files.
     """
     self.is_rule = True
     self.implementation = implementation
@@ -75,6 +80,7 @@ class RuleDescriptor(object):
     self.host_fragments = host_fragments
     self.local = local
     self.doc = doc
+    self.example_doc = example_doc
     self.type = type
     for name, attr in self.attrs.iteritems():
       attr.name = name
