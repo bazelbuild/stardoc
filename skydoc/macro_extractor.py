@@ -16,7 +16,7 @@
 
 import ast
 
-from src.main.protobuf import build_pb2
+from skydoc import build_pb2
 from skydoc import common
 
 def get_type(expr):

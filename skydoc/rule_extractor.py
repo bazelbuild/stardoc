@@ -16,7 +16,7 @@
 
 import ast
 
-from src.main.protobuf import build_pb2
+from skydoc import build_pb2
 from skydoc import common
 from skydoc.stubs import attr
 from skydoc.stubs import skylark_globals

@@ -15,7 +15,7 @@
 """Representations used for rendering documentation templates."""
 
 import mistune
-from src.main.protobuf import build_pb2
+from skydoc import build_pb2
 
 class Attribute(object):
   """Representation of an attribute used to render documentation templates."""

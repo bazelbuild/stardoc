@@ -15,7 +15,6 @@
 """Common functions for skydoc."""
 
 import re
-from src.main.protobuf import build_pb2
 from xml.sax.saxutils import escape
 
 

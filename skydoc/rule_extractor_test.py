@@ -18,8 +18,8 @@ import os
 import tempfile
 import textwrap
 from google.protobuf import text_format
+from skydoc import build_pb2
 from skydoc import rule_extractor
-from src.main.protobuf import build_pb2
 
 
 class RuleExtractorTest(unittest.TestCase):

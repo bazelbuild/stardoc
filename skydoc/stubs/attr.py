@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from src.main.protobuf import build_pb2
+from skydoc import build_pb2
 
 def strcmp(s1, s2):
   if s1 > s2:

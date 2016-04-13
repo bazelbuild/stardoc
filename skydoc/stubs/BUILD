@@ -7,6 +7,6 @@ py_library(
         "skylark_globals.py",
     ],
     deps = [
-        "@bazel_tools//src/main/protobuf:build_pb_py",
+        "//skydoc:build_pb_py",
     ],
 )

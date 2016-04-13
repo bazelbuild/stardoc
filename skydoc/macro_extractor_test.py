@@ -18,8 +18,8 @@ import tempfile
 import textwrap
 import unittest
 from google.protobuf import text_format
+from skydoc import build_pb2
 from skydoc import macro_extractor
-from src.main.protobuf import build_pb2
 
 
 class MacroExtractorTest(unittest.TestCase):
