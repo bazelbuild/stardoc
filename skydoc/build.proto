@@ -58,9 +58,16 @@ message AllowedRuleClassInfo {
   repeated string allowed_rule_class = 2;
 }
 
+// Information about an output target for a rule.
+message OutputTarget {
+  // The template name of the output target (e.g. %{name}.jar.
+  optional string template = 1;
+  // The documentation for the output target.
+  optional string documentation = 2;
+}
+
 // This message represents a single attribute of a single rule.
 message AttributeDefinition {
-
   // Rule name, e.g. "cc_library"
   required string name = 1;
   required Attribute.Discriminator type = 2;
@@ -81,6 +88,7 @@ message RuleDefinition {
 
   optional string example_documentation = 4;
 
+  repeated OutputTarget output = 5;
 }
 
 message BuildLanguage {

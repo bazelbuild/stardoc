@@ -232,6 +232,114 @@ class MacroExtractorTest(unittest.TestCase):
 
     self.check_protos(src, expected)
 
+  def test_macro_with_example_doc(self):
+    src = textwrap.dedent("""\
+        def macro_with_example(name, foo, visibility=None):
+          \"\"\"Macro with examples.
+
+          Args:
+            name: A unique name for this rule.
+            foo: A test argument.
+            visibility: The visibility of this rule.
+
+          Example:
+            Here is an example of how to use this rule.
+          \"\"\"
+          native.genrule(
+              name = name,
+              out = ["foo"],
+              cmd = "touch $@",
+              visibility = visibility,
+          )
+        """)
+
+    expected = textwrap.dedent("""\
+        rule {
+          name: "macro_with_example"
+          documentation: "Macro with examples."
+          example_documentation: "Here is an example of how to use this rule."
+          attribute {
+            name: "name"
+            type: UNKNOWN
+            mandatory: true
+            documentation: "A unique name for this rule."
+          }
+          attribute {
+            name: "foo"
+            type: UNKNOWN
+            mandatory: true
+            documentation: "A test argument."
+          }
+          attribute {
+            name: "visibility"
+            type: UNKNOWN
+            mandatory: false
+            documentation: "The visibility of this rule."
+          }
+        }
+        """)
+
+    self.check_protos(src, expected)
+
+  def test_macro_with_output_doc(self):
+    src = textwrap.dedent("""\
+        def macro_with_outputs(name, foo, visibility=None):
+          \"\"\"Macro with output documentation.
+
+          Outputs:
+            %{name}.jar: A Java archive.
+            %{name}_deploy.jar: A Java archive suitable for deployment.
+
+                Only built if explicitly requested.
+
+          Args:
+            name: A unique name for this rule.
+            foo: A test argument.
+            visibility: The visibility of this rule.
+          \"\"\"
+          native.genrule(
+              name = name,
+              out = ["foo"],
+              cmd = "touch $@",
+              visibility = visibility,
+          )
+        """)
+
+    expected = textwrap.dedent("""\
+        rule {
+          name: "macro_with_outputs"
+          documentation: "Macro with output documentation."
+          attribute {
+            name: "name"
+            type: UNKNOWN
+            mandatory: true
+            documentation: "A unique name for this rule."
+          }
+          attribute {
+            name: "foo"
+            type: UNKNOWN
+            mandatory: true
+            documentation: "A test argument."
+          }
+          attribute {
+            name: "visibility"
+            type: UNKNOWN
+            mandatory: false
+            documentation: "The visibility of this rule."
+          }
+          output {
+            template: "%{name}_deploy.jar"
+            documentation: "A Java archive suitable for deployment.\\n\\nOnly built if explicitly requested."
+          }
+          output {
+            template: "%{name}.jar"
+            documentation: "A Java archive."
+          }
+        }
+        """)
+
+    self.check_protos(src, expected)
+
   def test_file_doc_title_only(self):
     src = textwrap.dedent("""\
         \"\"\"Example rules\"\"\"

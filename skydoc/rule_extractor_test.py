@@ -182,24 +182,20 @@ class RuleExtractorTest(unittest.TestCase):
     expected = textwrap.dedent("""\
         rule {
           name: "undocumented"
-          documentation: ""
           attribute {
             name: "name"
             type: UNKNOWN
             mandatory: true
-            documentation: ""
           }
           attribute {
             name: "arg_label"
             type: LABEL
             mandatory: false
-            documentation: ""
           }
           attribute {
             name: "arg_string"
             type: STRING
             mandatory: false
-            documentation: ""
           }
         }
         """)
@@ -383,6 +379,124 @@ class RuleExtractorTest(unittest.TestCase):
             type: STRING
             mandatory: false
             documentation: "A string argument."
+          }
+        }
+        """)
+
+    self.check_protos(src, expected)
+
+  def test_rule_with_example_doc(self):
+    src = textwrap.dedent("""\
+        def _impl(ctx):
+          return struct()
+
+        rule_with_example = rule(
+            implementation = _impl,
+            attrs = {
+                "arg_label": attr.label(),
+                "arg_string": attr.string(),
+            },
+        )
+        \"\"\"Rule with example.
+
+        Example:
+          Here is an example of how to use this rule.
+
+        Args:
+          name: A unique name for this rule.
+          arg_label: A label argument.
+          arg_string: A string argument.
+        \"\"\"
+        """)
+
+    expected = textwrap.dedent("""\
+        rule {
+          name: "rule_with_example"
+          documentation: "Rule with example."
+          example_documentation: "Here is an example of how to use this rule."
+          attribute {
+            name: "name"
+            type: UNKNOWN
+            mandatory: true
+            documentation: "A unique name for this rule."
+          }
+          attribute {
+            name: "arg_label"
+            type: LABEL
+            mandatory: false
+            documentation: "A label argument."
+          }
+          attribute {
+            name: "arg_string"
+            type: STRING
+            mandatory: false
+            documentation: "A string argument."
+          }
+        }
+        """)
+
+    self.check_protos(src, expected)
+
+  def test_rule_with_output_doc(self):
+    src = textwrap.dedent("""\
+        def _impl(ctx):
+          return struct()
+
+        rule_with_outputs = rule(
+            implementation = _impl,
+            attrs = {
+                "arg_label": attr.label(),
+                "arg_string": attr.string(),
+            },
+            outputs = {
+                "jar": "%{name}.jar",
+                "deploy_jar": "%{name}_deploy.jar",
+            },
+        )
+        \"\"\"Rule with output documentation.
+
+        Outputs:
+          jar: A Java archive.
+          deploy_jar: A Java archive suitable for deployment.
+
+              Only built if explicitly requested.
+
+        Args:
+          name: A unique name for this rule.
+          arg_label: A label argument.
+          arg_string: A string argument.
+        \"\"\"
+        """)
+
+    expected = textwrap.dedent("""\
+        rule {
+          name: "rule_with_outputs"
+          documentation: "Rule with output documentation."
+          attribute {
+            name: "name"
+            type: UNKNOWN
+            mandatory: true
+            documentation: "A unique name for this rule."
+          }
+          attribute {
+            name: "arg_label"
+            type: LABEL
+            mandatory: false
+            documentation: "A label argument."
+          }
+          attribute {
+            name: "arg_string"
+            type: STRING
+            mandatory: false
+            documentation: "A string argument."
+          }
+          output {
+            template: "%{name}_deploy.jar"
+            documentation: "A Java archive suitable for deployment.\\n\\nOnly built if explicitly requested."
+          }
+          output {
+            template: "%{name}.jar"
+            documentation: "A Java archive."
           }
         }
         """)

@@ -7,6 +7,7 @@ filegroup(
         "html.jinja",
         "markdown.jinja",
         "nav.jinja",
+        "outputs.jinja",
         "overview.jinja",
         "toc.jinja",
     ],

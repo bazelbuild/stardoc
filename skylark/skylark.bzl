@@ -173,6 +173,9 @@ Args:
   format: The type of output to generate. Possible values are `"markdown"` and
     `"html"`.
 
+Outputs:
+  skylark_doc_zip: A zip file containing the generated documentation.
+
 Example:
   Suppose you have a project containing Skylark rules you want to document:
 

@@ -77,14 +77,22 @@ class RuleDocExtractor(object):
       name: The name of the rule.
       doc: The docstring extracted for the rule.
     """
-    doc, attr_doc, example_doc = common.parse_docstring(doc)
+    extracted_docs = common.parse_docstring(doc)
     if name in self.__extracted_rules:
       rule = self.__extracted_rules[name]
-      rule.doc = doc
-      rule.example_doc = example_doc
-      for attr_name, attr_doc in attr_doc.iteritems():
+      rule.doc = extracted_docs.doc
+      rule.example_doc = extracted_docs.example_doc
+      for attr_name, desc in extracted_docs.attr_docs.iteritems():
         if attr_name in rule.attrs:
-          rule.attrs[attr_name].doc = attr_doc
+          rule.attrs[attr_name].doc = desc
+
+      # Match the output name from the docstring with the corresponding output
+      # template name extracted from rule() and store a mapping of output
+      # template name to documentation.
+      for output_name, desc in extracted_docs.output_docs.iteritems():
+        if output_name in rule.outputs:
+          output_template = rule.outputs[output_name]
+          rule.output_docs[output_template] = desc
 
   def _extract_docstrings(self, bzl_file):
     """Extracts the docstrings for all public rules in the .bzl file.
@@ -129,8 +137,10 @@ class RuleDocExtractor(object):
     for rule_desc in rules:
       rule = self.__language.rule.add()
       rule.name = rule_desc.name
-      rule.documentation = rule_desc.doc
-      rule.example_documentation = rule_desc.example_doc
+      if rule_desc.doc:
+        rule.documentation = rule_desc.doc
+      if rule_desc.example_doc:
+        rule.example_documentation = rule_desc.example_doc
 
       attrs = sorted(rule_desc.attrs.values(), cmp=attr.attr_compare)
       for attr_desc in attrs:
@@ -138,12 +148,18 @@ class RuleDocExtractor(object):
           continue
         attr_proto = rule.attribute.add()
         attr_proto.name = attr_desc.name
-        attr_proto.documentation = attr_desc.doc
+        if attr_desc.doc:
+          attr_proto.documentation = attr_desc.doc
         attr_proto.type = attr_desc.type
         attr_proto.mandatory = attr_desc.mandatory
         # TODO(dzc): Save the default value of the attribute. This will require
         # adding a proto field to the AttributeDefinition proto, perhaps as a
         # oneof.
+
+      for template, doc in rule_desc.output_docs.iteritems():
+        output = rule.output.add()
+        output.template = template
+        output.documentation = doc
 
   def parse_bzl(self, bzl_file):
     """Extracts the documentation for all public rules from the given .bzl file.

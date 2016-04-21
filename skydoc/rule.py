@@ -17,6 +17,7 @@
 import mistune
 from skydoc import build_pb2
 
+
 class Attribute(object):
   """Representation of an attribute used to render documentation templates."""
 
@@ -82,6 +83,15 @@ class Attribute(object):
     type_str += '; Required' if proto.mandatory else '; Optional'
     return type_str
 
+
+class Output(object):
+  """Representation of an output used to render documentation templates."""
+
+  def __init__(self, proto):
+    self.__proto = proto
+    self.template = mistune.markdown(proto.template)
+    self.documentation = mistune.markdown(proto.documentation)
+
 class Rule(object):
   """Representation of a rule used to render documentation templates."""
 
@@ -94,6 +104,9 @@ class Rule(object):
     self.attributes = []
     for attribute in proto.attribute:
       self.attributes.append(Attribute(attribute))
+    self.outputs = []
+    for output in proto.output:
+      self.outputs.append(Output(output))
 
   def _get_signature(self, proto):
     """Returns the rule signature for this rule."""
@@ -106,6 +119,7 @@ class Rule(object):
         signature += ', '
     signature += ')'
     return signature
+
 
 class RuleSet(object):
   """Representation of a rule set used to render documentation templates."""

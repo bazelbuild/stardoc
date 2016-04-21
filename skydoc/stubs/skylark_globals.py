@@ -41,10 +41,9 @@ class Label(object):
     self.label_string = label_string
 
 class RuleDescriptor(object):
-  def __init__(self, implementation, test=False, attrs={}, outputs=None,
+  def __init__(self, implementation, test=False, attrs={}, outputs={},
                executable=False, output_to_genfiles=False, fragments=[],
-               host_fragments=[], local=False, doc='', example_doc='',
-               type='rule'):
+               host_fragments=[], local=False, doc='', type='rule'):
     """Constructor for RuleDescriptor
 
     Args:
@@ -52,7 +51,9 @@ class RuleDescriptor(object):
       implementation: The implementation function for the rule (not used).
       test: Whether this is a test rule
       attrs: Dictionary mapping attribute name to attribute descriptor
-      outputs: List of outputs (not used).
+      outputs: Outputs for this rule as a mapping from string to template name.
+          The dictionary keys are used to refer to the output in the docstring
+          documentation.
       executable: Whether this rule produces an executable.
       output_to_genfiles: Whether the rule generates files in the genfiles
           directory rather than the bin directory (not used).
@@ -80,7 +81,9 @@ class RuleDescriptor(object):
     self.host_fragments = host_fragments
     self.local = local
     self.doc = doc
-    self.example_doc = example_doc
+    self.example_doc = ''
+    self.outputs = outputs
+    self.output_docs = {}
     self.type = type
     for name, attr in self.attrs.iteritems():
       attr.name = name
