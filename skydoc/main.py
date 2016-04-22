@@ -87,7 +87,7 @@ def _runfile_path(path):
       break
 
     raise AssertionError('Cannot find .runfiles directory.')
-  return os.path.join(runfiles_dir, path)
+  return os.path.join(runfiles_dir, 'io_bazel_skydoc', path)
 
 def merge_languages(macro_language, rule_language):
   for rule in rule_language.rule:

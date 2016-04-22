@@ -1,3 +1,5 @@
+workspace(name = "io_bazel_skydoc")
+
 git_repository(
     name = "io_bazel_rules_sass",
     remote = "https://github.com/bazelbuild/rules_sass.git",
