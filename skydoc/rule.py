@@ -14,6 +14,7 @@
 
 """Representations used for rendering documentation templates."""
 
+
 import mistune
 from skydoc import build_pb2
 

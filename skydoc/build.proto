@@ -16,6 +16,8 @@ syntax = "proto2";
 
 package skydoc;
 
+option py_api_version = 2;
+
 message Attribute {
   // Indicates the type of attribute.
   enum Discriminator {

@@ -12,11 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
+
 
 import os
 import tempfile
 import textwrap
+import unittest
 from google.protobuf import text_format
 from skydoc import build_pb2
 from skydoc import rule_extractor

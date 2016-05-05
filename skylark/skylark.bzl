@@ -39,7 +39,7 @@ def _skylark_library_impl(ctx):
                 transitive_bzl_files = sources)
 
 def _skydoc(ctx):
-  for f in ctx.files._skydoc:
+  for f in ctx.files.skydoc:
     if not f.path.endswith(".py"):
       return f
 
@@ -151,7 +151,7 @@ Example:
 
 _skylark_doc_attrs = {
     "format": attr.string(default = "markdown"),
-    "_skydoc": attr.label(
+    "skydoc": attr.label(
         default = Label("//skydoc"),
         cfg = HOST_CFG,
         executable = True),

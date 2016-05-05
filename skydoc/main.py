@@ -14,6 +14,7 @@
 
 """Documentation generator for Skylark"""
 
+
 import gflags
 import jinja2
 import os
@@ -46,8 +47,10 @@ FLAGS = gflags.FLAGS
 DEFAULT_OUTPUT_DIR = '.'
 DEFAULT_OUTPUT_FILE = 'skydoc.zip'
 
+WORKSPACE_DIR = 'io_bazel_skydoc'
 TEMPLATE_PATH = 'skydoc/templates'
 CSS_PATH = 'skydoc/sass'
+
 CSS_FILE = 'main.css'
 CSS_DIR = 'css'
 
@@ -87,7 +90,7 @@ def _runfile_path(path):
       break
 
     raise AssertionError('Cannot find .runfiles directory.')
-  return os.path.join(runfiles_dir, 'io_bazel_skydoc', path)
+  return os.path.join(runfiles_dir, WORKSPACE_DIR, path)
 
 def merge_languages(macro_language, rule_language):
   for rule in rule_language.rule:

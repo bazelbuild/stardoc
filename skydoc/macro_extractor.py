@@ -19,6 +19,7 @@ import ast
 from skydoc import build_pb2
 from skydoc import common
 
+
 def get_type(expr):
   """Find the type of an expression.
 

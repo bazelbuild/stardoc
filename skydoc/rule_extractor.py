@@ -16,10 +16,12 @@
 
 import ast
 
+
 from skydoc import build_pb2
 from skydoc import common
 from skydoc.stubs import attr
 from skydoc.stubs import skylark_globals
+
 
 SKYLARK_STUBS = {
     "attr": attr,
@@ -37,6 +39,7 @@ SKYLARK_STUBS = {
     "rule": skylark_globals.rule,
 }
 """Stubs for Skylark globals to be used to evaluate the .bzl file."""
+
 
 class RuleDocExtractor(object):
   """Extracts documentation for rules from a .bzl file."""
