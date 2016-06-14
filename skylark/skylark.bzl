@@ -261,7 +261,7 @@ def skydoc_repositories():
   native.git_repository(
       name = "protobuf",
       remote = "https://github.com/google/protobuf.git",
-      commit = "60a0d41a2988a40cf3a94a4cb602f5f1c94135e9",
+      commit = "ed87c1fe2c6e1633cadb62cf54b2723b2b25c280",
   )
 
   # Protobuf expects an //external:python_headers label which would contain the
