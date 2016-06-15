@@ -37,6 +37,7 @@ SKYLARK_STUBS = {
     "struct": skylark_globals.struct,
     "repository_rule": skylark_globals.repository_rule,
     "rule": skylark_globals.rule,
+    "load": skylark_globals.load,
 }
 """Stubs for Skylark globals to be used to evaluate the .bzl file."""
 

@@ -395,5 +395,13 @@ class MacroExtractorTest(unittest.TestCase):
                        '\n\nDocumentation continued here.',
                        extractor.description)
 
+  def test_loads_ignored(self):
+    src = textwrap.dedent("""\
+      load("//foo/bar:baz.bzl", "foo_library")
+      load("//foo/bar:baz.bzl", "foo_test", orig_foo_binary = "foo_binary")
+      """)
+    expected = ''
+    self.check_protos(src, expected)
+
 if __name__ == '__main__':
   unittest.main()

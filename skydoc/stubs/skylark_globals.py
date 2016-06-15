@@ -36,6 +36,13 @@ def select(x):
 def struct(**kwargs):
   return None
 
+# TODO(dzc): As a future improvement, consider whether we want to evaluate loads
+# in .bzl files and provide links to the rules or macros in the .bzl files
+# being loaded. To do so, we would also have to require that all .bzl
+# dependencies are being included for the skylark_doc target.
+def load(label, *args, **kwargs):
+  return None
+
 class Label(object):
   def __init__(self, label_string):
     self.label_string = label_string
