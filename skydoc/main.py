@@ -17,6 +17,7 @@
 
 import gflags
 import jinja2
+import mistune
 import os
 import re
 import shutil
@@ -53,6 +54,14 @@ CSS_PATH = 'skydoc/sass'
 
 CSS_FILE = 'main.css'
 CSS_DIR = 'css'
+
+def _create_jinja_environment():
+  env = jinja2.Environment(
+      loader=jinja2.FileSystemLoader(_runfile_path(TEMPLATE_PATH)),
+      keep_trailing_newline=True,
+      line_statement_prefix='%')
+  env.filters['markdown'] = lambda text: jinja2.Markup(mistune.markdown(text))
+  return env
 
 
 # TODO(dzc): Remove this workaround once we switch to a self-contained Python
@@ -135,9 +144,7 @@ class MarkdownWriter(object):
 
   def _write_ruleset(self, output_dir, ruleset):
     # Load template and render Markdown.
-    env = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(_runfile_path(TEMPLATE_PATH)),
-        line_statement_prefix='%')
+    env = _create_jinja_environment()
     template = env.get_template('markdown.jinja')
     out = template.render(ruleset=ruleset)
 
@@ -154,9 +161,7 @@ class HtmlWriter(object):
     self.__output_dir = output_dir
     self.__output_file = output_file
     self.__output_zip = output_zip
-    self.__env = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(_runfile_path(TEMPLATE_PATH)),
-        line_statement_prefix='%')
+    self.__env = _create_jinja_environment()
 
   def write(self, rulesets):
     # Generate navigation used for all rules.

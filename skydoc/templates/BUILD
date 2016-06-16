@@ -8,7 +8,6 @@ filegroup(
         "markdown.jinja",
         "nav.jinja",
         "outputs.jinja",
-        "overview.jinja",
         "toc.jinja",
     ],
 )

@@ -23,7 +23,7 @@ limitations under the License.
     <tr>
       <td><code>{{ output.template }}</code></td>
       <td>
-        {{ output.documentation }}
+        {{ output.documentation|markdown|trim }}
       </td>
     </tr>
 % endfor

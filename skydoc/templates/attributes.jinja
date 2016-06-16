@@ -24,7 +24,7 @@ limitations under the License.
       <td><code>{{ attribute.name }}</code></td>
       <td>
         <p><code>{{ attribute.type }}</code></p>
-        {{ attribute.documentation }}
+        {{ attribute.documentation|markdown|trim }}
       </td>
     </tr>
 % endfor

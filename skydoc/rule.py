@@ -15,7 +15,6 @@
 """Representations used for rendering documentation templates."""
 
 
-import mistune
 from skydoc import build_pb2
 
 
@@ -34,7 +33,7 @@ class Attribute(object):
     if proto.name == 'name' and not proto.documentation:
       self.documentation = 'A unique name for this rule.'
     else:
-      self.documentation = mistune.markdown(proto.documentation)
+      self.documentation = proto.documentation
 
   def _get_type_str(self, proto):
     type_str = ''
@@ -90,8 +89,8 @@ class Output(object):
 
   def __init__(self, proto):
     self.__proto = proto
-    self.template = mistune.markdown(proto.template)
-    self.documentation = mistune.markdown(proto.documentation)
+    self.template = proto.template
+    self.documentation = proto.documentation
 
 class Rule(object):
   """Representation of a rule used to render documentation templates."""
@@ -99,8 +98,8 @@ class Rule(object):
   def __init__(self, proto):
     self.__proto = proto
     self.name = proto.name
-    self.documentation = mistune.markdown(proto.documentation)
-    self.example_documentation = mistune.markdown(proto.example_documentation)
+    self.documentation = proto.documentation
+    self.example_documentation = proto.example_documentation
     self.signature = self._get_signature(proto)
     self.attributes = []
     for attribute in proto.attribute:
