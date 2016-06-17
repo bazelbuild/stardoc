@@ -13,11 +13,12 @@
 # limitations under the License.
 
 
-
 import os
 import tempfile
 import textwrap
 import unittest
+# internal imports
+
 from google.protobuf import text_format
 from skydoc import build_pb2
 from skydoc import rule_extractor

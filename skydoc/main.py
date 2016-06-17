@@ -14,7 +14,7 @@
 
 """Documentation generator for Skylark"""
 
-
+# internal imports
 import gflags
 import jinja2
 import mistune

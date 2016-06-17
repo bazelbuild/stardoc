@@ -15,6 +15,7 @@
 """Extractor for Skylark macro documentation."""
 
 import ast
+# internal imports
 
 from skydoc import build_pb2
 from skydoc import common

@@ -15,7 +15,7 @@
 """Extractor for Skylark rule documentation."""
 
 import ast
-
+# internal imports
 
 from skydoc import build_pb2
 from skydoc import common

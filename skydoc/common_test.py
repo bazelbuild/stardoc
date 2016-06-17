@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import unittest
-
+# internal imports
 
 from skydoc import common
 

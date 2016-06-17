@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+# internal imports
 from skydoc import build_pb2
 
 def strcmp(s1, s2):
