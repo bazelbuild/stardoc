@@ -1,1 +1,16 @@
-bazel-*
+*~
+.*.swp
+/.classpath
+/.factorypath
+/.idea/
+/.project
+/.settings
+/WORKSPACE.user.bzl
+/base_workspace/*
+/bazel-skydoc
+/bazel-bin
+/bazel-genfiles
+/bazel-out
+/bazel-testlogs
+/bazel.iml
+/output/

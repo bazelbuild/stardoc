@@ -16,6 +16,7 @@ syntax = "proto2";
 
 package skydoc;
 
+// internal options
 
 message Attribute {
   // Indicates the type of attribute.
