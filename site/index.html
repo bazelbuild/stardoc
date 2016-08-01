@@ -1,0 +1,77 @@
+---
+layout: home
+title: Home
+---
+
+<div class="hero">
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet
+          mdl-cell--4-col-phone">
+      <h1>Beautiful Documentation for Build Rules</h1>
+      <p class="lead">
+        Skydoc is an easy-to-use documentation generator for Bazel build rules
+        written in Skylark.
+      </p>
+      <a href="/docs/getting_started.html" class="mdl-button mdl-js-button
+          mdl-button--raised mdl-js-ripple-effect">Get Started</a>
+    </div>
+  </div>
+</div>
+<div class="feature">
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet
+        mdl-cell--4-col-phone">
+      <h1>Python docstrings</h1>
+      <p>
+        Document your Skylark rules with a familiar Python
+        <a href="docs/writing.html">docstring format</a>.
+      </p>
+{% highlight python %}
+"""An example documentation.
+
+Example:
+  Here is an example of how to use this rule.
+
+Args:
+  name: A unique name for this rule.
+  srcs: Source files used to build this target
+  deps: Dependencies for this target.
+
+Outputs:
+  output_bin: The output binary.
+"""
+{% endhighlight %}
+    </div>
+
+    <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet
+        mdl-cell--4-col-phone">
+      <h1>Convenient Build Rules</h1>
+      <p>
+        Skydoc's own convenient Bazel <a href="docs/generating.html">build
+        rules</a> making it to integrate Skydoc into your build or release
+        pipeline.
+      </p>
+{% highlight python %}
+load("@io_bazel_skydoc//skylark:skylark.bzl",
+     "skylark_doc")
+
+skylark_doc(
+    name = "checkstyle-docs",
+    srcs = ["checkstyle.bzl"],
+    format = "html",
+)
+{% endhighlight %}
+<pre class="term">$ <span class="info">bazel</span> build :checkstyle-docs</pre>
+    </div>
+
+    <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet
+        mdl-cell--4-col-phone">
+      <h1>Beautiful Documentation</h1>
+      <p>
+        Generate <a href="docs/skylark.html">documentation</a> in Markdown or
+        ready-to-serve, beautifully-crafted HTML pages.
+      </p>
+      <img src="/images/sample.png" class="responsive">
+    </div>
+  </div>
+</div>
