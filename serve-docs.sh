@@ -60,7 +60,7 @@ function build_and_serve {
     REPLACEMENT=$(echo "$SERVING_PREFIX" | sed s/\\//\\\\\\//g)
     find "$TMP_TARGET" -name '*.html' | xargs sed -i s/href=\\\"\\//href=\"$REPLACEMENT\\//g
     find "$TMP_TARGET" -name '*.html' | xargs sed -i s/src=\\\"\\//src=\"$REPLACEMENT\\//g
-    cp -R "$TMP_TARGET/*" "$TARGET"
+    cp -R $TMP_TARGET/* "$TARGET"
     echo "Static pages copied to $TARGET"
     echo "Should be served from $SERVING_PREFIX"
   fi
