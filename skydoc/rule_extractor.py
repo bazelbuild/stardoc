@@ -33,6 +33,7 @@ SKYLARK_STUBS = {
     "provider": skylark_globals.provider,
     "FileType": skylark_globals.FileType,
     "Label": skylark_globals.Label,
+    "native": skylark_globals.native,
     "select": skylark_globals.select,
     "struct": skylark_globals.struct,
     "repository_rule": skylark_globals.repository_rule,

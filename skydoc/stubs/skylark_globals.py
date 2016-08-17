@@ -23,6 +23,8 @@ DATA_CFG = 'DATA_CFG'
 PACKAGE_NAME = 'PACKAGE_NAME'
 REPOSITORY_NAME = 'REPOSITORY_NAME'
 
+native = ''
+
 def aspect(implementation, attr_aspects=[], attrs=None, fragments=[],
            host_fragments=[]):
   return None
