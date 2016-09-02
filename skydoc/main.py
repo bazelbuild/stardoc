@@ -121,7 +121,8 @@ class MarkdownWriter(object):
       temp_dir = tempfile.mkdtemp()
       output_files = []
       for ruleset in rulesets:
-        output_files.append(self._write_ruleset(temp_dir, ruleset))
+        if len(ruleset.rules) > 0:
+          output_files.append(self._write_ruleset(temp_dir, ruleset))
 
       if self.__output_zip:
         # We are generating a zip archive containing all the documentation.
@@ -172,7 +173,8 @@ class HtmlWriter(object):
       temp_dir = tempfile.mkdtemp()
       output_files = []
       for ruleset in rulesets:
-        output_files.append(self._write_ruleset(temp_dir, ruleset, nav))
+        if len(ruleset.rules) > 0:
+          output_files.append(self._write_ruleset(temp_dir, ruleset, nav))
 
       if self.__output_zip:
         with zipfile.ZipFile(self.__output_file, 'w') as zf:
