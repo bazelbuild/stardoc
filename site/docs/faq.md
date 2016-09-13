@@ -3,6 +3,15 @@ layout: default
 title: FAQ
 ---
 
+## Why am I getting `TypeError: unsupported operand type(s) for +: 'dict' and 'dict'`?
+
+Skylark currently defines the `+` operator for dictionaries. Because
+Skydoc evaluates `.bzl` files as Python code and because the `+` operator
+for dictionaries may be [removed][dict-op] from Skylark in the future, we
+suggest using the `dict(a.items() + b.items())` syntax instead.
+
+[dict-op]: https://github.com/bazelbuild/bazel/issues/1086
+
 ## Is Skydoc used to generate the documentation on [Bazel.io](http://bazel.io)?
 
 Not for now. The [Build Encyclopedia](http://bazel.io/docs/be/overview.html)

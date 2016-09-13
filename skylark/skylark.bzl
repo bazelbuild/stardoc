@@ -48,15 +48,15 @@ def _skylark_doc_impl(ctx):
   skylark_doc_zip = ctx.outputs.skylark_doc_zip
   inputs = _get_transitive_sources(ctx.attr.deps) + ctx.files.srcs
   sources = [source.path for source in inputs]
-  args = [
+  flags = [
       "--format=%s" % ctx.attr.format,
       "--output_file=%s" % ctx.outputs.skylark_doc_zip.path,
-  ] + sources
+  ]
   skydoc = _skydoc(ctx)
   ctx.action(
       inputs = list(inputs) + [skydoc],
       executable = skydoc,
-      arguments = args,
+      arguments = flags + sources,
       outputs = [skylark_doc_zip],
       mnemonic = "Skydoc",
       use_default_shell_env = True,

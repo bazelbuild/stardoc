@@ -120,7 +120,11 @@ class RuleDocExtractor(object):
             key = name
           continue
         elif isinstance(node, ast.Expr) and key:
-          self._add_rule_doc(key, node.value.s.strip())
+          # Python itself does not treat strings defined immediately after a
+          # global variable definition as a docstring. Only extract string and
+          # parse as docstring if it is defined.
+          if hasattr(node.value, 's'):
+            self._add_rule_doc(key, node.value.s.strip())
         key = None
     except IOError:
       print("Failed to parse {0}: {1}".format(bzl_file, e.strerror))

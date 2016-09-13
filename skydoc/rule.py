@@ -16,6 +16,7 @@
 
 
 # internal imports
+import os
 from skydoc import build_pb2
 
 
@@ -125,12 +126,16 @@ class Rule(object):
 class RuleSet(object):
   """Representation of a rule set used to render documentation templates."""
 
-  def __init__(self, file_name, language, title, description):
-    self.file_name = file_name
-    self.name = file_name.replace('.bzl', '')
+  def __init__(self, bzl_file, language, title, description):
+    self.bzl_file = bzl_file
+    file_basename = os.path.basename(bzl_file)
+    self.name = file_basename.replace('.bzl', '')
     self.language = language
     self.title = title if title else "%s Rules" % self.name
     self.description = description
     self.rules = []
     for rule_proto in language.rule:
       self.rules.append(Rule(rule_proto))
+
+  def output_filename(self, file_ext):
+    return self.bzl_file.replace('.bzl', '.%s' % file_ext)

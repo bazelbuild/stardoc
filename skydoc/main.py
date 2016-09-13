@@ -53,7 +53,6 @@ TEMPLATE_PATH = 'skydoc/templates'
 CSS_PATH = 'skydoc/sass'
 
 CSS_FILE = 'main.css'
-CSS_DIR = 'css'
 
 def _create_jinja_environment():
   env = jinja2.Environment(
@@ -129,15 +128,17 @@ class MarkdownWriter(object):
         # Write each documentation file generated in the temp directory to the
         # zip file.
         with zipfile.ZipFile(self.__output_file, 'w') as zf:
-          for output_file in output_files:
-            zf.write(output_file, os.path.basename(output_file))
+          for output_file, output_path in output_files:
+            zf.write(output_file, output_path)
       else:
         # We are generating documentation in the output_dir directory. Copy each
         # documentation file to output_dir.
-        for output_file in output_files:
-          shutil.copyfile(
-              output_file,
-              os.path.join(self.__output_dir, os.path.basename(output_file)))
+        for output_file, output_path in output_files:
+          dest_file = os.path.join(self.__output_dir, output_path)
+          dest_dir = os.path.dirname(dest_file)
+          if not os.path.exists(dest_dir):
+            os.makedirs(dest_dir)
+          shutil.copyfile(output_file, dest_file)
 
     finally:
       # Delete temporary directory.
@@ -149,11 +150,16 @@ class MarkdownWriter(object):
     template = env.get_template('markdown.jinja')
     out = template.render(ruleset=ruleset)
 
-    # Write output to file.
-    output_file = "%s/%s.md" % (output_dir, ruleset.name)
+    # Write output to file. Output files are created in a directory structure
+    # that matches that of the input file.
+    output_path = ruleset.output_filename('md')
+    output_file = "%s/%s" % (output_dir, output_path)
+    file_dirname = os.path.dirname(output_file)
+    if not os.path.exists(file_dirname):
+      os.makedirs(file_dirname)
     with open(output_file, "w") as f:
       f.write(out)
-    return output_file
+    return (output_file, output_path)
 
 class HtmlWriter(object):
   """Writer for generating documentation in HTML."""
@@ -178,21 +184,21 @@ class HtmlWriter(object):
 
       if self.__output_zip:
         with zipfile.ZipFile(self.__output_file, 'w') as zf:
-          for output_file in output_files:
-            zf.write(output_file, os.path.basename(output_file))
+          for output_file, output_path in output_files:
+            zf.write(output_file, output_path)
           zf.write(os.path.join(_runfile_path(CSS_PATH), CSS_FILE),
-                                'css/%s' % CSS_FILE)
+                                '%s' % CSS_FILE)
       else:
-        for output_file in output_files:
-          shutil.copyfile(
-              output_file,
-              os.path.join(self.__output_dir, os.path.basename(output_file)))
+        for output_file, output_path in output_files:
+          dest_file = os.path.join(self.__output_dir, output_path)
+          dest_dir = os.path.dirname(dest_file)
+          if not os.path.exists(dest_dir):
+            os.makedirs(dest_dir)
+          shutil.copyfile(output_file, dest_file)
 
         # Copy CSS file.
-        css_dir = os.path.join(self.__output_dir, CSS_DIR)
-        os.mkdir(css_dir)
         shutil.copyfile(os.path.join(_runfile_path(CSS_PATH), CSS_FILE),
-                        os.path.join(css_dir, CSS_FILE))
+                        os.path.join(self.__output_dir, CSS_FILE))
     finally:
       # Delete temporary directory.
       shutil.rmtree(temp_dir)
@@ -202,11 +208,16 @@ class HtmlWriter(object):
     template = self.__env.get_template('html.jinja')
     out = template.render(ruleset=ruleset, nav=nav)
 
-    # Write output to file.
-    output_file = "%s/%s.html" % (output_dir, ruleset.name)
+    # Write output to file. Output files are created in a directory structure
+    # that matches that of the input file.
+    output_path = ruleset.output_filename('html')
+    output_file = "%s/%s" % (output_dir, output_path)
+    file_dirname = os.path.dirname(output_file)
+    if not os.path.exists(file_dirname):
+      os.makedirs(file_dirname)
     with open(output_file, "w") as f:
       f.write(out)
-    return output_file
+    return (output_file, output_path)
 
 def main(argv):
   if FLAGS.output_dir and FLAGS.output_file:
@@ -226,8 +237,7 @@ def main(argv):
     rule_doc_extractor.parse_bzl(bzl_file)
     merged_language = merge_languages(macro_doc_extractor.proto(),
                                       rule_doc_extractor.proto())
-    file_basename = os.path.basename(bzl_file)
-    rulesets.append(rule.RuleSet(file_basename, merged_language,
+    rulesets.append(rule.RuleSet(bzl_file, merged_language,
                                  macro_doc_extractor.title,
                                  macro_doc_extractor.description))
 
