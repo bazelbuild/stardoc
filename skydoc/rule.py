@@ -137,5 +137,7 @@ class RuleSet(object):
     for rule_proto in language.rule:
       self.rules.append(Rule(rule_proto))
 
-  def output_filename(self, file_ext):
-    return self.bzl_file.replace('.bzl', '.%s' % file_ext)
+  def output_filename(self, strip_prefix, file_ext):
+    assert self.bzl_file.startswith(strip_prefix)
+    output_path = self.bzl_file.replace('.bzl', '.%s' % file_ext)
+    return output_path[len(strip_prefix):]

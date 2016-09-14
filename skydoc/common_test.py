@@ -182,6 +182,23 @@ class CommonTest(unittest.TestCase):
     self.assertEqual('', extracted_docs.example_doc)
     self.assertDictEqual(expected_outputs, extracted_docs.output_docs)
 
+  def _invalid_prefix(self, prefix, bzl_files):
+    self.assertRaises(common.InputError,
+                      common.validate_strip_prefix,
+                      prefix,
+                      bzl_files)
+
+  def test_strip_prefix(self):
+    bzl_files = ['foo/bar/bar.bzl', 'foo/bar/baz/baz.bzl']
+    self.assertEqual('', common.validate_strip_prefix('', bzl_files))
+    self.assertEqual('foo/', common.validate_strip_prefix('foo/', bzl_files))
+    self.assertEqual('foo/bar/',
+                     common.validate_strip_prefix('foo/bar', bzl_files))
+
+    self._invalid_prefix('bar', ['foo/bar.bzl'])
+    self._invalid_prefix('bar', ['foo/foo.bzl', 'bar/bar.bzl'])
+    self._invalid_prefix('bar', ['bar.bzl'])
+    self._invalid_prefix('bar', ['barfoo/bar.bzl'])
 
 if __name__ == '__main__':
   unittest.main()

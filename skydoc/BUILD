@@ -73,6 +73,7 @@ py_binary(
     ],
     main = "main.py",
     deps = [
+        ":common",
         ":macro_extractor",
         ":rule",
         ":rule_extractor",

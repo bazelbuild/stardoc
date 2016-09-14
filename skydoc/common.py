@@ -25,6 +25,10 @@ EXAMPLE_HEADING = "Example:"
 OUTPUTS_HEADING = "Outputs:"
 
 
+class InputError(Exception):
+  pass
+
+
 class ExtractedDocs(object):
   """Simple class to contain the documentation extracted from a docstring."""
 
@@ -39,6 +43,18 @@ def leading_whitespace(line):
   """Returns the number of leading whitespace in the line."""
   return len(line) - len(line.lstrip())
 
+
+def validate_strip_prefix(strip_prefix, bzl_files):
+  if not strip_prefix:
+    return strip_prefix
+  prefix = strip_prefix if strip_prefix.endswith('/') else strip_prefix + '/'
+  for path in bzl_files:
+    if not path.startswith(prefix):
+      raise InputError(
+          'Input file %s does not have path prefix %s. Directory prefix set '
+          'with --strip_prefix must be common to all input files.'
+          % (path, strip_prefix))
+  return prefix
 
 def _parse_attribute_docs(attr_docs, lines, index):
   """Extracts documentation in the form of name: description.

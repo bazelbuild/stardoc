@@ -25,6 +25,7 @@ import sys
 import tempfile
 import zipfile
 
+from skydoc import common
 from skydoc import macro_extractor
 from skydoc import rule
 from skydoc import rule_extractor
@@ -42,6 +43,11 @@ gflags.DEFINE_bool('zip', True,
     'default or as specified by --output_file. If --zip is false, then '
     'skydoc will generate documentation, either in Markdown or HTML as '
     'specifed by --format, in the current directory or --output_dir if set.')
+gflags.DEFINE_string('strip_prefix', '',
+    'The directory prefix to strip from all generated docs, which are '
+    'generated in subdirectories that match the package structure of the '
+    'input .bzl files. The prefix to strip must be common to all .bzl files; '
+    'otherwise, skydoc will raise an error.')
 
 FLAGS = gflags.FLAGS
 
@@ -109,10 +115,11 @@ def merge_languages(macro_language, rule_language):
 class MarkdownWriter(object):
   """Writer for generating documentation in Markdown."""
 
-  def __init__(self, output_dir, output_file, output_zip):
+  def __init__(self, output_dir, output_file, output_zip, strip_prefix):
     self.__output_dir = output_dir
     self.__output_file = output_file
     self.__output_zip = output_zip
+    self.__strip_prefix = strip_prefix
 
   def write(self, rulesets):
     """Write the documentation for the rules contained in rulesets."""
@@ -152,7 +159,7 @@ class MarkdownWriter(object):
 
     # Write output to file. Output files are created in a directory structure
     # that matches that of the input file.
-    output_path = ruleset.output_filename('md')
+    output_path = ruleset.output_filename(self.__strip_prefix, 'md')
     output_file = "%s/%s" % (output_dir, output_path)
     file_dirname = os.path.dirname(output_file)
     if not os.path.exists(file_dirname):
@@ -164,10 +171,11 @@ class MarkdownWriter(object):
 class HtmlWriter(object):
   """Writer for generating documentation in HTML."""
 
-  def __init__(self, output_dir, output_file, output_zip):
+  def __init__(self, output_dir, output_file, output_zip, strip_prefix):
     self.__output_dir = output_dir
     self.__output_file = output_file
     self.__output_zip = output_zip
+    self.__strip_prefix = strip_prefix
     self.__env = _create_jinja_environment()
 
   def write(self, rulesets):
@@ -210,7 +218,7 @@ class HtmlWriter(object):
 
     # Write output to file. Output files are created in a directory structure
     # that matches that of the input file.
-    output_path = ruleset.output_filename('html')
+    output_path = ruleset.output_filename(self.__strip_prefix, 'html')
     output_file = "%s/%s" % (output_dir, output_path)
     file_dirname = os.path.dirname(output_file)
     if not os.path.exists(file_dirname):
@@ -229,8 +237,15 @@ def main(argv):
   if not FLAGS.output_file:
     FLAGS.output_file = DEFAULT_OUTPUT_FILE
 
+  bzl_files = argv[1:]
+  try:
+    strip_prefix = common.validate_strip_prefix(FLAGS.strip_prefix, bzl_files)
+  except common.InputError as err:
+    print(err.message)
+    sys.exit(1)
+
   rulesets = []
-  for bzl_file in argv[1:]:
+  for bzl_file in bzl_files:
     macro_doc_extractor = macro_extractor.MacroDocExtractor()
     rule_doc_extractor = rule_extractor.RuleDocExtractor()
     macro_doc_extractor.parse_bzl(bzl_file)
@@ -243,10 +258,11 @@ def main(argv):
 
   if FLAGS.format == "markdown":
     markdown_writer = MarkdownWriter(FLAGS.output_dir, FLAGS.output_file,
-                                     FLAGS.zip)
+                                     FLAGS.zip, strip_prefix)
     markdown_writer.write(rulesets)
   elif FLAGS.format == "html":
-    html_writer = HtmlWriter(FLAGS.output_dir, FLAGS.output_file, FLAGS.zip)
+    html_writer = HtmlWriter(FLAGS.output_dir, FLAGS.output_file, FLAGS.zip,
+                             strip_prefix)
     html_writer.write(rulesets)
   else:
     sys.stderr.write(
