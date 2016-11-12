@@ -15,6 +15,7 @@
 # internal imports
 from skydoc import build_pb2
 
+
 def strcmp(s1, s2):
   if s1 > s2:
     return 1
@@ -23,6 +24,7 @@ def strcmp(s1, s2):
   else:
     return 0
 
+
 def attr_compare(a, b):
   if a.compare_priority() > b.compare_priority():
     return 1
@@ -30,6 +32,7 @@ def attr_compare(a, b):
     return -1
   else:
     return strcmp(a.name, b.name)
+
 
 class AttrDescriptor(object):
   ATTRIBUTE_ORDERING = {
@@ -45,8 +48,12 @@ class AttrDescriptor(object):
       "hdrs": -90,
   }
 
-  def __init__(self, type=build_pb2.Attribute.UNKNOWN, default=None,
-               mandatory=False, doc="", name=""):
+  def __init__(self,
+               type=build_pb2.Attribute.UNKNOWN,
+               default=None,
+               mandatory=False,
+               doc="",
+               name=""):
     """Constructor for AttrDescriptor
 
     Args:
@@ -71,43 +78,73 @@ class AttrDescriptor(object):
     else:
       return 0
 
+
 def bool(default=False, mandatory=False):
-  return AttrDescriptor(build_pb2.Attribute.BOOLEAN, default=default,
-                        mandatory=mandatory)
+  return AttrDescriptor(
+      build_pb2.Attribute.BOOLEAN, default=default, mandatory=mandatory)
+
 
 def int(default=0, mandatory=False, values=[]):
   return AttrDescriptor(build_pb2.Attribute.INTEGER, default, mandatory)
 
-def int_list(default=[], mandatory=False, non_empty=False):
+
+def int_list(default=[], mandatory=False, non_empty=False, allow_empty=True):
   return AttrDescriptor(build_pb2.Attribute.INTEGER_LIST, default, mandatory)
 
-def label(default=None, executable=False, allow_files=False, mandatory=False,
-    providers=[], allow_rules=None, single_file=False, cfg=None):
+
+def label(default=None,
+          executable=False,
+          allow_files=False,
+          allow_single_file=False,
+          mandatory=False,
+          providers=[],
+          allow_rules=None,
+          single_file=False,
+          cfg=None,
+          aspects=[]):
   return AttrDescriptor(build_pb2.Attribute.LABEL, default, mandatory)
 
-def label_list(default=[], allow_files=False, allow_rules=None, providers=[],
-               flags=[], mandatory=False, non_empty=False, cfg=None,
+
+def label_list(default=[],
+               allow_files=False,
+               allow_rules=None,
+               providers=[],
+               flags=[],
+               mandatory=False,
+               non_empty=False,
+               allow_empty=True,
+               cfg=None,
                aspects=[]):
   return AttrDescriptor(build_pb2.Attribute.LABEL_LIST, default, mandatory)
+
 
 def license(default=None, mandatory=False):
   return AttrDescriptor(build_pb2.Attribute.LICENSE, default, mandatory)
 
+
 def output(default=None, mandatory=False):
   return AttrDescriptor(build_pb2.Attribute.OUTPUT, default, mandatory)
 
-def output_list(default=[], mandatory=False, non_empty=False):
+
+def output_list(default=[], mandatory=False, non_empty=False, allow_empty=True):
   return AttrDescriptor(build_pb2.Attribute.OUTPUT_LIST, default, mandatory)
 
-def string(default='', mandatory=False, values=[]):
+
+def string(default="", mandatory=False, values=[]):
   return AttrDescriptor(build_pb2.Attribute.STRING, default, mandatory)
 
-def string_dict(default={}, mandatory=False, non_empty=False):
+
+def string_dict(default={}, mandatory=False, non_empty=False, allow_empty=True):
   return AttrDescriptor(build_pb2.Attribute.STRING_DICT, default, mandatory)
 
-def string_list(default=[], mandatory=False, non_empty=False):
+
+def string_list(default=[], mandatory=False, non_empty=False, allow_empty=True):
   return AttrDescriptor(build_pb2.Attribute.STRING_LIST, default, mandatory)
 
-def string_list_dict(default={}, mandatory=False, non_empty=False):
+
+def string_list_dict(default={},
+                     mandatory=False,
+                     non_empty=False,
+                     allow_empty=True):
   return AttrDescriptor(build_pb2.Attribute.STRING_LIST_DICT, default,
                         mandatory)
