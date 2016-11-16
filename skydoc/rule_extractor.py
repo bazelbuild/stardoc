@@ -161,9 +161,8 @@ class RuleDocExtractor(object):
           attr_proto.documentation = attr_desc.doc
         attr_proto.type = attr_desc.type
         attr_proto.mandatory = attr_desc.mandatory
-        # TODO(dzc): Save the default value of the attribute. This will require
-        # adding a proto field to the AttributeDefinition proto, perhaps as a
-        # oneof.
+        if attr_desc.default != None:
+          attr_proto.default = attr_desc.default
 
       for template, doc in rule_desc.output_docs.iteritems():
         output = rule.output.add()

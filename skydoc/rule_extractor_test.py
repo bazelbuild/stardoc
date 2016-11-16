@@ -47,18 +47,21 @@ class RuleExtractorTest(unittest.TestCase):
         all_types = rule(
             implementation = impl,
             attrs = {
-                "arg_bool": attr.bool(),
-                "arg_int": attr.int(),
-                "arg_int_list": attr.int_list(),
-                "arg_label": attr.label(),
-                "arg_label_list": attr.label_list(),
+                "arg_bool": attr.bool(default=True),
+                "arg_int": attr.int(default=10),
+                "arg_int_list": attr.int_list(default=[1, 2]),
+                "arg_label": attr.label(default=Label("//foo:bar")),
+                "arg_label_list": attr.label_list(
+                    default=[Label("//foo:bar"), Label("//bar:baz")]),
                 "arg_license": attr.license(),
-                "arg_output": attr.output(),
-                "arg_output_list": attr.output_list(),
-                "arg_string": attr.string(),
-                "arg_string_dict": attr.string_dict(),
-                "arg_string_list": attr.string_list(),
-                "arg_string_list_dict": attr.string_list_dict(),
+                "arg_output": attr.output(default=Label("//foo:bar")),
+                "arg_output_list": attr.output_list(
+                    default=[Label("//foo:bar"), Label("//bar:baz")]),
+                "arg_string": attr.string(default="foo"),
+                "arg_string_dict": attr.string_dict(default={"foo": "bar"}),
+                "arg_string_list": attr.string_list(default=["foo", "bar"]),
+                "arg_string_list_dict": attr.string_list_dict(
+                    default={"foo": ["bar", "baz"]}),
             },
         )
         \"\"\"Test rule with all types.
@@ -95,30 +98,35 @@ class RuleExtractorTest(unittest.TestCase):
             type: BOOLEAN
             mandatory: false
             documentation: "A boolean argument."
+            default: "True"
           }
           attribute {
             name: "arg_int"
             type: INTEGER
             mandatory: false
             documentation: "An integer argument."
+            default: "10"
           }
           attribute {
             name: "arg_int_list"
             type: INTEGER_LIST
             mandatory: false
             documentation: "A list of integers argument."
+            default: "[1, 2]"
           }
           attribute {
             name: "arg_label"
             type: LABEL
             mandatory: false
             documentation: "A label argument."
+            default: "//foo:bar"
           }
           attribute {
             name: "arg_label_list"
             type: LABEL_LIST
             mandatory: false
             documentation: "A list of labels argument."
+            default: "[\'//foo:bar\', \'//bar:baz\']"
           }
           attribute {
             name: "arg_license"
@@ -131,36 +139,42 @@ class RuleExtractorTest(unittest.TestCase):
             type: OUTPUT
             mandatory: false
             documentation: "An output argument."
+            default: "//foo:bar"
           }
           attribute {
             name: "arg_output_list"
             type: OUTPUT_LIST
             mandatory: false
             documentation: "A list of outputs argument."
+            default: "[\'//foo:bar\', \'//bar:baz\']"
           }
           attribute {
             name: "arg_string"
             type: STRING
             mandatory: false
             documentation: "A string argument."
+            default: "\'foo\'"
           }
           attribute {
             name: "arg_string_dict"
             type: STRING_DICT
             mandatory: false
             documentation: "A dictionary mapping string to string argument."
+            default: "{\'foo\': \'bar\'}"
           }
           attribute {
             name: "arg_string_list"
             type: STRING_LIST
             mandatory: false
             documentation: "A list of strings argument."
+            default: "[\'foo\', \'bar\']"
           }
           attribute {
             name: "arg_string_list_dict"
             type: STRING_LIST_DICT
             mandatory: false
             documentation: "A dictionary mapping string to list of string argument."
+            default: "{\'foo\': [\'bar\', \'baz\']}"
           }
         }
         """)
@@ -198,6 +212,7 @@ class RuleExtractorTest(unittest.TestCase):
             name: "arg_string"
             type: STRING
             mandatory: false
+            default: "''"
           }
         }
         """)
@@ -264,6 +279,7 @@ class RuleExtractorTest(unittest.TestCase):
             type: STRING
             mandatory: false
             documentation: "A string argument."
+            default: "''"
           }
         }
         """)
@@ -312,6 +328,7 @@ class RuleExtractorTest(unittest.TestCase):
             type: BOOLEAN
             mandatory: false
             documentation: "A boolean argument.\\n\\nDocumentation for arg_bool continued here."
+            default: "False"
           }
           attribute {
             name: "arg_label"
@@ -381,6 +398,7 @@ class RuleExtractorTest(unittest.TestCase):
             type: STRING
             mandatory: false
             documentation: "A string argument."
+            default: "''"
           }
         }
         """)
@@ -433,6 +451,7 @@ class RuleExtractorTest(unittest.TestCase):
             type: STRING
             mandatory: false
             documentation: "A string argument."
+            default: "''"
           }
         }
         """)
@@ -491,6 +510,7 @@ class RuleExtractorTest(unittest.TestCase):
             type: STRING
             mandatory: false
             documentation: "A string argument."
+            default: "''"
           }
           output {
             template: "%{name}_deploy.jar"

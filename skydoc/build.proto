@@ -77,19 +77,22 @@ message AttributeDefinition {
 
   // Only present for attributes of type LABEL and LABEL_LIST.
   optional AllowedRuleClassInfo allowed_rule_classes = 4;
-
+  // The documentation for the attribute.
   optional string documentation = 5;
+  // The string representation of the default value of the attribute.
+  optional string default = 6;
 }
 
 message RuleDefinition {
   required string name = 1;
   // Only contains documented attributes
   repeated AttributeDefinition attribute = 2;
-
+  // The documentation for the rule.
   optional string documentation = 3;
-
+  // Documentation illustrating example usages of the rule.
   optional string example_documentation = 4;
 
+  // The list of outputs for this rule.
   repeated OutputTarget output = 5;
 }
 

@@ -81,15 +81,16 @@ class AttrDescriptor(object):
 
 def bool(default=False, mandatory=False):
   return AttrDescriptor(
-      build_pb2.Attribute.BOOLEAN, default=default, mandatory=mandatory)
+      build_pb2.Attribute.BOOLEAN, default=repr(default), mandatory=mandatory)
 
 
 def int(default=0, mandatory=False, values=[]):
-  return AttrDescriptor(build_pb2.Attribute.INTEGER, default, mandatory)
+  return AttrDescriptor(build_pb2.Attribute.INTEGER, repr(default), mandatory)
 
 
 def int_list(default=[], mandatory=False, non_empty=False, allow_empty=True):
-  return AttrDescriptor(build_pb2.Attribute.INTEGER_LIST, default, mandatory)
+  return AttrDescriptor(build_pb2.Attribute.INTEGER_LIST, repr(default),
+                        mandatory)
 
 
 def label(default=None,
@@ -102,6 +103,8 @@ def label(default=None,
           single_file=False,
           cfg=None,
           aspects=[]):
+  if default != None:
+    default = repr(default)
   return AttrDescriptor(build_pb2.Attribute.LABEL, default, mandatory)
 
 
@@ -115,36 +118,50 @@ def label_list(default=[],
                allow_empty=True,
                cfg=None,
                aspects=[]):
-  return AttrDescriptor(build_pb2.Attribute.LABEL_LIST, default, mandatory)
+  default_val = []
+  for label in default:
+    default_val.append(repr(label))
+  return AttrDescriptor(build_pb2.Attribute.LABEL_LIST, repr(default_val),
+                        mandatory)
 
 
 def license(default=None, mandatory=False):
+  if default != None:
+    default = repr(default)
   return AttrDescriptor(build_pb2.Attribute.LICENSE, default, mandatory)
 
 
 def output(default=None, mandatory=False):
+  if default != None:
+    default = repr(default)
   return AttrDescriptor(build_pb2.Attribute.OUTPUT, default, mandatory)
 
 
 def output_list(default=[], mandatory=False, non_empty=False, allow_empty=True):
-  return AttrDescriptor(build_pb2.Attribute.OUTPUT_LIST, default, mandatory)
+  default_val = []
+  for label in default:
+    default_val.append(repr(label))
+  return AttrDescriptor(build_pb2.Attribute.OUTPUT_LIST, repr(default_val),
+                        mandatory)
 
 
 def string(default="", mandatory=False, values=[]):
-  return AttrDescriptor(build_pb2.Attribute.STRING, default, mandatory)
+  return AttrDescriptor(build_pb2.Attribute.STRING, repr(default), mandatory)
 
 
 def string_dict(default={}, mandatory=False, non_empty=False, allow_empty=True):
-  return AttrDescriptor(build_pb2.Attribute.STRING_DICT, default, mandatory)
+  return AttrDescriptor(build_pb2.Attribute.STRING_DICT, repr(default),
+                        mandatory)
 
 
 def string_list(default=[], mandatory=False, non_empty=False, allow_empty=True):
-  return AttrDescriptor(build_pb2.Attribute.STRING_LIST, default, mandatory)
+  return AttrDescriptor(build_pb2.Attribute.STRING_LIST, repr(default),
+                        mandatory)
 
 
 def string_list_dict(default={},
                      mandatory=False,
                      non_empty=False,
                      allow_empty=True):
-  return AttrDescriptor(build_pb2.Attribute.STRING_LIST_DICT, default,
+  return AttrDescriptor(build_pb2.Attribute.STRING_LIST_DICT, repr(default),
                         mandatory)

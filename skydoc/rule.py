@@ -82,7 +82,10 @@ class Attribute(object):
         type_str = self.NAME_LINK
       else:
         type_str = 'Unknown'
+
     type_str += '; Required' if proto.mandatory else '; Optional'
+    if proto.HasField('default') and not proto.mandatory:
+      type_str += '; Default is ' + proto.default
     return type_str
 
 

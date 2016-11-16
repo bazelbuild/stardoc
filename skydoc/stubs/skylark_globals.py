@@ -49,6 +49,9 @@ class Label(object):
   def __init__(self, label_string):
     self.label_string = label_string
 
+  def __repr__(self):
+    return self.label_string
+
 class RuleDescriptor(object):
   def __init__(self, implementation, test=False, attrs={}, outputs={},
                executable=False, output_to_genfiles=False, fragments=[],
