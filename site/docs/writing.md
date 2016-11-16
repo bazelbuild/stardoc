@@ -29,9 +29,9 @@ appear in generated documentation.
 <a name="rule-documentation"></a>
 ## Rule Documentation
 
-[Skylark Rules](http://bazel.io/docs/skylark/rules.html) are declared using the
-`rule()` function as global variables. As a result, they are documented using
-variable docstrings, similar to those supported by
+[Skylark Rules](https://bazel.build/docs/skylark/rules.html) are declared using
+the `rule()` function as global variables. As a result, they are documented
+using variable docstrings, similar to those supported by
 [epydoc](http://epydoc.sourceforge.net/manual-docstring.html).
 
 Attributes are documented in a special `Args:` section. Begin the documentation
@@ -68,8 +68,8 @@ in `Args`.
 <a name="macro-documentation"></a>
 ## Macro Documentation
 
-[Skylark Macros](http://bazel.io/docs/skylark/macros.html) are Python functions
-and are thus documented using function docstrings:
+[Skylark Macros](https://bazel.build/docs/skylark/macros.html) are Python
+functions and are thus documented using function docstrings:
 
 ```python
 def rat_check(name, srcs=[], format, visibility):

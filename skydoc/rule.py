@@ -23,10 +23,12 @@ from skydoc import build_pb2
 class Attribute(object):
   """Representation of an attribute used to render documentation templates."""
 
-  NAME_LINK = '<a href="http://bazel.io/docs/build-ref.html#name">Name</a>'
-  LABEL_LINK = '<a href="http://bazel.io/docs/build-ref.html#labels">Label</a>'
+  NAME_LINK = (
+      '<a href="https://bazel.build/docs/build-ref.html#name">Name</a>')
+  LABEL_LINK = (
+      '<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>')
   LABELS_LINK = (
-      '<a href="http://bazel.io/docs/build-ref.html#labels">labels</a>')
+      '<a href="https://bazel.build/docs/build-ref.html#labels">labels</a>')
 
   def __init__(self, proto):
     self.__proto = proto

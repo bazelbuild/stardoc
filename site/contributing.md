@@ -20,7 +20,7 @@ a lot of time in a patch.
 To submit a patch to Skydoc:
 
 * Skydoc is part of the Bazel project. Read the [Bazel governance
-  plan](http://www.bazel.io/governance.html) and Skydoc's [contribution
+  plan](https://www.bazel.build/governance.html) and Skydoc's [contribution
   guidelines](https://github.com/bazelbuild/skydoc/blob/master/CONTRIBUTING.md).
 * Open an [Issue](https://github.com/bazelbuild/skydoc/issues) or discuss your
   plan or design on the [bazel-dev][bazel-dev] mailing list.

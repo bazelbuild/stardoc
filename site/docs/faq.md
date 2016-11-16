@@ -12,11 +12,11 @@ suggest using the `dict(a.items() + b.items())` syntax instead.
 
 [dict-op]: https://github.com/bazelbuild/bazel/issues/1086
 
-## Is Skydoc used to generate the documentation on [Bazel.io](http://bazel.io)?
+## Is Skydoc used to generate the documentation on [Bazel.io](https://bazel.build)?
 
-Not for now. The [Build Encyclopedia](http://bazel.io/docs/be/overview.html)
+Not for now. The [Build Encyclopedia](https://bazel.build/docs/be/overview.html)
 documents the set of native Bazel build rules written in Java, and the
-[Skylark Library](http://bazel.io/docs/skylark/lib/globals.html) documents the
+[Skylark Library](https://bazel.build/docs/skylark/lib/globals.html) documents the
 built-in Skylark modules and functions. Because both of these sets of docs are
 generated from Bazel's Java source code, they are generated using a [separate
 documentation generation
