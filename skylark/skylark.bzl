@@ -54,6 +54,12 @@ def _skylark_doc_impl(ctx):
   ]
   if ctx.attr.strip_prefix:
     flags += ["--strip_prefix=%s" % ctx.attr.strip_prefix]
+  if ctx.attr.overview:
+    flags += ["--overview"]
+  if ctx.attr.overview_filename:
+    flags += ["--overview_filename=%s" % ctx.attr.overview_filename]
+  if ctx.attr.link_ext:
+    flags += ["--link_ext=%s" % ctx.attr.link_ext]
   skydoc = _skydoc(ctx)
   ctx.action(
       inputs = list(inputs) + [skydoc],
@@ -154,6 +160,9 @@ Example:
 _skylark_doc_attrs = {
     "format": attr.string(default = "markdown"),
     "strip_prefix": attr.string(),
+    "overview": attr.bool(default = True),
+    "overview_filename": attr.string(),
+    "link_ext": attr.string(),
     "skydoc": attr.label(
         default = Label("//skydoc"),
         cfg = HOST_CFG,
@@ -192,6 +201,12 @@ Args:
 
     The directory prefix to strip must be common to all input files. Otherwise,
     skydoc will raise an error.
+  overview: If set to `True`, then generate an overview page.
+  overview_filename: The file name to use for the overview page. By default,
+    the page is named `index.md` or `index.html` for Markdown and HTML output
+    respectively.
+  link_ext: The file extension used for links in the generated documentation.
+    By default, skydoc uses `.html`.
 
 Outputs:
   skylark_doc_zip: A zip file containing the generated documentation.

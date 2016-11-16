@@ -86,6 +86,7 @@ class MacroExtractorTest(unittest.TestCase):
             mandatory: false
             documentation: "The visibility of this rule.\\n\\nDocumentation for visibility continued here."
           }
+          type: MACRO
         }
         """)
 
@@ -115,6 +116,7 @@ class MacroExtractorTest(unittest.TestCase):
             type: UNKNOWN
             mandatory: false
           }
+          type: MACRO
         }
         """)
 
@@ -167,6 +169,7 @@ class MacroExtractorTest(unittest.TestCase):
             mandatory: false
             documentation: "The visibility of this rule."
           }
+          type: MACRO
         }
         """)
 
@@ -230,6 +233,7 @@ class MacroExtractorTest(unittest.TestCase):
             mandatory: false
             documentation: "The visibility of this rule."
           }
+          type: MACRO
         }
         """)
 
@@ -279,6 +283,7 @@ class MacroExtractorTest(unittest.TestCase):
             mandatory: false
             documentation: "The visibility of this rule."
           }
+          type: MACRO
         }
         """)
 
@@ -338,6 +343,7 @@ class MacroExtractorTest(unittest.TestCase):
             template: "%{name}.jar"
             documentation: "A Java archive."
           }
+          type: MACRO
         }
         """)
 

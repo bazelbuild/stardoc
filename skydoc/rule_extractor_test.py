@@ -176,6 +176,7 @@ class RuleExtractorTest(unittest.TestCase):
             documentation: "A dictionary mapping string to list of string argument."
             default: "{\'foo\': [\'bar\', \'baz\']}"
           }
+          type: RULE
         }
         """)
 
@@ -214,6 +215,7 @@ class RuleExtractorTest(unittest.TestCase):
             mandatory: false
             default: "''"
           }
+          type: RULE
         }
         """)
 
@@ -281,6 +283,7 @@ class RuleExtractorTest(unittest.TestCase):
             documentation: "A string argument."
             default: "''"
           }
+          type: RULE
         }
         """)
 
@@ -336,6 +339,7 @@ class RuleExtractorTest(unittest.TestCase):
             mandatory: false
             documentation: "A label argument.\\n\\nDocumentation for arg_label continued here."
           }
+          type: RULE
         }
         """)
 
@@ -400,6 +404,7 @@ class RuleExtractorTest(unittest.TestCase):
             documentation: "A string argument."
             default: "''"
           }
+          type: RULE
         }
         """)
 
@@ -453,6 +458,7 @@ class RuleExtractorTest(unittest.TestCase):
             documentation: "A string argument."
             default: "''"
           }
+          type: RULE
         }
         """)
 
@@ -520,6 +526,7 @@ class RuleExtractorTest(unittest.TestCase):
             template: "%{name}.jar"
             documentation: "A Java archive."
           }
+          type: RULE
         }
         """)
 
@@ -531,6 +538,49 @@ class RuleExtractorTest(unittest.TestCase):
       load("//foo/bar:baz.bzl", "foo_test", orig_foo_binary = "foo_binary")
       """)
     expected = ''
+    self.check_protos(src, expected)
+
+  def test_repository_rule(self):
+    src = textwrap.dedent("""\
+        def _impl(repository_ctx):
+          return struct()
+
+        repo_rule = repository_rule(
+            implementation = _impl,
+            local = True,
+            attrs = {
+                "path": attr.string(mandatory=True)
+            },
+        )
+        \"\"\"A repository rule.
+
+        Args:
+          name: A unique name for this rule.
+          path: The path of the external dependency.
+        \"\"\"
+        """)
+
+    expected = textwrap.dedent("""\
+        rule {
+          name: "repo_rule"
+          documentation: "A repository rule."
+          attribute {
+            name: "name"
+            type: UNKNOWN
+            mandatory: true
+            documentation: "A unique name for this rule."
+          }
+          attribute {
+            name: "path"
+            type: STRING
+            mandatory: true
+            documentation: "The path of the external dependency."
+            default: "\'\'"
+          }
+          type: REPOSITORY_RULE
+        }
+        """)
+
     self.check_protos(src, expected)
 
 if __name__ == '__main__':

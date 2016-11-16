@@ -13,23 +13,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 #}
-% for ruleset in rulesets:
-% if overview:
-<li><a href="{{ overview_filename | link }}">Overview</a></li>
-% endif
-<li>
-  <a href="{{ ruleset.output_file | link }}">{{ ruleset.title }}</a>
-  <ul>
-% if ruleset.description:
-    <li><a href="{{ ruleset.output_file | link }}#overview">Overview</a></li>
-% endif
-% for rule in ruleset.rules:
-    <li>
-      <a href="{{ ruleset.output_file | link }}#{{ rule.name }}">
-        {{ rule.name }}
-      </a>
-    </li>
-% endfor
-  </ul>
-</li>
-% endfor
+
+        </div>
+
+        <footer class="mdl-mini-footer">
+          <div class="mdl-mini-footer__left-section">
+            <div class="mdl-logo">Bazel</div>
+            <ul class="mdl-mini-footer__link-list">
+              <li><a href="http://bazel.io">Home</a></li>
+              <li><a href="https://github.com/bazelbuild">GitHub</a></li>
+            </ul>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

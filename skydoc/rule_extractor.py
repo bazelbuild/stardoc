@@ -146,6 +146,10 @@ class RuleDocExtractor(object):
     for rule_desc in rules:
       rule = self.__language.rule.add()
       rule.name = rule_desc.name
+      if rule_desc.type == 'rule':
+        rule.type = build_pb2.RuleDefinition.RULE
+      else:
+        rule.type = build_pb2.RuleDefinition.REPOSITORY_RULE
       if rule_desc.doc:
         rule.documentation = rule_desc.doc
       if rule_desc.example_doc:

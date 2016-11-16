@@ -105,6 +105,7 @@ class Rule(object):
   def __init__(self, proto):
     self.__proto = proto
     self.name = proto.name
+    self.type = proto.type
     self.documentation = proto.documentation
     self.example_documentation = proto.example_documentation
     self.signature = self._get_signature(proto)
@@ -114,6 +115,9 @@ class Rule(object):
     self.outputs = []
     for output in proto.output:
       self.outputs.append(Output(output))
+
+    parts = proto.documentation.split("\n\n")
+    self.short_documentation = parts[0]
 
   def _get_signature(self, proto):
     """Returns the rule signature for this rule."""
@@ -131,18 +135,33 @@ class Rule(object):
 class RuleSet(object):
   """Representation of a rule set used to render documentation templates."""
 
-  def __init__(self, bzl_file, language, title, description):
+  def __init__(self, bzl_file, language, title, description, strip_prefix,
+               format):
     self.bzl_file = bzl_file
     file_basename = os.path.basename(bzl_file)
     self.name = file_basename.replace('.bzl', '')
     self.language = language
     self.title = title if title else "%s Rules" % self.name
     self.description = description
-    self.rules = []
-    for rule_proto in language.rule:
-      self.rules.append(Rule(rule_proto))
 
-  def output_filename(self, strip_prefix, file_ext):
+    # Generate output file name.
+    file_extension = 'html' if format == 'html' else 'md'
     assert self.bzl_file.startswith(strip_prefix)
-    output_path = self.bzl_file.replace('.bzl', '.%s' % file_ext)
-    return output_path[len(strip_prefix):]
+    output_path = self.bzl_file.replace('.bzl', '')
+    self.output_file = output_path[len(strip_prefix):]
+
+    # Populate all rules in this ruleset.
+    self.definitions = []
+    self.rules = []
+    self.repository_rules = []
+    self.macros = []
+    for rule_proto in language.rule:
+      definition = Rule(rule_proto)
+      self.definitions.append(definition)
+      if rule_proto.type == build_pb2.RuleDefinition.RULE:
+        self.rules.append(definition)
+      elif rule_proto.type == build_pb2.RuleDefinition.MACRO:
+        self.macros.append(definition)
+      else:
+        assert rule_proto.type == build_pb2.RuleDefinition.REPOSITORY_RULE
+        self.repository_rules.append(definition)

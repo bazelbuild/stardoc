@@ -48,6 +48,11 @@ gflags.DEFINE_string('strip_prefix', '',
     'generated in subdirectories that match the package structure of the '
     'input .bzl files. The prefix to strip must be common to all .bzl files; '
     'otherwise, skydoc will raise an error.')
+gflags.DEFINE_bool('overview', False, 'Whether to generate an overview page')
+gflags.DEFINE_string('overview_filename', 'index',
+    'The file name to use for the overview page.')
+gflags.DEFINE_string('link_ext', 'html',
+    'The file extension used for links in the generated documentation')
 
 FLAGS = gflags.FLAGS
 
@@ -60,12 +65,13 @@ CSS_PATH = 'skydoc/sass'
 
 CSS_FILE = 'main.css'
 
-def _create_jinja_environment():
+def _create_jinja_environment(link_ext):
   env = jinja2.Environment(
       loader=jinja2.FileSystemLoader(_runfile_path(TEMPLATE_PATH)),
       keep_trailing_newline=True,
       line_statement_prefix='%')
   env.filters['markdown'] = lambda text: jinja2.Markup(mistune.markdown(text))
+  env.filters['link'] = lambda fname: '/' + fname + '.' + link_ext
   return env
 
 
@@ -112,14 +118,21 @@ def merge_languages(macro_language, rule_language):
     new_rule.CopyFrom(rule)
   return macro_language
 
+class WriterOptions(object):
+  def __init__(self, output_dir, output_file, output_zip, overview,
+               overview_filename, link_ext):
+    self.output_dir = output_dir
+    self.output_file = output_file
+    self.output_zip = output_zip
+    self.overview = overview
+    self.overview_filename = overview_filename
+    self.link_ext = link_ext
+
 class MarkdownWriter(object):
   """Writer for generating documentation in Markdown."""
 
-  def __init__(self, output_dir, output_file, output_zip, strip_prefix):
-    self.__output_dir = output_dir
-    self.__output_file = output_file
-    self.__output_zip = output_zip
-    self.__strip_prefix = strip_prefix
+  def __init__(self, writer_options):
+    self.__options = writer_options
 
   def write(self, rulesets):
     """Write the documentation for the rules contained in rulesets."""
@@ -129,19 +142,21 @@ class MarkdownWriter(object):
       for ruleset in rulesets:
         if len(ruleset.rules) > 0:
           output_files.append(self._write_ruleset(temp_dir, ruleset))
+      if self.__options.overview:
+        output_files.append(self._write_overview(temp_dir, rulesets))
 
-      if self.__output_zip:
+      if self.__options.output_zip:
         # We are generating a zip archive containing all the documentation.
         # Write each documentation file generated in the temp directory to the
         # zip file.
-        with zipfile.ZipFile(self.__output_file, 'w') as zf:
+        with zipfile.ZipFile(self.__options.output_file, 'w') as zf:
           for output_file, output_path in output_files:
             zf.write(output_file, output_path)
       else:
         # We are generating documentation in the output_dir directory. Copy each
         # documentation file to output_dir.
         for output_file, output_path in output_files:
-          dest_file = os.path.join(self.__output_dir, output_path)
+          dest_file = os.path.join(self.__options.output_dir, output_path)
           dest_dir = os.path.dirname(dest_file)
           if not os.path.exists(dest_dir):
             os.makedirs(dest_dir)
@@ -153,13 +168,13 @@ class MarkdownWriter(object):
 
   def _write_ruleset(self, output_dir, ruleset):
     # Load template and render Markdown.
-    env = _create_jinja_environment()
+    env = _create_jinja_environment(self.__options.link_ext)
     template = env.get_template('markdown.jinja')
     out = template.render(ruleset=ruleset)
 
     # Write output to file. Output files are created in a directory structure
     # that matches that of the input file.
-    output_path = ruleset.output_filename(self.__strip_prefix, 'md')
+    output_path = ruleset.output_file + '.md'
     output_file = "%s/%s" % (output_dir, output_path)
     file_dirname = os.path.dirname(output_file)
     if not os.path.exists(file_dirname):
@@ -168,20 +183,29 @@ class MarkdownWriter(object):
       f.write(out)
     return (output_file, output_path)
 
+  def _write_overview(self, output_dir, rulesets):
+    template = self.__env.get_template('markdown_overview.jinja')
+    out = template.render(rulesets=rulesets)
+
+    output_file = "%s/%s.md" % (output_dir, self.options.overview_filename)
+    with open(output_file, "w") as f:
+      f.write(out)
+    return (output_file, "%s.md" % self.options.overview_filename)
+
 class HtmlWriter(object):
   """Writer for generating documentation in HTML."""
 
-  def __init__(self, output_dir, output_file, output_zip, strip_prefix):
-    self.__output_dir = output_dir
-    self.__output_file = output_file
-    self.__output_zip = output_zip
-    self.__strip_prefix = strip_prefix
-    self.__env = _create_jinja_environment()
+  def __init__(self, options):
+    self.__options = options
+    self.__env = _create_jinja_environment(self.__options.link_ext)
 
   def write(self, rulesets):
     # Generate navigation used for all rules.
     nav_template = self.__env.get_template('nav.jinja')
-    nav = nav_template.render(rulesets=rulesets)
+    nav = nav_template.render(
+        rulesets=rulesets,
+        overview=self.__options.overview,
+        overview_filename=self.__options.overview_filename)
 
     try:
       temp_dir = tempfile.mkdtemp()
@@ -189,16 +213,18 @@ class HtmlWriter(object):
       for ruleset in rulesets:
         if len(ruleset.rules) > 0:
           output_files.append(self._write_ruleset(temp_dir, ruleset, nav))
+      if self.__options.overview:
+        output_files.append(self._write_overview(temp_dir, rulesets, nav))
 
-      if self.__output_zip:
-        with zipfile.ZipFile(self.__output_file, 'w') as zf:
+      if self.__options.output_zip:
+        with zipfile.ZipFile(self.__options.output_file, 'w') as zf:
           for output_file, output_path in output_files:
             zf.write(output_file, output_path)
           zf.write(os.path.join(_runfile_path(CSS_PATH), CSS_FILE),
                                 '%s' % CSS_FILE)
       else:
         for output_file, output_path in output_files:
-          dest_file = os.path.join(self.__output_dir, output_path)
+          dest_file = os.path.join(self.__options.output_dir, output_path)
           dest_dir = os.path.dirname(dest_file)
           if not os.path.exists(dest_dir):
             os.makedirs(dest_dir)
@@ -206,7 +232,7 @@ class HtmlWriter(object):
 
         # Copy CSS file.
         shutil.copyfile(os.path.join(_runfile_path(CSS_PATH), CSS_FILE),
-                        os.path.join(self.__output_dir, CSS_FILE))
+                        os.path.join(self.__options.output_dir, CSS_FILE))
     finally:
       # Delete temporary directory.
       shutil.rmtree(temp_dir)
@@ -214,11 +240,11 @@ class HtmlWriter(object):
   def _write_ruleset(self, output_dir, ruleset, nav):
     # Load template and render markdown.
     template = self.__env.get_template('html.jinja')
-    out = template.render(ruleset=ruleset, nav=nav)
+    out = template.render(title=ruleset.title, ruleset=ruleset, nav=nav)
 
     # Write output to file. Output files are created in a directory structure
     # that matches that of the input file.
-    output_path = ruleset.output_filename(self.__strip_prefix, 'html')
+    output_path = ruleset.output_file + '.html'
     output_file = "%s/%s" % (output_dir, output_path)
     file_dirname = os.path.dirname(output_file)
     if not os.path.exists(file_dirname):
@@ -226,6 +252,15 @@ class HtmlWriter(object):
     with open(output_file, "w") as f:
       f.write(out)
     return (output_file, output_path)
+
+  def _write_overview(self, output_dir, rulesets, nav):
+    template = self.__env.get_template('html_overview.jinja')
+    out = template.render(title='Overview', rulesets=rulesets, nav=nav)
+
+    output_file = "%s/%s.html" % (output_dir, self.__options.overview_filename)
+    with open(output_file, "w") as f:
+      f.write(out)
+    return (output_file, "%s.html" % self.__options.overview_filename)
 
 def main(argv):
   if FLAGS.output_dir and FLAGS.output_file:
@@ -252,17 +287,19 @@ def main(argv):
     rule_doc_extractor.parse_bzl(bzl_file)
     merged_language = merge_languages(macro_doc_extractor.proto(),
                                       rule_doc_extractor.proto())
-    rulesets.append(rule.RuleSet(bzl_file, merged_language,
-                                 macro_doc_extractor.title,
-                                 macro_doc_extractor.description))
+    rulesets.append(
+        rule.RuleSet(bzl_file, merged_language, macro_doc_extractor.title,
+                     macro_doc_extractor.description, strip_prefix,
+                     FLAGS.format))
 
+  writer_options = WriterOptions(
+      FLAGS.output_dir, FLAGS.output_file, FLAGS.zip, FLAGS.overview,
+      FLAGS.overview_filename, FLAGS.link_ext)
   if FLAGS.format == "markdown":
-    markdown_writer = MarkdownWriter(FLAGS.output_dir, FLAGS.output_file,
-                                     FLAGS.zip, strip_prefix)
+    markdown_writer = MarkdownWriter(writer_options)
     markdown_writer.write(rulesets)
   elif FLAGS.format == "html":
-    html_writer = HtmlWriter(FLAGS.output_dir, FLAGS.output_file, FLAGS.zip,
-                             strip_prefix)
+    html_writer = HtmlWriter(writer_options)
     html_writer.write(rulesets)
   else:
     sys.stderr.write(

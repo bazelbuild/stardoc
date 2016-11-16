@@ -136,12 +136,30 @@ table {
 table.params-table {
   width: 100%;
 
-  col.col-param{
+  col.col-param {
     width: 25%;
   }
 
   col.col-description {
     width: 75%;
+  }
+}
+
+table.overview-table {
+  width: 100%;
+
+  col.col-name {
+    width: 25%;
+  }
+
+  col.col-description {
+    width: 75%;
+  }
+
+  td {
+    p {
+      margin: 0;
+    }
   }
 }
 

@@ -94,6 +94,13 @@ message RuleDefinition {
 
   // The list of outputs for this rule.
   repeated OutputTarget output = 5;
+
+  enum Type {
+    RULE = 1;
+    MACRO = 2;
+    REPOSITORY_RULE = 3;
+  }
+  optional Type type = 6;
 }
 
 message BuildLanguage {

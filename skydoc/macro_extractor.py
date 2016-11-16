@@ -71,6 +71,7 @@ class MacroDocExtractor(object):
 
     rule = self.__language.rule.add()
     rule.name = stmt.name
+    rule.type = build_pb2.RuleDefinition.MACRO
 
     doc = ast.get_docstring(stmt)
     if doc:
