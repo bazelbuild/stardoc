@@ -165,7 +165,7 @@ _skylark_doc_attrs = {
     "link_ext": attr.string(),
     "skydoc": attr.label(
         default = Label("//skydoc"),
-        cfg = HOST_CFG,
+        cfg = "host",
         executable = True),
 }
 
