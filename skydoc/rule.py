@@ -165,3 +165,9 @@ class RuleSet(object):
       else:
         assert rule_proto.type == build_pb2.RuleDefinition.REPOSITORY_RULE
         self.repository_rules.append(definition)
+
+  def empty(self):
+    """Return True if there is nothing to document."""
+    return not any([self.rules,
+                    self.macros,
+                    self.repository_rules])

@@ -133,6 +133,7 @@ class MarkdownWriter(object):
 
   def __init__(self, writer_options):
     self.__options = writer_options
+    self.__env = _create_jinja_environment(self.__options.link_ext)
 
   def write(self, rulesets):
     """Write the documentation for the rules contained in rulesets."""
@@ -140,7 +141,7 @@ class MarkdownWriter(object):
       temp_dir = tempfile.mkdtemp()
       output_files = []
       for ruleset in rulesets:
-        if len(ruleset.rules) > 0:
+        if not ruleset.empty():
           output_files.append(self._write_ruleset(temp_dir, ruleset))
       if self.__options.overview:
         output_files.append(self._write_overview(temp_dir, rulesets))
@@ -168,8 +169,7 @@ class MarkdownWriter(object):
 
   def _write_ruleset(self, output_dir, ruleset):
     # Load template and render Markdown.
-    env = _create_jinja_environment(self.__options.link_ext)
-    template = env.get_template('markdown.jinja')
+    template = self.__env.get_template('markdown.jinja')
     out = template.render(ruleset=ruleset)
 
     # Write output to file. Output files are created in a directory structure
@@ -187,10 +187,10 @@ class MarkdownWriter(object):
     template = self.__env.get_template('markdown_overview.jinja')
     out = template.render(rulesets=rulesets)
 
-    output_file = "%s/%s.md" % (output_dir, self.options.overview_filename)
+    output_file = "%s/%s.md" % (output_dir, self.__options.overview_filename)
     with open(output_file, "w") as f:
       f.write(out)
-    return (output_file, "%s.md" % self.options.overview_filename)
+    return (output_file, "%s.md" % self.__options.overview_filename)
 
 class HtmlWriter(object):
   """Writer for generating documentation in HTML."""
@@ -211,7 +211,7 @@ class HtmlWriter(object):
       temp_dir = tempfile.mkdtemp()
       output_files = []
       for ruleset in rulesets:
-        if len(ruleset.rules) > 0:
+        if not ruleset.empty():
           output_files.append(self._write_ruleset(temp_dir, ruleset, nav))
       if self.__options.overview:
         output_files.append(self._write_overview(temp_dir, rulesets, nav))

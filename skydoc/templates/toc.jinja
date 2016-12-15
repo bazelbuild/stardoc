@@ -14,13 +14,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
 #}
 <nav class="toc">
+% if ruleset.description:
+  <h2><a href="#overview">Overview</a></h2>
+% endif
+% if ruleset.repository_rules[0] is defined:
+  <h2>Repository Rules</h2>
+  <ul>
+% for rule in ruleset.repository_rules:
+    <li><a href="#{{ rule.name }}">{{ rule.name }}</a></li>
+% endfor
+  </ul>
+% endif
+% if ruleset.rules[0] is defined:
   <h2>Rules</h2>
   <ul>
-% if ruleset.description:
-    <li><a href="#overview">Overview</a></li>
-% endif
 % for rule in ruleset.rules:
     <li><a href="#{{ rule.name }}">{{ rule.name }}</a></li>
 % endfor
   </ul>
+% endif
+% if ruleset.macros[0] is defined:
+  <h2>Macros</h2>
+  <ul>
+% for macro in ruleset.macros:
+    <li><a href="#{{ macro.name }}">{{ macro.name }}</a></li>
+% endfor
+  </ul>
+% endif
 </nav>
