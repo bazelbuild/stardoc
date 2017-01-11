@@ -43,6 +43,35 @@ SKYLARK_STUBS = {
 """Stubs for Skylark globals to be used to evaluate the .bzl file."""
 
 
+SKYLARK_GLOBAL_SYMBOLS = set(SKYLARK_STUBS.keys())
+
+
+def create_stubs(skylark_stubs, load_symbols):
+  """Combines Skylark stubs with loaded symbols.
+
+  This function creates a copy of the global Skylark stubs and combines them
+  with symbols from the list of load_extractor.LoadSymbol, which contain
+  information about symbols extracted from other .bzl files. The stubs created
+  for the loaded symbols are global variables set to the empty string.
+
+  Args:
+    skylark_stubs: Dict containing the Skylark global stubs.
+    load_symbols: List of load_extractor.LoadSymbol objects containing
+      information about symbols extracted from other .bzl files.
+
+  Returns:
+    Dictionary containing both the Skylark global stubs and stubs created for
+    the loaded symbols.
+  """
+  stubs = dict(skylark_stubs)
+  for load_symbol in load_symbols:
+    if load_symbol.alias:
+      stubs[load_symbol.alias] = ""
+    else:
+      stubs[load_symbol.symbol] = ""
+  return stubs
+
+
 class RuleDocExtractor(object):
   """Extracts documentation for rules from a .bzl file."""
 
@@ -50,8 +79,9 @@ class RuleDocExtractor(object):
     """Inits RuleDocExtractor with a new BuildLanguage proto"""
     self.__language = build_pb2.BuildLanguage()
     self.__extracted_rules = {}
+    self.__load_symbols = []
 
-  def _process_skylark(self, bzl_file):
+  def _process_skylark(self, bzl_file, load_symbols):
     """Evaluates the Skylark code in the .bzl file.
 
     This function evaluates the Skylark code in the .bzl file as Python against
@@ -60,15 +90,19 @@ class RuleDocExtractor(object):
 
     Args:
       bzl_file: The .bzl file to evaluate.
+      load_symbols: List of load_extractor.LoadSymbol objects containing info
+        about symbols load()ed from other .bzl files.
     """
+    compiled = compile(open(bzl_file).read(), bzl_file, 'exec')
     skylark_locals = {}
-    compiled = compile(open(bzl_file).read(), bzl_file, "exec")
-    exec(compiled) in SKYLARK_STUBS, skylark_locals
+    global_stubs = create_stubs(SKYLARK_STUBS, load_symbols)
+    exec(compiled) in global_stubs, skylark_locals
 
     for name, obj in skylark_locals.iteritems():
-      if hasattr(obj, "is_rule") and not name.startswith("_"):
-        obj.attrs["name"] = attr.AttrDescriptor(
-            type=build_pb2.Attribute.UNKNOWN, mandatory=True, name="name")
+      if (isinstance(obj, skylark_globals.RuleDescriptor) and
+          not name.startswith('_')):
+        obj.attrs['name'] = attr.AttrDescriptor(
+            type=build_pb2.Attribute.UNKNOWN, mandatory=True, name='name')
         self.__extracted_rules[name] = obj
 
   def _add_rule_doc(self, name, doc):
@@ -134,7 +168,7 @@ class RuleDocExtractor(object):
     """Builds the BuildLanguage protos for the extracted rule documentation.
 
     Iterates through the map of extracted rule documentation and builds a
-    BuildLanguage proto containing the documentation for publid rules extracted
+    BuildLanguage proto containing the documentation for public rules extracted
     from the .bzl file.
     """
     rules = []
@@ -173,7 +207,13 @@ class RuleDocExtractor(object):
         output.template = template
         output.documentation = doc
 
-  def parse_bzl(self, bzl_file):
+    for load_symbol in self.__load_symbols:
+      load = self.__language.load.add()
+      load.label = load_symbol.label
+      load.symbol = load_symbol.symbol
+      load.alias = load_symbol.alias
+
+  def parse_bzl(self, bzl_file, load_symbols):
     """Extracts the documentation for all public rules from the given .bzl file.
 
     The Skylark code is first evaluated against stubs to extract rule and
@@ -184,11 +224,10 @@ class RuleDocExtractor(object):
     Args:
       bzl_file: The .bzl file to extract rule documentation from.
     """
-    self._process_skylark(bzl_file)
+    self._process_skylark(bzl_file, load_symbols)
     self._extract_docstrings(bzl_file)
     self._assemble_protos()
 
   def proto(self):
     """Returns the proto containing the macro documentation."""
     return self.__language
-

@@ -21,12 +21,32 @@ import unittest
 
 from google.protobuf import text_format
 from skydoc import build_pb2
+from skydoc import load_extractor
 from skydoc import rule_extractor
 
 
 class RuleExtractorTest(unittest.TestCase):
 
-  def check_protos(self, src, expected):
+  def test_create_stubs(self):
+    stubs = {
+        'foo': 'bar',
+        'bar': 'baz',
+    }
+    load_symbols = [
+        load_extractor.LoadSymbol('//foo:bar.bzl', 'bar_library', None),
+        load_extractor.LoadSymbol('//foo:bar.bzl', 'foo_bar_binary',
+                                  'bar_binary'),
+    ]
+    expected = {
+        'foo': 'bar',
+        'bar': 'baz',
+        'bar_library': '',
+        'bar_binary': '',
+        }
+    self.assertEqual(expected, rule_extractor.create_stubs(stubs, load_symbols))
+
+
+  def check_protos(self, src, expected, load_symbols=[]):
     with tempfile.NamedTemporaryFile() as tf:
       tf.write(src)
       tf.flush()
@@ -35,7 +55,7 @@ class RuleExtractorTest(unittest.TestCase):
       text_format.Merge(expected, expected_proto)
 
       extractor = rule_extractor.RuleDocExtractor()
-      extractor.parse_bzl(tf.name)
+      extractor.parse_bzl(tf.name, load_symbols)
       proto = extractor.proto()
       self.assertEqual(expected_proto, proto)
 
@@ -532,13 +552,22 @@ class RuleExtractorTest(unittest.TestCase):
 
     self.check_protos(src, expected)
 
-  def test_loads_ignored(self):
+  def test_loads(self):
     src = textwrap.dedent("""\
-      load("//foo/bar:baz.bzl", "foo_library")
-      load("//foo/bar:baz.bzl", "foo_test", orig_foo_binary = "foo_binary")
-      """)
-    expected = ''
-    self.check_protos(src, expected)
+        load("//foo/bar:bar.bzl", "foo_library")
+        load("//foo/bar:baz.bzl", "foo_test", orig_foo_binary = "foo_binary")
+
+        _references_foo_library = foo_library
+        _references_orig_foo_binary = orig_foo_binary
+        """)
+    load_symbols = [
+        load_extractor.LoadSymbol('//foo/bar:bar.bzl', 'foo_library', None),
+        load_extractor.LoadSymbol('//foo/bar:baz.bzl', 'foo_test', None),
+        load_extractor.LoadSymbol('//foo/bar:baz.bzl', 'foo_binary',
+                                  'orig_foo_binary'),
+    ]
+    expected = ""
+    self.check_protos(src, expected, load_symbols)
 
   def test_repository_rule(self):
     src = textwrap.dedent("""\

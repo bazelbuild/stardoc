@@ -26,6 +26,7 @@ import tempfile
 import zipfile
 
 from skydoc import common
+from skydoc import load_extractor
 from skydoc import macro_extractor
 from skydoc import rule
 from skydoc import rule_extractor
@@ -280,11 +281,21 @@ def main(argv):
     sys.exit(1)
 
   rulesets = []
+  load_sym_extractor = load_extractor.LoadExtractor()
   for bzl_file in bzl_files:
+    load_symbols = []
+    try:
+      load_symbols = load_sym_extractor.extract(bzl_file)
+    except load_extractor.LoadExtractorError as e:
+      print("ERROR: Error extracting loaded symbols from %s: %s" %
+            (bzl_file, str(e)))
+      sys.exit(2)
+
+    # TODO(dzc): Make MacroDocExtractor and RuleDocExtractor stateless.
     macro_doc_extractor = macro_extractor.MacroDocExtractor()
     rule_doc_extractor = rule_extractor.RuleDocExtractor()
     macro_doc_extractor.parse_bzl(bzl_file)
-    rule_doc_extractor.parse_bzl(bzl_file)
+    rule_doc_extractor.parse_bzl(bzl_file, load_symbols)
     merged_language = merge_languages(macro_doc_extractor.proto(),
                                       rule_doc_extractor.proto())
     rulesets.append(

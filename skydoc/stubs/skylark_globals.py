@@ -38,10 +38,6 @@ def select(x):
 def struct(**kwargs):
   return None
 
-# TODO(dzc): As a future improvement, consider whether we want to evaluate loads
-# in .bzl files and provide links to the rules or macros in the .bzl files
-# being loaded. To do so, we would also have to require that all .bzl
-# dependencies are being included for the skylark_doc target.
 def load(label, *args, **kwargs):
   return None
 
@@ -82,7 +78,6 @@ class RuleDescriptor(object):
       type: The type of rule (rule, repository_rule). This parameter is used
           by skydoc and is not set by any Skylark code in .bzl files.
     """
-    self.is_rule = True
     self.implementation = implementation
     self.test = test
     self.attrs = attrs

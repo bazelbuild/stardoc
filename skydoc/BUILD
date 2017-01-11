@@ -23,6 +23,19 @@ py_test(
 )
 
 py_library(
+    name = "load_extractor",
+    srcs = ["load_extractor.py"],
+)
+
+py_test(
+    name = "load_extractor_test",
+    srcs = ["load_extractor_test.py"],
+    deps = [
+        ":load_extractor",
+    ],
+)
+
+py_library(
     name = "macro_extractor",
     srcs = ["macro_extractor.py"],
     deps = [":common"],
@@ -42,6 +55,7 @@ py_library(
     srcs = ["rule_extractor.py"],
     deps = [
         ":common",
+        ":load_extractor",
         "//skydoc/stubs",
     ],
 )
@@ -51,6 +65,7 @@ py_test(
     srcs = ["rule_extractor_test.py"],
     deps = [
         ":build_pb_py",
+        ":load_extractor",
         ":rule_extractor",
     ],
 )
