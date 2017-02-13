@@ -54,6 +54,8 @@ gflags.DEFINE_string('overview_filename', 'index',
     'The file name to use for the overview page.')
 gflags.DEFINE_string('link_ext', 'html',
     'The file extension used for links in the generated documentation')
+gflags.DEFINE_string('site_root', '',
+    'The site root to be prepended to all URLs in the generated documentation')
 
 FLAGS = gflags.FLAGS
 
@@ -66,13 +68,15 @@ CSS_PATH = 'skydoc/sass'
 
 CSS_FILE = 'main.css'
 
-def _create_jinja_environment(link_ext):
+def _create_jinja_environment(site_root, link_ext):
   env = jinja2.Environment(
       loader=jinja2.FileSystemLoader(_runfile_path(TEMPLATE_PATH)),
       keep_trailing_newline=True,
       line_statement_prefix='%')
   env.filters['markdown'] = lambda text: jinja2.Markup(mistune.markdown(text))
-  env.filters['link'] = lambda fname: '/' + fname + '.' + link_ext
+  env.filters['doc_link'] = (
+      lambda fname: site_root + '/' + fname + '.' + link_ext)
+  env.filters['link'] = lambda fname: site_root + '/' + fname
   return env
 
 
@@ -121,7 +125,7 @@ def merge_languages(macro_language, rule_language):
 
 class WriterOptions(object):
   def __init__(self, output_dir, output_file, output_zip, overview,
-               overview_filename, link_ext):
+               overview_filename, link_ext, site_root):
     self.output_dir = output_dir
     self.output_file = output_file
     self.output_zip = output_zip
@@ -129,12 +133,17 @@ class WriterOptions(object):
     self.overview_filename = overview_filename
     self.link_ext = link_ext
 
+    self.site_root = site_root
+    if len(self.site_root) > 0 and self.site_root.endswith('/'):
+        self.site_root = self.site_root[:-1]
+
 class MarkdownWriter(object):
   """Writer for generating documentation in Markdown."""
 
   def __init__(self, writer_options):
     self.__options = writer_options
-    self.__env = _create_jinja_environment(self.__options.link_ext)
+    self.__env = _create_jinja_environment(self.__options.site_root,
+                                           self.__options.link_ext)
 
   def write(self, rulesets):
     """Write the documentation for the rules contained in rulesets."""
@@ -198,7 +207,8 @@ class HtmlWriter(object):
 
   def __init__(self, options):
     self.__options = options
-    self.__env = _create_jinja_environment(self.__options.link_ext)
+    self.__env = _create_jinja_environment(self.__options.site_root,
+                                           self.__options.link_ext)
 
   def write(self, rulesets):
     # Generate navigation used for all rules.
@@ -302,10 +312,9 @@ def main(argv):
         rule.RuleSet(bzl_file, merged_language, macro_doc_extractor.title,
                      macro_doc_extractor.description, strip_prefix,
                      FLAGS.format))
-
   writer_options = WriterOptions(
       FLAGS.output_dir, FLAGS.output_file, FLAGS.zip, FLAGS.overview,
-      FLAGS.overview_filename, FLAGS.link_ext)
+      FLAGS.overview_filename, FLAGS.link_ext, FLAGS.site_root)
   if FLAGS.format == "markdown":
     markdown_writer = MarkdownWriter(writer_options)
     markdown_writer.write(rulesets)

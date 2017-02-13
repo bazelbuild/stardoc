@@ -15,17 +15,17 @@ limitations under the License.
 #}
 % for ruleset in rulesets:
 % if overview:
-<li><a href="{{ overview_filename | link }}">Overview</a></li>
+<li><a href="{{ overview_filename | doc_link }}">Overview</a></li>
 % endif
 <li>
-  <a href="{{ ruleset.output_file | link }}">{{ ruleset.title }}</a>
+  <a href="{{ ruleset.output_file | doc_link }}">{{ ruleset.title }}</a>
   <ul>
 % if ruleset.description:
-    <li><a href="{{ ruleset.output_file | link }}#overview">Overview</a></li>
+    <li><a href="{{ ruleset.output_file | doc_link }}#overview">Overview</a></li>
 % endif
 % for rule in ruleset.rules:
     <li>
-      <a href="{{ ruleset.output_file | link }}#{{ rule.name }}">
+      <a href="{{ ruleset.output_file | doc_link }}#{{ rule.name }}">
         {{ rule.name }}
       </a>
     </li>

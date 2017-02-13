@@ -23,7 +23,7 @@ limitations under the License.
 </nav>
 
 % for ruleset in rulesets:
-<h2><a href="{{ ruleset.output_file | link }}">{{ ruleset.title }}</a></h2>
+<h2><a href="{{ ruleset.output_file | doc_link }}">{{ ruleset.title }}</a></h2>
 
 % if ruleset.rules[0] is defined:
 <h3>Rules</h3>
@@ -36,7 +36,7 @@ limitations under the License.
 % for rule in ruleset.rules:
     <tr>
       <td>
-        <a href="{{ ruleset.output_file | link }}#{{ rule.name }}">
+        <a href="{{ ruleset.output_file | doc_link }}#{{ rule.name }}">
           <code>{{ rule.name }}</code>
         </a>
       </td>
@@ -60,7 +60,7 @@ limitations under the License.
 % for rule in ruleset.macros:
     <tr>
       <td>
-        <a href="{{ ruleset.output_file | link }}#{{ rule.name }}">
+        <a href="{{ ruleset.output_file | doc_link }}#{{ rule.name }}">
           <code>{{ rule.name }}</code>
         </a>
       </td>
@@ -84,7 +84,7 @@ limitations under the License.
 % for rule in ruleset.repository_rules:
     <tr>
       <td>
-        <a href="{{ ruleset.output_file | link }}#{{ rule.name }}">
+        <a href="{{ ruleset.output_file | doc_link }}#{{ rule.name }}">
           <code>{{ rule.name }}</code>
         </a>
       </td>

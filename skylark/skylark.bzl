@@ -60,6 +60,8 @@ def _skylark_doc_impl(ctx):
     flags += ["--overview_filename=%s" % ctx.attr.overview_filename]
   if ctx.attr.link_ext:
     flags += ["--link_ext=%s" % ctx.attr.link_ext]
+  if ctx.attr.site_root:
+    flags += ["--site_root=%s" % ctx.attr.site_root]
   skydoc = _skydoc(ctx)
   ctx.action(
       inputs = list(inputs) + [skydoc],
@@ -163,6 +165,7 @@ _skylark_doc_attrs = {
     "overview": attr.bool(default = True),
     "overview_filename": attr.string(),
     "link_ext": attr.string(),
+    "site_root": attr.string(),
     "skydoc": attr.label(
         default = Label("//skydoc"),
         cfg = "host",
@@ -207,6 +210,14 @@ Args:
     respectively.
   link_ext: The file extension used for links in the generated documentation.
     By default, skydoc uses `.html`.
+  site_root: The site root to be prepended to all URLs in the generated
+    documentation, such as links, style sheets, and images.
+
+    This is useful if the generated documentation is served from a subdirectory
+    on the web server. For example, if the skydoc site is to served from
+    `https://host.com/rules`, then by setting
+    `site_root = "https://host.com/rules"`, all links will be prefixed with
+    the site root, for example, `https://host.com/rules/index.html`.
 
 Outputs:
   skylark_doc_zip: A zip file containing the generated documentation.
