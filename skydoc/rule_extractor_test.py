@@ -70,7 +70,9 @@ class RuleExtractorTest(unittest.TestCase):
                 "arg_bool": attr.bool(default=True),
                 "arg_int": attr.int(default=10),
                 "arg_int_list": attr.int_list(default=[1, 2]),
-                "arg_label": attr.label(default=Label("//foo:bar")),
+                "arg_label": attr.label(
+                    default=Label("//foo:bar",
+                                  relative_to_caller_repository=True)),
                 "arg_label_list": attr.label_list(
                     default=[Label("//foo:bar"), Label("//bar:baz")]),
                 "arg_license": attr.license(),

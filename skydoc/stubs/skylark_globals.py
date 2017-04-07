@@ -42,8 +42,9 @@ def load(label, *args, **kwargs):
   return None
 
 class Label(object):
-  def __init__(self, label_string):
+  def __init__(self, label_string, relative_to_caller_repository=False):
     self.label_string = label_string
+    self.relative_to_caller_repository = relative_to_caller_repository
 
   def __repr__(self):
     return self.label_string
