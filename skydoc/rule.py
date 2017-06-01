@@ -73,8 +73,6 @@ class Attribute(object):
       type_str = 'Tristate'
     elif proto.type == build_pb2.Attribute.INTEGER_LIST:
       type_str = 'List of integers'
-    elif proto.type == build_pb2.Attribute.STRING_DICT_UNARY:
-      type_str = 'String Dict Unary'
     elif proto.type == build_pb2.Attribute.LABEL_DICT_UNARY:
       type_str = 'Label Dict Unary'
     elif proto.type == build_pb2.Attribute.SELECTOR_LIST:
