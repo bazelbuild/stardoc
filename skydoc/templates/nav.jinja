@@ -13,10 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 #}
-% for ruleset in rulesets:
 % if overview:
 <li><a href="{{ overview_filename | doc_link }}">Overview</a></li>
 % endif
+% for ruleset in rulesets:
 <li>
   <a href="{{ ruleset.output_file | doc_link }}">{{ ruleset.title }}</a>
   <ul>
