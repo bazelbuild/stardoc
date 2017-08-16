@@ -27,7 +27,7 @@ def _get_transitive_sources(deps):
   Returns:
     Returns a list of Files containing sources of transitive dependencies.
   """
-  transitive_sources = set(order="compile")
+  transitive_sources = depset(order="postorder")
   for dep in deps:
     transitive_sources += dep.transitive_bzl_files
   return transitive_sources
@@ -35,7 +35,7 @@ def _get_transitive_sources(deps):
 def _skylark_library_impl(ctx):
   """Implementation of the skylark_library rule."""
   sources = _get_transitive_sources(ctx.attr.deps) + ctx.files.srcs
-  return struct(files = set(),
+  return struct(files = depset(),
                 transitive_bzl_files = sources)
 
 def _skydoc(ctx):
