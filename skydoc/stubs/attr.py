@@ -165,3 +165,11 @@ def string_list_dict(default={},
                      allow_empty=True):
   return AttrDescriptor(build_pb2.Attribute.STRING_LIST_DICT, repr(default),
                         mandatory)
+
+def label_keyed_string_dict(default={},
+                            mandatory=False,
+                            allow_files=False,
+                            non_empty=False,
+                            allow_empty=True):
+  return AttrDescriptor(build_pb2.Attribute.LABEL_KEYED_STRING_DICT, repr(default),
+                        mandatory)

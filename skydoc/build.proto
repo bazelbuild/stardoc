@@ -41,6 +41,7 @@ message Attribute {
     LABEL_DICT_UNARY = 19;   // label_dict_unary_value
     SELECTOR_LIST = 20;      // selector_list
     NAME = 21;               // name, use only for the name attribute
+    LABEL_KEYED_STRING_DICT = 22; // label_keyed_string_dict
 
     // Deprecated.
     DEPRECATED_STRING_DICT_UNARY = 17;

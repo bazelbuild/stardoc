@@ -77,6 +77,8 @@ class Attribute(object):
       type_str = 'Label Dict Unary'
     elif proto.type == build_pb2.Attribute.SELECTOR_LIST:
       type_str = 'Selector List'
+    elif proto.type == build_pb2.Attribute.LABEL_KEYED_STRING_DICT:
+      type_str = 'Dictionary mapping %s to strings' % self.LABELS_LINK
     else:
       if proto.name == 'name':
         type_str = self.NAME_LINK
