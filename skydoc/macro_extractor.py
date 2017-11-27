@@ -36,6 +36,8 @@ def get_type(expr):
     return build_pb2.Attribute.STRING
   elif isinstance(expr, ast.List):
     return build_pb2.Attribute.STRING_LIST
+  elif isinstance(expr, ast.Name) and (expr.id == "True" or expr.id == "False"):
+    return build_pb2.Attribute.BOOLEAN
   else:
     return build_pb2.Attribute.UNKNOWN
 
@@ -95,8 +97,11 @@ class MacroDocExtractor(object):
         attr.mandatory = True
         attr.type = build_pb2.Attribute.UNKNOWN
       else:
+        node = stmt.args.defaults[i - shift]
         attr.mandatory = False
-        attr.type = get_type(stmt.args.defaults[i - shift])
+        attr.type = get_type(node)
+        if attr.type == build_pb2.Attribute.BOOLEAN:
+          attr.default = node.id
 
     for template, doc in extracted_docs.output_docs.iteritems():
       output = rule.output.add()

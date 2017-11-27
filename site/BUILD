@@ -14,7 +14,7 @@ filegroup(
 
 pkg_tar(
     name = "jekyll-base",
-    files = [":jekyll-srcs"],
+    srcs = [":jekyll-srcs"],
     strip_prefix = ".",
 )
 

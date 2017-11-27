@@ -76,8 +76,9 @@ class MacroExtractorTest(unittest.TestCase):
           }
           attribute {
             name: "foo"
-            type: UNKNOWN
+            type: BOOLEAN
             mandatory: false
+            default: "False"
             documentation: "A test argument.\\n\\nDocumentation for foo continued here."
           }
           attribute {
