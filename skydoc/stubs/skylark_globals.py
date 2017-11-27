@@ -102,6 +102,6 @@ def rule(implementation, test=False, attrs={}, outputs=None,
   return RuleDescriptor(implementation, test, attrs, outputs, executable,
                         output_to_genfiles, fragments, host_fragments)
 
-def repository_rule(implementation, attrs={}, local=False):
+def repository_rule(implementation, attrs={}, local=False, environ=[]):
   return RuleDescriptor(implementation, attrs=attrs, local=local,
                         type='repository')
