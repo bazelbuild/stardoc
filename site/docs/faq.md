@@ -12,7 +12,7 @@ suggest using the `dict(a.items() + b.items())` syntax instead.
 
 [dict-op]: https://github.com/bazelbuild/bazel/issues/1086
 
-## Is Skydoc used to generate the documentation on [Bazel.io](https://bazel.build)?
+## Is Skydoc used to generate the documentation on [bazel.build](https://bazel.build)?
 
 Not for now. The [Build Encyclopedia](https://bazel.build/docs/be/overview.html)
 documents the set of native Bazel build rules written in Java, and the
