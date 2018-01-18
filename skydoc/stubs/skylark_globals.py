@@ -29,7 +29,7 @@ def aspect(implementation, attr_aspects=[], attrs=None, fragments=[],
            host_fragments=[]):
   return None
 
-def provider(target, type):
+def provider(doc='', fields=None):
   return None
 
 def select(x):

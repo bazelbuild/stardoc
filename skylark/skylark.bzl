@@ -14,29 +14,13 @@
 
 """Skylark rules"""
 
+load(
+    "@bazel_skylib//:skylark_library.bzl",
+    "skylark_library", "SkylarkLibraryInfo")
+
 _SKYLARK_FILETYPE = FileType([".bzl"])
 
 ZIP_PATH = "/usr/bin/zip"
-
-def _get_transitive_sources(deps):
-  """Collects source files of transitive dependencies."
-
-  Args:
-    deps: List of deps labels from ctx.attr.deps.
-
-  Returns:
-    Returns a list of Files containing sources of transitive dependencies.
-  """
-  transitive_sources = depset(order="postorder")
-  for dep in deps:
-    transitive_sources += dep.transitive_bzl_files
-  return transitive_sources
-
-def _skylark_library_impl(ctx):
-  """Implementation of the skylark_library rule."""
-  sources = _get_transitive_sources(ctx.attr.deps) + ctx.files.srcs
-  return struct(files = depset(),
-                transitive_bzl_files = sources)
 
 def _skydoc(ctx):
   for f in ctx.files.skydoc:
@@ -46,8 +30,10 @@ def _skydoc(ctx):
 def _skylark_doc_impl(ctx):
   """Implementation of the skylark_doc rule."""
   skylark_doc_zip = ctx.outputs.skylark_doc_zip
-  inputs = _get_transitive_sources(ctx.attr.deps) + ctx.files.srcs
-  sources = [source.path for source in inputs]
+  inputs = depset(order="postorder", direct=ctx.files.srcs, transitive=[
+      dep[SkylarkLibraryInfo].transitive_srcs for dep in ctx.attr.deps
+  ])
+  sources = [source.path for source in ctx.files.srcs]
   flags = [
       "--format=%s" % ctx.attr.format,
       "--output_file=%s" % ctx.outputs.skylark_doc_zip.path,
@@ -73,108 +59,23 @@ def _skylark_doc_impl(ctx):
       progress_message = ("Generating Skylark doc for %s (%d files)"
                           % (ctx.label.name, len(sources))))
 
-_skylark_common_attrs = {
-    "srcs": attr.label_list(allow_files = _SKYLARK_FILETYPE),
-    "deps": attr.label_list(providers = ["transitive_bzl_files"],
-                            allow_files = False),
-}
-
-skylark_library = rule(
-    _skylark_library_impl,
-    attrs = _skylark_common_attrs,
-)
-"""Creates a logical collection of Skylark .bzl files.
-
-Args:
-  srcs: List of `.bzl` files that are processed to create this target.
-  deps: List of other `skylark_library` targets that are required by the Skylark
-    files listed in `srcs`.
-
-Example:
-  If you would like to generate documentation for multiple .bzl files in various
-  packages in your workspace, you can use the `skylark_library` rule to create
-  logical collections of Skylark sources and add a single `skylark_doc` target for
-  building documentation for all of the rule sets.
-
-  Suppose your project has the following structure:
-
-  ```
-  [workspace]/
-      WORKSPACE
-      BUILD
-      checkstyle/
-          BUILD
-          checkstyle.bzl
-      lua/
-          BUILD
-          lua.bzl
-          luarocks.bzl
-  ```
-
-  In this case, you can have `skylark_library` targets in `checkstyle/BUILD` and
-  `lua/BUILD`:
-
-  `checkstyle/BUILD`:
-
-  ```python
-  load("@io_bazel_skydoc//skylark:skylark.bzl", "skylark_library")
-
-  skylark_library(
-      name = "checkstyle-rules",
-      srcs = ["checkstyle.bzl"],
-  )
-  ```
-
-  `lua/BUILD`:
-
-  ```python
-  load("@io_bazel_skydoc//skylark:skylark.bzl", "skylark_library")
-
-  skylark_library(
-      name = "lua-rules",
-      srcs = [
-          "lua.bzl",
-          "luarocks.bzl",
-      ],
-  )
-  ```
-
-  To build documentation for all the above `.bzl` files at once:
-
-  `BUILD`:
-
-  ```python
-  load("@io_bazel_skydoc//skylark:skylark.bzl", "skylark_doc")
-
-  skylark_doc(
-      name = "docs",
-      deps = [
-          "//checkstyle:checkstyle-rules",
-          "//lua:lua-rules",
-      ],
-  )
-  ```
-
-  Running `bazel build //:docs` would build a single zip containing documentation
-  for all the `.bzl` files contained in the two `skylark_library` targets.
-"""
-
-_skylark_doc_attrs = {
-    "format": attr.string(default = "markdown"),
-    "strip_prefix": attr.string(),
-    "overview": attr.bool(default = True),
-    "overview_filename": attr.string(),
-    "link_ext": attr.string(),
-    "site_root": attr.string(),
-    "skydoc": attr.label(
-        default = Label("//skydoc"),
-        cfg = "host",
-        executable = True),
-}
-
 skylark_doc = rule(
     _skylark_doc_impl,
-    attrs = dict(_skylark_common_attrs.items() + _skylark_doc_attrs.items()),
+    attrs = {
+        "srcs": attr.label_list(allow_files = _SKYLARK_FILETYPE),
+        "deps": attr.label_list(providers = [SkylarkLibraryInfo],
+                                allow_files = False),
+        "format": attr.string(default = "markdown"),
+        "strip_prefix": attr.string(),
+        "overview": attr.bool(default = True),
+        "overview_filename": attr.string(),
+        "link_ext": attr.string(),
+        "site_root": attr.string(),
+        "skydoc": attr.label(
+            default = Label("//skydoc"),
+            cfg = "host",
+            executable = True),
+    },
     outputs = {
         "skylark_doc_zip": "%{name}-skydoc.zip",
     },
