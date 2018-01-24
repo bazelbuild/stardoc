@@ -93,7 +93,9 @@ class RuleDocExtractor(object):
       load_symbols: List of load_extractor.LoadSymbol objects containing info
         about symbols load()ed from other .bzl files.
     """
-    compiled = compile(open(bzl_file).read(), bzl_file, 'exec')
+    compiled = None
+    with open(bzl_file) as f:
+      compiled = compile(f.read(), bzl_file, 'exec')
     skylark_locals = {}
     global_stubs = create_stubs(SKYLARK_STUBS, load_symbols)
     exec(compiled) in global_stubs, skylark_locals
@@ -145,7 +147,9 @@ class RuleDocExtractor(object):
       bzl_file: The .bzl file to extract docstrings from.
     """
     try:
-      tree = ast.parse(open(bzl_file).read(), bzl_file)
+      tree = None
+      with open(bzl_file) as f:
+        tree = ast.parse(f.read(), bzl_file)
       key = None
       for node in ast.iter_child_nodes(tree):
         if isinstance(node, ast.Assign):

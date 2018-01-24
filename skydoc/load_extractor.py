@@ -33,7 +33,9 @@ class LoadExtractor(object):
     """Walks the AST and extracts information on loaded symbols."""
     load_symbols = []
     try:
-      tree = ast.parse(open(bzl_file).read(), bzl_file)
+      tree = None
+      with open(bzl_file) as f:
+        tree = ast.parse(f.read(), bzl_file)
       key = None
       for node in ast.iter_child_nodes(tree):
         if not isinstance(node, ast.Expr):
