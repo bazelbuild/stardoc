@@ -1,3 +1,5 @@
+licenses(["notice"]) # Apache 2.0
+
 package(default_visibility = ["//visibility:public"])
 
 load("@protobuf//:protobuf.bzl", "py_proto_library")

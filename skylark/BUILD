@@ -1,3 +1,5 @@
+licenses(["notice"]) # Apache 2.0
+
 package(default_visibility = ["//visibility:public"])
 
 load("@bazel_skylib//:skylark_library.bzl", "skylark_library")
