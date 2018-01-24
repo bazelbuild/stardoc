@@ -30,10 +30,18 @@ def _skydoc(ctx):
 def _skylark_doc_impl(ctx):
   """Implementation of the skylark_doc rule."""
   skylark_doc_zip = ctx.outputs.skylark_doc_zip
-  inputs = depset(order="postorder", direct=ctx.files.srcs, transitive=[
+  direct = []
+  transitive = []
+  for dep in ctx.attr.srcs:
+      if SkylarkLibraryInfo in dep:
+          direct.extend(dep[SkylarkLibraryInfo].srcs)
+          transitive.append(dep[SkylarkLibraryInfo].transitive_srcs)
+      else:
+          direct.extend(dep.files.to_list())
+  inputs = depset(order="postorder", direct=direct, transitive=transitive + [
       dep[SkylarkLibraryInfo].transitive_srcs for dep in ctx.attr.deps
   ])
-  sources = [source.path for source in ctx.files.srcs]
+  sources = [source.path for source in direct]
   flags = [
       "--format=%s" % ctx.attr.format,
       "--output_file=%s" % ctx.outputs.skylark_doc_zip.path,
@@ -62,7 +70,8 @@ def _skylark_doc_impl(ctx):
 skylark_doc = rule(
     _skylark_doc_impl,
     attrs = {
-        "srcs": attr.label_list(allow_files = _SKYLARK_FILETYPE),
+        "srcs": attr.label_list(providers = [SkylarkLibraryInfo],
+                                allow_files = _SKYLARK_FILETYPE),
         "deps": attr.label_list(providers = [SkylarkLibraryInfo],
                                 allow_files = False),
         "format": attr.string(default = "markdown"),

@@ -104,7 +104,7 @@ load("@io_bazel_skydoc//skylark:skylark.bzl", "skylark_doc")
 
 skylark_doc(
     name = "docs",
-    deps = [
+    srcs = [
         "//checkstyle:checkstyle-rules",
         "//lua:lua-rules",
     ],
@@ -112,5 +112,5 @@ skylark_doc(
 ```
 
 Running `bazel build //:docs` would build a single zip containing documentation
-for all the `.bzl` files contained in the two `skylark_library` targets.
+for all the `.bzl` files contained in the two `skylark_library` targets' `srcs`.
 
