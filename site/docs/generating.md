@@ -73,7 +73,7 @@ In this case, you can have `skylark_library` targets in `checkstyle/BUILD` and
 `checkstyle/BUILD`:
 
 ```python
-load("@io_bazel_skydoc//skylark:skylark.bzl", "skylark_library")
+load("@bazel_skylib//:skylark_library.bzl", "skylark_library")
 
 skylark_library(
     name = "checkstyle-rules",
@@ -84,7 +84,7 @@ skylark_library(
 `lua/BUILD`:
 
 ```python
-load("@io_bazel_skydoc//skylark:skylark.bzl", "skylark_library")
+load("@bazel_skylib//:skylark_library.bzl", "skylark_library")
 
 skylark_library(
     name = "lua-rules",

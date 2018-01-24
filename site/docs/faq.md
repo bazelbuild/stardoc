@@ -36,26 +36,3 @@ for Skylark docstrings as well. Because rule declarations are basically global
 variables, we follow the same convention for variable docstrings used by Python
 documentation generation tools, such as
 [epydoc](http://epydoc.sourceforge.net/manual-docstring.html).
-
-## Why `skylark_library` instead of `skydoc_library`?
-
-The `skylark_library` rule is used to create logical sets of Skylark (`.bzl`)
-source files. Since Skylark is the name of the language, we decided to call this
-rule `skylark_library` and the rule for generating documentation from Skylark
-files `skylark_doc`. Potentially, we may reuse the `skylark_library` rules for
-other purposes, such as running lint tests on the `.bzl` files, etc. Also, this
-is consistent with the convention used for rules that we have for generating
-documentation for other programming languages, such as Rust and D (see the
-[`rust_library`][rust_library]/[`rust_doc`][rust_doc],
-[`d_library`][d_library]/[`d_docs`][d_docs] rules respectively).
-
-[rust_library]: https://github.com/bazelbuild/rules_rust#rust_library
-[rust_doc]: https://github.com/bazelbuild/rules_rust#rust_doc
-[d_library]: https://github.com/bazelbuild/rules_d#d_binary
-[d_docs]: https://github.com/bazelbuild/rules_d#d_docs
-
-Note that if you only want to generate documentation for `.bzl` files in a
-single package (directory), you can simply use the `skylark_doc` rule and list
-all of the `.bzl` files in `srcs`. `skylark_library` is useful for generating
-documentation for a bunch of `.bzl` files spread across [multiple different
-packages](generating.html#multiple-targets).

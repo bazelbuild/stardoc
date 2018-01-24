@@ -14,9 +14,7 @@
 
 """Skylark rules"""
 
-load(
-    "@bazel_skylib//:skylark_library.bzl",
-    "skylark_library", "SkylarkLibraryInfo")
+load("@bazel_skylib//:skylark_library.bzl", "SkylarkLibraryInfo")
 
 _SKYLARK_FILETYPE = FileType([".bzl"])
 

@@ -5,9 +5,12 @@
 Skydoc is a documentation generator for [Bazel](https://bazel.build) build rules
 written in [Skylark](https://bazel.build/docs/skylark/index.html).
 
-Skydoc provides a set of Skylark rules (`skylark_library` and `skylark_doc`)
-that can be used to build documentation for Skylark rules in either Markdown or
-HTML. Skydoc generates one documentation page per `.bzl` file.
+Skydoc provides a Skylark rule (`skylark_doc`) that can be used to build documentation
+for Skylark rules in either Markdown or HTML. Skydoc generates one documentation page per
+`.bzl` file.
+
+NOTE: `skylark_library`'s implementation has moved to
+[Skylib](https://github.com/bazelbuild/bazel-skylib#skylark_library).
 
 ![A screenshot of Skydoc generated HTML documentation](https://raw.githubusercontent.com/bazelbuild/skydoc/master/skydoc-screenshot.png)
 
