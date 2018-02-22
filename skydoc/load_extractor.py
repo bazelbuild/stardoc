@@ -67,7 +67,7 @@ class LoadExtractor(object):
           load_symbol = LoadSymbol(label, symbol, alias)
           load_symbols.append(load_symbol)
 
-    except IOError:
+    except IOError as e:
       print("Failed to parse {0}: {1}".format(bzl_file, e.strerror))
       pass
 
