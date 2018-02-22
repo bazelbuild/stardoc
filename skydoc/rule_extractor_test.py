@@ -612,6 +612,41 @@ class RuleExtractorTest(unittest.TestCase):
         }
         """)
 
+  def test_doc_arg(self):
+    src = textwrap.dedent("""\
+        def _impl(ctx):
+          return struct()
+
+        rule_with_doc = rule(
+            implementation = _impl,
+            attrs = {
+                "foo": attr.string(doc = "Attribute documentation.")
+            },
+        )
+        \"\"\"A rule.
+        \"\"\"
+        """)
+
+    expected = textwrap.dedent("""\
+        rule {
+          name: "rule_with_doc"
+          documentation: "A rule."
+          attribute {
+            name: "name"
+            type: UNKNOWN
+            mandatory: true
+          }
+          attribute {
+            name: "foo"
+            type: STRING
+            mandatory: false
+            documentation: "Attribute documentation."
+            default: "\'\'"
+          }
+          type: RULE
+        }
+        """)
+
     self.check_protos(src, expected)
 
 if __name__ == '__main__':

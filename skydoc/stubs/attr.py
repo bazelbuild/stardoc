@@ -79,18 +79,18 @@ class AttrDescriptor(object):
       return 0
 
 
-def bool(default=False, mandatory=False):
+def bool(default=False, mandatory=False, doc=""):
   return AttrDescriptor(
-      build_pb2.Attribute.BOOLEAN, default=repr(default), mandatory=mandatory)
+      build_pb2.Attribute.BOOLEAN, default=repr(default), mandatory=mandatory, doc=doc)
 
 
-def int(default=0, mandatory=False, values=[]):
-  return AttrDescriptor(build_pb2.Attribute.INTEGER, repr(default), mandatory)
+def int(default=0, mandatory=False, values=[], doc=""):
+  return AttrDescriptor(build_pb2.Attribute.INTEGER, repr(default), mandatory, doc=doc)
 
 
-def int_list(default=[], mandatory=False, non_empty=False, allow_empty=True):
+def int_list(default=[], mandatory=False, non_empty=False, allow_empty=True, doc=""):
   return AttrDescriptor(build_pb2.Attribute.INTEGER_LIST, repr(default),
-                        mandatory)
+                        mandatory, doc)
 
 
 def label(default=None,
@@ -102,10 +102,11 @@ def label(default=None,
           allow_rules=None,
           single_file=False,
           cfg=None,
-          aspects=[]):
+          aspects=[],
+          doc=""):
   if default != None:
     default = repr(default)
-  return AttrDescriptor(build_pb2.Attribute.LABEL, default, mandatory)
+  return AttrDescriptor(build_pb2.Attribute.LABEL, default, mandatory, doc)
 
 
 def label_list(default=[],
@@ -117,59 +118,70 @@ def label_list(default=[],
                non_empty=False,
                allow_empty=True,
                cfg=None,
-               aspects=[]):
+               aspects=[],
+               doc=""):
   default_val = []
   for label in default:
     default_val.append(repr(label))
   return AttrDescriptor(build_pb2.Attribute.LABEL_LIST, repr(default_val),
-                        mandatory)
+                        mandatory, doc)
 
 
-def license(default=None, mandatory=False):
+def license(default=None, mandatory=False, doc=""):
   if default != None:
     default = repr(default)
-  return AttrDescriptor(build_pb2.Attribute.LICENSE, default, mandatory)
+  return AttrDescriptor(build_pb2.Attribute.LICENSE, default, mandatory, doc)
 
 
-def output(default=None, mandatory=False):
+def output(default=None, mandatory=False, doc=""):
   if default != None:
     default = repr(default)
-  return AttrDescriptor(build_pb2.Attribute.OUTPUT, default, mandatory)
+  return AttrDescriptor(build_pb2.Attribute.OUTPUT, default, mandatory, doc)
 
 
-def output_list(default=[], mandatory=False, non_empty=False, allow_empty=True):
+def output_list(default=[], mandatory=False, non_empty=False, allow_empty=True, doc=""):
   default_val = []
   for label in default:
     default_val.append(repr(label))
   return AttrDescriptor(build_pb2.Attribute.OUTPUT_LIST, repr(default_val),
-                        mandatory)
+                        mandatory, doc)
 
 
-def string(default="", mandatory=False, values=[]):
-  return AttrDescriptor(build_pb2.Attribute.STRING, repr(default), mandatory)
+def string(default="", mandatory=False, values=[], doc=""):
+  return AttrDescriptor(build_pb2.Attribute.STRING, repr(default), mandatory, doc)
 
 
-def string_dict(default={}, mandatory=False, non_empty=False, allow_empty=True):
+def string_dict(default={},
+                mandatory=False,
+                non_empty=False,
+                allow_empty=True,
+                doc=""):
   return AttrDescriptor(build_pb2.Attribute.STRING_DICT, repr(default),
-                        mandatory)
+                        mandatory, doc)
 
 
-def string_list(default=[], mandatory=False, non_empty=False, allow_empty=True):
+def string_list(default=[],
+                mandatory=False,
+                non_empty=False,
+                allow_empty=True,
+                doc=""):
   return AttrDescriptor(build_pb2.Attribute.STRING_LIST, repr(default),
-                        mandatory)
+                        mandatory, doc)
 
 
 def string_list_dict(default={},
                      mandatory=False,
                      non_empty=False,
-                     allow_empty=True):
+                     allow_empty=True,
+                     doc=""):
   return AttrDescriptor(build_pb2.Attribute.STRING_LIST_DICT, repr(default),
-                        mandatory)
+                        mandatory, doc)
 
 def label_keyed_string_dict(default={},
                             mandatory=False,
                             allow_files=False,
                             non_empty=False,
-                            allow_empty=True):
+                            allow_empty=True,
+                            doc=""):
   return AttrDescriptor(build_pb2.Attribute.LABEL_KEYED_STRING_DICT, repr(default),
-                        mandatory)
+                        mandatory, doc)
