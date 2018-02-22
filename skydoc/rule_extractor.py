@@ -96,11 +96,14 @@ class RuleDocExtractor(object):
     compiled = None
     with open(bzl_file) as f:
       compiled = compile(f.read(), bzl_file, 'exec')
-    skylark_locals = {}
     global_stubs = create_stubs(SKYLARK_STUBS, load_symbols)
-    exec(compiled) in global_stubs, skylark_locals
+    env = global_stubs.copy()
+    exec(compiled) in env
 
-    for name, obj in skylark_locals.iteritems():
+    new_globals = (
+      defn for defn in env.iteritems() if not global_stubs.has_key(defn[0])
+    )
+    for name, obj in new_globals:
       if (isinstance(obj, skylark_globals.RuleDescriptor) and
           not name.startswith('_')):
         obj.attrs['name'] = attr.AttrDescriptor(

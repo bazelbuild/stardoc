@@ -311,6 +311,35 @@ class RuleExtractorTest(unittest.TestCase):
 
     self.check_protos(src, expected)
 
+  def test_rule_with_generated_impl(self):
+    src = textwrap.dedent("""\
+        def real_impl(ctx):
+          return struct()
+
+        def macro():
+          return real_impl
+
+        impl = macro()
+
+        thisrule = rule(
+            implementation = impl,
+        )
+        """)
+
+    expected = textwrap.dedent("""\
+        rule {
+          name: "thisrule"
+          attribute {
+            name: "name"
+            type: UNKNOWN
+            mandatory: true
+          }
+          type: RULE
+        }
+        """)
+
+    self.check_protos(src, expected)
+
   def test_multi_line_description(self):
     src = textwrap.dedent("""\
         def _impl(ctx):
