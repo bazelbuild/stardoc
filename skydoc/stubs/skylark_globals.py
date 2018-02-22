@@ -26,7 +26,7 @@ REPOSITORY_NAME = 'REPOSITORY_NAME'
 native = ''
 
 def aspect(implementation, attr_aspects=[], attrs=None, fragments=[],
-           host_fragments=[]):
+           host_fragments=[], toolchains=[]):
   return None
 
 def provider(doc='', fields=None):
@@ -52,7 +52,7 @@ class Label(object):
 class RuleDescriptor(object):
   def __init__(self, implementation, test=False, attrs={}, outputs={},
                executable=False, output_to_genfiles=False, fragments=[],
-               host_fragments=[], local=False, doc='', type='rule'):
+               host_fragments=[], local=False, doc='', type='rule', toolchains=[]):
     """Constructor for RuleDescriptor
 
     Args:
@@ -98,9 +98,9 @@ class RuleDescriptor(object):
 
 def rule(implementation, test=False, attrs={}, outputs=None,
          executable=False, output_to_genfiles=False, fragments=[],
-         host_fragments=[]):
+         host_fragments=[], toolchains=[]):
   return RuleDescriptor(implementation, test, attrs, outputs, executable,
-                        output_to_genfiles, fragments, host_fragments)
+                        output_to_genfiles, fragments, host_fragments, toolchains)
 
 def repository_rule(implementation, attrs={}, local=False, environ=[]):
   return RuleDescriptor(implementation, attrs=attrs, local=local,
