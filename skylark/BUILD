@@ -1,4 +1,4 @@
-licenses(["notice"]) # Apache 2.0
+licenses(["notice"])  # Apache 2.0
 
 package(default_visibility = ["//visibility:public"])
 
