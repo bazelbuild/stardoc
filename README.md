@@ -1,6 +1,6 @@
 # [Skydoc](https://skydoc.bazel.build) - Skylark Documentation Generator
 
-[![Build Status](https://ci.bazel.io/buildStatus/icon?job=skydoc)](https://ci.bazel.io/job/skydoc/)
+[![Build status](https://badge.buildkite.com/c793ed98a3802393dba9813f524bfe28a87da2ab235df38c49.svg)](https://buildkite.com/bazel/skydoc-postsubmit)
 
 Skydoc is a documentation generator for [Bazel](https://bazel.build) build rules
 written in [Skylark](https://bazel.build/docs/skylark/index.html).
