@@ -93,6 +93,54 @@ class MacroExtractorTest(unittest.TestCase):
 
     self.check_protos(src, expected)
 
+  def test_kwargs(self):
+    src = textwrap.dedent("""\
+        def with_keyword_args(name, foo=False, **kwargs):
+          \"\"\"A rule with keyword args.
+
+          Args:
+            name: A unique name for this rule.
+            foo: A test argument.
+            **kwargs: Keyword arguments.
+          \"\"\"
+          native.genrule(
+              name = name,
+              out = ["foo"],
+              cmd = "touch $@",
+              visibility = visibility,
+              **kwargs
+          )
+        """)
+
+    expected = textwrap.dedent("""\
+        rule {
+          name: "with_keyword_args"
+          documentation: "A rule with keyword args."
+          attribute {
+            name: "name"
+            type: UNKNOWN
+            mandatory: true
+            documentation: "A unique name for this rule."
+          }
+          attribute {
+            name: "foo"
+            type: BOOLEAN
+            mandatory: false
+            default: "False"
+            documentation: "A test argument."
+          }
+          attribute {
+            name: "**kwargs"
+            type: UNKNOWN
+            mandatory: false
+            documentation: "Keyword arguments."
+          }
+          type: MACRO
+        }
+        """)
+
+    self.check_protos(src, expected)
+
   def test_undocumented(self):
     src = textwrap.dedent("""\
         def undocumented(name, visibility=None):

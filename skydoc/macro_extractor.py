@@ -103,6 +103,15 @@ class MacroDocExtractor(object):
         if attr.type == build_pb2.Attribute.BOOLEAN:
           attr.default = node.id
 
+    if stmt.args.kwarg:
+      attr = rule.attribute.add()
+      attr_name = '**' + stmt.args.kwarg
+      attr.name = attr_name
+      attr.mandatory = False
+      attr.type = build_pb2.Attribute.UNKNOWN
+      if attr_name in extracted_docs.attr_docs:
+        attr.documentation = extracted_docs.attr_docs[attr_name]
+
     for template, doc in extracted_docs.output_docs.iteritems():
       output = rule.output.add()
       output.template = template
