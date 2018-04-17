@@ -641,6 +641,8 @@ class RuleExtractorTest(unittest.TestCase):
         }
         """)
 
+    self.check_protos(src, expected)
+
   def test_doc_arg(self):
     src = textwrap.dedent("""\
         def _impl(ctx):
