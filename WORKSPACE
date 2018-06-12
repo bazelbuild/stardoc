@@ -1,4 +1,5 @@
 workspace(name = "io_bazel_skydoc")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 git_repository(
     name = "io_bazel_rules_sass",

@@ -14,6 +14,7 @@
 
 """Skylark rules"""
 
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_skylib//:skylark_library.bzl", "SkylarkLibraryInfo")
 
 _SKYLARK_FILETYPE = FileType([".bzl"])
@@ -212,7 +213,7 @@ py_library(
 
 def skydoc_repositories():
   """Adds the external repositories used by the skylark rules."""
-  native.http_archive(
+  http_archive(
       name = "protobuf",
       urls = ["https://github.com/google/protobuf/archive/v3.4.1.tar.gz"],
       sha256 = "8e0236242106e680b4f9f576cc44b8cd711e948b20a9fc07769b0a20ceab9cc4",
@@ -240,7 +241,7 @@ def skydoc_repositories():
       actual = "@markupsafe_archive//:markupsafe",
   )
 
-  native.new_http_archive(
+  http_archive(
       name = "jinja2_archive",
       urls = ["https://pypi.python.org/packages/source/J/Jinja2/Jinja2-2.8.tar.gz#md5=edb51693fe22c53cee5403775c71a99e"],
       sha256 = "bc1ff2ff88dbfacefde4ddde471d1417d3b304e8df103a7a9437d47269201bf4",
@@ -253,7 +254,7 @@ def skydoc_repositories():
       actual = "@jinja2_archive//:jinja2",
   )
 
-  native.new_http_archive(
+  http_archive(
       name = "mistune_archive",
       urls = ["https://pypi.python.org/packages/source/m/mistune/mistune-0.7.1.tar.gz#md5=057bc28bf629d6a1283d680a34ed9d0f"],
       sha256 = "6076dedf768348927d991f4371e5a799c6a0158b16091df08ee85ee231d929a7",
@@ -266,7 +267,7 @@ def skydoc_repositories():
       actual = "@mistune_archive//:mistune",
   )
 
-  native.new_http_archive(
+  http_archive(
       name = "six_archive",
       urls = ["https://pypi.python.org/packages/source/s/six/six-1.10.0.tar.gz#md5=34eed507548117b2ab523ab14b2f8b55"],
       sha256 = "105f8d68616f8248e24bf0e9372ef04d3cc10104f1980f54d57b2ce73a5ad56a",
@@ -279,7 +280,7 @@ def skydoc_repositories():
       actual = "@six_archive//:six",
   )
 
-  native.new_http_archive(
+  http_archive(
       name = "gflags_repo",
       urls = ["https://github.com/google/python-gflags/archive/python-gflags-2.0.zip"],
       sha256 = "344990e63d49b9b7a829aec37d5981d558fea12879f673ee7d25d2a109eb30ce",
