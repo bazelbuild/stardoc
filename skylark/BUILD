@@ -4,11 +4,22 @@ package(default_visibility = ["//visibility:public"])
 
 load("@bazel_skylib//:skylark_library.bzl", "skylark_library")
 load("//skylark:skylark.bzl", "skylark_doc")
+load("//skylark:stardoc.bzl", "stardoc")
 
 skylark_library(
     name = "skylark",
     srcs = ["skylark.bzl"],
-    deps = ["@bazel_skylib//:skylark_library"],
+    deps = [
+        "@bazel_skylib//:skylark_library"
+    ],
+)
+
+skylark_library(
+    name = "stardoc_lib",
+    srcs = ["stardoc.bzl"],
+    deps = [
+        "@bazel_skylib//:skylark_library",
+    ],
 )
 
 skylark_doc(
@@ -17,4 +28,12 @@ skylark_doc(
     overview = False,
     strip_prefix = "skylark",
     deps = [":skylark"],
+)
+
+stardoc(
+    name = "stardoc_doc",
+    input = ":stardoc.bzl",
+    deps = [":stardoc_lib"],
+    symbol_names = ["stardoc"],
+    out = "stardoc_doc.md",
 )
