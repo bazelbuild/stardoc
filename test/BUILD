@@ -5,7 +5,7 @@ sh_test(
     srcs = ["diff_test_runner.sh"],
     args = [
         "$(location //skylark:stardoc_doc.md)",
-        "$(location :self_doc_golden.md)"
+        "$(location :self_doc_golden.md)",
     ],
     data = [
         "self_doc_golden.md",

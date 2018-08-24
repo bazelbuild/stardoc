@@ -10,7 +10,7 @@ skylark_library(
     name = "skylark",
     srcs = ["skylark.bzl"],
     deps = [
-        "@bazel_skylib//:skylark_library"
+        "@bazel_skylib//:skylark_library",
     ],
 )
 
@@ -32,8 +32,8 @@ skylark_doc(
 
 stardoc(
     name = "stardoc_doc",
-    input = ":stardoc.bzl",
-    deps = [":stardoc_lib"],
-    symbol_names = ["stardoc"],
     out = "stardoc_doc.md",
+    input = ":stardoc.bzl",
+    symbol_names = ["stardoc"],
+    deps = [":stardoc_lib"],
 )
