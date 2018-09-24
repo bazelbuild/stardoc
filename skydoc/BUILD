@@ -96,5 +96,6 @@ py_binary(
         ":rule_extractor",
         "//external:gflags",
         "//external:jinja2",
+        "@bazel_tools//tools/python/runfiles",
     ],
 )

@@ -19,12 +19,14 @@ import gflags
 import jinja2
 import mistune
 import os
+import posixpath
 import re
 import shutil
 import sys
 import tempfile
 import zipfile
 
+from bazel_tools.tools.python.runfiles import runfiles as runfiles_lib
 from skydoc import common
 from skydoc import load_extractor
 from skydoc import macro_extractor
@@ -68,9 +70,13 @@ CSS_PATH = 'skydoc/sass'
 
 CSS_FILE = 'main.css'
 
-def _create_jinja_environment(site_root, link_ext):
+def _create_jinja_environment(runfiles, site_root, link_ext):
+  def _Load(path):
+    return runfiles.Rlocation(posixpath.join(WORKSPACE_DIR, TEMPLATE_PATH,
+                                             path))
+
   env = jinja2.Environment(
-      loader=jinja2.FileSystemLoader(_runfile_path(TEMPLATE_PATH)),
+      loader=jinja2.FunctionLoader(_Load),
       keep_trailing_newline=True,
       line_statement_prefix='%')
   env.filters['markdown'] = lambda text: jinja2.Markup(mistune.markdown(text))
@@ -82,40 +88,8 @@ def _create_jinja_environment(site_root, link_ext):
 
 # TODO(dzc): Remove this workaround once we switch to a self-contained Python
 # binary format such as PEX.
-def _runfile_path(path):
-  """Prepends the given path with the path to the root of the runfiles tree.
-
-  The files that skydoc depend on are generated in the Bazel runfiles tree.
-  There is no built-in way to get the root of the runfiles tree but it is
-  possible to generate it from sys.argv[0]. The code here is adapted from the
-  Bazel Python launcher stub.
-
-  Args:
-    path: The relative path from the root of the runfiles tree.
-
-  Returns:
-    Returns path prepended with the absolute path to the root of the runfiles
-    tree.
-  """
-  script_filename = os.path.abspath(sys.argv[0])
-  while True:
-    runfiles_dir = script_filename + '.runfiles'
-    if os.path.isdir(runfiles_dir):
-      break
-
-    # Follow a symlink and try again.
-    if os.path.islink(script_filename):
-      link = os.readlink(script_filename)
-      script_filename = os.path.join(os.path.dirname(script_filename), link)
-      continue
-
-    matchobj = re.match("(.*\.runfiles)/.*", os.path.abspath(sys.argv[0]))
-    if matchobj:
-      runfiles_dir = matchobj.group(1)
-      break
-
-    raise AssertionError('Cannot find .runfiles directory.')
-  return os.path.join(runfiles_dir, WORKSPACE_DIR, path)
+def _runfile_path(runfiles, path):
+  return runfiles.Rlocation(posixpath.join(WORKSPACE_DIR, path))
 
 def merge_languages(macro_language, rule_language):
   for rule in rule_language.rule:
@@ -140,9 +114,10 @@ class WriterOptions(object):
 class MarkdownWriter(object):
   """Writer for generating documentation in Markdown."""
 
-  def __init__(self, writer_options):
+  def __init__(self, writer_options, runfiles):
     self.__options = writer_options
-    self.__env = _create_jinja_environment(self.__options.site_root,
+    self.__env = _create_jinja_environment(runfiles,
+                                           self.__options.site_root,
                                            self.__options.link_ext)
 
   def write(self, rulesets):
@@ -205,9 +180,11 @@ class MarkdownWriter(object):
 class HtmlWriter(object):
   """Writer for generating documentation in HTML."""
 
-  def __init__(self, options):
+  def __init__(self, options, runfiles):
+    self.__runfiles = runfiles
     self.__options = options
-    self.__env = _create_jinja_environment(self.__options.site_root,
+    self.__env = _create_jinja_environment(runfiles,
+                                           self.__options.site_root,
                                            self.__options.link_ext)
 
   def write(self, rulesets):
@@ -231,8 +208,9 @@ class HtmlWriter(object):
         with zipfile.ZipFile(self.__options.output_file, 'w') as zf:
           for output_file, output_path in output_files:
             zf.write(output_file, output_path)
-          zf.write(os.path.join(_runfile_path(CSS_PATH), CSS_FILE),
-                                '%s' % CSS_FILE)
+          zf.write(_runfile_path(self.__runfiles,
+                                 posixpath.join(CSS_PATH, CSS_FILE)),
+                   '%s' % CSS_FILE)
       else:
         for output_file, output_path in output_files:
           dest_file = os.path.join(self.__options.output_dir, output_path)
@@ -242,7 +220,8 @@ class HtmlWriter(object):
           shutil.copyfile(output_file, dest_file)
 
         # Copy CSS file.
-        shutil.copyfile(os.path.join(_runfile_path(CSS_PATH), CSS_FILE),
+        shutil.copyfile(_runfile_path(self.__runfiles,
+                                      posixpath.join(CSS_PATH, CSS_FILE)),
                         os.path.join(self.__options.output_dir, CSS_FILE))
     finally:
       # Delete temporary directory.
@@ -290,6 +269,21 @@ def main(argv):
     print(err.message)
     sys.exit(1)
 
+  runfiles = runfiles_lib.Create()
+  if not runfiles:
+    # TODO(laszlocsomor): fix https://github.com/bazelbuild/bazel/issues/6212
+    # and remove this if-block once Bazel is released with that bugfix.
+    if (not os.environ.get("RUNFILES_DIR") and
+        not os.environ.get("RUNFILES_MANIFEST_FILE")):
+      argv0 = sys.argv[0]
+      pos = argv0.rfind('%s%s%s' % (os.sep, WORKSPACE_DIR, os.sep))
+      if pos > -1:
+        runfiles = runfiles_lib.CreateDirectoryBased(argv0[0:pos - 1])
+
+  if not runfiles:
+    print("Cannot load runfiles")
+    sys.exit(1)
+
   rulesets = []
   load_sym_extractor = load_extractor.LoadExtractor()
   for bzl_file in bzl_files:
@@ -316,10 +310,10 @@ def main(argv):
       FLAGS.output_dir, FLAGS.output_file, FLAGS.zip, FLAGS.overview,
       FLAGS.overview_filename, FLAGS.link_ext, FLAGS.site_root)
   if FLAGS.format == "markdown":
-    markdown_writer = MarkdownWriter(writer_options)
+    markdown_writer = MarkdownWriter(writer_options, runfiles)
     markdown_writer.write(rulesets)
   elif FLAGS.format == "html":
-    html_writer = HtmlWriter(writer_options)
+    html_writer = HtmlWriter(writer_options, runfiles)
     html_writer.write(rulesets)
   else:
     sys.stderr.write(
