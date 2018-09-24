@@ -14,6 +14,7 @@
 
 """Documentation generator for Skylark"""
 
+from __future__ import print_function
 # internal imports
 import gflags
 import jinja2
@@ -210,7 +211,7 @@ class HtmlWriter(object):
             zf.write(output_file, output_path)
           zf.write(_runfile_path(self.__runfiles,
                                  posixpath.join(CSS_PATH, CSS_FILE)),
-                   '%s' % CSS_FILE)
+                   CSS_FILE)
       else:
         for output_file, output_path in output_files:
           dest_file = os.path.join(self.__options.output_dir, output_path)
@@ -278,10 +279,14 @@ def main(argv):
       argv0 = sys.argv[0]
       pos = argv0.rfind('%s%s%s' % (os.sep, WORKSPACE_DIR, os.sep))
       if pos > -1:
-        runfiles = runfiles_lib.CreateDirectoryBased(argv0[0:pos - 1])
+        dirpath = argv0[0:pos]
+        if not os.path.isdir(dirpath):
+          print("ERROR: Cannot access runfiles directory (%s)" % dirpath)
+          sys.exit(1)
+        runfiles = runfiles_lib.CreateDirectoryBased(dirpath)
 
   if not runfiles:
-    print("Cannot load runfiles")
+    print("ERROR: Cannot load runfiles")
     sys.exit(1)
 
   rulesets = []
