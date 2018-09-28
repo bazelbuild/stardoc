@@ -14,6 +14,8 @@
 
 """Stubs for Skylark globals"""
 
+import collections
+
 
 def FileType(filetypes=[]):
   return filetypes
@@ -91,9 +93,9 @@ class RuleDescriptor(object):
     self.doc = doc
     self.example_doc = ''
     self.outputs = outputs
-    self.output_docs = {}
+    self.output_docs = collections.OrderedDict() if hasattr(collections, 'OrderedDict') else {}
     self.type = type
-    for name, attr in self.attrs.iteritems():
+    for name, attr in self.attrs.items():
       attr.name = name
 
 def rule(implementation, test=False, attrs={}, outputs=None,

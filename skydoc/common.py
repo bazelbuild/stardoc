@@ -14,6 +14,7 @@
 
 """Common functions for skydoc."""
 
+import collections
 import re
 import textwrap
 from xml.sax.saxutils import escape
@@ -149,8 +150,8 @@ def parse_docstring(doc):
     The new documentation string and a dictionary that maps each attribute to
     its documentation
   """
-  attr_docs = {}
-  output_docs = {}
+  attr_docs = collections.OrderedDict() if hasattr(collections, 'OrderedDict') else {}
+  output_docs = collections.OrderedDict() if hasattr(collections, 'OrderedDict') else {}
   examples = []
   lines = doc.split("\n")
   docs = []

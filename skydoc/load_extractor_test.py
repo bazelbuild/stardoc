@@ -22,7 +22,7 @@ from skydoc import load_extractor
 class LoadExtractorTest(unittest.TestCase):
 
   def check_symbols(self, src, expected):
-    with tempfile.NamedTemporaryFile() as tf:
+    with tempfile.NamedTemporaryFile(mode='w+') as tf:
       tf.write(src)
       tf.flush()
 
@@ -45,7 +45,7 @@ class LoadExtractorTest(unittest.TestCase):
     self.check_symbols(src, expected)
 
   def raises_error(self, src):
-    with tempfile.NamedTemporaryFile() as tf:
+    with tempfile.NamedTemporaryFile(mode='w+') as tf:
       tf.write(src)
       tf.flush()
 

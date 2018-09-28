@@ -38,6 +38,8 @@ def get_type(expr):
     return build_pb2.Attribute.STRING_LIST
   elif isinstance(expr, ast.Name) and (expr.id == "True" or expr.id == "False"):
     return build_pb2.Attribute.BOOLEAN
+  elif hasattr(ast, 'NameConstant') and isinstance(expr, ast.NameConstant) and (expr.value == True or expr.value == False):
+    return build_pb2.Attribute.BOOLEAN
   else:
     return build_pb2.Attribute.UNKNOWN
 
@@ -87,7 +89,7 @@ class MacroDocExtractor(object):
 
     for i in range(len(stmt.args.args)):
       attr = rule.attribute.add()
-      attr_name = stmt.args.args[i].id
+      attr_name = stmt.args.args[i].id if hasattr(stmt.args.args[i], 'id') else stmt.args.args[i].arg
       attr.name = attr_name
 
       if attr_name in extracted_docs.attr_docs:
@@ -101,18 +103,18 @@ class MacroDocExtractor(object):
         attr.mandatory = False
         attr.type = get_type(node)
         if attr.type == build_pb2.Attribute.BOOLEAN:
-          attr.default = node.id
+          attr.default = str(node.value) if hasattr(node, 'value') else node.id
 
     if stmt.args.kwarg:
       attr = rule.attribute.add()
-      attr_name = '**' + stmt.args.kwarg
+      attr_name = '**' + (stmt.args.kwarg.arg if hasattr(stmt.args.kwarg, 'arg') else stmt.args.kwarg)
       attr.name = attr_name
       attr.mandatory = False
       attr.type = build_pb2.Attribute.UNKNOWN
       if attr_name in extracted_docs.attr_docs:
         attr.documentation = extracted_docs.attr_docs[attr_name]
 
-    for template, doc in extracted_docs.output_docs.iteritems():
+    for template, doc in extracted_docs.output_docs.items():
       output = rule.output.add()
       output.template = template
       output.documentation = doc
@@ -124,7 +126,8 @@ class MacroDocExtractor(object):
       bzl_file: The .bzl file to extract macro documentation from.
     """
     try:
-      tree = ast.parse(open(bzl_file).read(), bzl_file)
+      with open(bzl_file) as f:
+        tree = ast.parse(f.read(), bzl_file)
       self._add_file_docs(tree)
       for stmt in tree.body:
         if isinstance(stmt, ast.FunctionDef) and not stmt.name.startswith("_"):

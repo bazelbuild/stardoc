@@ -63,7 +63,7 @@ class LoadExtractor(object):
         for arg in args[1:]:
           load_symbol = LoadSymbol(label, arg, None)
           load_symbols.append(load_symbol)
-        for alias, symbol in kwargs.iteritems():
+        for alias, symbol in kwargs.items():
           load_symbol = LoadSymbol(label, symbol, alias)
           load_symbols.append(load_symbol)
 

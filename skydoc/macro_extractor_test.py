@@ -28,7 +28,7 @@ from skydoc import macro_extractor
 class MacroExtractorTest(unittest.TestCase):
 
   def check_protos(self, src, expected):
-    with tempfile.NamedTemporaryFile() as tf:
+    with tempfile.NamedTemporaryFile(mode='w+') as tf:
       tf.write(src)
       tf.flush()
 
@@ -385,12 +385,12 @@ class MacroExtractorTest(unittest.TestCase):
             documentation: "The visibility of this rule."
           }
           output {
-            template: "%{name}_deploy.jar"
-            documentation: "A Java archive suitable for deployment.\\n\\nOnly built if explicitly requested."
-          }
-          output {
             template: "%{name}.jar"
             documentation: "A Java archive."
+          }
+          output {
+            template: "%{name}_deploy.jar"
+            documentation: "A Java archive suitable for deployment.\\n\\nOnly built if explicitly requested."
           }
           type: MACRO
         }
@@ -402,7 +402,7 @@ class MacroExtractorTest(unittest.TestCase):
     src = textwrap.dedent("""\
         \"\"\"Example rules\"\"\"
         """)
-    with tempfile.NamedTemporaryFile() as tf:
+    with tempfile.NamedTemporaryFile(mode='w+') as tf:
       tf.write(src)
       tf.flush()
 
@@ -420,7 +420,7 @@ class MacroExtractorTest(unittest.TestCase):
         Documentation continued here.
         \"\"\"
         """)
-    with tempfile.NamedTemporaryFile() as tf:
+    with tempfile.NamedTemporaryFile(mode='w+') as tf:
       tf.write(src)
       tf.flush()
 
@@ -441,7 +441,7 @@ class MacroExtractorTest(unittest.TestCase):
         Documentation continued here.
         \"\"\"
         """)
-    with tempfile.NamedTemporaryFile() as tf:
+    with tempfile.NamedTemporaryFile(mode='w+') as tf:
       tf.write(src)
       tf.flush()
 

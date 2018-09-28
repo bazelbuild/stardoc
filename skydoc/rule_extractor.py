@@ -15,6 +15,7 @@
 """Extractor for Skylark rule documentation."""
 
 import ast
+import functools
 # internal imports
 
 from skydoc import build_pb2
@@ -81,6 +82,20 @@ class RuleDocExtractor(object):
     self.__extracted_rules = {}
     self.__load_symbols = []
 
+  def _exec_code(self, compiled, global_stubs):
+    """Executes compiled code with a copy of the global stubs.
+
+    This has to be extracted into a separate function in order to be compatible
+    with the exec statement in older Python versions, which otherwise throws a
+    syntax error: "unqualified exec is not allowed in function".
+
+    Returns:
+      The modified environment after the execution is finished.
+    """
+    env = global_stubs.copy()
+    exec(compiled, env)
+    return env
+
   def _process_skylark(self, bzl_file, load_symbols):
     """Evaluates the Skylark code in the .bzl file.
 
@@ -93,15 +108,13 @@ class RuleDocExtractor(object):
       load_symbols: List of load_extractor.LoadSymbol objects containing info
         about symbols load()ed from other .bzl files.
     """
-    compiled = None
     with open(bzl_file) as f:
       compiled = compile(f.read(), bzl_file, 'exec')
     global_stubs = create_stubs(SKYLARK_STUBS, load_symbols)
-    env = global_stubs.copy()
-    exec(compiled) in env
+    env = self._exec_code(compiled, global_stubs)
 
     new_globals = (
-      defn for defn in env.iteritems() if not global_stubs.has_key(defn[0])
+      defn for defn in env.items() if not defn[0] in global_stubs
     )
     for name, obj in new_globals:
       if (isinstance(obj, skylark_globals.RuleDescriptor) and
@@ -126,14 +139,14 @@ class RuleDocExtractor(object):
       rule = self.__extracted_rules[name]
       rule.doc = extracted_docs.doc
       rule.example_doc = extracted_docs.example_doc
-      for attr_name, desc in extracted_docs.attr_docs.iteritems():
+      for attr_name, desc in extracted_docs.attr_docs.items():
         if attr_name in rule.attrs:
           rule.attrs[attr_name].doc = desc
 
       # Match the output name from the docstring with the corresponding output
       # template name extracted from rule() and store a mapping of output
       # template name to documentation.
-      for output_name, desc in extracted_docs.output_docs.iteritems():
+      for output_name, desc in extracted_docs.output_docs.items():
         if output_name in rule.outputs:
           output_template = rule.outputs[output_name]
           rule.output_docs[output_template] = desc
@@ -179,7 +192,7 @@ class RuleDocExtractor(object):
     from the .bzl file.
     """
     rules = []
-    for rule_name, rule_desc in self.__extracted_rules.iteritems():
+    for rule_name, rule_desc in self.__extracted_rules.items():
       rule_desc.name = rule_name
       rules.append(rule_desc)
     rules = sorted(rules, key=lambda rule_desc: rule_desc.name)
@@ -196,7 +209,13 @@ class RuleDocExtractor(object):
       if rule_desc.example_doc:
         rule.example_documentation = rule_desc.example_doc
 
-      attrs = sorted(rule_desc.attrs.values(), cmp=attr.attr_compare)
+      if hasattr(functools, 'cmp_to_key'):
+        # Python 2.7 and 3.x
+        attrs = sorted(rule_desc.attrs.values(), key=functools.cmp_to_key(attr.attr_compare))
+      else:
+        # Python <2.7
+        attrs = sorted(rule_desc.attrs.values(), cmp=attr.attr_compare)
+
       for attr_desc in attrs:
         if attr_desc.name.startswith("_"):
           continue
@@ -209,7 +228,7 @@ class RuleDocExtractor(object):
         if attr_desc.default != None:
           attr_proto.default = attr_desc.default
 
-      for template, doc in rule_desc.output_docs.iteritems():
+      for template, doc in rule_desc.output_docs.items():
         output = rule.output.add()
         output.template = template
         output.documentation = doc

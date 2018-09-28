@@ -207,17 +207,6 @@ py_library(
 )
 """
 
-GFLAGS_BUILD_FILE = """
-py_library(
-    name = "gflags",
-    srcs = [
-        "gflags.py",
-        "gflags_validators.py",
-    ],
-    visibility = ["//visibility:public"],
-)
-"""
-
 def skydoc_repositories():
     """Adds the external repositories used by the skylark rules."""
     http_archive(
@@ -285,17 +274,4 @@ def skydoc_repositories():
     native.bind(
         name = "six",
         actual = "@six_archive//:six",
-    )
-
-    http_archive(
-        name = "gflags_repo",
-        urls = ["https://github.com/google/python-gflags/archive/python-gflags-2.0.zip"],
-        sha256 = "344990e63d49b9b7a829aec37d5981d558fea12879f673ee7d25d2a109eb30ce",
-        build_file_content = GFLAGS_BUILD_FILE,
-        strip_prefix = "python-gflags-python-gflags-2.0",
-    )
-
-    native.bind(
-        name = "gflags",
-        actual = "@gflags_repo//:gflags",
     )

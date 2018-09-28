@@ -16,7 +16,6 @@
 
 from __future__ import print_function
 # internal imports
-import gflags
 import jinja2
 import mistune
 import os
@@ -27,40 +26,14 @@ import sys
 import tempfile
 import zipfile
 
+from optparse import OptionParser
+
 from bazel_tools.tools.python.runfiles import runfiles as runfiles_lib
 from skydoc import common
 from skydoc import load_extractor
 from skydoc import macro_extractor
 from skydoc import rule
 from skydoc import rule_extractor
-
-gflags.DEFINE_string('output_dir', '',
-    'The directory to write the output generated documentation to if '
-    '--zip=false')
-gflags.DEFINE_string('output_file', '',
-    'The output zip archive file to write if --zip=true.')
-gflags.DEFINE_string('format', 'markdown',
-    'The output format. Possible values are markdown and html')
-gflags.DEFINE_bool('zip', True,
-    'Whether to generate a ZIP arhive containing the output files. If '
-    '--zip is true, then skydoc will generate a zip file, skydoc.zip by '
-    'default or as specified by --output_file. If --zip is false, then '
-    'skydoc will generate documentation, either in Markdown or HTML as '
-    'specifed by --format, in the current directory or --output_dir if set.')
-gflags.DEFINE_string('strip_prefix', '',
-    'The directory prefix to strip from all generated docs, which are '
-    'generated in subdirectories that match the package structure of the '
-    'input .bzl files. The prefix to strip must be common to all .bzl files; '
-    'otherwise, skydoc will raise an error.')
-gflags.DEFINE_bool('overview', False, 'Whether to generate an overview page')
-gflags.DEFINE_string('overview_filename', 'index',
-    'The file name to use for the overview page.')
-gflags.DEFINE_string('link_ext', 'html',
-    'The file extension used for links in the generated documentation')
-gflags.DEFINE_string('site_root', '',
-    'The site root to be prepended to all URLs in the generated documentation')
-
-FLAGS = gflags.FLAGS
 
 DEFAULT_OUTPUT_DIR = '.'
 DEFAULT_OUTPUT_FILE = 'skydoc.zip'
@@ -254,18 +227,47 @@ class HtmlWriter(object):
     return (output_file, "%s.html" % self.__options.overview_filename)
 
 def main(argv):
-  if FLAGS.output_dir and FLAGS.output_file:
+  parser = OptionParser()
+  parser.add_option('--output_dir', default='',
+      help='The directory to write the output generated documentation to if --zip=false')
+  parser.add_option('--output_file', default='',
+      help='The output zip archive file to write if --zip=true.')
+  parser.add_option('--format', default='markdown',
+      help='The output format. Possible values are markdown and html')
+  parser.add_option('--zip', action='store_true', default=True,
+      help='Whether to generate a ZIP arhive containing the output files. If '
+           '--zip is true, then skydoc will generate a zip file, skydoc.zip by '
+           'default or as specified by --output_file. If --zip is false, then '
+           'skydoc will generate documentation, either in Markdown or HTML as '
+           'specifed by --format, in the current directory or --output_dir if set.')
+  parser.add_option('--strip_prefix',
+      help='The directory prefix to strip from all generated docs, which are '
+           'generated in subdirectories that match the package structure of the '
+           'input .bzl files. The prefix to strip must be common to all .bzl files; '
+           'otherwise, skydoc will raise an error.')
+  parser.add_option('--overview', action='store_true',
+      help='Whether to generate an overview page')
+  parser.add_option('--overview_filename', default='index',
+      help='The file name to use for the overview page.')
+  parser.add_option('--link_ext', default='html',
+      help='The file extension used for links in the generated documentation')
+  parser.add_option('--site_root', default='',
+      help='The site root to be prepended to all URLs in the generated documentation')
+  (options, args) = parser.parse_args(argv)
+
+  if options.output_dir and options.output_file:
     sys.stderr.write('Only one of --output_dir or --output_file can be set.')
     sys.exit(1)
 
-  if not FLAGS.output_dir:
-    FLAGS.output_dir = DEFAULT_OUTPUT_DIR
-  if not FLAGS.output_file:
-    FLAGS.output_file = DEFAULT_OUTPUT_FILE
+  if not options.output_dir:
+    options.output_dir = DEFAULT_OUTPUT_DIR
+  if not options.output_file:
+    options.output_file = DEFAULT_OUTPUT_FILE
 
-  bzl_files = argv[1:]
+  bzl_files = args[1:]
+
   try:
-    strip_prefix = common.validate_strip_prefix(FLAGS.strip_prefix, bzl_files)
+    strip_prefix = common.validate_strip_prefix(options.strip_prefix, bzl_files)
   except common.InputError as err:
     print(err.message)
     sys.exit(1)
@@ -310,20 +312,20 @@ def main(argv):
     rulesets.append(
         rule.RuleSet(bzl_file, merged_language, macro_doc_extractor.title,
                      macro_doc_extractor.description, strip_prefix,
-                     FLAGS.format))
+                     options.format))
   writer_options = WriterOptions(
-      FLAGS.output_dir, FLAGS.output_file, FLAGS.zip, FLAGS.overview,
-      FLAGS.overview_filename, FLAGS.link_ext, FLAGS.site_root)
-  if FLAGS.format == "markdown":
+      options.output_dir, options.output_file, options.zip, options.overview,
+      options.overview_filename, options.link_ext, options.site_root)
+  if options.format == "markdown":
     markdown_writer = MarkdownWriter(writer_options, runfiles)
     markdown_writer.write(rulesets)
-  elif FLAGS.format == "html":
+  elif options.format == "html":
     html_writer = HtmlWriter(writer_options, runfiles)
     html_writer.write(rulesets)
   else:
     sys.stderr.write(
         'Invalid output format: %s. Possible values are markdown and html'
-        % FLAGS.format)
+        % options.format)
 
 if __name__ == '__main__':
-  main(FLAGS(sys.argv))
+  main(sys.argv)
