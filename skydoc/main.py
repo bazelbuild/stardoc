@@ -243,7 +243,7 @@ def main(argv):
            'default or as specified by --output_file. If --zip is false, then '
            'skydoc will generate documentation, either in Markdown or HTML as '
            'specifed by --format, in the current directory or --output_dir if set.')
-  parser.add_option('--strip_prefix',
+  parser.add_option('--strip_prefix', default='',
       help='The directory prefix to strip from all generated docs, which are '
            'generated in subdirectories that match the package structure of the '
            'input .bzl files. The prefix to strip must be common to all .bzl files; '
