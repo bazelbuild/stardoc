@@ -5,7 +5,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 git_repository(
     name = "io_bazel_rules_sass",
     remote = "https://github.com/bazelbuild/rules_sass.git",
-    tag = "0.0.3",
+    commit = "8b61ad6953fde55031658e1731c335220f881369"
 )
 git_repository(
     name = "bazel_skylib",
@@ -25,7 +25,13 @@ http_archive(
     urls = ["https://github.com/google/protobuf/archive/v3.5.1.zip"],
 )
 
-load("@io_bazel_rules_sass//sass:sass.bzl", "sass_repositories")
+load("@io_bazel_rules_sass//:package.bzl", "rules_sass_dependencies")
+rules_sass_dependencies()
+
+load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories")
+node_repositories()
+
+load("@io_bazel_rules_sass//:defs.bzl", "sass_repositories")
 sass_repositories()
 
 load("//skylark:skylark.bzl", "skydoc_repositories")

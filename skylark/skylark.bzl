@@ -224,7 +224,7 @@ def skydoc_repositories():
         actual = "//:dummy",
     )
 
-    native.new_http_archive(
+    http_archive(
         name = "markupsafe_archive",
         urls = ["https://pypi.python.org/packages/source/M/MarkupSafe/MarkupSafe-0.23.tar.gz#md5=f5ab3deee4c37cd6a922fb81e730da6e"],
         sha256 = "a4ec1aff59b95a14b45eb2e23761a0179e98319da5a7eb76b56ea8cdc7b871c3",
