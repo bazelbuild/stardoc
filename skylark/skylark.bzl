@@ -14,10 +14,11 @@
 
 """Skylark rules"""
 
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_skylib//:skylark_library.bzl", "SkylarkLibraryInfo")
 
-_SKYLARK_FILETYPE = FileType([".bzl"])
+_SKYLARK_FILETYPE = [".bzl"]
 
 ZIP_PATH = "/usr/bin/zip"
 
@@ -57,7 +58,7 @@ def _skylark_doc_impl(ctx):
     if ctx.attr.site_root:
         flags += ["--site_root=%s" % ctx.attr.site_root]
     skydoc = _skydoc(ctx)
-    ctx.action(
+    ctx.actions.run(
         inputs = list(inputs) + [skydoc],
         executable = skydoc,
         arguments = flags + sources,
@@ -209,11 +210,14 @@ py_library(
 
 def skydoc_repositories():
     """Adds the external repositories used by the skylark rules."""
-    http_archive(
+    git_repository(
         name = "protobuf",
-        urls = ["https://github.com/google/protobuf/archive/v3.4.1.tar.gz"],
-        sha256 = "8e0236242106e680b4f9f576cc44b8cd711e948b20a9fc07769b0a20ceab9cc4",
-        strip_prefix = "protobuf-3.4.1",
+        remote = "https://github.com/protocolbuffers/protobuf.git",
+        # Latest tagged version at time of writing is v3.6.1, which doesn't
+        # include fixes for --incompatible_package_name_is_a_function,
+        # --incompatible_new_actions_api, and possibly others.
+        # TODO: Update to a newer tagged version when available.
+        commit = "7b28271a61a3da0a37f6fda399b0c4c86464e5b3",  # 2018-11-16
     )
 
     # Protobuf expects an //external:python_headers label which would contain the

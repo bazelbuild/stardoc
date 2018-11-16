@@ -2,7 +2,7 @@
 ## stardoc
 
 <pre>
-stardoc(name, deps, input, out, stardoc, symbol_names)
+stardoc(<a href="#stardoc-name">name</a>, <a href="#stardoc-deps">deps</a>, <a href="#stardoc-input">input</a>, <a href="#stardoc-out">out</a>, <a href="#stardoc-stardoc">stardoc</a>, <a href="#stardoc-symbol_names">symbol_names</a>)
 </pre>
 
 
@@ -19,52 +19,52 @@ This rule is an experimental replacement for the existing skylark_doc rule.
     <col class="col-description" />
   </colgroup>
   <tbody>
-    <tr id="#stardoc_name">
+    <tr id="stardoc-name">
       <td><code>name</code></td>
       <td>
-        String; required
+        <a href="https://bazel.build/docs/build-ref.html#name">Name</a>; required
         <p>
-          A unique name for this rule.
+          A unique name for this target.
         </p>
       </td>
     </tr>
-    <tr id="#stardoc_deps">
+    <tr id="stardoc-deps">
       <td><code>deps</code></td>
       <td>
-        List of labels; optional
+        <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>; optional
         <p>
           A list of skylark_library dependencies which the input depends on.
         </p>
       </td>
     </tr>
-    <tr id="#stardoc_input">
+    <tr id="stardoc-input">
       <td><code>input</code></td>
       <td>
-        Label; optional
+        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
         <p>
           The starlark file to generate documentation for.
         </p>
       </td>
     </tr>
-    <tr id="#stardoc_out">
+    <tr id="stardoc-out">
       <td><code>out</code></td>
       <td>
-        Label; required
+        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; required
         <p>
           The (markdown) file to which documentation will be output.
         </p>
       </td>
     </tr>
-    <tr id="#stardoc_stardoc">
+    <tr id="stardoc-stardoc">
       <td><code>stardoc</code></td>
       <td>
-        Label; optional
+        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
         <p>
           The location of the stardoc tool.
         </p>
       </td>
     </tr>
-    <tr id="#stardoc_symbol_names">
+    <tr id="stardoc-symbol_names">
       <td><code>symbol_names</code></td>
       <td>
         List of strings; optional

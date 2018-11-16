@@ -10,19 +10,27 @@ git_repository(
 git_repository(
     name = "bazel_skylib",
     remote = "https://github.com/bazelbuild/bazel-skylib.git",
-    tag = "0.2.0",
+    tag = "0.5.0",
 )
 git_repository(
     name = "io_bazel",
     remote = "https://github.com/bazelbuild/bazel.git",
-    # TODO(cparsons): Depend on a release tag of bazel when there is
-    # a valid release containing an updated stardoc binary.
-    commit = "b749ab1f8549cdad0a574c356a57fe7181b07851",
+    # Latest tagged version at time of writing is 0.19.1, which doens't
+    # include some fixes for --incompatible_new_actions_api.
+    # TODO: Update to a newer tagged version when available.
+    commit = "ba6fbded11b3b40e2680c6fca27db9563c7c2193",  # 2018-11-16
 )
-http_archive(
+# Required by @io_bazel.
+# Note that @protobuf is already created in skydoc_repositories().
+# Maybe keep this in sync with that.
+git_repository(
     name = "com_google_protobuf",
-    strip_prefix = "protobuf-3.5.1",
-    urls = ["https://github.com/google/protobuf/archive/v3.5.1.zip"],
+    remote = "https://github.com/protocolbuffers/protobuf.git",
+    # Latest tagged version at time of writing is v3.6.1, which doesn't
+    # include fixes for --incompatible_package_name_is_a_function,
+    # --incompatible_new_actions_api, and possibly others.
+    # TODO: Update to a newer tagged version when available.
+    commit = "7b28271a61a3da0a37f6fda399b0c4c86464e5b3",  # 2018-11-16
 )
 
 load("@io_bazel_rules_sass//:package.bzl", "rules_sass_dependencies")
