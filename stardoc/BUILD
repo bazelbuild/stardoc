@@ -17,6 +17,6 @@ stardoc(
     name = "stardoc_doc",
     out = "stardoc_doc.md",
     input = ":stardoc.bzl",
-    symbol_names = ["stardoc"],
+    symbol_names = ["stardoc", "_stardoc_impl"],
     deps = [":stardoc_lib"],
 )

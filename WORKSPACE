@@ -15,10 +15,8 @@ git_repository(
 git_repository(
     name = "io_bazel",
     remote = "https://github.com/bazelbuild/bazel.git",
-    # Latest tagged version at time of writing is 0.19.1, which doens't
-    # include some fixes for --incompatible_new_actions_api.
     # TODO: Update to a newer tagged version when available.
-    commit = "ba6fbded11b3b40e2680c6fca27db9563c7c2193",  # 2018-11-16
+    commit = "e7ebb7e68d35ae090d91fe6b4c92c1c831421faa",  # 2018-11-26
 )
 # Required by @io_bazel.
 # Note that @protobuf is already created in skydoc_repositories().

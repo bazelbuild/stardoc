@@ -2,7 +2,7 @@
 ## stardoc
 
 <pre>
-stardoc(<a href="#stardoc-name">name</a>, <a href="#stardoc-deps">deps</a>, <a href="#stardoc-input">input</a>, <a href="#stardoc-out">out</a>, <a href="#stardoc-stardoc">stardoc</a>, <a href="#stardoc-symbol_names">symbol_names</a>)
+stardoc(<a href="#stardoc-name">name</a>, <a href="#stardoc-deps">deps</a>, <a href="#stardoc-input">input</a>, <a href="#stardoc-out">out</a>, <a href="#stardoc-semantic_flags">semantic_flags</a>, <a href="#stardoc-stardoc">stardoc</a>, <a href="#stardoc-symbol_names">symbol_names</a>)
 </pre>
 
 
@@ -55,6 +55,20 @@ This rule is an experimental replacement for the existing skylark_doc rule.
         </p>
       </td>
     </tr>
+    <tr id="stardoc-semantic_flags">
+      <td><code>semantic_flags</code></td>
+      <td>
+        List of strings; optional
+        <p>
+          A list of canonical flags to affect Starlark semantics for the Starlark interpretter
+during documentation generation. This should only be used to maintain compatibility with
+non-default semantic flags required to use the given Starlark symbols.
+<br><br>For example, if <code>//foo:bar.bzl</code> does not build except when a user would specify
+<code>--incompatible_foo_semantic=false</code>, then this attribute should contain
+"--incompatible_foo_semantic=false".
+        </p>
+      </td>
+    </tr>
     <tr id="stardoc-stardoc">
       <td><code>stardoc</code></td>
       <td>
@@ -73,6 +87,32 @@ This rule is an experimental replacement for the existing skylark_doc rule.
 the names of rule definitions in the input file. If this list is empty, then
 documentation for all exported rule definitions will be generated.
         </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+## _stardoc_impl
+
+<pre>
+_stardoc_impl(<a href="#_stardoc_impl-ctx">ctx</a>)
+</pre>
+
+Implementation of the stardoc rule.
+
+### Parameters
+
+<table class="params-table">
+  <colgroup>
+    <col class="col-param" />
+    <col class="col-description" />
+  </colgroup>
+  <tbody>
+    <tr id="_stardoc_impl-ctx>
+      <td><code>ctx</code></td>
+      <td>
+        required.
       </td>
     </tr>
   </tbody>
