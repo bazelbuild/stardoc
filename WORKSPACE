@@ -5,12 +5,12 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 git_repository(
     name = "io_bazel_rules_sass",
     remote = "https://github.com/bazelbuild/rules_sass.git",
-    commit = "8b61ad6953fde55031658e1731c335220f881369"
+    commit = "8ccf4f1c351928b55d5dddf3672e3667f6978d60"
 )
 git_repository(
     name = "bazel_skylib",
     remote = "https://github.com/bazelbuild/bazel-skylib.git",
-    tag = "0.5.0",
+    tag = "0.6.0",
 )
 git_repository(
     name = "io_bazel",
