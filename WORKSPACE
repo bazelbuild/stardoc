@@ -5,12 +5,21 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 git_repository(
     name = "io_bazel_rules_sass",
     remote = "https://github.com/bazelbuild/rules_sass.git",
-    commit = "8ccf4f1c351928b55d5dddf3672e3667f6978d60"
+    tag = "1.15.1",
 )
 git_repository(
     name = "bazel_skylib",
     remote = "https://github.com/bazelbuild/bazel-skylib.git",
     tag = "0.6.0",
+)
+# Using bazel_skylib 0.6.0 requires at least version 0.16.2 of rules_nodejs.
+# (rules_sass depends on rules_nodejs, and but the current rules_sass version
+# depends on an older version of rule_nodejs.)
+# TODO: Remove this direct dependency when rules_sass can be updated.
+git_repository(
+    name = "build_bazel_rules_nodejs",
+    remote = "https://github.com/bazelbuild/rules_nodejs.git",
+    tag = "0.16.2",
 )
 git_repository(
     name = "io_bazel",
