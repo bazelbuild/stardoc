@@ -2,13 +2,13 @@ licenses(["notice"])  # Apache 2.0
 
 package(default_visibility = ["//visibility:public"])
 
-load("@protobuf//:protobuf.bzl", "py_proto_library")
+load("@com_google_protobuf//:protobuf.bzl", "py_proto_library")
 
 py_proto_library(
     name = "build_pb_py",
     srcs = ["build.proto"],
-    default_runtime = "@protobuf//:protobuf_python",
-    protoc = "@protobuf//:protoc",
+    default_runtime = "@com_google_protobuf//:protobuf_python",
+    protoc = "@com_google_protobuf//:protoc",
 )
 
 py_library(
