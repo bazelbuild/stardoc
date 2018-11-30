@@ -20,6 +20,8 @@ shift
 readonly JEKYLL_BASE=${PWD}/$1
 shift
 readonly SKYLARK_DOCS=${PWD}/$1
+shift
+readonly STARDOC_DOC=${PWD}/$1
 
 # Create temporary directory that is removed when this script exits.
 readonly TMP=$(mktemp -d "${TMPDIR:-/tmp}/tmp.XXXXXXXX")
@@ -50,6 +52,16 @@ EOF
   done
 }
 
+function include_skydoc_doc {
+  ( cat <<EOF
+---
+layout: default
+title: Build Rule Reference
+---
+EOF
+    cat $STARDOC_DOC; ) > "$OUT_DIR/docs/stardoc_reference.md"
+}
+
 function package_output {
   cd "$OUT_DIR"
   tar -hcf $OUTPUT $(find . -type f | sort)
@@ -58,6 +70,7 @@ function package_output {
 function main {
   setup
   unpack_skylark_doc
+  include_skydoc_doc
   package_output
 }
 main

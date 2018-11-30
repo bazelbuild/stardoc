@@ -9,11 +9,16 @@ title: Home
           mdl-cell--4-col-phone">
       <h1>Beautiful Documentation for Build Rules</h1>
       <p class="lead">
-        Skydoc is an easy-to-use documentation generator for Bazel build rules
-        written in Skylark.
+        Stardoc is an easy-to-use documentation generator for Bazel build rules
+        written in Starlark.
       </p>
+      <p class="lead">
+        (Stardoc is a recent replacement of the documentation generator tool named "Skydoc")
+      </p>
+      <a href="/docs/getting_started_stardoc.html" class="mdl-button mdl-js-button
+          mdl-button--raised mdl-js-ripple-effect">Get Started with Stardoc</a>
       <a href="/docs/getting_started.html" class="mdl-button mdl-js-button
-          mdl-button--raised mdl-js-ripple-effect">Get Started</a>
+          mdl-button--raised mdl-js-ripple-effect">Take me to Skydoc documentation instead</a>
     </div>
   </div>
 </div>
@@ -23,23 +28,27 @@ title: Home
         mdl-cell--4-col-phone">
       <h1>Python docstrings</h1>
       <p>
-        Document your Skylark rules with a familiar Python
-        <a href="docs/writing.html">docstring format</a>.
+        Document your Starlark rules
+        <a href="docs/writing_stardoc.html">alongside their definition</a>.
       </p>
 {% highlight python %}
-"""An example documentation.
+my_rule = rule(
+    implementation = _my_rule_impl,
+    doc = """
+Example rule documentation.
 
 Example:
   Here is an example of how to use this rule.
-
-Args:
-  name: A unique name for this rule.
-  srcs: Source files used to build this target
-  deps: Dependencies for this target.
-
-Outputs:
-  output_bin: The output binary.
-"""
+""",
+    attrs = {
+        "srcs" : attr.label_list(
+            doc = "Source files used to build this target.",
+        ),
+        "deps" : attr.label_list(
+            doc = "Dependencies for this target.",
+        ),
+    }
+)
 {% endhighlight %}
     </div>
 
@@ -47,18 +56,18 @@ Outputs:
         mdl-cell--4-col-phone">
       <h1>Convenient Build Rules</h1>
       <p>
-        Skydoc's own convenient Bazel <a href="docs/generating.html">build
+        Skydoc's own convenient Bazel <a href="docs/generating_stardoc.html">build
         rules</a> making it to integrate Skydoc into your build or release
         pipeline.
       </p>
 {% highlight python %}
-load("@io_bazel_skydoc//skylark:skylark.bzl",
-     "skylark_doc")
+load("@io_bazel_skydoc//stardoc:stardoc.bzl",
+     "stardoc")
 
-skylark_doc(
+stardoc(
     name = "checkstyle-docs",
-    srcs = ["checkstyle.bzl"],
-    format = "html",
+    input = "checkstyle.bzl",
+    out = "checkstyle_doc.md",
 )
 {% endhighlight %}
 <pre class="term">$ <span class="info">bazel</span> build :checkstyle-docs</pre>
@@ -68,8 +77,7 @@ skylark_doc(
         mdl-cell--4-col-phone">
       <h1>Beautiful Documentation</h1>
       <p>
-        Generate <a href="docs/skylark.html">documentation</a> in Markdown or
-        ready-to-serve, beautifully-crafted HTML pages.
+        Generate <a href="docs/skylark.html">documentation</a> in Markdown.
       </p>
       <img src="/images/sample.png" class="responsive">
     </div>
