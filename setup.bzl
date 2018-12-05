@@ -56,13 +56,7 @@ def skydoc_repositories():
         git_repository,
         name = "io_bazel_rules_sass",
         remote = "https://github.com/bazelbuild/rules_sass.git",
-        tag = "1.15.1",
-    )
-    _include_if_not_defined(
-        git_repository,
-        name = "io_bazel_rules_sass",
-        remote = "https://github.com/bazelbuild/rules_sass.git",
-        tag = "1.15.1",
+        commit = "8ccf4f1c351928b55d5dddf3672e3667f6978d60",
     )
     _include_if_not_defined(
         git_repository,
@@ -80,12 +74,6 @@ def skydoc_repositories():
         # --incompatible_new_actions_api, and possibly others.
         # TODO: Update to a newer tagged version when available.
         commit = "7b28271a61a3da0a37f6fda399b0c4c86464e5b3",  # 2018-11-16
-    )
-    _include_if_not_defined(
-        git_repository,
-        name = "io_bazel_rules_sass",
-        remote = "https://github.com/bazelbuild/rules_sass.git",
-        tag = "1.15.1",
     )
 
     _include_if_not_defined(
