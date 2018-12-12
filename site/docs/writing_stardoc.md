@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Writing Documentation
+stylesheet: docs
 ---
 
 <nav class="toc">

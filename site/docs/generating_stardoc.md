@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Generating Documentation
+stylesheet: docs
 ---
 
 <nav class="toc">

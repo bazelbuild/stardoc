@@ -1,9 +1,10 @@
 ---
 layout: default
 title: Contributing
+stylesheet: docs
 ---
 
-We welcome your contributions! To contribute to Skydoc, fork the [Skydoc][repo]
+We welcome your contributions! To contribute to Stardoc, fork the [Skydoc][repo]
 GitHub repository and start submitting pull requests.
 
 [repo]: https://github.com/bazelbuild/skydoc
@@ -39,10 +40,9 @@ To submit a patch to Skydoc:
 
 ## Core Contributors
 
-The current group of Skydoc core contributors are:
+The current group of Stardoc core contributors are:
 
-* [davidzchen](https://github.com/davidzchen)
-* [damienmg](https://github.com/damienmg)
+* [cparsons](https://github.com/c-parsons)
 * [laurentlb](https://github.com/laurentlb)
-* [dslomov](https://github.com/dslomov)
-* [fweikert](https://github.com/fweikert)
+
+

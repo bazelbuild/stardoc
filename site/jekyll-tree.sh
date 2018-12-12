@@ -46,6 +46,7 @@ function unpack_skylark_doc {
 ---
 layout: default
 title: Build Rule Reference
+stylesheet: docs
 ---
 EOF
       cat $f; ) > "$OUT_DIR/docs/$(basename $f)"
@@ -57,6 +58,7 @@ function include_skydoc_doc {
 ---
 layout: default
 title: Build Rule Reference
+stylesheet: docs
 ---
 EOF
     cat $STARDOC_DOC; ) > "$OUT_DIR/docs/stardoc_reference.md"

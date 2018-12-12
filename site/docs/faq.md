@@ -1,6 +1,7 @@
 ---
 layout: default
 title: FAQ
+stylesheet: docs
 ---
 
 ## Why am I getting `TypeError: unsupported operand type(s) for +: 'dict' and 'dict'`?
