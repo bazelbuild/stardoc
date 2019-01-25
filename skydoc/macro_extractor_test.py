@@ -28,17 +28,19 @@ from skydoc import macro_extractor
 class MacroExtractorTest(unittest.TestCase):
 
   def check_protos(self, src, expected):
-    with tempfile.NamedTemporaryFile(mode='w+') as tf:
-      tf.write(src)
-      tf.flush()
+    tf = tempfile.NamedTemporaryFile(mode='w+', delete=False)
+    tf.write(src)
+    tf.flush()
+    tf.close()
 
-      expected_proto = build_pb2.BuildLanguage()
-      text_format.Merge(expected, expected_proto)
+    expected_proto = build_pb2.BuildLanguage()
+    text_format.Merge(expected, expected_proto)
 
-      extractor = macro_extractor.MacroDocExtractor()
-      extractor.parse_bzl(tf.name)
-      proto = extractor.proto()
-      self.assertEqual(expected_proto, proto)
+    extractor = macro_extractor.MacroDocExtractor()
+    extractor.parse_bzl(tf.name)
+    proto = extractor.proto()
+    os.remove(tf.name)
+    self.assertEqual(expected_proto, proto)
 
   def test_multi_line_description(self):
     src = textwrap.dedent("""\
@@ -402,14 +404,16 @@ class MacroExtractorTest(unittest.TestCase):
     src = textwrap.dedent("""\
         \"\"\"Example rules\"\"\"
         """)
-    with tempfile.NamedTemporaryFile(mode='w+') as tf:
-      tf.write(src)
-      tf.flush()
+    tf = tempfile.NamedTemporaryFile(mode='w+', delete=False)
+    tf.write(src)
+    tf.flush()
+    tf.close()
 
-      extractor = macro_extractor.MacroDocExtractor()
-      extractor.parse_bzl(tf.name)
-      self.assertEqual('Example rules', extractor.title)
-      self.assertEqual('', extractor.description)
+    extractor = macro_extractor.MacroDocExtractor()
+    extractor.parse_bzl(tf.name)
+    os.remove(tf.name)
+    self.assertEqual('Example rules', extractor.title)
+    self.assertEqual('', extractor.description)
 
   def test_file_doc_title_description(self):
     src = textwrap.dedent("""\
@@ -420,16 +424,18 @@ class MacroExtractorTest(unittest.TestCase):
         Documentation continued here.
         \"\"\"
         """)
-    with tempfile.NamedTemporaryFile(mode='w+') as tf:
-      tf.write(src)
-      tf.flush()
+    tf = tempfile.NamedTemporaryFile(mode='w+', delete=False)
+    tf.write(src)
+    tf.flush()
+    tf.close()
 
-      extractor = macro_extractor.MacroDocExtractor()
-      extractor.parse_bzl(tf.name)
-      self.assertEqual('Example rules', extractor.title)
-      self.assertEqual('This file contains example Bazel rules.'
-                       '\n\nDocumentation continued here.',
-                       extractor.description)
+    extractor = macro_extractor.MacroDocExtractor()
+    extractor.parse_bzl(tf.name)
+    os.remove(tf.name)
+    self.assertEqual('Example rules', extractor.title)
+    self.assertEqual('This file contains example Bazel rules.'
+                     '\n\nDocumentation continued here.',
+                     extractor.description)
 
   def test_file_doc_title_multiline(self):
     src = textwrap.dedent("""\
@@ -441,16 +447,18 @@ class MacroExtractorTest(unittest.TestCase):
         Documentation continued here.
         \"\"\"
         """)
-    with tempfile.NamedTemporaryFile(mode='w+') as tf:
-      tf.write(src)
-      tf.flush()
+    tf = tempfile.NamedTemporaryFile(mode='w+', delete=False)
+    tf.write(src)
+    tf.flush()
+    tf.close()
 
-      extractor = macro_extractor.MacroDocExtractor()
-      extractor.parse_bzl(tf.name)
-      self.assertEqual('Example rules for Bazel', extractor.title)
-      self.assertEqual('This file contains example Bazel rules.'
-                       '\n\nDocumentation continued here.',
-                       extractor.description)
+    extractor = macro_extractor.MacroDocExtractor()
+    extractor.parse_bzl(tf.name)
+    os.remove(tf.name)
+    self.assertEqual('Example rules for Bazel', extractor.title)
+    self.assertEqual('This file contains example Bazel rules.'
+                     '\n\nDocumentation continued here.',
+                     extractor.description)
 
   def test_loads_ignored(self):
     src = textwrap.dedent("""\

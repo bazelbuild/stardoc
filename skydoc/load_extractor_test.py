@@ -22,14 +22,15 @@ from skydoc import load_extractor
 class LoadExtractorTest(unittest.TestCase):
 
   def check_symbols(self, src, expected):
-    with tempfile.NamedTemporaryFile(mode='w+') as tf:
-      tf.write(src)
-      tf.flush()
+    tf = tempfile.NamedTemporaryFile(mode='w+', delete=False)
+    tf.write(src)
+    tf.flush()
+    tf.close()
+    extractor = load_extractor.LoadExtractor()
+    load_symbols = extractor.extract(tf.name)
+    os.remove(tf.name)
 
-      extractor = load_extractor.LoadExtractor()
-      load_symbols = extractor.extract(tf.name)
-
-      self.assertEqual(expected, load_symbols)
+    self.assertEqual(expected, load_symbols)
 
   def test_load(self):
     src = textwrap.dedent("""\
@@ -45,13 +46,15 @@ class LoadExtractorTest(unittest.TestCase):
     self.check_symbols(src, expected)
 
   def raises_error(self, src):
-    with tempfile.NamedTemporaryFile(mode='w+') as tf:
-      tf.write(src)
-      tf.flush()
+    tf = tempfile.NamedTemporaryFile(mode='w+', delete=False)
+    tf.write(src)
+    tf.flush()
+    tf.close()
 
-      extractor = load_extractor.LoadExtractor()
-      self.assertRaises(load_extractor.LoadExtractorError,
-                        extractor.extract, tf.name)
+    extractor = load_extractor.LoadExtractor()
+    self.assertRaises(load_extractor.LoadExtractorError,
+                      extractor.extract, tf.name)
+    os.remove(tf.name)
 
   def test_invalid_non_string_literal_in_label(self):
     src = textwrap.dedent("""\

@@ -74,5 +74,6 @@ function main {
   unpack_skylark_doc
   include_skydoc_doc
   package_output
+  cd "$(dirname ${TMP})"
 }
 main

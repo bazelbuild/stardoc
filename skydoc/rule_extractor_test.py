@@ -47,17 +47,19 @@ class RuleExtractorTest(unittest.TestCase):
 
 
   def check_protos(self, src, expected, load_symbols=[]):
-    with tempfile.NamedTemporaryFile(mode='w+') as tf:
-      tf.write(src)
-      tf.flush()
+    tf = tempfile.NamedTemporaryFile(mode='w+', delete=False)
+    tf.write(src)
+    tf.flush()
+    tf.close()
 
-      expected_proto = build_pb2.BuildLanguage()
-      text_format.Merge(expected, expected_proto)
+    expected_proto = build_pb2.BuildLanguage()
+    text_format.Merge(expected, expected_proto)
 
-      extractor = rule_extractor.RuleDocExtractor()
-      extractor.parse_bzl(tf.name, load_symbols)
-      proto = extractor.proto()
-      self.assertEqual(expected_proto, proto)
+    extractor = rule_extractor.RuleDocExtractor()
+    extractor.parse_bzl(tf.name, load_symbols)
+    os.remove(tf.name)
+    proto = extractor.proto()
+    self.assertEqual(expected_proto, proto)
 
   def test_all_types(self):
     src = textwrap.dedent("""\
