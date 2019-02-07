@@ -109,7 +109,7 @@ Implementation of the stardoc rule.
     <col class="col-description" />
   </colgroup>
   <tbody>
-    <tr id="_stardoc_impl-ctx>
+    <tr id="_stardoc_impl-ctx">
       <td><code>ctx</code></td>
       <td>
         required.
