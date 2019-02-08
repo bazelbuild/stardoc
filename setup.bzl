@@ -62,19 +62,9 @@ def skydoc_repositories():
         git_repository,
         name = "io_bazel",
         remote = "https://github.com/bazelbuild/bazel.git",
-        tag = "0.22.0",
-    )
-    _include_if_not_defined(
-        git_repository,
-        name = "com_google_protobuf",
-        remote = "https://github.com/protocolbuffers/protobuf.git",
-        # Latest tagged version at time of writing is v3.6.1, which doesn't
-        # include fixes for --incompatible_package_name_is_a_function,
-        # --incompatible_new_actions_api, and possibly others.
         # TODO: Update to a newer tagged version when available.
-        commit = "7b28271a61a3da0a37f6fda399b0c4c86464e5b3",  # 2018-11-16
+        commit = "62675105d6a3bf879202e65fa576fa0ab0e7b467",  # Feb 7, 2019
     )
-
     _include_if_not_defined(
         http_archive,
         name = "markupsafe_archive",
