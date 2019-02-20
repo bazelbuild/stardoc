@@ -63,7 +63,7 @@ def skydoc_repositories():
         name = "io_bazel",
         remote = "https://github.com/bazelbuild/bazel.git",
         # TODO: Update to a newer tagged version when available.
-        commit = "62675105d6a3bf879202e65fa576fa0ab0e7b467",  # Feb 7, 2019
+        commit = "436b0314cd6e4ac9aded5b318ac14b58ed95680e",  # Feb 11, 2019
     )
     _include_if_not_defined(
         http_archive,
