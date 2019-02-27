@@ -66,7 +66,7 @@ def skydoc_repositories():
         git_repository,
         name = "bazel_skylib",
         remote = "https://github.com/bazelbuild/bazel-skylib.git",
-        tag = "0.6.0",
+        commit = "6741f733227dc68137512161a5ce6fcf283e3f58", # Release 0.7.0, Feb 8, 2019
     )
     _include_if_not_defined(
         git_repository,
@@ -79,7 +79,7 @@ def skydoc_repositories():
         name = "io_bazel",
         remote = "https://github.com/bazelbuild/bazel.git",
         # TODO: Update to a newer tagged version when available.
-        commit = "436b0314cd6e4ac9aded5b318ac14b58ed95680e",  # Feb 11, 2019
+        commit = "1488f91fec238adacbd0517fcee15d8ec0599b8d",  # Feb 27, 2019
     )
     _include_if_not_defined(
         http_archive,
