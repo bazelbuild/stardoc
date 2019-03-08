@@ -28,11 +28,11 @@ Stardoc uses inline documentation strings instead of python-style docstrings.
 For example, Skydoc documentation may have been specified with:
 
 ```
-checkstyle = rule(
-    implementation = _impl,
+my_rule = rule(
+    implementation = _my_rule_impl,
     attrs = {
-        "srcs": attr.label_list(allow_files = FileType([".java"]),
-        "deps": attr.label(),
+        "srcs": attr.label_list(),
+        "deps": attr.label_list(),
     },
 )
 """Example rule documentation.
