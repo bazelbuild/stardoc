@@ -75,13 +75,6 @@ def skydoc_repositories():
         commit = "8ccf4f1c351928b55d5dddf3672e3667f6978d60",
     )
     _include_if_not_defined(
-        git_repository,
-        name = "io_bazel",
-        remote = "https://github.com/bazelbuild/bazel.git",
-        # TODO: Update to a newer tagged version when available.
-        commit = "1488f91fec238adacbd0517fcee15d8ec0599b8d",  # Feb 27, 2019
-    )
-    _include_if_not_defined(
         http_archive,
         name = "markupsafe_archive",
         urls = ["https://pypi.python.org/packages/source/M/MarkupSafe/MarkupSafe-0.23.tar.gz#md5=f5ab3deee4c37cd6a922fb81e730da6e"],

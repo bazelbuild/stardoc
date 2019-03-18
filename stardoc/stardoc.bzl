@@ -107,7 +107,7 @@ non-default semantic flags required to use the given Starlark symbols.
         "stardoc": attr.label(
             doc = "The location of the stardoc tool.",
             allow_files = True,
-            default = Label("@io_bazel//src/main/java/com/google/devtools/build/skydoc"),
+            default = Label("//stardoc:stardoc"),
             cfg = "host",
             executable = True,
         ),
