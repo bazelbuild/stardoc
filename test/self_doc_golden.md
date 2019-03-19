@@ -1,4 +1,7 @@
+<!-- Generated with Stardoc: http://skydoc.bazel.build -->
+
 <a name="#stardoc"></a>
+
 ## stardoc
 
 <pre>
@@ -92,6 +95,8 @@ documentation for all exported rule definitions will be generated.
   </tbody>
 </table>
 
+
+<a name="#_stardoc_impl"></a>
 
 ## _stardoc_impl
 

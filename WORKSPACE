@@ -29,5 +29,5 @@ git_repository(
 git_repository(
     name = "io_bazel",
     remote = "https://github.com/bazelbuild/bazel.git",
-    commit = "49107ad79ef08811db22636928dfd113a9acf902",  # Mar 08, 2019
+    commit = "c689bf93917ad0efa8100b3a0fe1b43f1f1a1cdf",  # Mar 19, 2019
 )

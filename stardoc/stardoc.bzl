@@ -33,6 +33,7 @@ def _stardoc_impl(ctx):
     args = ctx.actions.args()
     args.add("--input=" + str(ctx.file.input.owner))
     args.add("--output=" + ctx.outputs.out.path)
+    args.add("--workspace_name=" + ctx.workspace_name)
     args.add_all(
         ctx.attr.symbol_names,
         format_each = "--symbols=%s",
