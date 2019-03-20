@@ -63,10 +63,10 @@ py_library(
 def skydoc_repositories():
     """Adds the external repositories used by the skylark rules."""
     _include_if_not_defined(
-        git_repository,
+        http_archive,
         name = "bazel_skylib",
-        remote = "https://github.com/bazelbuild/bazel-skylib.git",
-        commit = "6741f733227dc68137512161a5ce6fcf283e3f58", # Release 0.7.0, Feb 8, 2019
+        urls = ["https://github.com/bazelbuild/bazel-skylib/releases/download/0.8.0/bazel-skylib.0.8.0.tar.gz"],
+        sha256 = "2ef429f5d7ce7111263289644d233707dba35e39696377ebab8b0bc701f7818e",
     )
     _include_if_not_defined(
         git_repository,
