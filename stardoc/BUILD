@@ -5,6 +5,15 @@ package(default_visibility = ["//visibility:public"])
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("//stardoc:stardoc.bzl", "stardoc")
 
+filegroup(
+    name = "test_deps",
+    testonly = True,
+    srcs = [
+        "BUILD",
+    ] + glob(["*.bzl"]),
+    visibility = ["//visibility:public"],
+)
+
 bzl_library(
     name = "stardoc_lib",
     srcs = ["stardoc.bzl"],
