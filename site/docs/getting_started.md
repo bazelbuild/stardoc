@@ -34,7 +34,7 @@ sass_repositories()
 git_repository(
     name = "bazel_skylib",
     remote = "https://github.com/bazelbuild/bazel-skylib.git",
-    tag = "0.2.0",
+    tag = "0.3.0",
 )
 
 git_repository(

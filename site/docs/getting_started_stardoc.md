@@ -29,7 +29,7 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 git_repository(
     name = "io_bazel_skydoc",
     remote = "https://github.com/bazelbuild/skydoc.git",
-    tag = "0.2.0",
+    tag = "0.3.0",
 )
 
 load("@io_bazel_skydoc//:setup.bzl", "skydoc_repositories")
