@@ -5,7 +5,7 @@
 ## stardoc
 
 <pre>
-stardoc(<a href="#stardoc-name">name</a>, <a href="#stardoc-deps">deps</a>, <a href="#stardoc-input">input</a>, <a href="#stardoc-out">out</a>, <a href="#stardoc-semantic_flags">semantic_flags</a>, <a href="#stardoc-stardoc">stardoc</a>, <a href="#stardoc-symbol_names">symbol_names</a>)
+stardoc(<a href="#stardoc-name">name</a>, <a href="#stardoc-deps">deps</a>, <a href="#stardoc-format">format</a>, <a href="#stardoc-input">input</a>, <a href="#stardoc-out">out</a>, <a href="#stardoc-semantic_flags">semantic_flags</a>, <a href="#stardoc-stardoc">stardoc</a>, <a href="#stardoc-symbol_names">symbol_names</a>)
 </pre>
 
 
@@ -37,6 +37,15 @@ This rule is an experimental replacement for the existing skylark_doc rule.
         <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>; optional
         <p>
           A list of skylark_library dependencies which the input depends on.
+        </p>
+      </td>
+    </tr>
+    <tr id="stardoc-format">
+      <td><code>format</code></td>
+      <td>
+        String; optional
+        <p>
+          The format of the output file.
         </p>
       </td>
     </tr>

@@ -34,6 +34,7 @@ def _stardoc_impl(ctx):
     args.add("--input=" + str(ctx.file.input.owner))
     args.add("--output=" + ctx.outputs.out.path)
     args.add("--workspace_name=" + ctx.workspace_name)
+    args.add("--output_format=" + ctx.attr.format)
     args.add_all(
         ctx.attr.symbol_names,
         format_each = "--symbols=%s",
@@ -81,6 +82,11 @@ This rule is an experimental replacement for the existing skylark_doc rule.
         "deps": attr.label_list(
             doc = "A list of skylark_library dependencies which the input depends on.",
             providers = [StarlarkLibraryInfo],
+        ),
+        "format": attr.string(
+            doc = "The format of the output file.",
+            default = "markdown",
+            values = ["markdown", "proto"],
         ),
         "out": attr.output(
             doc = "The (markdown) file to which documentation will be output.",
