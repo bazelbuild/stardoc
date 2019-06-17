@@ -14,10 +14,8 @@
 
 """Skylark rules"""
 
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_skylib//:bzl_library.bzl", "StarlarkLibraryInfo")
-load("//:setup.bzl", _skydoc_repositories="skydoc_repositories")
+load("//:setup.bzl", _skydoc_repositories = "skydoc_repositories")
 
 _SKYLARK_FILETYPE = [".bzl"]
 
@@ -27,6 +25,7 @@ def _skydoc(ctx):
     for f in ctx.files.skydoc:
         if not f.path.endswith(".py"):
             return f
+    fail("no valid .py file")
 
 def _skylark_doc_impl(ctx):
     """Implementation of the skylark_doc rule."""
@@ -98,6 +97,7 @@ skylark_doc = rule(
         "skylark_doc_zip": "%{name}-skydoc.zip",
     },
 )
+# buildozer: disable=no-effect
 """Generates Skylark rule documentation.
 
 Documentation is generated in directories that follows the package structure

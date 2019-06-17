@@ -18,7 +18,7 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 def _include_if_not_defined(repo_rule, name, **kwargs):
-    if name not in native.existing_rules():
+    if not native.existing_rule(name):
         repo_rule(name = name, **kwargs)
 
 JINJA2_BUILD_FILE = """

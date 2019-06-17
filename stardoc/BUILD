@@ -35,10 +35,6 @@ stardoc(
 
 java_binary(
     name = "stardoc",
-    main_class = "com.google.devtools.build.skydoc.SkydocMain",
-    runtime_deps = [
-        ":prebuilt_stardoc_binary",
-    ],
     jvm_flags = [
         # quiet warnings from com.google.protobuf.UnsafeUtil,
         # see: https://github.com/google/protobuf/issues/3781
@@ -46,6 +42,10 @@ java_binary(
         "-XX:+IgnoreUnrecognizedVMOptions",
         "--add-opens=java.base/java.nio=ALL-UNNAMED",
         "--add-opens=java.base/java.lang=ALL-UNNAMED",
+    ],
+    main_class = "com.google.devtools.build.skydoc.SkydocMain",
+    runtime_deps = [
+        ":prebuilt_stardoc_binary",
     ],
 )
 
