@@ -27,3 +27,12 @@ cp bazel-bin/external/io_bazel/src/main/java/com/google/devtools/build/skydoc/sk
     stardoc/stardoc_binary.jar
 
 echo "** Stardoc copied."
+
+echo "** Building Renderer from source..."
+bazel build @io_bazel//src/main/java/com/google/devtools/build/skydoc/renderer:renderer_deploy.jar
+
+echo "** Copying Renderer binary..."
+cp bazel-bin/external/io_bazel/src/main/java/com/google/devtools/build/skydoc/renderer/renderer_deploy.jar \
+    stardoc/renderer_binary.jar
+
+echo "** Renderer copied."
