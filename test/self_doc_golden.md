@@ -5,7 +5,7 @@
 ## stardoc
 
 <pre>
-stardoc(<a href="#stardoc-name">name</a>, <a href="#stardoc-deps">deps</a>, <a href="#stardoc-format">format</a>, <a href="#stardoc-input">input</a>, <a href="#stardoc-out">out</a>, <a href="#stardoc-semantic_flags">semantic_flags</a>, <a href="#stardoc-stardoc">stardoc</a>, <a href="#stardoc-symbol_names">symbol_names</a>)
+stardoc(<a href="#stardoc-name">name</a>, <a href="#stardoc-deps">deps</a>, <a href="#stardoc-format">format</a>, <a href="#stardoc-input">input</a>, <a href="#stardoc-out">out</a>, <a href="#stardoc-renderer">renderer</a>, <a href="#stardoc-semantic_flags">semantic_flags</a>, <a href="#stardoc-stardoc">stardoc</a>, <a href="#stardoc-symbol_names">symbol_names</a>)
 </pre>
 
 
@@ -67,6 +67,15 @@ This rule is an experimental replacement for the existing skylark_doc rule.
         </p>
       </td>
     </tr>
+    <tr id="stardoc-renderer">
+      <td><code>renderer</code></td>
+      <td>
+        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
+        <p>
+          The location of the renderer tool.
+        </p>
+      </td>
+    </tr>
     <tr id="stardoc-semantic_flags">
       <td><code>semantic_flags</code></td>
       <td>
@@ -104,7 +113,6 @@ documentation for all exported rule definitions will be generated.
   </tbody>
 </table>
 
-
 <a name="#_stardoc_impl"></a>
 
 ## _stardoc_impl
@@ -131,5 +139,4 @@ Implementation of the stardoc rule.
     </tr>
   </tbody>
 </table>
-
 
