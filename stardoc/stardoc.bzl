@@ -58,7 +58,7 @@ def _stardoc_impl(ctx):
     stardoc = ctx.executable.stardoc
     
     if ctx.attr.format == "proto":
-        stardoc_args.add("--output=" + out_file)
+        stardoc_args.add("--output=" + out_file.path)
         ctx.actions.run(
             outputs = [out_file],
             inputs = input_files,
