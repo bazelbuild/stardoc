@@ -5,7 +5,7 @@
 ## stardoc
 
 <pre>
-stardoc(<a href="#stardoc-name">name</a>, <a href="#stardoc-deps">deps</a>, <a href="#stardoc-format">format</a>, <a href="#stardoc-input">input</a>, <a href="#stardoc-out">out</a>, <a href="#stardoc-renderer">renderer</a>, <a href="#stardoc-semantic_flags">semantic_flags</a>, <a href="#stardoc-stardoc">stardoc</a>, <a href="#stardoc-symbol_names">symbol_names</a>)
+stardoc(<a href="#stardoc-name">name</a>, <a href="#stardoc-deps">deps</a>, <a href="#stardoc-format">format</a>, <a href="#stardoc-func_template">func_template</a>, <a href="#stardoc-header_template">header_template</a>, <a href="#stardoc-input">input</a>, <a href="#stardoc-out">out</a>, <a href="#stardoc-provider_template">provider_template</a>, <a href="#stardoc-renderer">renderer</a>, <a href="#stardoc-rule_template">rule_template</a>, <a href="#stardoc-semantic_flags">semantic_flags</a>, <a href="#stardoc-stardoc">stardoc</a>, <a href="#stardoc-symbol_names">symbol_names</a>)
 </pre>
 
 
@@ -49,6 +49,24 @@ This rule is an experimental replacement for the existing skylark_doc rule.
         </p>
       </td>
     </tr>
+    <tr id="stardoc-func_template">
+      <td><code>func_template</code></td>
+      <td>
+        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
+        <p>
+          The input file template for functions generated in documentation.
+        </p>
+      </td>
+    </tr>
+    <tr id="stardoc-header_template">
+      <td><code>header_template</code></td>
+      <td>
+        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
+        <p>
+          The input file template for header generated in documentation.
+        </p>
+      </td>
+    </tr>
     <tr id="stardoc-input">
       <td><code>input</code></td>
       <td>
@@ -67,12 +85,30 @@ This rule is an experimental replacement for the existing skylark_doc rule.
         </p>
       </td>
     </tr>
+    <tr id="stardoc-provider_template">
+      <td><code>provider_template</code></td>
+      <td>
+        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
+        <p>
+          The input file template for providers generated in documentation.
+        </p>
+      </td>
+    </tr>
     <tr id="stardoc-renderer">
       <td><code>renderer</code></td>
       <td>
         <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
         <p>
           The location of the renderer tool.
+        </p>
+      </td>
+    </tr>
+    <tr id="stardoc-rule_template">
+      <td><code>rule_template</code></td>
+      <td>
+        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
+        <p>
+          The input file template for rules generated in documentation.
         </p>
       </td>
     </tr>

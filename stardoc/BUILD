@@ -2,6 +2,13 @@ licenses(["notice"])  # Apache 2.0
 
 package(default_visibility = ["//visibility:public"])
 
+exports_files([
+    "templates/header.vm",
+    "templates/func.vm",
+    "templates/provider.vm",
+    "templates/rule.vm",
+])
+
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("//stardoc:stardoc.bzl", "stardoc")
 load("@rules_java//java:defs.bzl", "java_binary", "java_import")
