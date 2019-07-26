@@ -3,6 +3,7 @@ licenses(["notice"])  # Apache 2.0
 package(default_visibility = ["//visibility:public"])
 
 exports_files([
+    "templates/aspect.vm",
     "templates/header.vm",
     "templates/func.vm",
     "templates/provider.vm",
