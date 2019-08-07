@@ -125,3 +125,13 @@ def skydoc_repositories():
         name = "six",
         actual = "@six_archive//:six",
     )
+    _include_if_not_defined(
+        http_archive,
+        name = "rules_java",
+        urls = [
+            "https://mirror.bazel.build/github.com/bazelbuild/rules_java/archive/7cf3cefd652008d0a64a419c34c13bdca6c8f178.zip",
+            "https://github.com/bazelbuild/rules_java/archive/7cf3cefd652008d0a64a419c34c13bdca6c8f178.zip",
+        ],
+        sha256 = "bc81f1ba47ef5cc68ad32225c3d0e70b8c6f6077663835438da8d5733f917598",
+        strip_prefix = "rules_java-7cf3cefd652008d0a64a419c34c13bdca6c8f178",
+    )
