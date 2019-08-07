@@ -47,6 +47,9 @@ This rule is an experimental replacement for the existing skylark_doc rule.
         <p>
           A list of skylark_library dependencies which the input depends on.
         </p>
+        <p>
+          The dependencies of this attribute must provide: StarlarkLibraryInfo
+        </p>
       </td>
     </tr>
     <tr id="stardoc-format">

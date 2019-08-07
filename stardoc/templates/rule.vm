@@ -27,6 +27,11 @@ ${util.htmlEscape($ruleInfo.docString)}
           ${attribute.docString.trim()}
         </p>
 #end
+#if (!$attribute.getProviderNameGroupList().isEmpty())
+        <p>
+          The dependencies of this attribute must provide: ${util.attributeProviders($attribute)}
+        </p>
+#end
       </td>
     </tr>
 #end
