@@ -10,6 +10,14 @@ exports_files([
     "templates/rule.vm",
 ])
 
+exports_files([
+    "pure_markdown_templates/aspect.vm",
+    "pure_markdown_templates/header.vm",
+    "pure_markdown_templates/func.vm",
+    "pure_markdown_templates/provider.vm",
+    "pure_markdown_templates/rule.vm",
+])
+
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("//stardoc:stardoc.bzl", "stardoc")
 load("@rules_java//java:defs.bzl", "java_binary", "java_import")
