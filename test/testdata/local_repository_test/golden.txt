@@ -1,0 +1,33 @@
+<!-- Generated with Stardoc: http://skydoc.bazel.build -->
+
+<a name="#min"></a>
+
+## min
+
+<pre>
+min(<a href="#min-integers">integers</a>)
+</pre>
+
+Returns the minimum of given elements.
+
+### Parameters
+
+<table class="params-table">
+  <colgroup>
+    <col class="col-param" />
+    <col class="col-description" />
+  </colgroup>
+  <tbody>
+    <tr id="min-integers">
+      <td><code>integers</code></td>
+      <td>
+        required.
+        <p>
+          A list of integers. Must not be empty.
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+

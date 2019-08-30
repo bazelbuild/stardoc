@@ -32,7 +32,7 @@ def _stardoc_impl(ctx):
     ])
     stardoc_args = ctx.actions.args()
     stardoc_args.add("--input=" + str(ctx.file.input.owner))
-    stardoc_args.add("--workspace_name=" + ctx.workspace_name)
+    stardoc_args.add("--workspace_name=" + ctx.label.workspace_name)
     stardoc_args.add_all(
         ctx.attr.symbol_names,
         format_each = "--symbols=%s",
@@ -53,6 +53,15 @@ def _stardoc_impl(ctx):
         omit_if_empty = True,
         uniquify = True,
     )
+    # Needed in case some files are referenced across local repository
+    # namespace. For example, consider a file under a nested local repository @bar
+    # rooted under ./foo/bar/WORKSPACE. Consider a stardoc target 'lib_doc' under
+    # foo/bar/BUILD to document foo/bar/lib.bzl.
+    # The stardoc target references @bar//:lib.bzl (which appears just as :lib.bzl), but the
+    # actual build is taking place in the root repository, thus the source file
+    # is present under external/bar/lib.bzl.
+    stardoc_args.add(
+        "--dep_roots=external/" + ctx.label.workspace_name)
     stardoc_args.add_all(ctx.attr.semantic_flags)
     stardoc = ctx.executable.stardoc
 

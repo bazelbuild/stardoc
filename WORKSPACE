@@ -78,3 +78,8 @@ http_archive(
     ],
 )
 
+# Needed only for testing stardoc across local-repository bounds.
+local_repository(
+    name = "local_repository_test",
+    path = "test/testdata/local_repository_test",
+)

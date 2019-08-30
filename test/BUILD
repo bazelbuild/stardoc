@@ -246,3 +246,16 @@ stardoc_test(
         "testdata/generated_bzl_test/dep.bzl",
     ],
 )
+
+sh_test(
+    name = "local_repository_test_e2e_test",
+    srcs = ["diff_test_runner.sh"],
+    args = [
+        "$(location @local_repository_test//:output.md)",
+        "$(location @local_repository_test//:golden.txt)",
+    ],
+    data = [
+        "@local_repository_test//:output.md",
+        "@local_repository_test//:golden.txt",
+    ],
+)
