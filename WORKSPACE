@@ -33,7 +33,7 @@ git_repository(
 # Needed for generating the Stardoc release binary.
 git_repository(
     name = "io_bazel",
-    commit = "4ba404f7ed0473df3f0effa016c107ef677464f6",  # Aug 23, 2019
+    commit = "0bb860d20d171b30e31aa898f6403d082cb5aa1b",  # Sep 9, 2019
     remote = "https://github.com/bazelbuild/bazel.git",
 )
 

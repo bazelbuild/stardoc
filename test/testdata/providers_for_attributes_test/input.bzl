@@ -30,6 +30,7 @@ my_rule = rule(
             providers = [OtherProviderInfo],
         ),
         "fourth": attr.label(
+            # buildifier: disable=native-proto
             providers = [ProtoInfo, DefaultInfo, JavaInfo],
         ),
         "fifth": attr.label(
