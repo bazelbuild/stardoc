@@ -2,21 +2,7 @@ licenses(["notice"])  # Apache 2.0
 
 package(default_visibility = ["//visibility:public"])
 
-exports_files([
-    "templates/aspect.vm",
-    "templates/header.vm",
-    "templates/func.vm",
-    "templates/provider.vm",
-    "templates/rule.vm",
-])
-
-exports_files([
-    "pure_markdown_templates/aspect.vm",
-    "pure_markdown_templates/header.vm",
-    "pure_markdown_templates/func.vm",
-    "pure_markdown_templates/provider.vm",
-    "pure_markdown_templates/rule.vm",
-])
+exports_files(glob(["templates/**"]))
 
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("//stardoc:stardoc.bzl", "stardoc")

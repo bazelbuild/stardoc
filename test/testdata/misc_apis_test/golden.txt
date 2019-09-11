@@ -10,70 +10,17 @@ my_rule(<a href="#my_rule-name">name</a>, <a href="#my_rule-deps">deps</a>, <a h
 
 This rule exercises some of the build API.
 
-### Attributes
+**ATTRIBUTES**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="my_rule-name">
-      <td><code>name</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#name">Name</a>; required
-        <p>
-          A unique name for this target.
-        </p>
-      </td>
-    </tr>
-    <tr id="my_rule-deps">
-      <td><code>deps</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>; optional
-        <p>
-          A list of dependencies.
-        </p>
-        <p>
-          The dependencies of this attribute must provide: MyInfo
-        </p>
-      </td>
-    </tr>
-    <tr id="my_rule-extra_arguments">
-      <td><code>extra_arguments</code></td>
-      <td>
-        List of strings; optional
-      </td>
-    </tr>
-    <tr id="my_rule-out">
-      <td><code>out</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; required
-        <p>
-          The output file.
-        </p>
-      </td>
-    </tr>
-    <tr id="my_rule-src">
-      <td><code>src</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
-        <p>
-          The source file.
-        </p>
-      </td>
-    </tr>
-    <tr id="my_rule-tool">
-      <td><code>tool</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
-        <p>
-          The location of the tool to use.
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Type | Mandatory |
+| :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |
+| deps |  A list of dependencies.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional |
+| extra_arguments |  -   | List of strings | optional |
+| out |  The output file.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |
+| src |  The source file.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
+| tool |  The location of the tool to use.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
 
 
 <a name="#MyInfo"></a>
@@ -86,28 +33,13 @@ MyInfo(<a href="#MyInfo-foo">foo</a>, <a href="#MyInfo-bar">bar</a>)
 
 
 
-### Fields
+**FIELDS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="MyInfo-foo">
-      <td><code>foo</code></td>
-      <td>
-        <p>Something foo-related.</p>
-      </td>
-    </tr>
-    <tr id="MyInfo-bar">
-      <td><code>bar</code></td>
-      <td>
-        <p>Something bar-related.</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description |
+| :-------------: | :-------------: |
+| foo |  Something foo-related.    |
+| bar |  Something bar-related.    |
 
 
 <a name="#exercise_the_api"></a>
@@ -119,6 +51,8 @@ exercise_the_api()
 </pre>
 
 
+
+**PARAMETERS**
 
 
 
@@ -132,21 +66,11 @@ my_rule_impl(<a href="#my_rule_impl-ctx">ctx</a>)
 
 
 
-### Parameters
+**PARAMETERS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="my_rule_impl-ctx">
-      <td><code>ctx</code></td>
-      <td>
-        required.
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Default Value |
+| :-------------: | :-------------: | :-------------: |
+| ctx |  <p align="center"> - </p>   |  none |
 
 

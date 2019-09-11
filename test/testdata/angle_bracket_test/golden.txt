@@ -8,36 +8,15 @@
 my_anglebrac(<a href="#my_anglebrac-name">name</a>, <a href="#my_anglebrac-useless">useless</a>)
 </pre>
 
-Rule with &lt;brackets&gt;
+Rule with <brackets>
 
-### Attributes
+**ATTRIBUTES**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="my_anglebrac-name">
-      <td><code>name</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#name">Name</a>; required
-        <p>
-          A unique name for this target.
-        </p>
-      </td>
-    </tr>
-    <tr id="my_anglebrac-useless">
-      <td><code>useless</code></td>
-      <td>
-        String; optional
-        <p>
-          Args with some <b>formatting</b>
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Type | Mandatory |
+| :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |
+| useless |  Args with some tags: &lt;tag1&gt;, &lt;tag2&gt;   | String | optional |
 
 
 <a name="#bracketuse"></a>
@@ -48,36 +27,16 @@ Rule with &lt;brackets&gt;
 bracketuse(<a href="#bracketuse-foo">foo</a>, <a href="#bracketuse-bar">bar</a>, <a href="#bracketuse-baz">baz</a>)
 </pre>
 
-Information with &lt;brackets&gt;
+Information with <brackets>
 
-### Fields
+**FIELDS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="bracketuse-foo">
-      <td><code>foo</code></td>
-      <td>
-        <p>A string representing foo</p>
-      </td>
-    </tr>
-    <tr id="bracketuse-bar">
-      <td><code>bar</code></td>
-      <td>
-        <p>A string representing bar</p>
-      </td>
-    </tr>
-    <tr id="bracketuse-baz">
-      <td><code>baz</code></td>
-      <td>
-        <p>A string representing baz</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description |
+| :-------------: | :-------------: |
+| foo |  A string representing &lt;foo&gt;    |
+| bar |  A string representing bar    |
+| baz |  A string representing baz    |
 
 
 <a name="#bracket_function"></a>
@@ -88,29 +47,16 @@ Information with &lt;brackets&gt;
 bracket_function(<a href="#bracket_function-name">name</a>)
 </pre>
 
-Dummy docstring with &lt;brackets&gt;.
+Dummy docstring with <brackets>.
 
-This rule runs checks on &lt;angle brackets&gt;.
+This rule runs checks on <angle brackets>.
 
 
-### Parameters
+**PARAMETERS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="bracket_function-name">
-      <td><code>name</code></td>
-      <td>
-        required.
-        <p>
-          an arg with <b>formatted</b> docstring.
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Default Value |
+| :-------------: | :-------------: | :-------------: |
+| name |  an arg with **formatted** docstring.   |  none |
 
 

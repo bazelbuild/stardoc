@@ -16,8 +16,8 @@
 
 load(":stardoc.bzl", "stardoc")
 
-def pure_markdown_stardoc(name, **kwargs):
-    """Outputs documentation using default pure markdown templates.
+def html_tables_stardoc(name, **kwargs):
+    """Outputs documentation using html_tables templates.
 
     Args:
       name: A unique name for this target.
@@ -28,9 +28,10 @@ def pure_markdown_stardoc(name, **kwargs):
     stardoc(
         name = name,
         format = "markdown",
-        aspect_template = Label("//stardoc:pure_markdown_templates/aspect.vm"),
-        func_template = Label("//stardoc:pure_markdown_templates/func.vm"),
-        provider_template = Label("//stardoc:pure_markdown_templates/provider.vm"),
-        rule_template = Label("//stardoc:pure_markdown_templates/rule.vm"),
+        aspect_template = Label("//stardoc:templates/html_tables/aspect.vm"),
+        func_template = Label("//stardoc:templates/html_tables/func.vm"),
+        header_template = Label("//stardoc:templates/html_tables/header.vm"),
+        provider_template = Label("//stardoc:templates/html_tables/provider.vm"),
+        rule_template = Label("//stardoc:templates/html_tables/rule.vm"),
         **kwargs
     )

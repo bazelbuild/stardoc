@@ -14,152 +14,25 @@ Generates documentation for exported skylark rule definitions in a target starla
 This rule is an experimental replacement for the existing skylark_doc rule.
 
 
-### Attributes
+**ATTRIBUTES**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="stardoc-name">
-      <td><code>name</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#name">Name</a>; required
-        <p>
-          A unique name for this target.
-        </p>
-      </td>
-    </tr>
-    <tr id="stardoc-aspect_template">
-      <td><code>aspect_template</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
-        <p>
-          The input file template for aspects generated in documentation.
-        </p>
-      </td>
-    </tr>
-    <tr id="stardoc-deps">
-      <td><code>deps</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>; optional
-        <p>
-          A list of skylark_library dependencies which the input depends on.
-        </p>
-        <p>
-          The dependencies of this attribute must provide: StarlarkLibraryInfo
-        </p>
-      </td>
-    </tr>
-    <tr id="stardoc-format">
-      <td><code>format</code></td>
-      <td>
-        String; optional
-        <p>
-          The format of the output file.
-        </p>
-      </td>
-    </tr>
-    <tr id="stardoc-func_template">
-      <td><code>func_template</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
-        <p>
-          The input file template for functions generated in documentation.
-        </p>
-      </td>
-    </tr>
-    <tr id="stardoc-header_template">
-      <td><code>header_template</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
-        <p>
-          The input file template for a header generated in documentation.
-        </p>
-      </td>
-    </tr>
-    <tr id="stardoc-input">
-      <td><code>input</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
-        <p>
-          The starlark file to generate documentation for.
-        </p>
-      </td>
-    </tr>
-    <tr id="stardoc-out">
-      <td><code>out</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; required
-        <p>
-          The (markdown) file to which documentation will be output.
-        </p>
-      </td>
-    </tr>
-    <tr id="stardoc-provider_template">
-      <td><code>provider_template</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
-        <p>
-          The input file template for providers generated in documentation.
-        </p>
-      </td>
-    </tr>
-    <tr id="stardoc-renderer">
-      <td><code>renderer</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
-        <p>
-          The location of the renderer tool.
-        </p>
-      </td>
-    </tr>
-    <tr id="stardoc-rule_template">
-      <td><code>rule_template</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
-        <p>
-          The input file template for rules generated in documentation.
-        </p>
-      </td>
-    </tr>
-    <tr id="stardoc-semantic_flags">
-      <td><code>semantic_flags</code></td>
-      <td>
-        List of strings; optional
-        <p>
-          A list of canonical flags to affect Starlark semantics for the Starlark interpretter
-during documentation generation. This should only be used to maintain compatibility with
-non-default semantic flags required to use the given Starlark symbols.
-<br><br>For example, if <code>//foo:bar.bzl</code> does not build except when a user would specify
-<code>--incompatible_foo_semantic=false</code>, then this attribute should contain
-"--incompatible_foo_semantic=false".
-        </p>
-      </td>
-    </tr>
-    <tr id="stardoc-stardoc">
-      <td><code>stardoc</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
-        <p>
-          The location of the stardoc tool.
-        </p>
-      </td>
-    </tr>
-    <tr id="stardoc-symbol_names">
-      <td><code>symbol_names</code></td>
-      <td>
-        List of strings; optional
-        <p>
-          A list of symbol names to generate documentation for. These should correspond to
-the names of rule definitions in the input file. If this list is empty, then
-documentation for all exported rule definitions will be generated.
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Type | Mandatory |
+| :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |
+| aspect_template |  The input file template for generating documentation of aspects.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
+| deps |  A list of skylark_library dependencies which the input depends on.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional |
+| format |  The format of the output file.   | String | optional |
+| func_template |  The input file template for generating documentation of functions.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
+| header_template |  The input file template for the header of the output documentation.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
+| input |  The starlark file to generate documentation for.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
+| out |  The (markdown) file to which documentation will be output.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |
+| provider_template |  The input file template for generating documentation of providers.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
+| renderer |  The location of the renderer tool.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
+| rule_template |  The input file template for generating documentation of rules.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
+| semantic_flags |  A list of canonical flags to affect Starlark semantics for the Starlark interpretter<br>during documentation generation. This should only be used to maintain compatibility with<br>non-default semantic flags required to use the given Starlark symbols.<br>&lt;br&gt;&lt;br&gt;For example, if &lt;code&gt;//foo:bar.bzl&lt;/code&gt; does not build except when a user would specify<br>&lt;code&gt;--incompatible_foo_semantic=false&lt;/code&gt;, then this attribute should contain<br>"--incompatible_foo_semantic=false".   | List of strings | optional |
+| stardoc |  The location of the stardoc tool.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
+| symbol_names |  A list of symbol names to generate documentation for. These should correspond to<br>the names of rule definitions in the input file. If this list is empty, then<br>documentation for all exported rule definitions will be generated.   | List of strings | optional |
 
 
 <a name="#_stardoc_impl"></a>
@@ -172,21 +45,11 @@ _stardoc_impl(<a href="#_stardoc_impl-ctx">ctx</a>)
 
 Implementation of the stardoc rule.
 
-### Parameters
+**PARAMETERS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="_stardoc_impl-ctx">
-      <td><code>ctx</code></td>
-      <td>
-        required.
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Default Value |
+| :-------------: | :-------------: | :-------------: |
+| ctx |  <p align="center"> - </p>   |  none |
 
 

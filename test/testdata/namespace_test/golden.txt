@@ -10,34 +10,13 @@ my_namespace.assert_non_empty(<a href="#my_namespace.assert_non_empty-some_list"
 
 Asserts the two given lists are not empty.
 
-### Parameters
+**PARAMETERS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="my_namespace.assert_non_empty-some_list">
-      <td><code>some_list</code></td>
-      <td>
-        required.
-        <p>
-          The first list
-        </p>
-      </td>
-    </tr>
-    <tr id="my_namespace.assert_non_empty-other_list">
-      <td><code>other_list</code></td>
-      <td>
-        required.
-        <p>
-          The second list
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Default Value |
+| :-------------: | :-------------: | :-------------: |
+| some_list |  The first list   |  none |
+| other_list |  The second list   |  none |
 
 
 <a name="#my_namespace.min"></a>
@@ -50,25 +29,12 @@ my_namespace.min(<a href="#my_namespace.min-integers">integers</a>)
 
 Returns the minimum of given elements.
 
-### Parameters
+**PARAMETERS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="my_namespace.min-integers">
-      <td><code>integers</code></td>
-      <td>
-        required.
-        <p>
-          A list of integers. Must not be empty.
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Default Value |
+| :-------------: | :-------------: | :-------------: |
+| integers |  A list of integers. Must not be empty.   |  none |
 
 
 <a name="#my_namespace.join_strings"></a>
@@ -81,33 +47,12 @@ my_namespace.join_strings(<a href="#my_namespace.join_strings-strings">strings</
 
 Joins the given strings with a delimiter.
 
-### Parameters
+**PARAMETERS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="my_namespace.join_strings-strings">
-      <td><code>strings</code></td>
-      <td>
-        required.
-        <p>
-          A list of strings to join.
-        </p>
-      </td>
-    </tr>
-    <tr id="my_namespace.join_strings-delimiter">
-      <td><code>delimiter</code></td>
-      <td>
-        optional. default is <code>", "</code>
-        <p>
-          The delimiter to use
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Default Value |
+| :-------------: | :-------------: | :-------------: |
+| strings |  A list of strings to join.   |  none |
+| delimiter |  The delimiter to use   |  <code>", "</code> |
 
 

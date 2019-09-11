@@ -10,34 +10,13 @@ macro_with_args(<a href="#macro_with_args-name">name</a>, <a href="#macro_with_a
 
 My args macro is OK.
 
-### Parameters
+**PARAMETERS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="macro_with_args-name">
-      <td><code>name</code></td>
-      <td>
-        required.
-        <p>
-          The name of the test rule.
-        </p>
-      </td>
-    </tr>
-    <tr id="macro_with_args-args">
-      <td><code>args</code></td>
-      <td>
-        optional.
-        <p>
-          Other arguments to include
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Default Value |
+| :-------------: | :-------------: | :-------------: |
+| name |  The name of the test rule.   |  none |
+| args |  Other arguments to include   |  none |
 
 
 <a name="#macro_with_both"></a>
@@ -53,52 +32,15 @@ Oh wow this macro has both.
 Not much else to say.
 
 
-### Parameters
+**PARAMETERS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="macro_with_both-name">
-      <td><code>name</code></td>
-      <td>
-        required.
-        <p>
-          The name of the test rule.
-        </p>
-      </td>
-    </tr>
-    <tr id="macro_with_both-number">
-      <td><code>number</code></td>
-      <td>
-        optional. default is <code>3</code>
-        <p>
-          Some number used for important things
-        </p>
-      </td>
-    </tr>
-    <tr id="macro_with_both-args">
-      <td><code>args</code></td>
-      <td>
-        optional.
-        <p>
-          Other arguments to include
-        </p>
-      </td>
-    </tr>
-    <tr id="macro_with_both-kwargs">
-      <td><code>kwargs</code></td>
-      <td>
-        optional.
-        <p>
-          Other attributes to include
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Default Value |
+| :-------------: | :-------------: | :-------------: |
+| name |  The name of the test rule.   |  none |
+| number |  Some number used for important things   |  <code>3</code> |
+| args |  Other arguments to include   |  none |
+| kwargs |  Other attributes to include   |  none |
 
 
 <a name="#macro_with_kwargs"></a>
@@ -118,51 +60,14 @@ vitae facilisis odio ligula a tortor. Donec ullamcorper odio eget ipsum tincidun
 vel mollis eros pellentesque.
 
 
-### Parameters
+**PARAMETERS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="macro_with_kwargs-name">
-      <td><code>name</code></td>
-      <td>
-        required.
-        <p>
-          The name of the test rule.
-        </p>
-      </td>
-    </tr>
-    <tr id="macro_with_kwargs-config">
-      <td><code>config</code></td>
-      <td>
-        required.
-        <p>
-          Config to use for my macro
-        </p>
-      </td>
-    </tr>
-    <tr id="macro_with_kwargs-deps">
-      <td><code>deps</code></td>
-      <td>
-        optional. default is <code>[]</code>
-        <p>
-          List of my macro's dependencies
-        </p>
-      </td>
-    </tr>
-    <tr id="macro_with_kwargs-kwargs">
-      <td><code>kwargs</code></td>
-      <td>
-        optional.
-        <p>
-          Other attributes to include
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Default Value |
+| :-------------: | :-------------: | :-------------: |
+| name |  The name of the test rule.   |  none |
+| config |  Config to use for my macro   |  none |
+| deps |  List of my macro's dependencies   |  <code>[]</code> |
+| kwargs |  Other attributes to include   |  none |
 
 

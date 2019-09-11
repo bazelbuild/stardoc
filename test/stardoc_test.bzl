@@ -14,7 +14,7 @@
 """Convenience macro for stardoc e2e tests."""
 
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-load("//stardoc:pure_markdown_stardoc.bzl", "pure_markdown_stardoc")
+load("//stardoc:html_tables_stardoc.bzl", "html_tables_stardoc")
 load("//stardoc:stardoc.bzl", "stardoc")
 
 def stardoc_test(
@@ -44,7 +44,7 @@ def stardoc_test(
       golden_file: The label string of the golden file containing the documentation when stardoc
           is run on the input file.
       deps: A list of label strings of starlark file dependencies of the input_file.
-      test: The type of test (default or pure_markdown).
+      test: The type of test (default or html_tables).
       **kwargs: A dictionary of input template names mapped to template file path for which documentation is generated.
       """
 
@@ -106,8 +106,8 @@ def _create_test_targets(test_name,
             stardoc = stardoc_bin,
             **kwargs
         )
-    elif test == "pure_markdown":
-        pure_markdown_stardoc(
+    elif test == "html_tables":
+        html_tables_stardoc(
             name = genrule_name,
             out = actual_generated_doc,
             input = input_file,
@@ -117,5 +117,5 @@ def _create_test_targets(test_name,
             **kwargs
         )
     else:
-        fail("parameter 'test' must either be 'default' or 'pure_markdown', but was " + test)
+        fail("parameter 'test' must either be 'default' or 'html_tables', but was " + test)
 

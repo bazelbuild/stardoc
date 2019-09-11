@@ -53,13 +53,13 @@ stardoc_test(
 )
 
 stardoc_test(
-    name = "repo_rule_test",
+    name = "repo_rules_test",
     golden_file = "testdata/repo_rules_test/golden.txt",
     input_file = "testdata/repo_rules_test/input.bzl",
 )
 
 stardoc_test(
-    name = "unknown_name",
+    name = "unknown_name_test",
     golden_file = "testdata/unknown_name_test/golden.txt",
     input_file = "testdata/unknown_name_test/input.bzl",
 )
@@ -225,10 +225,10 @@ stardoc_test(
 )
 
 stardoc_test(
-    name = "pure_markdown_template_test",
-    golden_file = "testdata/pure_markdown_template_test/golden.txt",
-    input_file = "testdata/pure_markdown_template_test/input.bzl",
-    test = "pure_markdown",
+    name = "html_tables_template_test",
+    golden_file = "testdata/html_tables_template_test/golden.txt",
+    input_file = "testdata/html_tables_template_test/input.bzl",
+    test = "html_tables",
 )
 
 genrule(

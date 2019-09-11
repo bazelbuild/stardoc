@@ -10,60 +10,15 @@ check_struct_default_values(<a href="#check_struct_default_values-struct_no_args
 
 Checks the default values of structs.
 
-### Parameters
+**PARAMETERS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="check_struct_default_values-struct_no_args">
-      <td><code>struct_no_args</code></td>
-      <td>
-        optional. default is <code>struct()</code>
-        <p>
-          struct with no arguments
-        </p>
-      </td>
-    </tr>
-    <tr id="check_struct_default_values-struct_arg">
-      <td><code>struct_arg</code></td>
-      <td>
-        optional. default is <code>struct(foo = "bar")</code>
-        <p>
-          struct with one argument
-        </p>
-      </td>
-    </tr>
-    <tr id="check_struct_default_values-struct_args">
-      <td><code>struct_args</code></td>
-      <td>
-        optional. default is <code>struct(bar = "foo", foo = "bar")</code>
-        <p>
-          struct with multiple arguments
-        </p>
-      </td>
-    </tr>
-    <tr id="check_struct_default_values-struct_int_args">
-      <td><code>struct_int_args</code></td>
-      <td>
-        optional. default is <code>struct(one = 1, three = 3, two = 2)</code>
-        <p>
-          struct with int arguments
-        </p>
-      </td>
-    </tr>
-    <tr id="check_struct_default_values-struct_struct_args">
-      <td><code>struct_struct_args</code></td>
-      <td>
-        optional. default is <code>struct(multiple = struct(one = 1, three = 3, two = 2), none = struct(), one = struct(foo = "bar"))</code>
-        <p>
-          struct with struct arguments
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Default Value |
+| :-------------: | :-------------: | :-------------: |
+| struct_no_args |  struct with no arguments   |  <code>struct()</code> |
+| struct_arg |  struct with one argument   |  <code>struct(foo = "bar")</code> |
+| struct_args |  struct with multiple arguments   |  <code>struct(bar = "foo", foo = "bar")</code> |
+| struct_int_args |  struct with int arguments   |  <code>struct(one = 1, three = 3, two = 2)</code> |
+| struct_struct_args |  struct with struct arguments   |  <code>struct(multiple = struct(one = 1, three = 3, two = 2), none = struct(), one = struct(foo = "bar"))</code> |
 
 

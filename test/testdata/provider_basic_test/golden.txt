@@ -10,28 +10,13 @@ MyFooInfo(<a href="#MyFooInfo-bar">bar</a>, <a href="#MyFooInfo-baz">baz</a>)
 
 Stores information about a foo.
 
-### Fields
+**FIELDS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="MyFooInfo-bar">
-      <td><code>bar</code></td>
-      <td>
-        <p>(Undocumented)</p>
-      </td>
-    </tr>
-    <tr id="MyFooInfo-baz">
-      <td><code>baz</code></td>
-      <td>
-        <p>(Undocumented)</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description |
+| :-------------: | :-------------: |
+| bar |  (Undocumented)    |
+| baz |  (Undocumented)    |
 
 
 <a name="#MyPoorlyDocumentedInfo"></a>
@@ -43,6 +28,8 @@ MyPoorlyDocumentedInfo()
 </pre>
 
 
+
+**FIELDS**
 
 
 
@@ -59,27 +46,12 @@ A provider with some really neat documentation.
 Look on my works, ye mighty, and despair!
 
 
-### Fields
+**FIELDS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="MyVeryDocumentedInfo-favorite_food">
-      <td><code>favorite_food</code></td>
-      <td>
-        <p>A string representing my favorite food</p>
-      </td>
-    </tr>
-    <tr id="MyVeryDocumentedInfo-favorite_color">
-      <td><code>favorite_color</code></td>
-      <td>
-        <p>A string representing my favorite color</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description |
+| :-------------: | :-------------: |
+| favorite_food |  A string representing my favorite food    |
+| favorite_color |  A string representing my favorite color    |
 
 

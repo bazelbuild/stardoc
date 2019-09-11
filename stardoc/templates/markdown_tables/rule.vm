@@ -15,6 +15,6 @@ ${ruleInfo.docString}
 | Name  | Description | Type | Mandatory |
 | :-------------: | :-------------: | :-------------: | :-------------: |
 #foreach ($attribute in $ruleInfo.getAttributeList())
-| $attribute.name | #if(!$attribute.docString.isEmpty()) $attribute.docString.trim() #else - #end  | ${util.attributeTypeString($attribute)} | ${util.mandatoryString($attribute)} |
+| $attribute.name | #if(!$attribute.docString.isEmpty()) ${util.markdownCellFormat($attribute.docString)} #else - #end  | ${util.attributeTypeString($attribute)} | ${util.mandatoryString($attribute)} |
 #end
 #end

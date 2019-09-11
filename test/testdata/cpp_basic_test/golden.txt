@@ -10,48 +10,15 @@ cpp_related_rule(<a href="#cpp_related_rule-name">name</a>, <a href="#cpp_relate
 
 This rule does cpp-related things.
 
-### Attributes
+**ATTRIBUTES**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="cpp_related_rule-name">
-      <td><code>name</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#name">Name</a>; required
-        <p>
-          A unique name for this target.
-        </p>
-      </td>
-    </tr>
-    <tr id="cpp_related_rule-first">
-      <td><code>first</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; required
-      </td>
-    </tr>
-    <tr id="cpp_related_rule-fourth">
-      <td><code>fourth</code></td>
-      <td>
-        Boolean; optional
-      </td>
-    </tr>
-    <tr id="cpp_related_rule-second">
-      <td><code>second</code></td>
-      <td>
-        <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a>; required
-      </td>
-    </tr>
-    <tr id="cpp_related_rule-third">
-      <td><code>third</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; required
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Type | Mandatory |
+| :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |
+| first |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |
+| fourth |  -   | Boolean | optional |
+| second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |
+| third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |
 
 

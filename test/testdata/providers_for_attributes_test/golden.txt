@@ -10,82 +10,18 @@ my_rule(<a href="#my_rule-name">name</a>, <a href="#my_rule-fifth">fifth</a>, <a
 
 This rule does things.
 
-### Attributes
+**ATTRIBUTES**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="my_rule-name">
-      <td><code>name</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#name">Name</a>; required
-        <p>
-          A unique name for this target.
-        </p>
-      </td>
-    </tr>
-    <tr id="my_rule-fifth">
-      <td><code>fifth</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
-        <p>
-          The dependencies of this attribute must provide: LegacyProvider, ObjectProvider; or DefaultInfo, JavaInfo
-        </p>
-      </td>
-    </tr>
-    <tr id="my_rule-first">
-      <td><code>first</code></td>
-      <td>
-        <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a>; optional
-        <p>
-          this is the first attribute.
-        </p>
-        <p>
-          The dependencies of this attribute must provide: MyProviderInfo, PyInfo, Unknown Provider
-        </p>
-      </td>
-    </tr>
-    <tr id="my_rule-fourth">
-      <td><code>fourth</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
-        <p>
-          The dependencies of this attribute must provide: ProtoInfo, DefaultInfo, JavaInfo
-        </p>
-      </td>
-    </tr>
-    <tr id="my_rule-second">
-      <td><code>second</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>; optional
-        <p>
-          The dependencies of this attribute must provide: CcInfo; or OtherProviderInfo, DepProviderInfo
-        </p>
-      </td>
-    </tr>
-    <tr id="my_rule-sixth">
-      <td><code>sixth</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
-        <p>
-          The dependencies of this attribute must provide: LegacyProvider
-        </p>
-      </td>
-    </tr>
-    <tr id="my_rule-third">
-      <td><code>third</code></td>
-      <td>
-        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
-        <p>
-          The dependencies of this attribute must provide: OtherProviderInfo
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Type | Mandatory |
+| :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |
+| fifth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
+| first |  this is the first attribute.   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional |
+| fourth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
+| second |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional |
+| sixth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
+| third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
 
 
 <a name="#MyProviderInfo"></a>
@@ -98,28 +34,13 @@ MyProviderInfo(<a href="#MyProviderInfo-foo">foo</a>, <a href="#MyProviderInfo-b
 
 
 
-### Fields
+**FIELDS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="MyProviderInfo-foo">
-      <td><code>foo</code></td>
-      <td>
-        <p>Something foo-related.</p>
-      </td>
-    </tr>
-    <tr id="MyProviderInfo-bar">
-      <td><code>bar</code></td>
-      <td>
-        <p>Something bar-related.</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description |
+| :-------------: | :-------------: |
+| foo |  Something foo-related.    |
+| bar |  Something bar-related.    |
 
 
 <a name="#OtherProviderInfo"></a>
@@ -131,6 +52,8 @@ OtherProviderInfo()
 </pre>
 
 
+
+**FIELDS**
 
 
 
@@ -144,21 +67,11 @@ my_rule_impl(<a href="#my_rule_impl-ctx">ctx</a>)
 
 
 
-### Parameters
+**PARAMETERS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="my_rule_impl-ctx">
-      <td><code>ctx</code></td>
-      <td>
-        required.
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Default Value |
+| :-------------: | :-------------: | :-------------: |
+| ctx |  <p align="center"> - </p>   |  none |
 
 

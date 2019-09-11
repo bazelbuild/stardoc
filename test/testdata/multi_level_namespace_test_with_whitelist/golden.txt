@@ -10,22 +10,12 @@ my_namespace.min(<a href="#my_namespace.min-integers">integers</a>)
 
 Returns the minimum of given elements.
 
-### Parameters
+**PARAMETERS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="my_namespace.min-integers">
-      <td><code>integers</code></td>
-      <td>
-        required.
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Default Value |
+| :-------------: | :-------------: | :-------------: |
+| integers |  <p align="center"> - </p>   |  none |
 
 
 <a name="#my_namespace.math.min"></a>
@@ -38,22 +28,12 @@ my_namespace.math.min(<a href="#my_namespace.math.min-integers">integers</a>)
 
 Returns the minimum of given elements.
 
-### Parameters
+**PARAMETERS**
 
-<table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
-    <tr id="my_namespace.math.min-integers">
-      <td><code>integers</code></td>
-      <td>
-        required.
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+| Name  | Description | Default Value |
+| :-------------: | :-------------: | :-------------: |
+| integers |  <p align="center"> - </p>   |  none |
 
 
 <a name="#other_namespace.foo.nothing"></a>
@@ -65,6 +45,8 @@ other_namespace.foo.nothing()
 </pre>
 
 This function does nothing.
+
+**PARAMETERS**
 
 
 
