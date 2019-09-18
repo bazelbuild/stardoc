@@ -23,6 +23,7 @@ bzl_library(
     deps = [
         "@bazel_skylib//:bzl_library",
     ],
+    visibility = ["//visibility:public"],
 )
 
 stardoc(
