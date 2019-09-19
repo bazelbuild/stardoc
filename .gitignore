@@ -8,7 +8,7 @@
 /.settings
 /WORKSPACE.user.bzl
 /base_workspace/*
-/bazel-skydoc
+/bazel-stardoc
 /bazel-bin
 /bazel-genfiles
 /bazel-out

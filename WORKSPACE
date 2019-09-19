@@ -5,30 +5,10 @@ load(":setup.bzl", "skydoc_repositories")
 
 skydoc_repositories()
 
-load("@io_bazel_rules_sass//:package.bzl", "rules_sass_dependencies")
-
-rules_sass_dependencies()
-
-load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories")
-
-node_repositories()
-
-load("@io_bazel_rules_sass//:defs.bzl", "sass_repositories")
-
-sass_repositories()
-
 #######################################################################
 ##### MOST USERS SHOULD NOT NEED TO COPY ANYTHING BELOW THIS LINE #####
 #######################################################################
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-
-# Needed for skydoc only (not Stardoc), which is deprecated. Users should include
-# this in their WORKSPACE only if they need skydoc.
-git_repository(
-    name = "com_google_protobuf",
-    commit = "7b28271a61a3da0a37f6fda399b0c4c86464e5b3",  # 2018-11-16
-    remote = "https://github.com/protocolbuffers/protobuf.git",
-)
 
 # Needed for generating the Stardoc release binary.
 git_repository(
@@ -36,15 +16,6 @@ git_repository(
     commit = "0bb860d20d171b30e31aa898f6403d082cb5aa1b",  # Sep 9, 2019
     remote = "https://github.com/bazelbuild/bazel.git",
 )
-
-git_repository(
-    name = "rules_python",
-    remote = "https://github.com/bazelbuild/rules_python.git",
-    commit = "4b84ad270387a7c439ebdccfd530e2339601ef27",
-)
-
-load("@rules_python//python:repositories.bzl", "py_repositories")
-py_repositories()
 
 # Needed only because of java_tools.
 http_archive(
@@ -55,6 +26,20 @@ http_archive(
         "https://mirror.bazel.build/github.com/bazelbuild/rules_cc/archive/0d5f3f2768c6ca2faca0079a997a97ce22997a0c.zip",
         "https://github.com/bazelbuild/rules_cc/archive/0d5f3f2768c6ca2faca0079a997a97ce22997a0c.zip",
     ],
+)
+
+# Needed as a transitive dependency of @io_bazel
+git_repository(
+    name = "com_google_protobuf",
+    commit = "7b28271a61a3da0a37f6fda399b0c4c86464e5b3",  # 2018-11-16
+    remote = "https://github.com/protocolbuffers/protobuf.git",
+)
+
+# Needed as a transitive dependency of @io_bazel
+git_repository(
+    name = "rules_python",
+    remote = "https://github.com/bazelbuild/rules_python.git",
+    commit = "4b84ad270387a7c439ebdccfd530e2339601ef27",
 )
 
 # Needed as a transitive dependency of @io_bazel
