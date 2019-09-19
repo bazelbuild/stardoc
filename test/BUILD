@@ -255,7 +255,7 @@ sh_test(
         "$(location @local_repository_test//:golden.txt)",
     ],
     data = [
-        "@local_repository_test//:output.md",
         "@local_repository_test//:golden.txt",
+        "@local_repository_test//:output.md",
     ],
 )

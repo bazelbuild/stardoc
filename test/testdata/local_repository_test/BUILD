@@ -6,7 +6,10 @@ package(
 
 licenses(["notice"])  # Apache 2.0
 
-exports_files(["input.bzl", "golden.txt"])
+exports_files([
+    "input.bzl",
+    "golden.txt",
+])
 
 stardoc(
     name = "input_doc",
