@@ -1,6 +1,6 @@
 # Stardoc - Starlark Documentation Generator
 
-[![Build status](hhttps://badge.buildkite.com/d8594eb71e4869c792cce22428b08e03b345f9c65dc603d70b.svg?branch=master)](https://buildkite.com/bazel/skydoc-postsubmit)
+[![Build status](https://badge.buildkite.com/d8594eb71e4869c792cce22428b08e03b345f9c65dc603d70b.svg?branch=master)](https://buildkite.com/bazel/stardoc)
 
 Stardoc is a documentation generator for [Bazel](https://bazel.build) build rules
 written in [Starlark](https://bazel.build/docs/skylark/index.html).
@@ -25,3 +25,4 @@ Stardoc is a replacement for the **deprecated** "Skydoc" documentation generator
 
 See [Skydoc Deprecation](docs/skydoc_deprecation.md) for
 details on the deprecation and migration details.
+
