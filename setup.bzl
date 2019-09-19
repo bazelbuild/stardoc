@@ -20,8 +20,8 @@ def _include_if_not_defined(repo_rule, name, **kwargs):
     if not native.existing_rule(name):
         repo_rule(name = name, **kwargs)
 
-def skydoc_repositories():
-    """Adds the external repositories used by the skylark rules."""
+def stardoc_repositories():
+    """Adds the external repositories used by the starlark rules."""
     _include_if_not_defined(
         http_archive,
         name = "bazel_skylib",
