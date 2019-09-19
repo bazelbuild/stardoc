@@ -8,5 +8,3 @@ This repository is currently in a transitionary state as pieces of the
  are being moved to this one. Use the
 [bazelbuild/skydoc](https://github.com/bazelbuild/skydoc) repository
 for the time being.
-
-Test PR presubmits
