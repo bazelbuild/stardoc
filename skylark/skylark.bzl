@@ -15,7 +15,6 @@
 """Skylark rules"""
 
 load("@bazel_skylib//:bzl_library.bzl", "StarlarkLibraryInfo")
-load("//:setup.bzl", _skydoc_repositories = "skydoc_repositories")
 
 _SKYLARK_FILETYPE = [".bzl"]
 
@@ -171,4 +170,3 @@ Example:
   a set of HTML pages that is ready to be served, set `format = "html"`.
 """
 
-skydoc_repositories = _skydoc_repositories
