@@ -14,7 +14,6 @@
 
 """Repository external dependency resolution functions."""
 
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 def _include_if_not_defined(repo_rule, name, **kwargs):
