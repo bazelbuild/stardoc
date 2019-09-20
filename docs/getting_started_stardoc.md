@@ -34,8 +34,8 @@ definition ensure that this repository's dependencies are loaded.
 
 Now you are ready to document your Starlark rules.
 
-* Learn about the (docstring format)[writing_stardoc.md] used to document Starlark rules.
-* Learn about how you can use Stardoc's (build rules)[generating_stardoc.md] to generate your
+* Learn about the [docstring format](writing_stardoc.md) used to document Starlark rules.
+* Learn about how you can use Stardoc's [build rules](generating_stardoc.md) to generate your
   documentation in Markdown format.
 
 
