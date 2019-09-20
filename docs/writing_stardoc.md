@@ -69,7 +69,7 @@ Field-related documentation can be specified by passing a map to the
 `fields` parameter of the `provider()` function. Keys are required field
 names, and values are their corresponding docstrings.
 
-```
+```python
 MyInfo = provider(
     doc = """
 A provider with some really neat documentation.

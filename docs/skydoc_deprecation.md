@@ -43,7 +43,7 @@ Args:
 
 ...the equivalent for Stardoc is:
 
-```
+```python
 my_rule = rule(
     implementation = _my_rule_impl,
     doc = """
@@ -83,7 +83,7 @@ depends on `third/package/baz.bzl`.
 
 **BUILD**:
 
-```
+```python
 load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
 
 stardoc(
@@ -96,7 +96,7 @@ stardoc(
 
 **other/package/BUILD**:
 
-```
+```python
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 
 bzl_library(
@@ -108,7 +108,7 @@ bzl_library(
 
 **third/package/BUILD**:
 
-```
+```python
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 
 bzl_library(
