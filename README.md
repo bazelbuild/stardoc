@@ -17,7 +17,6 @@ for Starlark rules in Markdown. Stardoc generates one documentation page per `.b
 ## About Stardoc
 
 * How to [contribute to Stardoc](docs/contributing.md)
-* See the [Stardoc roadmap](docs/roadmap.md)
 
 ## Skydoc deprecation
 
