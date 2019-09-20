@@ -21,7 +21,7 @@ def _include_if_not_defined(repo_rule, name, **kwargs):
         repo_rule(name = name, **kwargs)
 
 def stardoc_repositories():
-    """Adds the external repositories used by the starlark rules."""
+    """Adds the external repositories used by the Starlark rules."""
     _include_if_not_defined(
         http_archive,
         name = "bazel_skylib",

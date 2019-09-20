@@ -22,7 +22,7 @@ a brief summary of some things to note for migration:
 Stardoc uses inline documentation strings instead of Python-style docstrings.
 For example, Skydoc documentation may have been specified with:
 
-```
+```python
 my_rule = rule(
     implementation = _my_rule_impl,
     attrs = {
