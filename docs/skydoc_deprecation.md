@@ -1,6 +1,6 @@
 ## Why was Skydoc deprecated?
 
-Skydoc functioned by evalutating Starlark files as if they were python. Unfortunately, while
+Skydoc functioned by evaluating Starlark files as if they were Python. Unfortunately, while
 Starlark is **similar** to Python, there are some important syntactic differences between
 the languages. Assuming compatibility between the languages was inherently brittle, and resulted
 in a maintenance burden on the Starlark code. Specifically, if one of your transitive dependencies
