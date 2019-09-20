@@ -4,7 +4,7 @@ Skydoc functioned by evaluating Starlark files as if they were Python. Unfortuna
 Starlark is **similar** to Python, there are some important syntactic differences between
 the languages. Assuming compatibility between the languages was inherently brittle, and resulted
 in a maintenance burden on the Starlark code. Specifically, if one of your transitive dependencies
-were to adopt a Starlark-compatible, python-incompatible construct, your Skydoc integration would
+were to adopt a Starlark-compatible, Python-incompatible construct, your Skydoc integration would
 break!
 
 Skydoc still exists under [bazelbuild/skydoc](https://github.com/bazelbuild/skydoc), as it's a
