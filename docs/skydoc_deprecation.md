@@ -132,6 +132,6 @@ a tutorial.
 ## Migration Issues
 
 If you run into any issues migrating, please file a
-[github issue](https://github.com/bazelbuild/stardoc/issues).
+[GitHub issue](https://github.com/bazelbuild/stardoc/issues).
 
 
