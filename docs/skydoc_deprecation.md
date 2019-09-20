@@ -76,7 +76,7 @@ about the new `stardoc` rule itself.
 
 Stardoc depends on your `bzl` file, all of its dependencies, and all of its **transitive**
 dependencies, so that it can fully evaluate your Starlark code.
-`bazel-skylib`'s `bzl_library` is your "best friend" for tracking `bzl` dependencies.
+`bazel-skylib`'s `bzl_library` is the recommend approach for tracking `bzl` dependencies.
 
 For example, suppose your `mypackage/foo.bzl` file depends on `other/package/bar.bzl`, which
 depends on `third/package/baz.bzl`.
