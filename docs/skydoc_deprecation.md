@@ -19,7 +19,7 @@ a brief summary of some things to note for migration:
 
 ### Docstring specification
 
-Stardoc uses inline documentation strings instead of python-style docstrings.
+Stardoc uses inline documentation strings instead of Python-style docstrings.
 For example, Skydoc documentation may have been specified with:
 
 ```
