@@ -8,7 +8,7 @@ were to adopt a Starlark-compatible, Python-incompatible construct, your Skydoc 
 break!
 
 Skydoc still exists under [bazelbuild/skydoc](https://github.com/bazelbuild/skydoc), as it's a
-nontrivial migration to Stardoc, but Skydoc is completely unsupported.
+nontrivial migration to Stardoc, but Skydoc is completely unsupported as of September 2019.
 The [bazelbuild/skydoc](https://github.com/bazelbuild/skydoc) will be archived by end of 2019.
 
 ## How to migrate
