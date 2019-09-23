@@ -30,26 +30,8 @@ This rule is an experimental replacement for the existing skylark_doc rule.
 | provider_template |  The input file template for generating documentation of providers.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
 | renderer |  The location of the renderer tool.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
 | rule_template |  The input file template for generating documentation of rules.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
-| semantic_flags |  A list of canonical flags to affect Starlark semantics for the Starlark interpretter<br>during documentation generation. This should only be used to maintain compatibility with<br>non-default semantic flags required to use the given Starlark symbols.<br>&lt;br&gt;&lt;br&gt;For example, if &lt;code&gt;//foo:bar.bzl&lt;/code&gt; does not build except when a user would specify<br>&lt;code&gt;--incompatible_foo_semantic=false&lt;/code&gt;, then this attribute should contain<br>"--incompatible_foo_semantic=false".   | List of strings | optional |
+| semantic_flags |  A list of canonical flags to affect Starlark semantics for the Starlark interpretter<br>during documentation generation. This should only be used to maintain compatibility with<br>non-default semantic flags required to use the given Starlark symbols.<br><br>For example, if <code>//foo:bar.bzl</code> does not build except when a user would specify<br><code>--incompatible_foo_semantic=false</code>, then this attribute should contain<br>"--incompatible_foo_semantic=false".   | List of strings | optional |
 | stardoc |  The location of the stardoc tool.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
 | symbol_names |  A list of symbol names to generate documentation for. These should correspond to<br>the names of rule definitions in the input file. If this list is empty, then<br>documentation for all exported rule definitions will be generated.   | List of strings | optional |
-
-
-<a name="#_stardoc_impl"></a>
-
-## _stardoc_impl
-
-<pre>
-_stardoc_impl(<a href="#_stardoc_impl-ctx">ctx</a>)
-</pre>
-
-Implementation of the stardoc rule.
-
-**PARAMETERS**
-
-
-| Name  | Description | Default Value |
-| :-------------: | :-------------: | :-------------: |
-| ctx |  <p align="center"> - </p>   |  none |
 
 
