@@ -32,7 +32,6 @@ stardoc(
     input = ":stardoc.bzl",
     symbol_names = [
         "stardoc",
-        "_stardoc_impl",
     ],
     deps = [":stardoc_lib"],
 )

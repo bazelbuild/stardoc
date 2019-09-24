@@ -145,8 +145,9 @@ documentation for all exported rule definitions will be generated.
 A list of canonical flags to affect Starlark semantics for the Starlark interpretter
 during documentation generation. This should only be used to maintain compatibility with
 non-default semantic flags required to use the given Starlark symbols.
-<br><br>For example, if <code>//foo:bar.bzl</code> does not build except when a user would specify
-<code>--incompatible_foo_semantic=false</code>, then this attribute should contain
+
+For example, if `//foo:bar.bzl` does not build except when a user would specify
+`--incompatible_foo_semantic=false`, then this attribute should contain
 "--incompatible_foo_semantic=false".
 """,
             default = [],
