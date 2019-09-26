@@ -58,7 +58,7 @@ The `name` attribute that is common to all rules is documented by default.
 <a name="provider-documentation"></a>
 ## Provider Documentation
 
-[Starlark Providers](https://docs.bazel.build/versions/master/skylark/rules.html#providers) 
+[Starlark Providers](https://docs.bazel.build/versions/master/skylark/rules.html#providers)
 are documented similarly to rules: using docstrings specified as parameters during
 creation of the provider.
 
