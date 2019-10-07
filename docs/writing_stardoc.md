@@ -11,7 +11,7 @@ When generating documentation, Stardoc parses the `.bzl` file to extract the
 inline documentation as well as evaluates the Starlark code to determine the
 types for rule attributes. Stardoc will, by default, generate documentation for
 all rules, macros, and functions reachable from a target `.bzl` file.
-See [Generating Stardoc][generating_stardoc.md] for details on limiting the
+See [Generating Stardoc](generating_stardoc.md) for details on limiting the
 symbols for which stardoc generates documentation.
 
 <a name="rule-documentation"></a>
