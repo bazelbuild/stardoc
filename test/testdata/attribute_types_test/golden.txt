@@ -13,20 +13,20 @@ This is my rule. It does stuff.
 **ATTRIBUTES**
 
 
-| Name  | Description | Type | Mandatory |
-| :-------------: | :-------------: | :-------------: | :-------------: |
-| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |
-| a |  Some bool   | Boolean | required |
-| b |  Some int   | Integer | required |
-| c |  Some int_list   | List of integers | required |
-| d |  Some label   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |
-| e |  Some label_keyed_string_dict   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | required |
-| f |  Some label_list   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | required |
-| g |  Some output   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
-| h |  Some output_list   | List of labels | optional |
-| i |  Some string   | String | required |
-| j |  Some string_dict   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |
-| k |  Some string_list   | List of strings | required |
-| l |  Some string_list_dict   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> List of strings</a> | optional |
+| Name  | Description | Type | Mandatory | Default |
+| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| a |  Some bool   | Boolean | required |  |
+| b |  Some int   | Integer | required |  |
+| c |  Some int_list   | List of integers | required |  |
+| d |  Some label   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| e |  Some label_keyed_string_dict   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | required |  |
+| f |  Some label_list   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | required |  |
+| g |  Some output   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| h |  Some output_list   | List of labels | optional | None |
+| i |  Some string   | String | required |  |
+| j |  Some string_dict   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |  |
+| k |  Some string_list   | List of strings | required |  |
+| l |  Some string_list_dict   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> List of strings</a> | optional | {} |
 
 

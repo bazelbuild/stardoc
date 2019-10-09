@@ -13,14 +13,14 @@ This rule does python-related things.
 **ATTRIBUTES**
 
 
-| Name  | Description | Type | Mandatory |
-| :-------------: | :-------------: | :-------------: | :-------------: |
-| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |
-| fifth |  Hey look, its the fifth thing!   | Boolean | optional |
-| first |  this is the first doc string!   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |
-| fourth |  the fourth doc string.   | Boolean | optional |
-| second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |
-| sixth |  it's the sixth thing.   | List of integers | optional |
-| third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |
+| Name  | Description | Type | Mandatory | Default |
+| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| fifth |  Hey look, its the fifth thing!   | Boolean | optional | True |
+| first |  this is the first doc string!   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| fourth |  the fourth doc string.   | Boolean | optional | False |
+| second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |  |
+| sixth |  it's the sixth thing.   | List of integers | optional | range(0, 10) |
+| third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 
 

@@ -13,15 +13,15 @@ This rule does things.
 **ATTRIBUTES**
 
 
-| Name  | Description | Type | Mandatory |
-| :-------------: | :-------------: | :-------------: | :-------------: |
-| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |
-| fifth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
-| first |  this is the first attribute.   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional |
-| fourth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
-| second |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional |
-| sixth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
-| third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
+| Name  | Description | Type | Mandatory | Default |
+| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| fifth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| first |  this is the first attribute.   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
+| fourth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| second |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| sixth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 
 
 <a name="#MyProviderInfo"></a>

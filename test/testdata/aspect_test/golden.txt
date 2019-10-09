@@ -40,11 +40,11 @@ This is my aspect. It does stuff.
 **ATTRIBUTES**
 
 
-| Name  | Description | Type | Mandatory |
-| :-------------: | :-------------: | :-------------: | :-------------: |
-| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |
-| first |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |
-| second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |
+| Name  | Description | Type | Mandatory | Default |
+| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |   |
+| first |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |   |
+| second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |   |
 
 
 <a name="#other_aspect"></a>
@@ -68,9 +68,9 @@ This is another aspect.
 **ATTRIBUTES**
 
 
-| Name  | Description | Type | Mandatory |
-| :-------------: | :-------------: | :-------------: | :-------------: |
-| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |
-| third |  -   | Integer | required |
+| Name  | Description | Type | Mandatory | Default |
+| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |   |
+| third |  -   | Integer | required |   |
 
 
