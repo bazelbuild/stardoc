@@ -13,9 +13,9 @@ Minimal example of a repository rule.
 **ATTRIBUTES**
 
 
-| Name  | Description | Type | Mandatory |
-| :-------------: | :-------------: | :-------------: | :-------------: |
-| name |  A unique name for this repository.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |
-| useless |  This argument will be ingored. You don't have to specify it, but you may.   | String | optional |
+| Name  | Description | Type | Mandatory | Default |
+| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this repository.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| useless |  This argument will be ingored. You don't have to specify it, but you may.   | String | optional | "ignoreme" |
 
 

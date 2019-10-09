@@ -13,7 +13,7 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 # Needed for generating the Stardoc release binary.
 git_repository(
     name = "io_bazel",
-    commit = "0bb860d20d171b30e31aa898f6403d082cb5aa1b",  # Sep 9, 2019
+    commit = "5eeccd8a647df10d154d3b86e9732e7f263c96db",  # Oct 7, 2019
     remote = "https://github.com/bazelbuild/bazel.git",
 )
 

@@ -231,6 +231,12 @@ stardoc_test(
     test = "html_tables",
 )
 
+stardoc_test(
+    name = "attribute_defaults_test",
+    golden_file = "testdata/attribute_defaults_test/golden.txt",
+    input_file = "testdata/attribute_defaults_test/input.bzl",
+)
+
 genrule(
     name = "generate_bzl_test_dep",
     srcs = ["testdata/generated_bzl_test/dep.bzl.tpl"],
