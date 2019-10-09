@@ -8,7 +8,7 @@ licenses(["notice"])  # Apache 2.0
 
 exports_files([
     "input.bzl",
-    "golden.txt",
+    "golden.md",
 ])
 
 stardoc(
