@@ -233,8 +233,14 @@ stardoc_test(
 
 stardoc_test(
     name = "attribute_defaults_test",
-    golden_file = "testdata/attribute_defaults_test/golden.txt",
+    golden_file = "testdata/attribute_defaults_test/golden.md",
     input_file = "testdata/attribute_defaults_test/input.bzl",
+)
+
+stardoc_test(
+    name = "config_apis_test",
+    golden_file = "testdata/config_apis_test/golden.md",
+    input_file = "testdata/config_apis_test/input.bzl",
 )
 
 genrule(
