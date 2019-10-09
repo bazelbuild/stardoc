@@ -13,14 +13,14 @@ This rule exercises some of the build API.
 **ATTRIBUTES**
 
 
-| Name  | Description | Type | Mandatory |
-| :-------------: | :-------------: | :-------------: | :-------------: |
-| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |
-| deps |  A list of dependencies.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional |
-| extra_arguments |  -   | List of strings | optional |
-| out |  The output file.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |
-| src |  The source file.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
-| tool |  The location of the tool to use.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |
+| Name  | Description | Type | Mandatory | Default |
+| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| deps |  A list of dependencies.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| extra_arguments |  -   | List of strings | optional | [] |
+| out |  The output file.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| src |  The source file.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| tool |  The location of the tool to use.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | //foo/bar/baz:target |
 
 
 <a name="#MyInfo"></a>

@@ -13,10 +13,10 @@ Rule with <brackets>
 **ATTRIBUTES**
 
 
-| Name  | Description | Type | Mandatory |
-| :-------------: | :-------------: | :-------------: | :-------------: |
-| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |
-| useless |  Args with some tags: &lt;tag1&gt;, &lt;tag2&gt;   | String | optional |
+| Name  | Description | Type | Mandatory | Default |
+| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| useless |  Args with some tags: &lt;tag1&gt;, &lt;tag2&gt;   | String | optional | "Find <brackets>" |
 
 
 <a name="#bracketuse"></a>

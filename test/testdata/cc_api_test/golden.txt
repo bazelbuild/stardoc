@@ -13,13 +13,13 @@ This rule does C++-related things.
 **ATTRIBUTES**
 
 
-| Name  | Description | Type | Mandatory |
-| :-------------: | :-------------: | :-------------: | :-------------: |
-| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |
-| first |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |
-| fourth |  -   | Boolean | optional |
-| second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |
-| third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |
+| Name  | Description | Type | Mandatory | Default |
+| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| first |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| fourth |  -   | Boolean | optional | False |
+| second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |  |
+| third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 
 
 <a name="#exercise_the_api"></a>
