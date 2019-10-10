@@ -124,7 +124,7 @@ This rule is an experimental replacement for the existing skylark_doc rule.
             providers = [StarlarkLibraryInfo],
         ),
         "format": attr.string(
-            doc = "The format of the output file.",
+            doc = "The format of the output file. Valid values: 'markdown' or 'proto'.",
             default = "markdown",
             values = ["markdown", "proto"],
         ),
