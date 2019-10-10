@@ -35,7 +35,7 @@ for regen_target in $regen_targets; do
   base_target_name=$(echo $regen_target | sed 's/\/\/test://g')
   testdata_pkg_name=$(echo $base_target_name | sed 's/regenerate_with_jar_//g' | sed 's/_golden//g')
   out_file="bazel-bin/test/${base_target_name}.out"
-  cp $out_file "test/testdata/${testdata_pkg_name}/golden.txt"
+  cp $out_file "test/testdata/${testdata_pkg_name}/golden.md"
 done
 
 echo "** Files copied."
