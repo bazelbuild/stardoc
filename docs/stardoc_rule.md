@@ -23,7 +23,7 @@ This rule is an experimental replacement for the existing skylark_doc rule.
 | name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | aspect_template |  The input file template for generating documentation of aspects.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | //stardoc:templates/markdown_tables/aspect.vm |
 | deps |  A list of skylark_library dependencies which the input depends on.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| format |  The format of the output file.   | String | optional | "markdown" |
+| format |  The format of the output file. Valid values: 'markdown' or 'proto'.   | String | optional | "markdown" |
 | func_template |  The input file template for generating documentation of functions.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | //stardoc:templates/markdown_tables/func.vm |
 | header_template |  The input file template for the header of the output documentation.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | //stardoc:templates/markdown_tables/header.vm |
 | input |  The starlark file to generate documentation for.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
