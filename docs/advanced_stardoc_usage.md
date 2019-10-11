@@ -13,7 +13,7 @@ This document covers a number of advanced topics pertaining to using Stardoc.
 ## Docstring Formatting
 
 You may want to inline various kinds of formatting in the docstrings adjacent
-to your Starlark code. Use typical markdown formatting constructs instead of
+to your Starlark code. Use standard markdown formatting constructs instead of
 HTML tags.
 
 For example:
