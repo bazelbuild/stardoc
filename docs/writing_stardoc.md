@@ -3,7 +3,7 @@
   <ul>
     <li><a href="#rule-documentation">Rule Documentation</a></li>
     <li><a href="#provider-documentation">Provider Documentation</a></li>
-    <li><a href="#macro-documentation">Macro Documentation</a></li>
+    <li><a href="#macro-documentation">Macro / Function Documentation</a></li>
   </ul>
 </nav>
 
@@ -82,9 +82,9 @@ Contains information about some of my favorite things.
 ```
 
 <a name="macro-documentation"></a>
-## Macro Documentation
+## Macro / Function Documentation
 
-[Starlark Macros](https://bazel.build/docs/skylark/macros.html) are documented
+Functions and [Starlark Macros](https://bazel.build/docs/skylark/macros.html) are documented
 using docstrings similar to Python docstring format:
 
 ```python

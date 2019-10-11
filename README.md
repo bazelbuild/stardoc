@@ -14,6 +14,7 @@ page per `.bzl`file.
 * How to [set up Stardoc for your project](docs/getting_started_stardoc.md)
 * Writing [docstrings](docs/writing_stardoc.md)
 * How to [integrate Stardoc with your build](docs/generating_stardoc.md).
+* See also [Advanced Topics](docs/advanced_stardoc_usage.md).
 
 ## About Stardoc
 
