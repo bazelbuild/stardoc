@@ -75,7 +75,7 @@ Stardoc's output templates are defined using
 with utilities and model objects available in the evaluation context.
 
 The full comprehensive list of available utilities top-level objects is available in
-[the source for MarkdownRenderer](https://github.com/bazelbuild/bazel/blob/3fcfbe14ddec34889c5e3fe33415af2cf9124e7c/src/main/java/com/google/devtools/build/skydoc/rendering/MarkdownRenderer.java#L100)
+[the source for MarkdownRenderer](https://github.com/bazelbuild/bazel/blob/3fcfbe14ddec34889c5e3fe33415af2cf9124e7c/src/main/java/com/google/devtools/build/skydoc/rendering/MarkdownRenderer.java#L100).
 
 Information available for raw model objects (such rule information) is defined by
 Stardoc's underlying [proto schema](https://github.com/bazelbuild/bazel/blob/5eeccd8a647df10d154d3b86e9732e7f263c96db/src/main/java/com/google/devtools/build/skydoc/rendering/proto/stardoc_output.proto).
