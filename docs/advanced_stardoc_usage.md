@@ -46,7 +46,7 @@ doc output for a particular type of Starlark definition (such as a "rule" or a
 
 1. Create a new custom output template to describe how this type of object should
    be rendered.
-2. In your `stardoc()` target, set the matching "_template" attribute to point to
+2. In your `stardoc()` target, set the matching `_template` attribute to point to
    your new output template.
 
 For example, you might want to change the way rule documentation is generated.
