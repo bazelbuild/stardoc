@@ -15,10 +15,10 @@ This is my rule. It does stuff.
 
 | Name  | Description | Type | Mandatory | Default |
 | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
-| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| first |  first doc string   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
-| fourth |  fourth doc string   | Boolean | optional | False |
-| second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |  |
-| third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| <a name="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| <a name="my_rule-first"></a>first |  first doc string   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| <a name="my_rule-fourth"></a>fourth |  fourth doc string   | Boolean | optional | False |
+| <a name="my_rule-second"></a>second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |  |
+| <a name="my_rule-third"></a>third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 
 

@@ -15,7 +15,7 @@ Returns the minimum of given elements.
 
 | Name  | Description | Default Value |
 | :-------------: | :-------------: | :-------------: |
-| integers |  A list of integers. Must not be empty.   |  none |
+| <a name="my_namespace.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
 
 
 <a name="#my_namespace.math.min"></a>
@@ -33,7 +33,7 @@ Returns the minimum of given elements.
 
 | Name  | Description | Default Value |
 | :-------------: | :-------------: | :-------------: |
-| integers |  A list of integers. Must not be empty.   |  none |
+| <a name="my_namespace.math.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
 
 
 <a name="#my_namespace.foo.bar.baz"></a>
@@ -65,7 +65,7 @@ Returns the minimum of given elements.
 
 | Name  | Description | Default Value |
 | :-------------: | :-------------: | :-------------: |
-| integers |  A list of integers. Must not be empty.   |  none |
+| <a name="my_namespace.one.two.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
 
 
 <a name="#my_namespace.one.three.does_nothing"></a>
