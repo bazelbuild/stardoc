@@ -36,3 +36,7 @@ cp bazel-bin/external/io_bazel/src/main/java/com/google/devtools/build/skydoc/re
     stardoc/renderer_binary.jar
 
 echo "** Renderer copied."
+
+echo "** Copying stardoc_output.proto from source..."
+cp $(bazel info output_base)/external/io_bazel/src/main/java/com/google/devtools/build/skydoc/rendering/proto/stardoc_output.proto stardoc/proto/stardoc_output.proto
+echo "** stardoc_output.proto copied."
