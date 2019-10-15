@@ -94,7 +94,7 @@ format. You may find this useful if you need output customization beyond
 Stardoc's current custom-output-template capabilities: you might prefer to build
 your own custom output renderer binary using the data that Stardoc acquires by
 fully evaluating a Starlark file. (If your changes could be incorporated into
-Stardoc, please first consider [contributing](docs/contributing.md) instead.
+Stardoc, please first consider [contributing](contributing.md) instead.
 
 The proto schema may be found under
 [stardoc/proto/stardoc_output.proto](../stardoc/proto/stardoc_output.proto).
