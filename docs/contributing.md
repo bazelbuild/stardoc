@@ -1,4 +1,5 @@
-We welcome your contributions! To contribute to Stardoc, fork the
+We welcome your contributions! To contribute to Stardoc, first see the official
+[contributing notice](../CONTRIBUTING.md), then feel free to fork the
 [Stardoc](https://github.com/bazelbuild/stardoc) GitHub repository and start
 submitting pull requests.
 
