@@ -93,7 +93,7 @@ Stardoc provides the option to output documentation information in raw proto
 format. You may find this useful if you need output customization beyond
 Stardoc's current custom-output-template capabilities: you might prefer to build
 your own custom output renderer binary using the data that Stardoc acquires by
-fully evaluating a Starlark file. (If your changes could be incorporated into
+fully evaluating a Starlark file. If your changes could be incorporated into
 Stardoc, please first consider [contributing](contributing.md) instead.
 
 The proto schema may be found under
