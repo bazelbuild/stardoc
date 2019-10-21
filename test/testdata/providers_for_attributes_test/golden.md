@@ -15,13 +15,13 @@ This rule does things.
 
 | Name  | Description | Type | Mandatory | Default |
 | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
-| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| fifth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
-| first |  this is the first attribute.   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
-| fourth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
-| second |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| sixth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
-| third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| <a name="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| <a name="my_rule-fifth"></a>fifth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| <a name="my_rule-first"></a>first |  this is the first attribute.   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
+| <a name="my_rule-fourth"></a>fourth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| <a name="my_rule-second"></a>second |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a name="my_rule-sixth"></a>sixth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| <a name="my_rule-third"></a>third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 
 
 <a name="#MyProviderInfo"></a>
@@ -39,8 +39,8 @@ MyProviderInfo(<a href="#MyProviderInfo-foo">foo</a>, <a href="#MyProviderInfo-b
 
 | Name  | Description |
 | :-------------: | :-------------: |
-| foo |  Something foo-related.    |
-| bar |  Something bar-related.    |
+| <a name="MyProviderInfo-foo"></a>foo |  Something foo-related.    |
+| <a name="MyProviderInfo-bar"></a>bar |  Something bar-related.    |
 
 
 <a name="#OtherProviderInfo"></a>
@@ -72,6 +72,6 @@ my_rule_impl(<a href="#my_rule_impl-ctx">ctx</a>)
 
 | Name  | Description | Default Value |
 | :-------------: | :-------------: | :-------------: |
-| ctx |  <p align="center"> - </p>   |  none |
+| <a name="my_rule_impl-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
 
 
