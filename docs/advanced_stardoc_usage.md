@@ -3,6 +3,7 @@
   <ul>
     <li><a href="#docstring-formatting">Docstring Formatting</a></li>
     <li><a href="#custom-output">Custom Output</a></li>
+    <li><a href="#proto-output">Proto Output</a></li>
   </ul>
 </nav>
 
@@ -85,3 +86,51 @@ one of the existing canonical [templates](../stardoc/templates/markdown_tables) 
 springboard to get started.
 
 
+<a name="proto-output"></a>
+## Proto Output
+
+Stardoc provides the option to output documentation information in raw proto
+format. You may find this useful if you need output customization beyond
+Stardoc's current custom-output-template capabilities: you might prefer to build
+your own custom output renderer binary using the data that Stardoc acquires by
+fully evaluating a Starlark file. If your changes could be incorporated into
+Stardoc, please first consider [contributing](contributing.md) instead.
+
+The proto schema may be found under
+[stardoc/proto/stardoc_output.proto](../stardoc/proto/stardoc_output.proto).
+Only the `.proto` file itself is provided (this prevents a transitive dependency on
+proto rules to support only a very-advanced usecase). We recommend using rules
+defined under
+[bazelbuild/rules_proto](https://github.com/bazelbuild/rules_proto), creating
+your own proto target using this source file, and adding it as a dependency of
+your renderer binary.
+
+To configure stardoc to output raw proto instead of markdown, use the `format`
+attribute of the [stardoc rule](stardoc_rule.md#stardoc-format). Specify `"proto"`.
+An example:
+
+```python
+stardoc(
+    name = "docs_proto_output",
+    out = "doc_output.raw",
+    input = ":my_rule.bzl",
+    deps = [":my_lib"],
+    format = "proto",
+)
+
+# Define a proto_library target to incorporate the stardoc_output_proto
+proto_library(
+    name = "stardoc_output_proto",
+    srcs = ["@io_bazel_stardoc//stardoc/proto:stardoc_output.proto"],
+)
+
+# You'll need to define your own rendering target. This might be a
+# `genrule` or your own custom rule.
+genrule(
+    name = "docs_markdown_output",
+    tools = ["my_renderer.sh"],
+    srcs = ["doc_output.raw"],
+    outs = ["doc_output.md"],
+    cmd = "$(location :my_renderer.sh) $@ $(SRCS)",
+)
+```
