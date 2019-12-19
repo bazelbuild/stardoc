@@ -15,6 +15,8 @@ sh_test(
     ],
 )
 
+exports_files(["testdata/fakedeps/dep.bzl"])
+
 stardoc_test(
     name = "input_template_test",
     aspect_template = "testdata/input_template_test/aspect.vm",
@@ -271,3 +273,4 @@ sh_test(
         "@local_repository_test//:output.md",
     ],
 )
+
