@@ -32,7 +32,7 @@ def _stardoc_impl(ctx):
     ])
     stardoc_args = ctx.actions.args()
     stardoc_args.add("--input=" + str(ctx.file.input.owner))
-    stardoc_args.add("--workspace_name=" + ctx.label.workspace_name)
+    stardoc_args.add("--workspace_name=" + ctx.workspace_name)
     stardoc_args.add_all(
         ctx.attr.symbol_names,
         format_each = "--symbols=%s",
@@ -61,7 +61,7 @@ def _stardoc_impl(ctx):
     # actual build is taking place in the root repository, thus the source file
     # is present under external/bar/lib.bzl.
     stardoc_args.add(
-        "--dep_roots=external/" + ctx.label.workspace_name)
+        "--dep_roots=external/" + ctx.workspace_name)
     stardoc_args.add_all(ctx.attr.semantic_flags)
     stardoc = ctx.executable.stardoc
 
