@@ -14,7 +14,7 @@ my_aspect_impl(<a href="#my_aspect_impl-ctx">ctx</a>)
 
 
 | Name  | Description | Default Value |
-| :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- |
 | <a name="my_aspect_impl-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
 
 
@@ -32,7 +32,7 @@ This is my aspect. It does stuff.
 
 
 | Name | Type |
-| :-------------: | :-------------: |
+| :------------- | :------------- |
 | deps| String |
 | attr_aspect| String |
 
@@ -41,7 +41,7 @@ This is my aspect. It does stuff.
 
 
 | Name  | Description | Type | Mandatory | Default |
-| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a name="my_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |   |
 | <a name="my_aspect-first"></a>first |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |   |
 | <a name="my_aspect-second"></a>second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |   |
@@ -61,7 +61,7 @@ This is another aspect.
 
 
 | Name | Type |
-| :-------------: | :-------------: |
+| :------------- | :------------- |
 | *| String |
 
 
@@ -69,7 +69,7 @@ This is another aspect.
 
 
 | Name  | Description | Type | Mandatory | Default |
-| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a name="other_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |   |
 | <a name="other_aspect-third"></a>third |  -   | Integer | required |   |
 

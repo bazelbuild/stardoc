@@ -14,7 +14,7 @@ Returns the minimum of given elements.
 
 
 | Name  | Description | Default Value |
-| :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- |
 | <a name="my_namespace.min-integers"></a>integers |  <p align="center"> - </p>   |  none |
 
 
@@ -32,7 +32,7 @@ Returns the minimum of given elements.
 
 
 | Name  | Description | Default Value |
-| :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- |
 | <a name="my_namespace.math.min-integers"></a>integers |  <p align="center"> - </p>   |  none |
 
 

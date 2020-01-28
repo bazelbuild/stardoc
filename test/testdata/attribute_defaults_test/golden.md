@@ -14,7 +14,7 @@ This is my rule. It does stuff.
 
 
 | Name  | Description | Type | Mandatory | Default |
-| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a name="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a name="my_rule-a"></a>a |  Some bool   | Boolean | optional | False |
 | <a name="my_rule-b"></a>b |  Some int   | Integer | optional | 2 |
@@ -55,7 +55,7 @@ This is my aspect. It does stuff.
 
 
 | Name | Type |
-| :-------------: | :-------------: |
+| :------------- | :------------- |
 | deps| String |
 | attr_aspect| String |
 
@@ -64,7 +64,7 @@ This is my aspect. It does stuff.
 
 
 | Name  | Description | Type | Mandatory | Default |
-| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a name="my_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |   |
 | <a name="my_aspect-y"></a>y |  some string   | String | optional |  "why" |
 | <a name="my_aspect-z"></a>z |  -   | String | required |   |

@@ -14,7 +14,7 @@ This rule does python-related things.
 
 
 | Name  | Description | Type | Mandatory | Default |
-| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a name="py_related_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a name="py_related_rule-fifth"></a>fifth |  Hey look, its the fifth thing!   | Boolean | optional | True |
 | <a name="py_related_rule-first"></a>first |  this is the first doc string!   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |

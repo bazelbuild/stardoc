@@ -13,7 +13,7 @@ $aspectInfo.getDocString()
 #if (!$aspectInfo.getAspectAttributeList().isEmpty())
 
 | Name | Type |
-| :-------------: | :-------------: |
+| :------------- | :------------- |
 #foreach ($aspectAttribute in $aspectInfo.getAspectAttributeList())
 | $aspectAttribute| String |
 #end
@@ -25,7 +25,7 @@ $aspectInfo.getDocString()
 #if (!$aspectInfo.getAttributeList().isEmpty())
 
 | Name  | Description | Type | Mandatory | Default |
-| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
 #foreach ($attribute in $aspectInfo.getAttributeList())
 | <a name="${aspectName}-${attribute.name}"></a>$attribute.name | #if(!$attribute.docString.isEmpty()) ${util.markdownCellFormat($attribute.docString)} #else - #end  | ${util.attributeTypeString($attribute)} | ${util.mandatoryString($attribute)} |  $attribute.defaultValue |
 #end

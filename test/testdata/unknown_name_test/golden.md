@@ -14,7 +14,7 @@ my_rule_impl(<a href="#my_rule_impl-ctx">ctx</a>)
 
 
 | Name  | Description | Default Value |
-| :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- |
 | <a name="my_rule_impl-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
 
 
