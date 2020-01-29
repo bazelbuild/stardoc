@@ -14,7 +14,7 @@ This is my rule. It does stuff.
 
 
 | Name  | Description | Type | Mandatory | Default |
-| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a name="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a name="my_rule-first"></a>first |  first my_rule doc string   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 | <a name="my_rule-second"></a>second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |  |
@@ -34,7 +34,7 @@ This is another rule.
 
 
 | Name  | Description | Type | Mandatory | Default |
-| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a name="other_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a name="other_rule-fourth"></a>fourth |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |  |
 | <a name="other_rule-third"></a>third |  third other_rule doc string   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
@@ -54,7 +54,7 @@ This is yet another rule
 
 
 | Name  | Description | Type | Mandatory | Default |
-| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a name="yet_another_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a name="yet_another_rule-fifth"></a>fifth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 
@@ -73,7 +73,7 @@ top_fun(<a href="#top_fun-a">a</a>, <a href="#top_fun-b">b</a>, <a href="#top_fu
 
 
 | Name  | Description | Default Value |
-| :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- |
 | <a name="top_fun-a"></a>a |  <p align="center"> - </p>   |  none |
 | <a name="top_fun-b"></a>b |  <p align="center"> - </p>   |  none |
 | <a name="top_fun-c"></a>c |  <p align="center"> - </p>   |  none |

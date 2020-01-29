@@ -14,7 +14,7 @@ This is my rule. It does stuff.
 
 
 | Name  | Description | Type | Mandatory | Default |
-| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a name="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a name="my_rule-a"></a>a |  Some bool   | Boolean | required |  |
 | <a name="my_rule-b"></a>b |  Some int   | Integer | required |  |

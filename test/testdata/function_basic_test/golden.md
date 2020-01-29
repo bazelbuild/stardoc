@@ -19,7 +19,7 @@ Use `bazel build` to run the check.
 
 
 | Name  | Description | Default Value |
-| :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- |
 | <a name="check_sources-name"></a>name |  A unique name for this rule.   |  none |
 | <a name="check_sources-required_param"></a>required_param |  Use your imagination.   |  none |
 | <a name="check_sources-bool_param"></a>bool_param |  <p align="center"> - </p>   |  <code>True</code> |
@@ -44,7 +44,7 @@ undocumented_function(<a href="#undocumented_function-a">a</a>, <a href="#undocu
 
 
 | Name  | Description | Default Value |
-| :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- |
 | <a name="undocumented_function-a"></a>a |  <p align="center"> - </p>   |  none |
 | <a name="undocumented_function-b"></a>b |  <p align="center"> - </p>   |  none |
 | <a name="undocumented_function-c"></a>c |  <p align="center"> - </p>   |  none |

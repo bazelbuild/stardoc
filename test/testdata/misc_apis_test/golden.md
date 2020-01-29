@@ -14,7 +14,7 @@ This rule exercises some of the build API.
 
 
 | Name  | Description | Type | Mandatory | Default |
-| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a name="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a name="my_rule-deps"></a>deps |  A list of dependencies.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a name="my_rule-extra_arguments"></a>extra_arguments |  -   | List of strings | optional | [] |
@@ -37,7 +37,7 @@ MyInfo(<a href="#MyInfo-foo">foo</a>, <a href="#MyInfo-bar">bar</a>)
 
 
 | Name  | Description |
-| :-------------: | :-------------: |
+| :------------- | :------------- |
 | <a name="MyInfo-foo"></a>foo |  Something foo-related.    |
 | <a name="MyInfo-bar"></a>bar |  Something bar-related.    |
 
@@ -70,7 +70,7 @@ my_rule_impl(<a href="#my_rule_impl-ctx">ctx</a>)
 
 
 | Name  | Description | Default Value |
-| :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- |
 | <a name="my_rule_impl-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
 
 

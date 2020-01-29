@@ -14,7 +14,7 @@ My args macro is OK.
 
 
 | Name  | Description | Default Value |
-| :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- |
 | <a name="macro_with_args-name"></a>name |  The name of the test rule.   |  none |
 | <a name="macro_with_args-args"></a>args |  Other arguments to include   |  none |
 
@@ -36,7 +36,7 @@ Not much else to say.
 
 
 | Name  | Description | Default Value |
-| :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- |
 | <a name="macro_with_both-name"></a>name |  The name of the test rule.   |  none |
 | <a name="macro_with_both-number"></a>number |  Some number used for important things   |  <code>3</code> |
 | <a name="macro_with_both-args"></a>args |  Other arguments to include   |  none |
@@ -64,7 +64,7 @@ vel mollis eros pellentesque.
 
 
 | Name  | Description | Default Value |
-| :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- |
 | <a name="macro_with_kwargs-name"></a>name |  The name of the test rule.   |  none |
 | <a name="macro_with_kwargs-config"></a>config |  Config to use for my macro   |  none |
 | <a name="macro_with_kwargs-deps"></a>deps |  List of my macro's dependencies   |  <code>[]</code> |

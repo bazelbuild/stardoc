@@ -15,7 +15,7 @@ Checks the default values of structs.
 
 
 | Name  | Description | Default Value |
-| :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- |
 | <a name="check_struct_default_values-struct_no_args"></a>struct_no_args |  struct with no arguments   |  <code>struct()</code> |
 | <a name="check_struct_default_values-struct_arg"></a>struct_arg |  struct with one argument   |  <code>struct(foo = "bar")</code> |
 | <a name="check_struct_default_values-struct_args"></a>struct_args |  struct with multiple arguments   |  <code>struct(bar = "foo", foo = "bar")</code> |

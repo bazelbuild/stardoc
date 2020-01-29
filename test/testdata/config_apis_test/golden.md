@@ -14,7 +14,7 @@ int_setting(<a href="#int_setting-name">name</a>)
 
 
 | Name  | Description | Type | Mandatory | Default |
-| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a name="int_setting-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 
 
@@ -32,7 +32,7 @@ string_flag(<a href="#string_flag-name">name</a>)
 
 
 | Name  | Description | Type | Mandatory | Default |
-| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a name="string_flag-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 
 
@@ -64,7 +64,7 @@ A no-op transition function.
 
 
 | Name  | Description | Default Value |
-| :-------------: | :-------------: | :-------------: |
+| :------------- | :------------- | :------------- |
 | <a name="transition_func-settings"></a>settings |  <p align="center"> - </p>   |  none |
 
 
