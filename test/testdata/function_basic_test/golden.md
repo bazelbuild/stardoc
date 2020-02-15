@@ -20,14 +20,10 @@ Use `bazel build` to run the check.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="check_sources-name"></a>name |  A unique name for this rule.   |  none |
-| <a name="check_sources-required_param"></a>required_param |  Use your imagination.   |  none |
-| <a name="check_sources-bool_param"></a>bool_param |  <p align="center"> - </p>   |  <code>True</code> |
-| <a name="check_sources-srcs"></a>srcs |  Source files to run the checks against.   |  <code>[]</code> |
-| <a name="check_sources-string_param"></a>string_param |  <p align="center"> - </p>   |  <code>""</code> |
-| <a name="check_sources-int_param"></a>int_param |  Your favorite number.   |  <code>2</code> |
-| <a name="check_sources-dict_param"></a>dict_param |  <p align="center"> - </p>   |  <code>{}</code> |
-| <a name="check_sources-struct_param"></a>struct_param |  <p align="center"> - </p>   |  <code>struct(foo = "bar")</code> |
+| <a name="check_sources-name"></a>name | A unique name for this rule. |  none |
+| <a name="check_sources-required_param"></a>required_param | Use your imagination. |  none |
+| <a name="check_sources-srcs"></a>srcs | Source files to run the checks against. |  <code>[]</code> |
+| <a name="check_sources-int_param"></a>int_param | Your favorite number. |  <code>2</code> |
 
 
 <a name="#undocumented_function"></a>
@@ -45,8 +41,5 @@ undocumented_function(<a href="#undocumented_function-a">a</a>, <a href="#undocu
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="undocumented_function-a"></a>a |  <p align="center"> - </p>   |  none |
-| <a name="undocumented_function-b"></a>b |  <p align="center"> - </p>   |  none |
-| <a name="undocumented_function-c"></a>c |  <p align="center"> - </p>   |  none |
 
 
