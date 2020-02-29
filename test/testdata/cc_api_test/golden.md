@@ -15,11 +15,11 @@ This rule does C++-related things.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a name="cpp_related_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a name="cpp_related_rule-first"></a>first |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
-| <a name="cpp_related_rule-fourth"></a>fourth |  -   | Boolean | optional | False |
-| <a name="cpp_related_rule-second"></a>second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |  |
-| <a name="cpp_related_rule-third"></a>third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| <a id="cpp_related_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| <a id="cpp_related_rule-first"></a>first |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| <a id="cpp_related_rule-fourth"></a>fourth |  -   | Boolean | optional | False |
+| <a id="cpp_related_rule-second"></a>second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |  |
+| <a id="cpp_related_rule-third"></a>third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 
 
 <a name="#exercise_the_api"></a>
@@ -51,6 +51,6 @@ my_rule_impl(<a href="#my_rule_impl-ctx">ctx</a>)
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="my_rule_impl-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
+| <a id="my_rule_impl-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
 
 
