@@ -15,8 +15,8 @@ Stores information about a foo.
 
 | Name  | Description |
 | :------------- | :------------- |
-| <a name="MyFooInfo-bar"></a>bar |  (Undocumented)    |
-| <a name="MyFooInfo-baz"></a>baz |  (Undocumented)    |
+| <a name="MyFooInfo-bar"></a>bar | (Undocumented) |
+| <a name="MyFooInfo-baz"></a>baz | (Undocumented) |
 
 
 <a name="#MyPoorlyDocumentedInfo"></a>
@@ -51,7 +51,7 @@ Look on my works, ye mighty, and despair!
 
 | Name  | Description |
 | :------------- | :------------- |
-| <a name="MyVeryDocumentedInfo-favorite_food"></a>favorite_food |  A string representing my favorite food    |
-| <a name="MyVeryDocumentedInfo-favorite_color"></a>favorite_color |  A string representing my favorite color    |
+| <a name="MyVeryDocumentedInfo-favorite_food"></a>favorite_food | A string representing my favorite food |
+| <a name="MyVeryDocumentedInfo-favorite_color"></a>favorite_color | A string representing my favorite color |
 
 

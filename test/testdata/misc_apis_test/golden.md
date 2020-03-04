@@ -15,12 +15,11 @@ This rule exercises some of the build API.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a name="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a name="my_rule-deps"></a>deps |  A list of dependencies.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a name="my_rule-extra_arguments"></a>extra_arguments |  -   | List of strings | optional | [] |
-| <a name="my_rule-out"></a>out |  The output file.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
-| <a name="my_rule-src"></a>src |  The source file.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
-| <a name="my_rule-tool"></a>tool |  The location of the tool to use.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | //foo/bar/baz:target |
+| <a name="my_rule-name"></a>name | A unique name for this target. | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| <a name="my_rule-deps"></a>deps | A list of dependencies. | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a name="my_rule-out"></a>out | The output file. | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| <a name="my_rule-src"></a>src | The source file. | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| <a name="my_rule-tool"></a>tool | The location of the tool to use. | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | //foo/bar/baz:target |
 
 
 <a name="#MyInfo"></a>
@@ -38,8 +37,8 @@ MyInfo(<a href="#MyInfo-foo">foo</a>, <a href="#MyInfo-bar">bar</a>)
 
 | Name  | Description |
 | :------------- | :------------- |
-| <a name="MyInfo-foo"></a>foo |  Something foo-related.    |
-| <a name="MyInfo-bar"></a>bar |  Something bar-related.    |
+| <a name="MyInfo-foo"></a>foo | Something foo-related. |
+| <a name="MyInfo-bar"></a>bar | Something bar-related. |
 
 
 <a name="#exercise_the_api"></a>
@@ -71,6 +70,5 @@ my_rule_impl(<a href="#my_rule_impl-ctx">ctx</a>)
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="my_rule_impl-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
 
 

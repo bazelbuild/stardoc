@@ -15,8 +15,8 @@ Rule with <brackets>
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a name="my_anglebrac-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a name="my_anglebrac-useless"></a>useless |  Args with some tags: &lt;tag1&gt;, &lt;tag2&gt;   | String | optional | "Find <brackets>" |
+| <a name="my_anglebrac-name"></a>name | A unique name for this target. | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| <a name="my_anglebrac-useless"></a>useless | Args with some tags: &lt;tag1&gt;, &lt;tag2&gt; | String | optional | "Find <brackets>" |
 
 
 <a name="#bracketuse"></a>
@@ -34,9 +34,9 @@ Information with <brackets>
 
 | Name  | Description |
 | :------------- | :------------- |
-| <a name="bracketuse-foo"></a>foo |  A string representing &lt;foo&gt;    |
-| <a name="bracketuse-bar"></a>bar |  A string representing bar    |
-| <a name="bracketuse-baz"></a>baz |  A string representing baz    |
+| <a name="bracketuse-foo"></a>foo | A string representing &lt;foo&gt; |
+| <a name="bracketuse-bar"></a>bar | A string representing bar |
+| <a name="bracketuse-baz"></a>baz | A string representing baz |
 
 
 <a name="#bracket_function"></a>
@@ -57,6 +57,6 @@ This rule runs checks on <angle brackets>.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="bracket_function-name"></a>name |  an arg with **formatted** docstring.   |  none |
+| <a name="bracket_function-name"></a>name | an arg with **formatted** docstring. |  none |
 
 
