@@ -1,6 +1,6 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-<a name="#macro_with_args"></a>
+<a id="#macro_with_args"></a>
 
 ## macro_with_args
 
@@ -15,11 +15,11 @@ My args macro is OK.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="macro_with_args-name"></a>name |  The name of the test rule.   |  none |
-| <a name="macro_with_args-args"></a>args |  Other arguments to include   |  none |
+| <a id="macro_with_args-name"></a>name |  The name of the test rule.   |  none |
+| <a id="macro_with_args-args"></a>args |  Other arguments to include   |  none |
 
 
-<a name="#macro_with_both"></a>
+<a id="#macro_with_both"></a>
 
 ## macro_with_both
 
@@ -37,13 +37,13 @@ Not much else to say.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="macro_with_both-name"></a>name |  The name of the test rule.   |  none |
-| <a name="macro_with_both-number"></a>number |  Some number used for important things   |  <code>3</code> |
-| <a name="macro_with_both-args"></a>args |  Other arguments to include   |  none |
-| <a name="macro_with_both-kwargs"></a>kwargs |  Other attributes to include   |  none |
+| <a id="macro_with_both-name"></a>name |  The name of the test rule.   |  none |
+| <a id="macro_with_both-number"></a>number |  Some number used for important things   |  <code>3</code> |
+| <a id="macro_with_both-args"></a>args |  Other arguments to include   |  none |
+| <a id="macro_with_both-kwargs"></a>kwargs |  Other attributes to include   |  none |
 
 
-<a name="#macro_with_kwargs"></a>
+<a id="#macro_with_kwargs"></a>
 
 ## macro_with_kwargs
 
@@ -65,9 +65,9 @@ vel mollis eros pellentesque.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="macro_with_kwargs-name"></a>name |  The name of the test rule.   |  none |
-| <a name="macro_with_kwargs-config"></a>config |  Config to use for my macro   |  none |
-| <a name="macro_with_kwargs-deps"></a>deps |  List of my macro's dependencies   |  <code>[]</code> |
-| <a name="macro_with_kwargs-kwargs"></a>kwargs |  Other attributes to include   |  none |
+| <a id="macro_with_kwargs-name"></a>name |  The name of the test rule.   |  none |
+| <a id="macro_with_kwargs-config"></a>config |  Config to use for my macro   |  none |
+| <a id="macro_with_kwargs-deps"></a>deps |  List of my macro's dependencies   |  <code>[]</code> |
+| <a id="macro_with_kwargs-kwargs"></a>kwargs |  Other attributes to include   |  none |
 
 

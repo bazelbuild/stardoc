@@ -1,6 +1,6 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-<a name="#my_rule_impl"></a>
+<a id="#my_rule_impl"></a>
 
 ## my_rule_impl
 
@@ -15,6 +15,6 @@ my_rule_impl(<a href="#my_rule_impl-ctx">ctx</a>)
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="my_rule_impl-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
+| <a id="my_rule_impl-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
 
 
