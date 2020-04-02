@@ -1,6 +1,6 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-<a name="#my_namespace.min"></a>
+<a id="#my_namespace.min"></a>
 
 ## my_namespace.min
 
@@ -15,10 +15,10 @@ Returns the minimum of given elements.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="my_namespace.min-integers"></a>integers |  <p align="center"> - </p>   |  none |
+| <a id="my_namespace.min-integers"></a>integers |  <p align="center"> - </p>   |  none |
 
 
-<a name="#my_namespace.math.min"></a>
+<a id="#my_namespace.math.min"></a>
 
 ## my_namespace.math.min
 
@@ -33,10 +33,10 @@ Returns the minimum of given elements.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="my_namespace.math.min-integers"></a>integers |  <p align="center"> - </p>   |  none |
+| <a id="my_namespace.math.min-integers"></a>integers |  <p align="center"> - </p>   |  none |
 
 
-<a name="#other_namespace.foo.nothing"></a>
+<a id="#other_namespace.foo.nothing"></a>
 
 ## other_namespace.foo.nothing
 

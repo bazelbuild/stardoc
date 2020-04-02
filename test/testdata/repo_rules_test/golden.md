@@ -1,6 +1,6 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-<a name="#my_repo"></a>
+<a id="#my_repo"></a>
 
 ## my_repo
 
@@ -15,7 +15,7 @@ Minimal example of a repository rule.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a name="my_repo-name"></a>name |  A unique name for this repository.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a name="my_repo-useless"></a>useless |  This argument will be ingored. You don't have to specify it, but you may.   | String | optional | "ignoreme" |
+| <a id="my_repo-name"></a>name |  A unique name for this repository.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| <a id="my_repo-useless"></a>useless |  This argument will be ingored. You don't have to specify it, but you may.   | String | optional | "ignoreme" |
 
 

@@ -1,4 +1,4 @@
-<a name="#${funcInfo.functionName}"></a>
+<a id="#${funcInfo.functionName}"></a>
 
 #[[##]]# ${funcInfo.functionName}
 
@@ -15,6 +15,6 @@ ${funcInfo.docString}
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 #foreach ($param in $funcInfo.getParameterList())
-| <a name="${funcInfo.functionName}-${param.name}"></a>$param.name | #if(!$param.docString.isEmpty()) ${util.markdownCellFormat($param.docString)} #else <p align="center"> - </p> #end  | #if(!$param.getDefaultValue().isEmpty()) <code>$param.getDefaultValue()</code> #else none #end|
+| <a id="${funcInfo.functionName}-${param.name}"></a>$param.name | #if(!$param.docString.isEmpty()) ${util.markdownCellFormat($param.docString)} #else <p align="center"> - </p> #end  | #if(!$param.getDefaultValue().isEmpty()) <code>$param.getDefaultValue()</code> #else none #end|
 #end
 #end
