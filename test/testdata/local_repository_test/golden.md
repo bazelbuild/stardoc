@@ -1,6 +1,6 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-<a name="#min"></a>
+<a id="#min"></a>
 
 ## min
 
@@ -15,6 +15,6 @@ Returns the minimum of given elements.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
+| <a id="min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
 
 

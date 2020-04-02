@@ -1,6 +1,6 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-<a name="#example_rule"></a>
+<a id="#example_rule"></a>
 
 ## example_rule
 
@@ -46,7 +46,7 @@ Small example of rule using a markdown template.
 </table>
 
 
-<a name="#ExampleProviderInfo"></a>
+<a id="#ExampleProviderInfo"></a>
 
 ## ExampleProviderInfo
 
@@ -86,7 +86,7 @@ Small example of provider using a markdown template.
 </table>
 
 
-<a name="#example_function"></a>
+<a id="#example_function"></a>
 
 ## example_function
 
@@ -126,7 +126,7 @@ Small example of function using a markdown template.
 </table>
 
 
-<a name="#example_aspect"></a>
+<a id="#example_aspect"></a>
 
 ## example_aspect
 

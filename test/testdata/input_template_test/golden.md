@@ -2,7 +2,7 @@
 
 Module Docstring: "Input file for input template test"
 
-<a name="#my_example"></a>
+<a id="#my_example"></a>
 
 ## my_example
 
@@ -33,7 +33,7 @@ Small example of rule using chosen template.
         </p>
 
 
-<a name="#example"></a>
+<a id="#example"></a>
 
 ## example
 
@@ -61,7 +61,7 @@ Stores information about an example in chosen template.
         <p>A string representing baz</p>
 
 
-<a name="#my_aspect_impl"></a>
+<a id="#my_aspect_impl"></a>
 
 ## my_aspect_impl
 
@@ -79,7 +79,7 @@ my_aspect_impl(<a href="#my_aspect_impl-ctx">ctx</a>)
       <code>ctx</code>
         required.
 
-<a name="#template_function"></a>
+<a id="#template_function"></a>
 
 ## template_function
 
@@ -104,7 +104,7 @@ Use `bazel build` to run the check.
         </p>
 
 
-<a name="#my_aspect"></a>
+<a id="#my_aspect"></a>
 
 ## my_aspect
 

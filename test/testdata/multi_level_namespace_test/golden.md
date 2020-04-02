@@ -1,6 +1,6 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-<a name="#my_namespace.min"></a>
+<a id="#my_namespace.min"></a>
 
 ## my_namespace.min
 
@@ -15,10 +15,10 @@ Returns the minimum of given elements.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="my_namespace.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
+| <a id="my_namespace.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
 
 
-<a name="#my_namespace.math.min"></a>
+<a id="#my_namespace.math.min"></a>
 
 ## my_namespace.math.min
 
@@ -33,10 +33,10 @@ Returns the minimum of given elements.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="my_namespace.math.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
+| <a id="my_namespace.math.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
 
 
-<a name="#my_namespace.foo.bar.baz"></a>
+<a id="#my_namespace.foo.bar.baz"></a>
 
 ## my_namespace.foo.bar.baz
 
@@ -50,7 +50,7 @@ This function does nothing.
 
 
 
-<a name="#my_namespace.one.two.min"></a>
+<a id="#my_namespace.one.two.min"></a>
 
 ## my_namespace.one.two.min
 
@@ -65,10 +65,10 @@ Returns the minimum of given elements.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="my_namespace.one.two.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
+| <a id="my_namespace.one.two.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
 
 
-<a name="#my_namespace.one.three.does_nothing"></a>
+<a id="#my_namespace.one.three.does_nothing"></a>
 
 ## my_namespace.one.three.does_nothing
 

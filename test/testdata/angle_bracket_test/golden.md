@@ -1,6 +1,6 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-<a name="#my_anglebrac"></a>
+<a id="#my_anglebrac"></a>
 
 ## my_anglebrac
 
@@ -15,11 +15,11 @@ Rule with <brackets>
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a name="my_anglebrac-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a name="my_anglebrac-useless"></a>useless |  Args with some tags: &lt;tag1&gt;, &lt;tag2&gt;   | String | optional | "Find <brackets>" |
+| <a id="my_anglebrac-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| <a id="my_anglebrac-useless"></a>useless |  Args with some tags: &lt;tag1&gt;, &lt;tag2&gt;   | String | optional | "Find <brackets>" |
 
 
-<a name="#bracketuse"></a>
+<a id="#bracketuse"></a>
 
 ## bracketuse
 
@@ -34,12 +34,12 @@ Information with <brackets>
 
 | Name  | Description |
 | :------------- | :------------- |
-| <a name="bracketuse-foo"></a>foo |  A string representing &lt;foo&gt;    |
-| <a name="bracketuse-bar"></a>bar |  A string representing bar    |
-| <a name="bracketuse-baz"></a>baz |  A string representing baz    |
+| <a id="bracketuse-foo"></a>foo |  A string representing &lt;foo&gt;    |
+| <a id="bracketuse-bar"></a>bar |  A string representing bar    |
+| <a id="bracketuse-baz"></a>baz |  A string representing baz    |
 
 
-<a name="#bracket_function"></a>
+<a id="#bracket_function"></a>
 
 ## bracket_function
 
@@ -57,6 +57,6 @@ This rule runs checks on <angle brackets>.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a name="bracket_function-name"></a>name |  an arg with **formatted** docstring.   |  none |
+| <a id="bracket_function-name"></a>name |  an arg with **formatted** docstring.   |  none |
 
 
