@@ -1,4 +1,4 @@
-<a name="#${funcInfo.functionName}"></a>
+<a id="#${funcInfo.functionName}"></a>
 
 #[[##]]# ${funcInfo.functionName}
 
