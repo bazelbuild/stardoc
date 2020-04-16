@@ -22,7 +22,7 @@ This rule is an experimental replacement for the existing skylark_doc rule.
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="stardoc-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a id="stardoc-aspect_template"></a>aspect_template |  The input file template for generating documentation of aspects.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | //stardoc:templates/markdown_tables/aspect.vm |
-| <a id="stardoc-deps"></a>deps |  A list of skylark_library dependencies which the input depends on.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="stardoc-deps"></a>deps |  A list of bzl_library dependencies which the input depends on.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="stardoc-format"></a>format |  The format of the output file. Valid values: 'markdown' or 'proto'.   | String | optional | "markdown" |
 | <a id="stardoc-func_template"></a>func_template |  The input file template for generating documentation of functions.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | //stardoc:templates/markdown_tables/func.vm |
 | <a id="stardoc-header_template"></a>header_template |  The input file template for the header of the output documentation.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | //stardoc:templates/markdown_tables/header.vm |
