@@ -22,12 +22,12 @@ $aspectInfo.getDocString()
 <td><code>${aspectAttribute}</code></td>
 <td>
 String; required.
-#end
 </td>
 </tr>
 #end
 </tbody>
 </table>
+#end
 
 #[[###]]# Attributes
 

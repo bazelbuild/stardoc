@@ -22,7 +22,10 @@ ${util.htmlEscape($funcInfo.docString)}
 <td><code>${param.name}</code></td>
 <td>
 
-${util.mandatoryString($param)}.#if(!$param.getDefaultValue().isEmpty()) default is <code>$param.getDefaultValue()</code>#end
+${util.mandatoryString($param)}.
+#if(!$param.getDefaultValue().isEmpty())
+default is <code>$param.getDefaultValue()</code>
+#end
 
 #if (!$param.docString.isEmpty())
 <p>

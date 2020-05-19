@@ -25,9 +25,11 @@ ${util.htmlEscape($ruleInfo.docString)}
 ${util.attributeTypeString($attribute)}; ${util.mandatoryString($attribute)}
 
 #if (!$attribute.docString.isEmpty())
+<p>
 
 ${attribute.docString.trim()}
 
+</p>
 #end
 #if (!$attribute.getProviderNameGroupList().isEmpty())
 <p>
