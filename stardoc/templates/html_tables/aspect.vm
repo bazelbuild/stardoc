@@ -12,45 +12,49 @@ $aspectInfo.getDocString()
 
 #if (!$aspectInfo.getAspectAttributeList().isEmpty())
 <table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
+<colgroup>
+<col class="col-param" />
+<col class="col-description" />
+</colgroup>
+<tbody>
 #foreach ($aspectAttribute in $aspectInfo.getAspectAttributeList())
-    <tr id="${aspectName}-${aspectAttribute}">
-      <td><code>${aspectAttribute}</code></td>
-      <td>
-        String; required.
+<tr id="${aspectName}-${aspectAttribute}">
+<td><code>${aspectAttribute}</code></td>
+<td>
+String; required.
+</td>
+</tr>
 #end
-      </td>
-    </tr>
-#end
-  </tbody>
+</tbody>
 </table>
+#end
 
 #[[###]]# Attributes
 
 #if (!$aspectInfo.getAttributeList().isEmpty())
 <table class="params-table">
-  <colgroup>
-    <col class="col-param" />
-    <col class="col-description" />
-  </colgroup>
-  <tbody>
+<colgroup>
+<col class="col-param" />
+<col class="col-description" />
+</colgroup>
+<tbody>
 #foreach ($attribute in $aspectInfo.getAttributeList())
-    <tr id="${aspectName}-${attribute.name}">
-      <td><code>${attribute.name}</code></td>
-      <td>
-        ${util.attributeTypeString($attribute)}; ${util.mandatoryString($attribute)}
+<tr id="${aspectName}-${attribute.name}">
+<td><code>${attribute.name}</code></td>
+<td>
+
+${util.attributeTypeString($attribute)}; ${util.mandatoryString($attribute)}
+
 #if (!$attribute.docString.isEmpty())
-        <p>
-          ${attribute.docString.trim()}
-        </p>
+<p>
+
+${attribute.docString.trim()}
+
+</p>
 #end
-      </td>
-    </tr>
+</td>
+</tr>
 #end
-  </tbody>
+</tbody>
 </table>
 #end
