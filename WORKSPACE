@@ -13,8 +13,25 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 # Needed for generating the Stardoc release binary.
 git_repository(
     name = "io_bazel",
-    commit = "5eeccd8a647df10d154d3b86e9732e7f263c96db",  # Oct 7, 2019
+    commit = "b2b9fa00d7d168e9553cfc9fe381928e8e246176",  # 2020-07-28
     remote = "https://github.com/bazelbuild/bazel.git",
+    shallow_since = "1595950714 -0700",
+)
+
+# The following binds are needed for building protobuf java libraries.
+bind(
+    name = "guava",
+    actual = "@io_bazel//third_party:guava",
+)
+
+bind(
+    name = "gson",
+    actual = "@io_bazel//third_party:gson",
+)
+
+bind(
+    name = "error_prone_annotations",
+    actual = "@io_bazel//third_party:error_prone_annotations",
 )
 
 # Needed only because of java_tools.
@@ -26,13 +43,6 @@ http_archive(
         "https://mirror.bazel.build/github.com/bazelbuild/rules_cc/archive/0d5f3f2768c6ca2faca0079a997a97ce22997a0c.zip",
         "https://github.com/bazelbuild/rules_cc/archive/0d5f3f2768c6ca2faca0079a997a97ce22997a0c.zip",
     ],
-)
-
-# Needed as a transitive dependency of @io_bazel
-git_repository(
-    name = "com_google_protobuf",
-    commit = "7b28271a61a3da0a37f6fda399b0c4c86464e5b3",  # 2018-11-16
-    remote = "https://github.com/protocolbuffers/protobuf.git",
 )
 
 # Needed as a transitive dependency of @io_bazel
@@ -68,3 +78,9 @@ local_repository(
     name = "local_repository_test",
     path = "test/testdata/local_repository_test",
 )
+
+load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
+
+rules_proto_dependencies()
+
+rules_proto_toolchains()

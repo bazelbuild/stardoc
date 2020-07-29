@@ -1,7 +1,6 @@
 # buildifier: disable=module-docstring
 load(
     ":testdata/filter_rules_test/dep.bzl",
-    "my_rule_impl",
     dep_rule = "my_rule",
 )
 
