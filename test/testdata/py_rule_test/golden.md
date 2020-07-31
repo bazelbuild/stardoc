@@ -20,7 +20,7 @@ This rule does python-related things.
 | <a id="py_related_rule-first"></a>first |  this is the first doc string!   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 | <a id="py_related_rule-fourth"></a>fourth |  the fourth doc string.   | Boolean | optional | False |
 | <a id="py_related_rule-second"></a>second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |  |
-| <a id="py_related_rule-sixth"></a>sixth |  it's the sixth thing.   | List of integers | optional | range(0, 10) |
+| <a id="py_related_rule-sixth"></a>sixth |  it's the sixth thing.   | List of integers | optional | [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] |
 | <a id="py_related_rule-third"></a>third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 
 
