@@ -8,9 +8,9 @@ ${util.funcSummary($funcInfo)}
 
 ${funcInfo.docString}
 
-**PARAMETERS**
-
 #if (!$funcInfo.getParameterList().isEmpty())
+
+**PARAMETERS**
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
