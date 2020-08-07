@@ -46,8 +46,6 @@ my_namespace.foo.bar.baz()
 
 This function does nothing.
 
-**PARAMETERS**
-
 
 
 <a id="#my_namespace.one.two.min"></a>
@@ -77,8 +75,6 @@ my_namespace.one.three.does_nothing()
 </pre>
 
 This function does nothing.
-
-**PARAMETERS**
 
 
 

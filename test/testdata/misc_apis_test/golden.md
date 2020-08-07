@@ -52,8 +52,6 @@ exercise_the_api()
 
 
 
-**PARAMETERS**
-
 
 
 <a id="#my_rule_impl"></a>
