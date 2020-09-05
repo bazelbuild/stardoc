@@ -10,12 +10,18 @@ stardoc_repositories()
 #######################################################################
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
+IO_BAZEL_COMMIT = "fa1740d699574d1f18446c1643470f9d6d8db10c"  # 2020-09-03
+
+IO_BAZEL_REMOTE = "https://github.com/bazelbuild/bazel.git"
+
+IO_BAZEL_SHALLOW_SINCE = "1599194731 -0700"
+
 # Needed for generating the Stardoc release binary.
 git_repository(
     name = "io_bazel",
-    commit = "b2b9fa00d7d168e9553cfc9fe381928e8e246176",  # 2020-07-28
-    remote = "https://github.com/bazelbuild/bazel.git",
-    shallow_since = "1595950714 -0700",
+    commit = IO_BAZEL_COMMIT,
+    remote = IO_BAZEL_REMOTE,
+    shallow_since = IO_BAZEL_SHALLOW_SINCE,
 )
 
 # The following binds are needed for building protobuf java libraries.
@@ -48,8 +54,8 @@ http_archive(
 # Needed as a transitive dependency of @io_bazel
 git_repository(
     name = "rules_python",
-    remote = "https://github.com/bazelbuild/rules_python.git",
     commit = "4b84ad270387a7c439ebdccfd530e2339601ef27",
+    remote = "https://github.com/bazelbuild/rules_python.git",
 )
 
 # Needed as a transitive dependency of @io_bazel
@@ -71,6 +77,24 @@ http_archive(
         "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/b0cc14be5da05168b01db282fe93bdf17aa2b9f4.tar.gz",
         "https://github.com/bazelbuild/rules_proto/archive/b0cc14be5da05168b01db282fe93bdf17aa2b9f4.tar.gz",
     ],
+)
+
+# Needed as a transitive dependency of @io_bazel
+git_repository(
+    name = "googleapis",
+    commit = IO_BAZEL_COMMIT,
+    remote = IO_BAZEL_REMOTE,
+    shallow_since = IO_BAZEL_SHALLOW_SINCE,
+    strip_prefix = "third_party/googleapis",
+)
+
+# Needed as a transitive dependency of @io_bazel
+git_repository(
+    name = "remoteapis",
+    commit = IO_BAZEL_COMMIT,
+    remote = IO_BAZEL_REMOTE,
+    shallow_since = IO_BAZEL_SHALLOW_SINCE,
+    strip_prefix = "third_party/remoteapis",
 )
 
 # Needed only for testing stardoc across local-repository bounds.
