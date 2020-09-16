@@ -46,8 +46,6 @@ exercise_the_api()
 
 
 
-**PARAMETERS**
-
 
 
 <a id="#transition_func"></a>

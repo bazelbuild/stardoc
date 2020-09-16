@@ -46,7 +46,5 @@ other_namespace.foo.nothing()
 
 This function does nothing.
 
-**PARAMETERS**
-
 
 
