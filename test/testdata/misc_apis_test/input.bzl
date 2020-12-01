@@ -17,6 +17,7 @@ def exercise_the_api():
 
 exercise_the_api()
 
+# buildifier: disable=provider-params
 MyInfo = provider(
     fields = {
         "foo": "Something foo-related.",

@@ -5,6 +5,7 @@ load(":testdata/providers_for_attributes_test/dep.bzl", "DepProviderInfo")
 def my_rule_impl(ctx):
     return []
 
+# buildifier: disable=provider-params
 MyProviderInfo = provider(
     fields = {
         "foo": "Something foo-related.",
@@ -12,6 +13,7 @@ MyProviderInfo = provider(
     },
 )
 
+# buildifier: disable=provider-params
 OtherProviderInfo = provider()
 other_provider_info = OtherProviderInfo(fields = ["foo"])
 
