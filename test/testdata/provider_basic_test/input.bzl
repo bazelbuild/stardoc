@@ -1,4 +1,5 @@
 # buildifier: disable=module-docstring
+# buildifier: disable=provider-params
 MyPoorlyDocumentedInfo = provider()
 
 MyFooInfo = provider(
