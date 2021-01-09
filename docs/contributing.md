@@ -45,9 +45,3 @@ opening a [GitHub Issue](https://github.com/bazelbuild/stardoc/issues) or emaili
 The current group of Stardoc core contributors are:
 
 * [brandjon](https://github.com/brandjon)
-* [cparsons](https://github.com/c-parsons)
-* [jin](https://github.com/jin)
-* [laurentlb](https://github.com/laurentlb)
-
-
-
