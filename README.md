@@ -21,10 +21,15 @@ page per `.bzl`file.
 * Stardoc [rule reference](docs/stardoc_rule.md).
 * How to [contribute to Stardoc](docs/contributing.md)
 
-## Skydoc deprecation
+## Project Status
+
+### Skydoc deprecation
 
 Stardoc is a replacement for the **deprecated** "Skydoc" documentation generator.
 
 See [Skydoc Deprecation](docs/skydoc_deprecation.md) for
 details on the deprecation and migration details.
 
+### Future plans
+
+See our [future plans](docs/future_plans.md) for refactoring Stardoc to be more consistent with how Bazel evaluates .bzl files, and what it means for maintenance of this project.
