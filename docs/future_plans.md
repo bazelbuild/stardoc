@@ -1,13 +1,14 @@
 **Last updated:** January 2021.
 
-**Tl;dr:** We'll be redesigning how Stardoc works, and deprioritizing feature
+**Summary:** We'll be redesigning how Stardoc works, and deprioritizing feature
 requests and minor bugs until that work is complete (targeting 2021 Q2).
 
 ## Technical motivation
 
 Stardoc is currently the recommended tool for generating documentation of
-Starlark rules. It [replaces](skydoc_deprecation.md) Skydoc, the previous tool,
-which worked by mocking evaluation of .bzl files as Python code.
+Starlark rules. It [replaces](skydoc_deprecation.md) *Sky*doc, the previous
+tool, which worked by evaluating .bzl files in a Python interpreter, using
+fake versions of functions from Bazel's Build Language.
 
 Mocking is an inherently problematic approach for two reasons:
 
@@ -16,20 +17,26 @@ ensure that the mocked definitions stay up-to-date as Bazel changes. These
 include not just `rule()` and `provider()`, but also a number of other symbols
 that don't directly affect documentation but still require stubs.
 
-2. It puts a constraint on the user: All of their documented .bzl files, as well
-as all of the .bzl dependencies they transitively load, must be compatible with
-the mock evaluation. This means users must be vigilant about writing Starlark
-code that lies in the intersection of what is understood as valid by Bazel and
-by Stardoc.
+2. It puts a constraint on the user: All of their documented .bzl files, as
+well as all of the .bzl dependencies they transitively load, must be
+compatible with the mock evaluation. This means users must be vigilant about
+writing Starlark code that lies in the intersection of what is understood as
+valid by Bazel and by Stardoc.
 
-Skydoc experienced an extreme version of this problem because it didn't even
-treat .bzl files as being written in the Starlark language. However, Stardoc
-also uses mocking -- not of the Starlark language, but of Bazel's built-in
-symbols for writing rules (the Build Language).
+The Python-based Skydoc experienced an extreme version of this problem because
+it didn't even treat .bzl files as being written in the Starlark language.
+However, the Java-based Stardoc still uses mocking -- not of the Starlark
+language, but of Bazel's Build Language functions.
 
-In addition, Stardoc's mocking approach tightly integrates it with Bazel. Indeed
-much of its source code lives inside the bazelbuild/bazel repository. This makes
-refactoring and evolving the Bazel source code more difficult.
+In addition, Stardoc's mocking approach tightly integrates it with Bazel.
+Indeed much of its source code lives inside the bazelbuild/bazel repository.
+This makes refactoring and evolving the Bazel source code more difficult.
+
+While the Starlark language has a specification and several implementations,
+the Build Language is more complicated and has only one accurate
+implementation: Bazel. Any tooling that operates on BUILD and .bzl files must
+carefully consider whether it is feasible to ask Bazel for the authoritative
+information, only falling back on simulation if absolutely necessary.
 
 ## Our plans
 
