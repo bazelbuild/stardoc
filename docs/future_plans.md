@@ -36,7 +36,8 @@ While the Starlark language has a specification and several implementations,
 the Build Language is more complicated and has only one accurate
 implementation: Bazel. Any tooling that operates on BUILD and .bzl files must
 carefully consider whether it is feasible to ask Bazel for the authoritative
-information, only falling back on simulation if absolutely necessary.
+information. The alternative, falling back on simulation, not only produces
+less accurate results, but ties our hands as we try to improve Bazel.
 
 ## Our plans
 
