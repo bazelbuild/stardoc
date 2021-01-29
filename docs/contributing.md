@@ -51,3 +51,4 @@ mailing list.
 The current group of Stardoc core contributors are:
 
 * [brandjon](https://github.com/brandjon)
+* [tetromino](https://github.com/tetromino)
