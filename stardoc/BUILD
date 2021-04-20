@@ -20,10 +20,10 @@ filegroup(
 bzl_library(
     name = "stardoc_lib",
     srcs = ["stardoc.bzl"],
+    visibility = ["//visibility:public"],
     deps = [
         "@bazel_skylib//:bzl_library",
     ],
-    visibility = ["//visibility:public"],
 )
 
 stardoc(

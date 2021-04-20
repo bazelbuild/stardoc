@@ -3,5 +3,3 @@
 def give_me_five():
     """Returns five."""
     return 5
-
-

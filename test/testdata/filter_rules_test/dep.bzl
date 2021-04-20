@@ -1,6 +1,6 @@
 # buildifier: disable=module-docstring
 def my_rule_impl(ctx):
-  return []
+    return []
 
 my_rule = rule(
     implementation = my_rule_impl,

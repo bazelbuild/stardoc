@@ -273,4 +273,3 @@ sh_test(
         "@local_repository_test//:output.md",
     ],
 )
-
