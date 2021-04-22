@@ -53,7 +53,8 @@ def stardoc_test(
         srcs = [input_file],
         deps = deps,
     )
-    _create_test_targets(test_name = "%s_e2e_test" % name,
+    _create_test_targets(
+        test_name = "%s_e2e_test" % name,
         genrule_name = "regenerate_%s_golden" % name,
         lib_name = "%s_lib" % name,
         input_file = input_file,
@@ -61,8 +62,10 @@ def stardoc_test(
         stardoc_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc",
         renderer_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc/renderer",
         test = test,
-        **kwargs)
-    _create_test_targets(test_name = "%s_e2e_jar_test" % name,
+        **kwargs
+    )
+    _create_test_targets(
+        test_name = "%s_e2e_jar_test" % name,
         genrule_name = "regenerate_with_jar_%s_golden" % name,
         lib_name = "%s_lib" % name,
         input_file = input_file,
@@ -70,17 +73,19 @@ def stardoc_test(
         stardoc_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc",
         renderer_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc/renderer",
         test = test,
-        **kwargs)
+        **kwargs
+    )
 
-def _create_test_targets(test_name,
-                         genrule_name,
-                         lib_name,
-                         input_file,
-                         golden_file,
-                         stardoc_bin,
-                         renderer_bin,
-                         test,
-                         **kwargs):
+def _create_test_targets(
+        test_name,
+        genrule_name,
+        lib_name,
+        input_file,
+        golden_file,
+        stardoc_bin,
+        renderer_bin,
+        test,
+        **kwargs):
     actual_generated_doc = "%s.out" % genrule_name
 
     native.sh_test(
@@ -118,4 +123,3 @@ def _create_test_targets(test_name,
         )
     else:
         fail("parameter 'test' must either be 'default' or 'html_tables', but was " + test)
-

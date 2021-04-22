@@ -23,6 +23,6 @@ bzl_library(
     name = "lib",
     srcs = [
         "input.bzl",
-        "@io_bazel_skydoc//test:testdata/fakedeps/dep.bzl"
+        "@io_bazel_skydoc//test:testdata/fakedeps/dep.bzl",
     ],
 )

@@ -13,5 +13,3 @@ def min(integers):
     """
     _ignore = [integers]
     return give_me_five()
-
-
