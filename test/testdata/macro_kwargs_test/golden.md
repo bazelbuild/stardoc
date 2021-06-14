@@ -10,6 +10,10 @@ macro_with_args(<a href="#macro_with_args-name">name</a>, <a href="#macro_with_a
 
 My args macro is OK.
 
+**RETURNS**
+
+An empty list.
+
 **PARAMETERS**
 
 
@@ -31,6 +35,10 @@ Oh wow this macro has both.
 
 Not much else to say.
 
+
+**RETURNS**
+
+An empty list.
 
 **PARAMETERS**
 
@@ -59,6 +67,10 @@ elementum, diam vitae tincidunt pulvinar, nunc tortor volutpat dui,
 vitae facilisis odio ligula a tortor. Donec ullamcorper odio eget ipsum tincidunt,
 vel mollis eros pellentesque.
 
+
+**RETURNS**
+
+An empty list.
 
 **PARAMETERS**
 

@@ -10,6 +10,10 @@ my_namespace.min(<a href="#my_namespace.min-integers">integers</a>)
 
 Returns the minimum of given elements.
 
+**RETURNS**
+
+The minimum integer in the given list.
+
 **PARAMETERS**
 
 
@@ -27,6 +31,10 @@ my_namespace.math.min(<a href="#my_namespace.math.min-integers">integers</a>)
 </pre>
 
 Returns the minimum of given elements.
+
+**RETURNS**
+
+The minimum integer in the given list.
 
 **PARAMETERS**
 
@@ -57,6 +65,10 @@ my_namespace.one.two.min(<a href="#my_namespace.one.two.min-integers">integers</
 </pre>
 
 Returns the minimum of given elements.
+
+**RETURNS**
+
+The minimum integer in the given list.
 
 **PARAMETERS**
 

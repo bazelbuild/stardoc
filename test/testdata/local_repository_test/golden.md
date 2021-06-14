@@ -10,6 +10,10 @@ min(<a href="#min-integers">integers</a>)
 
 Returns the minimum of given elements.
 
+**RETURNS**
+
+The minimum integer in the given list.
+
 **PARAMETERS**
 
 

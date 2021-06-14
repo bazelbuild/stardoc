@@ -52,6 +52,10 @@ Dummy docstring with <brackets>.
 This rule runs checks on <angle brackets>.
 
 
+**RETURNS**
+
+some <angled> brackets
+
 **PARAMETERS**
 
 
