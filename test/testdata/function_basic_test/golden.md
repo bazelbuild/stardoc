@@ -40,10 +40,10 @@ deprecated_do_not_use()
 
 This function is deprecated.
 
+
 **DEPRECATED**
 
 Use literally anything but this function.
-
 
 
 <a id="#returns_a_thing"></a>
@@ -56,16 +56,16 @@ returns_a_thing(<a href="#returns_a_thing-name">name</a>)
 
 Returns a suffixed name.
 
-**RETURNS**
-
-A suffixed version of the name.
-
 **PARAMETERS**
 
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 | <a id="returns_a_thing-name"></a>name |  A unique name for this rule.   |  none |
+
+**RETURNS**
+
+A suffixed version of the name.
 
 
 <a id="#undocumented_function"></a>

@@ -10,16 +10,16 @@ my_namespace.min(<a href="#my_namespace.min-integers">integers</a>)
 
 Returns the minimum of given elements.
 
-**RETURNS**
-
-The minimum integer in the given list.
-
 **PARAMETERS**
 
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 | <a id="my_namespace.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
+
+**RETURNS**
+
+The minimum integer in the given list.
 
 
 <a id="#my_namespace.math.min"></a>
@@ -32,16 +32,16 @@ my_namespace.math.min(<a href="#my_namespace.math.min-integers">integers</a>)
 
 Returns the minimum of given elements.
 
-**RETURNS**
-
-The minimum integer in the given list.
-
 **PARAMETERS**
 
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 | <a id="my_namespace.math.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
+
+**RETURNS**
+
+The minimum integer in the given list.
 
 
 <a id="#my_namespace.foo.bar.baz"></a>
@@ -66,16 +66,16 @@ my_namespace.one.two.min(<a href="#my_namespace.one.two.min-integers">integers</
 
 Returns the minimum of given elements.
 
-**RETURNS**
-
-The minimum integer in the given list.
-
 **PARAMETERS**
 
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 | <a id="my_namespace.one.two.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
+
+**RETURNS**
+
+The minimum integer in the given list.
 
 
 <a id="#my_namespace.one.three.does_nothing"></a>

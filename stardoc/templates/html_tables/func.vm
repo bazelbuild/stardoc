@@ -8,18 +8,6 @@ ${util.funcSummary($funcInfo)}
 
 ${util.htmlEscape($funcInfo.docString)}
 
-#if (!$funcInfo.getDeprecated().docString.isEmpty())
-#[[###]]# Deprecated
-
-${util.htmlEscape($funcInfo.getDeprecated().docString)}
-
-#end
-#if (!$funcInfo.getReturn().docString.isEmpty())
-#[[###]]# Returns
-
-${util.htmlEscape($funcInfo.getReturn().docString)}
-
-#end
 #if (!$funcInfo.getParameterList().isEmpty())
 #[[###]]# Parameters
 
@@ -51,4 +39,17 @@ ${param.docString.trim()}
 #end
 </tbody>
 </table>
+#end
+#if (!$funcInfo.getReturn().docString.isEmpty())
+
+#[[###]]# Returns
+
+${util.htmlEscape($funcInfo.getReturn().docString)}
+
+#end
+#if (!$funcInfo.getDeprecated().docString.isEmpty())
+
+#[[###]]# Deprecated
+
+${util.htmlEscape($funcInfo.getDeprecated().docString)}
 #end

@@ -10,10 +10,6 @@ macro_with_args(<a href="#macro_with_args-name">name</a>, <a href="#macro_with_a
 
 My args macro is OK.
 
-**RETURNS**
-
-An empty list.
-
 **PARAMETERS**
 
 
@@ -21,6 +17,10 @@ An empty list.
 | :------------- | :------------- | :------------- |
 | <a id="macro_with_args-name"></a>name |  The name of the test rule.   |  none |
 | <a id="macro_with_args-args"></a>args |  Other arguments to include   |  none |
+
+**RETURNS**
+
+An empty list.
 
 
 <a id="#macro_with_both"></a>
@@ -36,10 +36,6 @@ Oh wow this macro has both.
 Not much else to say.
 
 
-**RETURNS**
-
-An empty list.
-
 **PARAMETERS**
 
 
@@ -49,6 +45,10 @@ An empty list.
 | <a id="macro_with_both-number"></a>number |  Some number used for important things   |  <code>3</code> |
 | <a id="macro_with_both-args"></a>args |  Other arguments to include   |  none |
 | <a id="macro_with_both-kwargs"></a>kwargs |  Other attributes to include   |  none |
+
+**RETURNS**
+
+An empty list.
 
 
 <a id="#macro_with_kwargs"></a>
@@ -68,10 +68,6 @@ vitae facilisis odio ligula a tortor. Donec ullamcorper odio eget ipsum tincidun
 vel mollis eros pellentesque.
 
 
-**RETURNS**
-
-An empty list.
-
 **PARAMETERS**
 
 
@@ -81,5 +77,9 @@ An empty list.
 | <a id="macro_with_kwargs-config"></a>config |  Config to use for my macro   |  none |
 | <a id="macro_with_kwargs-deps"></a>deps |  List of my macro's dependencies   |  <code>[]</code> |
 | <a id="macro_with_kwargs-kwargs"></a>kwargs |  Other attributes to include   |  none |
+
+**RETURNS**
+
+An empty list.
 
 

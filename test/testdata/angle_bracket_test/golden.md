@@ -52,15 +52,15 @@ Dummy docstring with <brackets>.
 This rule runs checks on <angle brackets>.
 
 
-**RETURNS**
-
-some <angled> brackets
-
 **PARAMETERS**
 
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 | <a id="bracket_function-name"></a>name |  an arg with **formatted** docstring.   |  none |
+
+**RETURNS**
+
+some <angled> brackets
 
 

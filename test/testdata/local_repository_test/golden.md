@@ -10,15 +10,15 @@ min(<a href="#min-integers">integers</a>)
 
 Returns the minimum of given elements.
 
-**RETURNS**
-
-The minimum integer in the given list.
-
 **PARAMETERS**
 
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 | <a id="min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
+
+**RETURNS**
+
+The minimum integer in the given list.
 
 
