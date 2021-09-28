@@ -26,6 +26,15 @@ bzl_library(
     ],
 )
 
+bzl_library(
+    name = "html_tables_stardoc",
+    srcs = ["html_tables_stardoc.bzl"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":stardoc_lib",
+    ],
+)
+
 stardoc(
     name = "stardoc_doc",
     out = "stardoc_doc.md",
