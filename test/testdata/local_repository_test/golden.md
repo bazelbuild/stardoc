@@ -17,4 +17,8 @@ Returns the minimum of given elements.
 | :------------- | :------------- | :------------- |
 | <a id="min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
 
+**RETURNS**
+
+The minimum integer in the given list.
+
 

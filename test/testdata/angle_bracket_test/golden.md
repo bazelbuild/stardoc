@@ -59,4 +59,8 @@ This rule runs checks on <angle brackets>.
 | :------------- | :------------- | :------------- |
 | <a id="bracket_function-name"></a>name |  an arg with **formatted** docstring.   |  none |
 
+**RETURNS**
+
+some <angled> brackets
+
 

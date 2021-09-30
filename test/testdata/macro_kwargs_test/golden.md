@@ -18,6 +18,10 @@ My args macro is OK.
 | <a id="macro_with_args-name"></a>name |  The name of the test rule.   |  none |
 | <a id="macro_with_args-args"></a>args |  Other arguments to include   |  none |
 
+**RETURNS**
+
+An empty list.
+
 
 <a id="#macro_with_both"></a>
 
@@ -41,6 +45,10 @@ Not much else to say.
 | <a id="macro_with_both-number"></a>number |  Some number used for important things   |  <code>3</code> |
 | <a id="macro_with_both-args"></a>args |  Other arguments to include   |  none |
 | <a id="macro_with_both-kwargs"></a>kwargs |  Other attributes to include   |  none |
+
+**RETURNS**
+
+An empty list.
 
 
 <a id="#macro_with_kwargs"></a>
@@ -69,5 +77,9 @@ vel mollis eros pellentesque.
 | <a id="macro_with_kwargs-config"></a>config |  Config to use for my macro   |  none |
 | <a id="macro_with_kwargs-deps"></a>deps |  List of my macro's dependencies   |  <code>[]</code> |
 | <a id="macro_with_kwargs-kwargs"></a>kwargs |  Other attributes to include   |  none |
+
+**RETURNS**
+
+An empty list.
 
 

@@ -30,6 +30,44 @@ Use `bazel build` to run the check.
 | <a id="check_sources-struct_param"></a>struct_param |  <p align="center"> - </p>   |  <code>struct(foo = "bar")</code> |
 
 
+<a id="#deprecated_do_not_use"></a>
+
+## deprecated_do_not_use
+
+<pre>
+deprecated_do_not_use()
+</pre>
+
+This function is deprecated.
+
+
+**DEPRECATED**
+
+Use literally anything but this function.
+
+
+<a id="#returns_a_thing"></a>
+
+## returns_a_thing
+
+<pre>
+returns_a_thing(<a href="#returns_a_thing-name">name</a>)
+</pre>
+
+Returns a suffixed name.
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="returns_a_thing-name"></a>name |  A unique name for this rule.   |  none |
+
+**RETURNS**
+
+A suffixed version of the name.
+
+
 <a id="#undocumented_function"></a>
 
 ## undocumented_function

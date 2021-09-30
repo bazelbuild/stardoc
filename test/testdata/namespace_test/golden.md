@@ -36,6 +36,10 @@ Returns the minimum of given elements.
 | :------------- | :------------- | :------------- |
 | <a id="my_namespace.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
 
+**RETURNS**
+
+The minimum integer in the given list.
+
 
 <a id="#my_namespace.join_strings"></a>
 
@@ -54,5 +58,9 @@ Joins the given strings with a delimiter.
 | :------------- | :------------- | :------------- |
 | <a id="my_namespace.join_strings-strings"></a>strings |  A list of strings to join.   |  none |
 | <a id="my_namespace.join_strings-delimiter"></a>delimiter |  The delimiter to use   |  <code>", "</code> |
+
+**RETURNS**
+
+The joined string.
 
 

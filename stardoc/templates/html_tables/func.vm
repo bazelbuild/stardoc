@@ -40,3 +40,16 @@ ${param.docString.trim()}
 </tbody>
 </table>
 #end
+#if (!$funcInfo.getReturn().docString.isEmpty())
+
+#[[###]]# Returns
+
+${util.htmlEscape($funcInfo.getReturn().docString)}
+
+#end
+#if (!$funcInfo.getDeprecated().docString.isEmpty())
+
+#[[###]]# Deprecated
+
+${util.htmlEscape($funcInfo.getDeprecated().docString)}
+#end
