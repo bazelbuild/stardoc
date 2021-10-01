@@ -1,5 +1,7 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+Tests for functions which use *args or **kwargs
+
 <a id="#macro_with_args"></a>
 
 ## macro_with_args

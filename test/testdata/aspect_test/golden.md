@@ -1,5 +1,7 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+The input file for the aspect test
+
 <a id="#my_aspect_impl"></a>
 
 ## my_aspect_impl

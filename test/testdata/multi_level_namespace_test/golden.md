@@ -1,5 +1,7 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+A test that verifies documenting a multi-leveled namespace of functions.
+
 <a id="#my_namespace.min"></a>
 
 ## my_namespace.min

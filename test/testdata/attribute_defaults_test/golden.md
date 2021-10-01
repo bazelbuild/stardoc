@@ -1,5 +1,7 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+A golden test to verify attribute default values.
+
 <a id="#my_rule"></a>
 
 ## my_rule

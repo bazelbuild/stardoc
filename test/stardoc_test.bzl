@@ -91,6 +91,7 @@ def _create_test_targets(
 
     diff_test(
         name = test_name,
+        failure_message = "Please run update-stardoc-tests.sh",
         file1 = actual_generated_doc,
         file2 = golden_file,
     )

@@ -25,9 +25,11 @@ def stardoc_repositories():
     _include_if_not_defined(
         http_archive,
         name = "bazel_skylib",
-        urls = ["https://github.com/bazelbuild/bazel-skylib/archive/16de038c484145363340eeaf0e97a0c9889a931b.tar.gz"],  # 2020-08-11
-        sha256 = "96e0cd3f731f0caef9e9919aa119ecc6dace36b149c2f47e40aa50587790402b",
-        strip_prefix = "bazel-skylib-16de038c484145363340eeaf0e97a0c9889a931b",
+        sha256 = "58f558d04a936cade1d4744d12661317e51f6a21e3dd7c50b96dc14f3fa3b87d",
+        strip_prefix = "bazel-skylib-df3c9e2735f02a7fe8cd80db4db00fec8e13d25f",
+        urls = [
+            "https://github.com/bazelbuild/bazel-skylib/archive/df3c9e2735f02a7fe8cd80db4db00fec8e13d25f.tar.gz",
+        ],
     )
     _include_if_not_defined(
         http_archive,

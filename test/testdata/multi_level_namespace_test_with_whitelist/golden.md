@@ -1,5 +1,9 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+A test that verifies documenting a multi-leveled namespace of functions with whitelist symbols.
+The whitelist symbols should cause everything in my_namespace to to be documented, but only a
+specific symbol in other_namespace to be documented.
+
 <a id="#my_namespace.min"></a>
 
 ## my_namespace.min

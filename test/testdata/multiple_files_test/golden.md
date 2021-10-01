@@ -1,5 +1,7 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+A direct dependency file of the input file.
+
 <a id="#my_rule"></a>
 
 ## my_rule

@@ -1,5 +1,7 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+Input file for markdown template test
+
 <a id="#example_rule"></a>
 
 ## example_rule

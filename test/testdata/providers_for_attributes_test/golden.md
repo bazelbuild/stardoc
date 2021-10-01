@@ -1,5 +1,7 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+The input file for the providers for attributes test
+
 <a id="#my_rule"></a>
 
 ## my_rule

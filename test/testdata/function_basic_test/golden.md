@@ -1,5 +1,7 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+A test that verifies basic user function documentation.
+
 <a id="#check_sources"></a>
 
 ## check_sources
