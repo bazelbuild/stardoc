@@ -1,5 +1,7 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+A test that verifies documenting functions in an input file under a local_repository.
+
 <a id="#min"></a>
 
 ## min

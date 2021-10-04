@@ -1,5 +1,7 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+A test that verifies documenting a namespace of functions.
+
 <a id="#my_namespace.assert_non_empty"></a>
 
 ## my_namespace.assert_non_empty

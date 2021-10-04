@@ -1,5 +1,7 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+The input file for the python rule test
+
 <a id="#py_related_rule"></a>
 
 ## py_related_rule

@@ -1,5 +1,7 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+Input file to test angle bracket bug (https://github.com/bazelbuild/skydoc/issues/186)
+
 <a id="#my_anglebrac"></a>
 
 ## my_anglebrac

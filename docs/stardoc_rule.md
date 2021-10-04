@@ -1,5 +1,7 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+Starlark rule for stardoc: a documentation generator tool written in Java.
+
 <a id="#stardoc"></a>
 
 ## stardoc

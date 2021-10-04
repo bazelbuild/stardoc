@@ -1,5 +1,7 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+
+
 <a id="#java_related_rule"></a>
 
 ## java_related_rule
