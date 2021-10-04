@@ -14,7 +14,6 @@
 """Convenience macro for stardoc e2e tests."""
 
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
 load("//stardoc:html_tables_stardoc.bzl", "html_tables_stardoc")
 load("//stardoc:stardoc.bzl", "stardoc")
 
@@ -89,11 +88,17 @@ def _create_test_targets(
         **kwargs):
     actual_generated_doc = "%s.out" % genrule_name
 
-    diff_test(
+    native.sh_test(
         name = test_name,
-        failure_message = "Please run update-stardoc-tests.sh",
-        file1 = actual_generated_doc,
-        file2 = golden_file,
+        srcs = ["diff_test_runner.sh"],
+        args = [
+            "$(location %s)" % actual_generated_doc,
+            "$(location %s)" % golden_file,
+        ],
+        data = [
+            actual_generated_doc,
+            golden_file,
+        ],
     )
 
     if test == "default":

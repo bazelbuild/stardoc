@@ -1,18 +1,18 @@
-"""Golden file tests
-
-To update all the golden files after a logic change, run
-update-stardoc-tests.sh
-"""
-
 load(":stardoc_test.bzl", "stardoc_test")
-load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
 
 licenses(["notice"])  # Apache 2.0
 
-diff_test(
+sh_test(
     name = "stardoc_self_gen_test",
-    file1 = "//:stardoc_rule_doc",
-    file2 = "//stardoc:stardoc_doc.md",
+    srcs = ["diff_test_runner.sh"],
+    args = [
+        "$(location //stardoc:stardoc_doc.md)",
+        "$(location //:stardoc_rule_doc)",
+    ],
+    data = [
+        "//:stardoc_rule_doc",
+        "//stardoc:stardoc_doc.md",
+    ],
 )
 
 exports_files(["testdata/fakedeps/dep.bzl"])
@@ -261,8 +261,15 @@ stardoc_test(
     ],
 )
 
-diff_test(
+sh_test(
     name = "local_repository_test_e2e_test",
-    file1 = "@local_repository_test//:golden.md",
-    file2 = "@local_repository_test//:output.md",
+    srcs = ["diff_test_runner.sh"],
+    args = [
+        "$(location @local_repository_test//:output.md)",
+        "$(location @local_repository_test//:golden.md)",
+    ],
+    data = [
+        "@local_repository_test//:golden.md",
+        "@local_repository_test//:output.md",
+    ],
 )
