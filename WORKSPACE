@@ -5,9 +5,10 @@ load(":setup.bzl", "stardoc_repositories")
 
 stardoc_repositories()
 
-#######################################################################
-##### MOST USERS SHOULD NOT NEED TO COPY ANYTHING BELOW THIS LINE #####
-#######################################################################
+### INTERNAL ONLY - lines after this are not included in the release packaging.
+#
+# Include dependencies which are only needed for development of Stardoc here.
+
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 # Needed for generating the Stardoc release binary.
@@ -53,15 +54,18 @@ git_repository(
     shallow_since = "1564776078 -0400",
 )
 
-# Needed as a transitive dependency of @io_bazel
+# Needed for //distro:__pkg__ and as a transitive dependency of @io_bazel
 http_archive(
     name = "rules_pkg",
-    sha256 = "5bdc04987af79bd27bc5b00fe30f59a858f77ffa0bd2d8143d5b31ad8b1bd71c",
+    sha256 = "a89e203d3cf264e564fcb96b6e06dd70bc0557356eb48400ce4b5d97c2c3720d",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_pkg/rules_pkg-0.2.0.tar.gz",
-        "https://github.com/bazelbuild/rules_pkg/releases/download/0.2.0/rules_pkg-0.2.0.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_pkg/releases/download/0.5.1/rules_pkg-0.5.1.tar.gz",
+        "https://github.com/bazelbuild/rules_pkg/releases/download/0.5.1/rules_pkg-0.5.1.tar.gz",
     ],
 )
+load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
+
+rules_pkg_dependencies()
 
 # Needed as a transitive dependency of @io_bazel
 http_archive(

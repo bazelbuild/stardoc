@@ -33,3 +33,9 @@ details on the deprecation and migration details.
 ### Future plans
 
 See our [future plans](docs/future_plans.md) for refactoring Stardoc to be more consistent with how Bazel evaluates .bzl files, and what it means for maintenance of this project.
+
+### Maintainer's guide
+
+See the [maintaner's guide](docs/maintainers_guide.md) for instructions for
+cutting a new release.
+
