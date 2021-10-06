@@ -69,14 +69,15 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "io_bazel_stardoc",
+    sha256 = "$SHA256SUM",
     urls = [
         "https://mirror.bazel.build/github.com/bazelbuild/stardoc/releases/download/$VERSION/stardoc-$VERSION.tar.gz",
         "https://github.com/bazelbuild/stardoc/releases/download/$VERSION/stardoc-$VERSION.tar.gz",
     ],
-    sha256 = "$SHA256SUM",
 )
 
 load("@io_bazel_stardoc//:setup.bzl", "stardoc_repositories")
+
 stardoc_repositories()
 ```
 
