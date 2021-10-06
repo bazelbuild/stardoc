@@ -88,3 +88,23 @@ java_import(
     jars = ["renderer_binary.jar"],
     visibility = ["//visibility:private"],
 )
+
+# Sources needed for release tarball.
+filegroup(
+    name = "distro_srcs",
+    srcs = [
+        "BUILD",
+    ] + glob([
+        "*.bzl",
+        "*.jar",
+        "templates/**",
+    ]),
+    visibility = ["//:__pkg__"],
+)
+
+# Binaries needed for release tarball.
+filegroup(
+    name = "distro_bins",
+    srcs = glob(["*.jar"]),
+    visibility = ["//:__pkg__"],
+)

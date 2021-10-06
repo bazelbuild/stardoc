@@ -12,23 +12,16 @@ extensions](https://www.bazel.build/docs/skylark/concepts.html)
 
 ## Setup
 
-To use Stardoc, add the following to your `WORKSPACE` file:
+Edit your `WORKSPACE` file as shown in the `WORKSPACE` setup section for
+[the current Stardoc release](https://github.com/bazelbuild/stardoc/releases).
+
+Then add
 
 ```python
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-
-git_repository(
-    name = "io_bazel_stardoc",
-    remote = "https://github.com/bazelbuild/stardoc.git",
-    tag = "0.4.0",
-)
-
-load("@io_bazel_stardoc//:setup.bzl", "stardoc_repositories")
-stardoc_repositories()
+load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
 ```
 
-The load statement and function call after the `io_bazel_stardoc` repository
-definition ensure that this repository's dependencies are loaded.
+to your `BUILD` or .bzl file to start using the `stardoc` rule.
 
 ## Next Steps
 
