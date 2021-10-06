@@ -19,7 +19,6 @@ filegroup(
         "AUTHORS",
         "BUILD",
         "CHANGELOG.md",
-        "CODEOWNERS",
         "CONTRIBUTORS",
         "LICENSE",
         "//stardoc:distro_srcs",
