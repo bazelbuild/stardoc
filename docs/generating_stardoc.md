@@ -138,9 +138,13 @@ which loads these files:
 `doc_hub.bzl`:
 
 ```python
-load("//foo:foo.bzl", "foo_rule")
-load("//bar:bar.bzl", "bar_rule")
-load("//baz:baz.bzl", "baz_rule")
+load("//foo:foo.bzl", _foo_rule = "foo_rule")
+load("//bar:bar.bzl", _bar_rule = "bar_rule")
+load("//baz:baz.bzl", _baz_rule = "baz_rule")
+
+foo_rule = _foo_rule
+bar_rule = _bar_rule
+baz_rule = _baz_rule
 
 # No need for any implementation here. The rules need only be loaded.
 ```
