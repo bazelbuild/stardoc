@@ -1,6 +1,6 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-Input file for C++ api test 
+Input file for C++ api test
 
 <a id="#cpp_related_rule"></a>
 
