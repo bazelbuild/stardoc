@@ -1,4 +1,4 @@
-"""Input file for C++ api test """
+"""Input file for C++ api test"""
 
 def exercise_the_api():
     var1 = CcInfo
