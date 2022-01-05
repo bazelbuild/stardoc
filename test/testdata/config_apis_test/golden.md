@@ -10,7 +10,7 @@
 int_setting(<a href="#int_setting-name">name</a>)
 </pre>
 
-
+An integer flag.
 
 **ATTRIBUTES**
 
@@ -28,7 +28,7 @@ int_setting(<a href="#int_setting-name">name</a>)
 string_flag(<a href="#string_flag-name">name</a>)
 </pre>
 
-
+A string flag.
 
 **ATTRIBUTES**
 
