@@ -15,11 +15,13 @@ def _build_setting_impl(ctx):
     return []
 
 string_flag = rule(
+    doc = "A string flag.",
     implementation = _build_setting_impl,
     build_setting = config.string(flag = True),
 )
 
 int_setting = rule(
+    doc = "An integer flag.",
     implementation = _build_setting_impl,
     build_setting = config.int(flag = False),
 )
