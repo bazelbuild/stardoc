@@ -7,6 +7,7 @@ MyFooInfo = provider(
     fields = ["bar", "baz"],
 )
 
+# buildifier: disable=unsorted-dict-items
 MyVeryDocumentedInfo = provider(
     doc = """
 A provider with some really neat documentation.

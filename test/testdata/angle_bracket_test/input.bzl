@@ -12,8 +12,10 @@ def bracket_function(name):
         some <angled> brackets
 
     """
+    _ignore = name  # @unused
     pass
 
+# buildifier: disable=unsorted-dict-items
 bracketuse = provider(
     doc = "Information with <brackets>",
     fields = {
@@ -24,6 +26,7 @@ bracketuse = provider(
 )
 
 def _rule_impl(ctx):
+    _ignore = [ctx]  # @unused
     return []
 
 my_anglebrac = rule(

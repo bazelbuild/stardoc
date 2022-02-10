@@ -1,11 +1,14 @@
 """A golden test to verify attribute default values."""
 
 def _my_rule_impl(ctx):
+    _ignore = [ctx]  # @unused
     return []
 
 def _my_aspect_impl(target, ctx):
+    _ignore = [target, ctx]  # @unused
     return []
 
+# buildifier: disable=unsorted-dict-items
 my_aspect = aspect(
     implementation = _my_aspect_impl,
     doc = "This is my aspect. It does stuff.",
@@ -17,6 +20,7 @@ my_aspect = aspect(
     },
 )
 
+# buildifier: disable=unsorted-dict-items
 my_rule = rule(
     implementation = _my_rule_impl,
     doc = "This is my rule. It does stuff.",

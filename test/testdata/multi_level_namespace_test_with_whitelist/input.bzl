@@ -4,7 +4,7 @@ specific symbol in other_namespace to be documented."""
 
 def _min(integers):
     """Returns the minimum of given elements."""
-    _ignore = [integers]
+    _ignore = [integers]  # @unused
     return 42
 
 def _does_nothing():

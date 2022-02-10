@@ -19,6 +19,7 @@ def top_fun(a, b, c):
     some_cool_function(a, b, c)
     return 6
 
+# buildifier: disable=unsorted-dict-items
 other_rule = rule(
     implementation = my_rule_impl,
     doc = "This is another rule.",
