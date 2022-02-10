@@ -14,7 +14,7 @@ def exercise_the_api():
 exercise_the_api()
 
 def my_rule_impl(ctx):
-    _unused = ctx  # @unused
+    _ignore = [ctx]  # @unused
     return []
 
 # buildifier: disable=unsorted-dict-items

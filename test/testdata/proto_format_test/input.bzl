@@ -9,7 +9,7 @@ def check_function(foo):
     Args:
         foo: A unique name for this rule.
     """
-    _unused = foo  # @unused
+    _ignore = foo  # @unused
     pass
 
 # buildifier: disable=unsorted-dict-items
@@ -23,7 +23,7 @@ example = provider(
 )
 
 def _rule_impl(ctx):
-    _unused = ctx  # @unused
+    _ignore = [ctx]  # @unused
     return []
 
 my_example = rule(

@@ -3,7 +3,7 @@
 load(":testdata/providers_for_attributes_test/dep.bzl", "DepProviderInfo")
 
 def my_rule_impl(ctx):
-    _unused = ctx  # @unused
+    _ignore = [ctx]  # @unused
     return []
 
 # buildifier: disable=provider-params

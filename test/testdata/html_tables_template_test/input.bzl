@@ -7,7 +7,7 @@ def example_function(foo, bar = "bar"):
         foo: This parameter does foo related things.
         bar: This parameter does bar related things.
     """
-    _unused = [foo, bar]  # @unused
+    _ignore = [foo, bar]  # @unused
     pass
 
 # buildifier: disable=unsorted-dict-items
@@ -21,7 +21,7 @@ ExampleProviderInfo = provider(
 )
 
 def _rule_impl(ctx):
-    _unused = ctx  # @unused
+    _ignore = [ctx]  # @unused
     return []
 
 example_rule = rule(
@@ -34,7 +34,7 @@ example_rule = rule(
 )
 
 def _aspect_impl(ctx):
-    _unused = ctx  # @unused
+    _ignore = [ctx]  # @unused
     return []
 
 example_aspect = aspect(

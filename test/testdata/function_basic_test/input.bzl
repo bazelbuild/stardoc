@@ -43,7 +43,7 @@ def returns_a_thing(name):
     Returns:
         A suffixed version of the name.
     """
-    _unused = name  # @unused
+    _ignore = name  # @unused
     pass
 
 def deprecated_do_not_use():
@@ -55,5 +55,5 @@ def deprecated_do_not_use():
     pass
 
 def undocumented_function(a, b, c):
-    _unused = [a, b, c]  # @unused
+    _ignore = [a, b, c]  # @unused
     pass

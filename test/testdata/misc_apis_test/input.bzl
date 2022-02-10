@@ -4,7 +4,7 @@
 config = "value for global config variable"
 
 def my_rule_impl(ctx):
-    _unused = ctx  # @unused
+    _ignore = [ctx]  # @unused
     return []
 
 def exercise_the_api():

@@ -12,7 +12,7 @@ def bracket_function(name):
         some <angled> brackets
 
     """
-    _unused = name  # @unused
+    _ignore = name  # @unused
     pass
 
 # buildifier: disable=unsorted-dict-items
@@ -26,7 +26,7 @@ bracketuse = provider(
 )
 
 def _rule_impl(ctx):
-    _unused = ctx  # @unused
+    _ignore = [ctx]  # @unused
     return []
 
 my_anglebrac = rule(

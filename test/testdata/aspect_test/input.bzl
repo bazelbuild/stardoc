@@ -1,7 +1,7 @@
 """The input file for the aspect test"""
 
 def my_aspect_impl(ctx):
-    _unused = ctx  # @unused
+    _ignore = [ctx]  # @unused
     return []
 
 my_aspect = aspect(

@@ -1,11 +1,11 @@
 """A golden test to verify attribute default values."""
 
 def _my_rule_impl(ctx):
-    _unused = ctx  # @unused
+    _ignore = [ctx]  # @unused
     return []
 
 def _my_aspect_impl(target, ctx):
-    _unused = [target, ctx]  # @unused
+    _ignore = [target, ctx]  # @unused
     return []
 
 # buildifier: disable=unsorted-dict-items

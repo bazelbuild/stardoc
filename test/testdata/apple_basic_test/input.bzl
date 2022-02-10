@@ -8,7 +8,7 @@ exercise_the_api()
 
 # buildifier: disable=rule-impl-return
 def my_rule_impl(ctx):
-    _unused = ctx  # @unused
+    _ignore = [ctx]  # @unused
     return struct()
 
 # buildifier: disable=unsorted-dict-items

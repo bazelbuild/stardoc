@@ -12,7 +12,7 @@ def transition_func(settings):
 my_transition = transition(implementation = transition_func, inputs = [], outputs = [])
 
 def _build_setting_impl(ctx):
-    _unused = ctx  # @unused
+    _ignore = [ctx]  # @unused
     return []
 
 string_flag = rule(
