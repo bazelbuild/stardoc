@@ -1,7 +1,9 @@
 # buildifier: disable=module-docstring
 def my_rule_impl(ctx):
+    _ignore = [ctx]  # @unused
     return []
 
+# buildifier: disable=unsorted-dict-items
 my_rule = rule(
     implementation = my_rule_impl,
     doc = "This is my rule. It does stuff.",

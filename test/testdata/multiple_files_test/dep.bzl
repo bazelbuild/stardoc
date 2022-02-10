@@ -10,7 +10,7 @@ def some_cool_function(name, srcs = [], beef = ""):
       srcs: What sources you want cool stuff to happen to.
       beef: Your opinion on beef.
     """
-    x = (name, srcs, beef)
+    x = (name, srcs, beef)  # @unused
 
 prep_work()
 

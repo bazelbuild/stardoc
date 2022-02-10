@@ -11,5 +11,5 @@ def min(integers):
     Returns:
       The minimum integer in the given list.
     """
-    _ignore = [integers]
+    _ignore = [integers]  # @unused
     return give_me_five()

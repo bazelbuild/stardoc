@@ -1,5 +1,6 @@
 # buildifier: disable=module-docstring
 # buildifier: disable=function-docstring
+# buildifier: disable=unused-variable
 def exercise_the_api():
     _var1 = android_common.create_device_broker_info("")
     _var2 = ApkInfo
@@ -13,8 +14,10 @@ def exercise_the_api():
 exercise_the_api()
 
 def my_rule_impl(ctx):
+    _ignore = [ctx]  # @unused
     return []
 
+# buildifier: disable=unsorted-dict-items
 android_related_rule = rule(
     implementation = my_rule_impl,
     doc = "This rule does android-related things.",
