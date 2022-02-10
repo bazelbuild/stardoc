@@ -1,7 +1,7 @@
 # buildifier: disable=module-docstring
 # buildifier: disable=function-docstring
 def exercise_the_api():
-    _var6 = configuration_field("foo", "bar")
+    _var6 = configuration_field("foo", "bar")  # @unused
 
 exercise_the_api()
 
@@ -12,6 +12,7 @@ def transition_func(settings):
 my_transition = transition(implementation = transition_func, inputs = [], outputs = [])
 
 def _build_setting_impl(ctx):
+    _unused = ctx  # @unused
     return []
 
 string_flag = rule(

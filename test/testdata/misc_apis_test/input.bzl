@@ -4,20 +4,22 @@
 config = "value for global config variable"
 
 def my_rule_impl(ctx):
+    _unused = ctx  # @unused
     return []
 
 def exercise_the_api():
-    var1 = config_common.FeatureFlagInfo
-    var2 = platform_common.TemplateVariableInfo
+    var1 = config_common.FeatureFlagInfo  # @unused
+    var2 = platform_common.TemplateVariableInfo  # @unused
     var3 = repository_rule(
         implementation = my_rule_impl,
         doc = "This repository rule has documentation.",
-    )
-    var4 = testing.ExecutionInfo({})
+    )  # @unused
+    var4 = testing.ExecutionInfo({})  # @unused
 
 exercise_the_api()
 
 # buildifier: disable=provider-params
+# buildifier: disable=unsorted-dict-items
 MyInfo = provider(
     fields = {
         "foo": "Something foo-related.",
@@ -27,6 +29,7 @@ MyInfo = provider(
 
 my_info = MyInfo(foo = "x", bar = "y")
 
+# buildifier: disable=unsorted-dict-items
 my_rule = rule(
     implementation = my_rule_impl,
     doc = "This rule exercises some of the build API.",

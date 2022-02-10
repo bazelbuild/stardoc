@@ -5,6 +5,7 @@ load(
 )
 
 def my_rule_impl(ctx):
+    _unused = ctx  # @unused
     return []
 
 my_rule = rule(

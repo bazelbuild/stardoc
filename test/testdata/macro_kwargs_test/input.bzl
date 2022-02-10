@@ -18,7 +18,7 @@ def macro_with_kwargs(name, config, deps = [], **kwargs):
     Returns:
       An empty list.
     """
-    _ignore = [name, config, deps, kwargs]
+    _ignore = [name, config, deps, kwargs]  # @unused
     return []
 
 def macro_with_args(name, *args):
@@ -31,7 +31,7 @@ def macro_with_args(name, *args):
     Returns:
       An empty list.
     """
-    _ignore = [name, args]
+    _ignore = [name, args]  # @unused
     return []
 
 def macro_with_both(name, number = 3, *args, **kwargs):
@@ -48,5 +48,5 @@ def macro_with_both(name, number = 3, *args, **kwargs):
     Returns:
       An empty list.
     """
-    _ignore = [name, number, args, kwargs]
+    _ignore = [name, number, args, kwargs]  # @unused
     return []

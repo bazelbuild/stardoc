@@ -9,7 +9,7 @@ def _min(integers):
     Returns:
       The minimum integer in the given list.
     """
-    _ignore = [integers]
+    _ignore = [integers]  # @unused
     return 42
 
 def _assert_non_empty(some_list, other_list):
@@ -19,7 +19,7 @@ def _assert_non_empty(some_list, other_list):
       some_list: The first list
       other_list: The second list
     """
-    _ignore = [some_list, other_list]
+    _ignore = [some_list, other_list]  # @unused
     fail("Not implemented")
 
 def _join_strings(strings, delimiter = ", "):
@@ -32,7 +32,7 @@ def _join_strings(strings, delimiter = ", "):
     Returns:
       The joined string.
     """
-    _ignore = [strings, delimiter]
+    _ignore = [strings, delimiter]  # @unused
     return ""
 
 my_namespace = struct(

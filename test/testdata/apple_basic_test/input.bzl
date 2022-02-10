@@ -1,15 +1,17 @@
 # buildifier: disable=module-docstring
 # buildifier: disable=function-docstring
 def exercise_the_api():
-    var1 = apple_common.platform_type
-    var2 = apple_common.AppleDynamicFramework
+    var1 = apple_common.platform_type  # @unused
+    var2 = apple_common.AppleDynamicFramework  # @unused
 
 exercise_the_api()
 
 # buildifier: disable=rule-impl-return
 def my_rule_impl(ctx):
+    _unused = ctx  # @unused
     return struct()
 
+# buildifier: disable=unsorted-dict-items
 apple_related_rule = rule(
     implementation = my_rule_impl,
     doc = "This rule does apple-related things.",

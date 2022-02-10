@@ -1,7 +1,9 @@
 # buildifier: disable=module-docstring
 def my_rule_impl(ctx):
+    _unused = ctx  # @unused
     return []
 
+# buildifier: disable=unsorted-dict-items
 rule(
     implementation = my_rule_impl,
     attrs = {

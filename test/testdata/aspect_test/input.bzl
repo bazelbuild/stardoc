@@ -1,6 +1,7 @@
 """The input file for the aspect test"""
 
 def my_aspect_impl(ctx):
+    _unused = ctx  # @unused
     return []
 
 my_aspect = aspect(
@@ -13,6 +14,7 @@ my_aspect = aspect(
     },
 )
 
+# buildifier: disable=unsorted-dict-items
 other_aspect = aspect(
     implementation = my_aspect_impl,
     doc = "This is another aspect.",
