@@ -2,7 +2,7 @@
 
 The input file for struct default values test
 
-<a id="#check_struct_default_values"></a>
+<a id="check_struct_default_values"></a>
 
 ## check_struct_default_values
 

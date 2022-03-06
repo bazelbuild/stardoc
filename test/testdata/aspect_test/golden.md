@@ -2,7 +2,7 @@
 
 The input file for the aspect test
 
-<a id="#my_aspect_impl"></a>
+<a id="my_aspect_impl"></a>
 
 ## my_aspect_impl
 
@@ -20,7 +20,7 @@ my_aspect_impl(<a href="#my_aspect_impl-ctx">ctx</a>)
 | <a id="my_aspect_impl-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
 
 
-<a id="#my_aspect"></a>
+<a id="my_aspect"></a>
 
 ## my_aspect
 
@@ -49,7 +49,7 @@ This is my aspect. It does stuff.
 | <a id="my_aspect-second"></a>second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |   |
 
 
-<a id="#other_aspect"></a>
+<a id="other_aspect"></a>
 
 ## other_aspect
 

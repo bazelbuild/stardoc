@@ -2,7 +2,7 @@
 
 
 
-<a id="#apple_related_rule"></a>
+<a id="apple_related_rule"></a>
 
 ## apple_related_rule
 

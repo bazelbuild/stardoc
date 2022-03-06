@@ -2,7 +2,7 @@
 
 A test that verifies basic user function documentation.
 
-<a id="#check_sources"></a>
+<a id="check_sources"></a>
 
 ## check_sources
 
@@ -32,7 +32,7 @@ Use `bazel build` to run the check.
 | <a id="check_sources-struct_param"></a>struct_param |  <p align="center"> - </p>   |  <code>struct(foo = "bar")</code> |
 
 
-<a id="#deprecated_do_not_use"></a>
+<a id="deprecated_do_not_use"></a>
 
 ## deprecated_do_not_use
 
@@ -48,7 +48,7 @@ This function is deprecated.
 Use literally anything but this function.
 
 
-<a id="#returns_a_thing"></a>
+<a id="returns_a_thing"></a>
 
 ## returns_a_thing
 
@@ -70,7 +70,7 @@ Returns a suffixed name.
 A suffixed version of the name.
 
 
-<a id="#undocumented_function"></a>
+<a id="undocumented_function"></a>
 
 ## undocumented_function
 

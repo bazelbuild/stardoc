@@ -2,7 +2,7 @@
 
 A test that verifies documenting a namespace of functions.
 
-<a id="#my_namespace.assert_non_empty"></a>
+<a id="my_namespace.assert_non_empty"></a>
 
 ## my_namespace.assert_non_empty
 
@@ -21,7 +21,7 @@ Asserts the two given lists are not empty.
 | <a id="my_namespace.assert_non_empty-other_list"></a>other_list |  The second list   |  none |
 
 
-<a id="#my_namespace.min"></a>
+<a id="my_namespace.min"></a>
 
 ## my_namespace.min
 
@@ -43,7 +43,7 @@ Returns the minimum of given elements.
 The minimum integer in the given list.
 
 
-<a id="#my_namespace.join_strings"></a>
+<a id="my_namespace.join_strings"></a>
 
 ## my_namespace.join_strings
 

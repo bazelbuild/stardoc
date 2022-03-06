@@ -2,7 +2,7 @@
 
 Input file for markdown template test
 
-<a id="#example_rule"></a>
+<a id="example_rule"></a>
 
 ## example_rule
 
@@ -58,7 +58,7 @@ String; optional
 </table>
 
 
-<a id="#ExampleProviderInfo"></a>
+<a id="ExampleProviderInfo"></a>
 
 ## ExampleProviderInfo
 
@@ -110,7 +110,7 @@ A string representing baz
 </table>
 
 
-<a id="#example_function"></a>
+<a id="example_function"></a>
 
 ## example_function
 
@@ -159,7 +159,7 @@ This parameter does bar related things.
 </table>
 
 
-<a id="#example_aspect"></a>
+<a id="example_aspect"></a>
 
 ## example_aspect
 
