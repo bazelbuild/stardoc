@@ -2,7 +2,7 @@
 
 Starlark rule for stardoc: a documentation generator tool written in Java.
 
-<a id="#stardoc"></a>
+<a id="stardoc"></a>
 
 ## stardoc
 

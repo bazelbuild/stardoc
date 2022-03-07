@@ -2,7 +2,7 @@
 
 Input file to test angle bracket bug (https://github.com/bazelbuild/skydoc/issues/186)
 
-<a id="#my_anglebrac"></a>
+<a id="my_anglebrac"></a>
 
 ## my_anglebrac
 
@@ -21,7 +21,7 @@ Rule with <brackets>
 | <a id="my_anglebrac-useless"></a>useless |  Args with some tags: &lt;tag1&gt;, &lt;tag2&gt;   | String | optional | "Find <brackets>" |
 
 
-<a id="#bracketuse"></a>
+<a id="bracketuse"></a>
 
 ## bracketuse
 
@@ -41,7 +41,7 @@ Information with <brackets>
 | <a id="bracketuse-baz"></a>baz |  A string representing baz    |
 
 
-<a id="#bracket_function"></a>
+<a id="bracket_function"></a>
 
 ## bracket_function
 

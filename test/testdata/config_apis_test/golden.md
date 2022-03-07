@@ -2,7 +2,7 @@
 
 
 
-<a id="#int_setting"></a>
+<a id="int_setting"></a>
 
 ## int_setting
 
@@ -20,7 +20,7 @@ An integer flag.
 | <a id="int_setting-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 
 
-<a id="#string_flag"></a>
+<a id="string_flag"></a>
 
 ## string_flag
 
@@ -38,7 +38,7 @@ A string flag.
 | <a id="string_flag-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 
 
-<a id="#exercise_the_api"></a>
+<a id="exercise_the_api"></a>
 
 ## exercise_the_api
 
@@ -50,7 +50,7 @@ exercise_the_api()
 
 
 
-<a id="#transition_func"></a>
+<a id="transition_func"></a>
 
 ## transition_func
 

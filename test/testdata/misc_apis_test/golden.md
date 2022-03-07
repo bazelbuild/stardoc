@@ -2,7 +2,7 @@
 
 
 
-<a id="#my_rule"></a>
+<a id="my_rule"></a>
 
 ## my_rule
 
@@ -25,7 +25,7 @@ This rule exercises some of the build API.
 | <a id="my_rule-tool"></a>tool |  The location of the tool to use.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | //foo/bar/baz:target |
 
 
-<a id="#MyInfo"></a>
+<a id="MyInfo"></a>
 
 ## MyInfo
 
@@ -44,7 +44,7 @@ MyInfo(<a href="#MyInfo-foo">foo</a>, <a href="#MyInfo-bar">bar</a>)
 | <a id="MyInfo-bar"></a>bar |  Something bar-related.    |
 
 
-<a id="#exercise_the_api"></a>
+<a id="exercise_the_api"></a>
 
 ## exercise_the_api
 
@@ -56,7 +56,7 @@ exercise_the_api()
 
 
 
-<a id="#my_rule_impl"></a>
+<a id="my_rule_impl"></a>
 
 ## my_rule_impl
 

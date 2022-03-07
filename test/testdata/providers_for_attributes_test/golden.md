@@ -2,7 +2,7 @@
 
 The input file for the providers for attributes test
 
-<a id="#my_rule"></a>
+<a id="my_rule"></a>
 
 ## my_rule
 
@@ -26,7 +26,7 @@ This rule does things.
 | <a id="my_rule-third"></a>third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 
 
-<a id="#MyProviderInfo"></a>
+<a id="MyProviderInfo"></a>
 
 ## MyProviderInfo
 
@@ -45,7 +45,7 @@ MyProviderInfo(<a href="#MyProviderInfo-foo">foo</a>, <a href="#MyProviderInfo-b
 | <a id="MyProviderInfo-bar"></a>bar |  Something bar-related.    |
 
 
-<a id="#OtherProviderInfo"></a>
+<a id="OtherProviderInfo"></a>
 
 ## OtherProviderInfo
 
@@ -59,7 +59,7 @@ OtherProviderInfo()
 
 
 
-<a id="#my_rule_impl"></a>
+<a id="my_rule_impl"></a>
 
 ## my_rule_impl
 

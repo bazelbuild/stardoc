@@ -2,7 +2,7 @@
 
 The input file for the python rule test
 
-<a id="#py_related_rule"></a>
+<a id="py_related_rule"></a>
 
 ## py_related_rule
 

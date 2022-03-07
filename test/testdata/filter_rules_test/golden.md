@@ -2,7 +2,7 @@
 
 
 
-<a id="#my_rule"></a>
+<a id="my_rule"></a>
 
 ## my_rule
 
@@ -22,7 +22,7 @@ This is my rule. It does stuff.
 | <a id="my_rule-second"></a>second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |  |
 
 
-<a id="#whitelisted_dep_rule"></a>
+<a id="whitelisted_dep_rule"></a>
 
 ## whitelisted_dep_rule
 
