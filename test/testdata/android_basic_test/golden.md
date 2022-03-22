@@ -2,7 +2,7 @@
 
 
 
-<a id="#android_related_rule"></a>
+<a id="android_related_rule"></a>
 
 ## android_related_rule
 

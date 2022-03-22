@@ -2,7 +2,7 @@
 
 A golden test to verify attribute default values.
 
-<a id="#my_rule"></a>
+<a id="my_rule"></a>
 
 ## my_rule
 
@@ -43,7 +43,7 @@ This is my rule. It does stuff.
 | <a id="my_rule-w"></a>w |  -   | Integer | optional | 0 |
 
 
-<a id="#my_aspect"></a>
+<a id="my_aspect"></a>
 
 ## my_aspect
 

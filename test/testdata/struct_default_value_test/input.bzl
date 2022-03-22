@@ -1,5 +1,6 @@
 """The input file for struct default values test"""
 
+# buildifier: disable=unused-variable
 def check_struct_default_values(
         struct_no_args = struct(),
         struct_arg = struct(foo = "bar"),

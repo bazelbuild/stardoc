@@ -2,7 +2,7 @@
 
 
 
-<a id="#cpp_related_rule"></a>
+<a id="cpp_related_rule"></a>
 
 ## cpp_related_rule
 

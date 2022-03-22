@@ -2,7 +2,7 @@
 
 A direct dependency file of the input file.
 
-<a id="#my_rule"></a>
+<a id="my_rule"></a>
 
 ## my_rule
 

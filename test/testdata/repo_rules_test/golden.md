@@ -2,7 +2,7 @@
 
 
 
-<a id="#my_repo"></a>
+<a id="my_repo"></a>
 
 ## my_repo
 

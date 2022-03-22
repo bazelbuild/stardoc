@@ -2,7 +2,7 @@
 
 
 
-<a id="#my_rule_impl"></a>
+<a id="my_rule_impl"></a>
 
 ## my_rule_impl
 

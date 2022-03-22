@@ -2,7 +2,7 @@
 
 A test that verifies documenting a multi-leveled namespace of functions.
 
-<a id="#my_namespace.min"></a>
+<a id="my_namespace.min"></a>
 
 ## my_namespace.min
 
@@ -24,7 +24,7 @@ Returns the minimum of given elements.
 The minimum integer in the given list.
 
 
-<a id="#my_namespace.math.min"></a>
+<a id="my_namespace.math.min"></a>
 
 ## my_namespace.math.min
 
@@ -46,7 +46,7 @@ Returns the minimum of given elements.
 The minimum integer in the given list.
 
 
-<a id="#my_namespace.foo.bar.baz"></a>
+<a id="my_namespace.foo.bar.baz"></a>
 
 ## my_namespace.foo.bar.baz
 
@@ -58,7 +58,7 @@ This function does nothing.
 
 
 
-<a id="#my_namespace.one.two.min"></a>
+<a id="my_namespace.one.two.min"></a>
 
 ## my_namespace.one.two.min
 
@@ -80,7 +80,7 @@ Returns the minimum of given elements.
 The minimum integer in the given list.
 
 
-<a id="#my_namespace.one.three.does_nothing"></a>
+<a id="my_namespace.one.three.does_nothing"></a>
 
 ## my_namespace.one.three.does_nothing
 

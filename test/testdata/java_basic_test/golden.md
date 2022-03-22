@@ -2,7 +2,7 @@
 
 
 
-<a id="#java_related_rule"></a>
+<a id="java_related_rule"></a>
 
 ## java_related_rule
 

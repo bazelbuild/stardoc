@@ -2,7 +2,7 @@
 
 Tests for functions which use *args or **kwargs
 
-<a id="#macro_with_args"></a>
+<a id="macro_with_args"></a>
 
 ## macro_with_args
 
@@ -25,7 +25,7 @@ My args macro is OK.
 An empty list.
 
 
-<a id="#macro_with_both"></a>
+<a id="macro_with_both"></a>
 
 ## macro_with_both
 
@@ -53,7 +53,7 @@ Not much else to say.
 An empty list.
 
 
-<a id="#macro_with_kwargs"></a>
+<a id="macro_with_kwargs"></a>
 
 ## macro_with_kwargs
 

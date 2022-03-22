@@ -9,8 +9,10 @@ def check_function(foo):
     Args:
         foo: A unique name for this rule.
     """
+    _ignore = foo  # @unused
     pass
 
+# buildifier: disable=unsorted-dict-items
 example = provider(
     doc = "Stores information about an example.",
     fields = {
@@ -21,6 +23,7 @@ example = provider(
 )
 
 def _rule_impl(ctx):
+    _ignore = [ctx]  # @unused
     return []
 
 my_example = rule(

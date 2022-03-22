@@ -1,14 +1,16 @@
 """The input file for the python rule test"""
 
 def exercise_the_api():
-    var1 = PyRuntimeInfo
-    var2 = PyInfo
+    var1 = PyRuntimeInfo  # @unused
+    var2 = PyInfo  # @unused
 
 exercise_the_api()
 
 def my_rule_impl(ctx):
+    _ignore = [ctx]  # @unused
     return []
 
+# buildifier: disable=unsorted-dict-items
 py_related_rule = rule(
     implementation = my_rule_impl,
     doc = "This rule does python-related things.",

@@ -1,8 +1,8 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-Input file for C++ api test 
+Input file for C++ api test
 
-<a id="#cpp_related_rule"></a>
+<a id="cpp_related_rule"></a>
 
 ## cpp_related_rule
 
@@ -24,7 +24,7 @@ This rule does C++-related things.
 | <a id="cpp_related_rule-third"></a>third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 
 
-<a id="#exercise_the_api"></a>
+<a id="exercise_the_api"></a>
 
 ## exercise_the_api
 
@@ -36,7 +36,7 @@ exercise_the_api()
 
 
 
-<a id="#my_rule_impl"></a>
+<a id="my_rule_impl"></a>
 
 ## my_rule_impl
 

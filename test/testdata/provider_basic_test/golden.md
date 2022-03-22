@@ -2,7 +2,7 @@
 
 
 
-<a id="#MyFooInfo"></a>
+<a id="MyFooInfo"></a>
 
 ## MyFooInfo
 
@@ -21,7 +21,7 @@ Stores information about a foo.
 | <a id="MyFooInfo-baz"></a>baz |  (Undocumented)    |
 
 
-<a id="#MyPoorlyDocumentedInfo"></a>
+<a id="MyPoorlyDocumentedInfo"></a>
 
 ## MyPoorlyDocumentedInfo
 
@@ -35,7 +35,7 @@ MyPoorlyDocumentedInfo()
 
 
 
-<a id="#MyVeryDocumentedInfo"></a>
+<a id="MyVeryDocumentedInfo"></a>
 
 ## MyVeryDocumentedInfo
 
