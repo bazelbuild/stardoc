@@ -133,7 +133,7 @@ like documentation to be generated.
 
 For example, you may want to generate documentation for `foo_rule`, `bar_rule`, and
 `baz_rule`, all in different `.bzl` files. First, you would create a single `.bzl` file
-which loads these files:
+which loads these files and binds the rules to be documented as globals:
 
 `doc_hub.bzl`:
 
