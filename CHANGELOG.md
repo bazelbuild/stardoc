@@ -1,3 +1,11 @@
+## Release 0.5.1
+
+Bugfix release: minor fixes, including a fix for build failure due to missing zlib version.
+
+**Contributors**
+
+aiuto, Alexandre Rostovtsev, Brian Silverman, Casey, Xùdōng Yáng
+
 ## Release 0.5.0
 
 This release includes many fixes for Stardoc's markdown output, plus:
