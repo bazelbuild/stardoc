@@ -158,14 +158,14 @@ For example, if `//foo:bar.bzl` does not build except when a user would specify
             doc = "The location of the stardoc tool.",
             allow_files = True,
             default = Label("//stardoc:stardoc"),
-            cfg = "host",
+            cfg = "exec",
             executable = True,
         ),
         "renderer": attr.label(
             doc = "The location of the renderer tool.",
             allow_files = True,
             default = Label("//stardoc:renderer"),
-            cfg = "host",
+            cfg = "exec",
             executable = True,
         ),
         "aspect_template": attr.label(
