@@ -17,7 +17,7 @@ Rule with <brackets>
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="my_anglebrac-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| <a id="my_anglebrac-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="my_anglebrac-useless"></a>useless |  Args with some tags: &lt;tag1&gt;, &lt;tag2&gt;   | String | optional | "Find <brackets>" |
 
 
