@@ -16,7 +16,7 @@ git_repository(
     name = "io_bazel",
     commit = "b0c91c19ee707b62aab54131ffdd32fae9558f33",  # Jul 13, 2022
     remote = "https://github.com/bazelbuild/bazel.git",
-    shallow_since = "1644438166 -0800",
+    shallow_since = "1657741242 -0700",
 )
 
 # The following binds are needed for building protobuf java libraries.
