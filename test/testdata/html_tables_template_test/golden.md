@@ -24,7 +24,7 @@ Small example of rule using a markdown template.
 <td><code>name</code></td>
 <td>
 
-<a href="https://bazel.build/docs/build-ref.html#name">Name</a>; required
+<a href="https://bazel.build/concepts/labels#target-names">Name</a>; required
 
 <p>
 
@@ -204,7 +204,7 @@ String; required.
 <td><code>name</code></td>
 <td>
 
-<a href="https://bazel.build/docs/build-ref.html#name">Name</a>; required
+<a href="https://bazel.build/concepts/labels#target-names">Name</a>; required
 
 <p>
 
@@ -217,7 +217,7 @@ A unique name for this target.
 <td><code>first</code></td>
 <td>
 
-<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; required
+<a href="https://bazel.build/concepts/labels">Label</a>; required
 
 </td>
 </tr>

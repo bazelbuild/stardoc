@@ -17,9 +17,9 @@ This is my rule. It does stuff.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a id="my_rule-first"></a>first |  first my_rule doc string   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
-| <a id="my_rule-second"></a>second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |  |
+| <a id="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="my_rule-first"></a>first |  first my_rule doc string   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
+| <a id="my_rule-second"></a>second |  -   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> String</a> | required |  |
 
 
 <a id="whitelisted_dep_rule"></a>
@@ -37,8 +37,8 @@ This is the dep rule. It does stuff.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="whitelisted_dep_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a id="whitelisted_dep_rule-first"></a>first |  dep's my_rule doc string   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
-| <a id="whitelisted_dep_rule-second"></a>second |  -   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | required |  |
+| <a id="whitelisted_dep_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="whitelisted_dep_rule-first"></a>first |  dep's my_rule doc string   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
+| <a id="whitelisted_dep_rule-second"></a>second |  -   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> String</a> | required |  |
 
 

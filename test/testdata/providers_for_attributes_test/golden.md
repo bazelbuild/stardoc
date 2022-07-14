@@ -17,13 +17,13 @@ This rule does things.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a id="my_rule-fifth"></a>fifth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
-| <a id="my_rule-first"></a>first |  this is the first attribute.   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
-| <a id="my_rule-fourth"></a>fourth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
-| <a id="my_rule-second"></a>second |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="my_rule-sixth"></a>sixth |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
-| <a id="my_rule-third"></a>third |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| <a id="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="my_rule-fifth"></a>fifth |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | None |
+| <a id="my_rule-first"></a>first |  this is the first attribute.   | <a href="https://bazel.build/rules/lib/dict">Dictionary: Label -> String</a> | optional | {} |
+| <a id="my_rule-fourth"></a>fourth |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | None |
+| <a id="my_rule-second"></a>second |  -   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional | [] |
+| <a id="my_rule-sixth"></a>sixth |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | None |
+| <a id="my_rule-third"></a>third |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | None |
 
 
 <a id="MyProviderInfo"></a>

@@ -14,9 +14,9 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 # Needed for generating the Stardoc release binary.
 git_repository(
     name = "io_bazel",
-    commit = "4e551f5a0c4caae251648104df40ccbb59951264",  # Feb 09, 2022
+    commit = "b0c91c19ee707b62aab54131ffdd32fae9558f33",  # Jul 13, 2022
     remote = "https://github.com/bazelbuild/bazel.git",
-    shallow_since = "1644438166 -0800",
+    shallow_since = "1657741242 -0700",
 )
 
 # The following binds are needed for building protobuf java libraries.
@@ -57,10 +57,10 @@ git_repository(
 # Needed for //distro:__pkg__ and as a transitive dependency of @io_bazel
 http_archive(
     name = "rules_pkg",
-    sha256 = "a89e203d3cf264e564fcb96b6e06dd70bc0557356eb48400ce4b5d97c2c3720d",
+    sha256 = "8a298e832762eda1830597d64fe7db58178aa84cd5926d76d5b744d6558941c2",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_pkg/releases/download/0.5.1/rules_pkg-0.5.1.tar.gz",
-        "https://github.com/bazelbuild/rules_pkg/releases/download/0.5.1/rules_pkg-0.5.1.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_pkg/releases/download/0.7.0/rules_pkg-0.7.0.tar.gz",
+        "https://github.com/bazelbuild/rules_pkg/releases/download/0.7.0/rules_pkg-0.7.0.tar.gz",
     ],
 )
 
