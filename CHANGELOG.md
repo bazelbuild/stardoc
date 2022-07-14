@@ -1,3 +1,11 @@
+## Release 0.5.2
+
+Bugfix release: fixes crash with `config_common.toolchain_type`.
+
+**Contributors**
+
+Alexandre Rostovtsev, Keith Smiley
+
 ## Release 0.5.1
 
 Bugfix release: minor fixes, including a fix for build failure due to missing zlib version.
