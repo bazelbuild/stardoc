@@ -1,19 +1,23 @@
-"""Input file to test angle bracket bug (https://github.com/bazelbuild/skydoc/issues/186)"""
+"""Input file to test <angle bracket bugs>
 
-def bracket_function(name):
+See https://github.com/bazelbuild/skydoc/issues/186
+and https://github.com/bazelbuild/stardoc/issues/132"""
+
+def bracket_function(param = "<default>"):
     """Dummy docstring with <brackets>.
 
     This rule runs checks on <angle brackets>.
 
     Args:
-        name: an arg with **formatted** docstring.
+        param: an arg with **formatted** docstring, <default> by default.
 
     Returns:
         some <angled> brackets
 
+    Deprecated:
+        deprecated for <reasons>
     """
-    _ignore = name  # @unused
-    pass
+    return param
 
 # buildifier: disable=unsorted-dict-items
 bracketuse = provider(
@@ -36,6 +40,22 @@ my_anglebrac = rule(
         "useless": attr.string(
             doc = "Args with some tags: <tag1>, <tag2>",
             default = "Find <brackets>",
+        ),
+    },
+)
+
+def _bracket_aspect_impl(ctx):
+    _ignore = [ctx]  # @unused
+    return []
+
+bracket_aspect = aspect(
+    implementation = _bracket_aspect_impl,
+    doc = "Aspect with <brackets>",
+    attr_aspects = ["deps"],
+    attrs = {
+        "brackets": attr.string(
+            doc = "Attribute with <brackets>",
+            default = "<default>",
         ),
     },
 )
