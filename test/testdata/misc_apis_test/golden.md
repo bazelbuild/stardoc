@@ -18,11 +18,11 @@ This rule exercises some of the build API.
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="my_rule-deps"></a>deps |  A list of dependencies.   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional | [] |
-| <a id="my_rule-extra_arguments"></a>extra_arguments |  -   | List of strings | optional | [] |
+| <a id="my_rule-deps"></a>deps |  A list of dependencies.   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional | <code>[]</code> |
+| <a id="my_rule-extra_arguments"></a>extra_arguments |  -   | List of strings | optional | <code>[]</code> |
 | <a id="my_rule-out"></a>out |  The output file.   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
-| <a id="my_rule-src"></a>src |  The source file.   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | None |
-| <a id="my_rule-tool"></a>tool |  The location of the tool to use.   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | //foo/bar/baz:target |
+| <a id="my_rule-src"></a>src |  The source file.   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
+| <a id="my_rule-tool"></a>tool |  The location of the tool to use.   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>//foo/bar/baz:target</code> |
 
 
 <a id="MyInfo"></a>

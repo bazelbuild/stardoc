@@ -19,7 +19,7 @@ This rule does java-related things.
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="java_related_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="java_related_rule-first"></a>first |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
-| <a id="java_related_rule-fourth"></a>fourth |  -   | Boolean | optional | False |
+| <a id="java_related_rule-fourth"></a>fourth |  -   | Boolean | optional | <code>False</code> |
 | <a id="java_related_rule-second"></a>second |  -   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> String</a> | required |  |
 | <a id="java_related_rule-third"></a>third |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
 

@@ -21,7 +21,7 @@ Rule with &lt;brackets&gt;
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="my_anglebrac-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="my_anglebrac-useless"></a>useless |  Args with some tags: &lt;tag1&gt;, &lt;tag2&gt;   | String | optional | "Find &lt;brackets&gt;" |
+| <a id="my_anglebrac-useless"></a>useless |  Args with some tags: &lt;tag1&gt;, &lt;tag2&gt;   | String | optional | <code>"Find &lt;brackets&gt;"</code> |
 
 
 <a id="bracketuse"></a>
