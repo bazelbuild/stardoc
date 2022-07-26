@@ -6,7 +6,7 @@
 ${util.aspectSummary($aspectName, $aspectInfo)}
 </pre>
 
-$aspectInfo.getDocString()
+${util.htmlEscape($aspectInfo.getDocString())}
 
 **ASPECT ATTRIBUTES**
 
@@ -27,6 +27,6 @@ $aspectInfo.getDocString()
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 #foreach ($attribute in $aspectInfo.getAttributeList())
-| <a id="${aspectName}-${attribute.name}"></a>$attribute.name | #if(!$attribute.docString.isEmpty()) ${util.markdownCellFormat($attribute.docString)} #else - #end  | ${util.attributeTypeString($attribute)} | ${util.mandatoryString($attribute)} |  $attribute.defaultValue |
+| <a id="${aspectName}-${attribute.name}"></a>$attribute.name | #if(!$attribute.docString.isEmpty()) ${util.markdownCellFormat($attribute.docString)} #else - #end  | ${util.attributeTypeString($attribute)} | ${util.mandatoryString($attribute)} | #if(!$attribute.defaultValue.isEmpty()) <code>${util.htmlEscape($attribute.defaultValue)}</code> #end  |
 #end
 #end
