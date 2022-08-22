@@ -8,7 +8,7 @@ Starlark generates one documentation page per `stardoc` target.
 
 If you are new to writing build rules for Bazel, please read the Bazel
 documentation on [writing
-extensions](https://www.bazel.build/docs/skylark/concepts.html)
+extensions](https://bazel.build/extending/concepts)
 
 ## Setup
 
