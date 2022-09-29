@@ -1,3 +1,11 @@
+## Release 0.5.3
+
+Bugfix release: fixes angle bracket escaping and a crash on labels with `@@`
+
+**Contributors**
+
+Alexandre Rostovtsev, Jon Shea
+
 ## Release 0.5.2
 
 Bugfix release: fixes crash with `config_common.toolchain_type`.
