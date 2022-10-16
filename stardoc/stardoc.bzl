@@ -109,6 +109,9 @@ def _stardoc_impl(ctx):
                                 (ctx.label.name)),
         )
 
+    outputs = [out_file]
+    return [DefaultInfo(files = depset(outputs), runfiles = ctx.runfiles(files = outputs))]
+
 stardoc = rule(
     _stardoc_impl,
     doc = """
