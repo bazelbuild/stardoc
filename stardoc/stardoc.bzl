@@ -109,6 +109,12 @@ def _stardoc_impl(ctx):
                                 (ctx.label.name)),
         )
 
+    # Work around default outputs not getting captured by sh_binary:
+    # https://github.com/bazelbuild/bazel/issues/15043.
+    # See discussion in https://github.com/bazelbuild/stardoc/pull/139.
+    outputs = [out_file]
+    return [DefaultInfo(files = depset(outputs), runfiles = ctx.runfiles(files = outputs))]
+
 stardoc = rule(
     _stardoc_impl,
     doc = """
