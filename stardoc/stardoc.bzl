@@ -14,7 +14,7 @@
 
 """Starlark rule for stardoc: a documentation generator tool written in Java."""
 
-load("@rules_java//java:defs.bzl", "java_binary", "java_import")
+load("@rules_java//java:defs.bzl", "java_binary")
 load("//stardoc/private:stardoc.bzl", _stardoc = "stardoc", _stardoc_runfiles = "stardoc_runfiles")
 
 def stardoc(
@@ -34,11 +34,10 @@ def stardoc(
         provider_template = Label("//stardoc:templates/markdown_tables/provider.vm"),
         rule_template = Label("//stardoc:templates/markdown_tables/rule.vm"),
         **kwargs):
-    """Generates documentation for exported skylark rule definitions in a target starlark file.
-
-    This rule is an experimental replacement for the existing skylark_doc rule.
+    """Generates documentation for exported starlark rule definitions in a target starlark file.
 
     Args:
+      name: The name of the stardoc target.
       input: The starlark file to generate documentation for (mandatory).
       out: The file to which documentation will be output (mandatory).
       deps: A list of bzl_library dependencies which the input depends on.
@@ -60,6 +59,7 @@ def stardoc(
       func_template: The input file template for generating documentation of functions.
       provider_template: The input file template for generating documentation of providers.
       rule_template: The input file template for generating documentation of rules.
+      **kwargs: Further arguments to pass to stardoc.
     """
 
     stardoc_runfiles_name = name + "_stardoc_runfiles"
