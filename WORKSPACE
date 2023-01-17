@@ -15,6 +15,7 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 git_repository(
     name = "io_bazel",
     commit = "901c75e459d737220cb8e29649c1b6ba24e2221d",  # Sep 27, 2022
+    patches = ["@//:bazel.patch"],  # TODO: Remove after next bazel update
     remote = "https://github.com/bazelbuild/bazel.git",
     shallow_since = "1664304093 -0700",
 )
