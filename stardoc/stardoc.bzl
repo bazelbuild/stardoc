@@ -15,7 +15,7 @@
 """Starlark rule for stardoc: a documentation generator tool written in Java."""
 
 load("@rules_java//java:defs.bzl", "java_binary")
-load("//stardoc/private:stardoc.bzl", _stardoc = "stardoc", _stardoc_runfiles = "stardoc_runfiles")
+load("//stardoc/private:stardoc.bzl", _stardoc = "stardoc")
 
 def stardoc(
         *,
@@ -62,22 +62,15 @@ def stardoc(
       **kwargs: Further arguments to pass to stardoc.
     """
 
-    stardoc_runfiles_name = name + "_stardoc_runfiles"
     stardoc_with_runfiles_name = name + "_stardoc"
-
-    _stardoc_runfiles(
-        name = stardoc_runfiles_name,
-        input = input,
-        deps = deps,
-        tags = ["manual"],
-    )
 
     java_binary(
         name = stardoc_with_runfiles_name,
         main_class = "com.google.devtools.build.skydoc.SkydocMain",
         runtime_deps = [stardoc],
-        data = [stardoc_runfiles_name],
+        data = [input] + deps,
         tags = ["manual"],
+        visibility = ["//visibility:private"],
     )
 
     _stardoc(

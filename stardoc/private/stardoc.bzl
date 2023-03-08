@@ -16,30 +16,6 @@
 
 load("@bazel_skylib//:bzl_library.bzl", "StarlarkLibraryInfo")
 
-def _stardoc_runfiles_impl(ctx):
-    runfiles = ctx.runfiles(
-        files = [ctx.file.input],
-        transitive_files = depset(transitive = [
-            dep[StarlarkLibraryInfo].transitive_srcs
-            for dep in ctx.attr.deps
-        ]),
-    )
-    return [
-        DefaultInfo(runfiles = runfiles),
-    ]
-
-stardoc_runfiles = rule(
-    implementation = _stardoc_runfiles_impl,
-    attrs = {
-        "input": attr.label(
-            allow_single_file = [".bzl"],
-        ),
-        "deps": attr.label_list(
-            providers = [StarlarkLibraryInfo],
-        ),
-    },
-)
-
 def _stardoc_impl(ctx):
     """Implementation of the stardoc rule."""
     for semantic_flag in ctx.attr.semantic_flags:
