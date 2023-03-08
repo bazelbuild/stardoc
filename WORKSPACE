@@ -14,10 +14,9 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 # Needed for generating the Stardoc release binary.
 git_repository(
     name = "io_bazel",
-    commit = "901c75e459d737220cb8e29649c1b6ba24e2221d",  # Sep 27, 2022
+    commit = "5100f179e64b81c396b5a40627c591d8e4fd8a5d",
     patches = ["@//:bazel.patch"],  # TODO: Remove after next bazel update
     remote = "https://github.com/bazelbuild/bazel.git",
-    shallow_since = "1664304093 -0700",
 )
 
 # The following binds are needed for building protobuf java libraries.
