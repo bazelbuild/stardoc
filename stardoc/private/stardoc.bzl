@@ -14,8 +14,6 @@
 
 """Starlark rule for stardoc: a documentation generator tool written in Java."""
 
-load("@bazel_skylib//:bzl_library.bzl", "StarlarkLibraryInfo")
-
 def _stardoc_impl(ctx):
     """Implementation of the stardoc rule."""
     for semantic_flag in ctx.attr.semantic_flags:
