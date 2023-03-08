@@ -11,17 +11,14 @@ stardoc(<a href="#stardoc-name">name</a>, <a href="#stardoc-input">input</a>, <a
         <a href="#stardoc-aspect_template">aspect_template</a>, <a href="#stardoc-func_template">func_template</a>, <a href="#stardoc-header_template">header_template</a>, <a href="#stardoc-provider_template">provider_template</a>, <a href="#stardoc-rule_template">rule_template</a>, <a href="#stardoc-kwargs">kwargs</a>)
 </pre>
 
-Generates documentation for exported skylark rule definitions in a target starlark file.
-
-This rule is an experimental replacement for the existing skylark_doc rule.
-
+Generates documentation for exported starlark rule definitions in a target starlark file.
 
 **PARAMETERS**
 
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a id="stardoc-name"></a>name |  <p align="center"> - </p>   |  none |
+| <a id="stardoc-name"></a>name |  The name of the stardoc target.   |  none |
 | <a id="stardoc-input"></a>input |  The starlark file to generate documentation for (mandatory).   |  none |
 | <a id="stardoc-out"></a>out |  The file to which documentation will be output (mandatory).   |  none |
 | <a id="stardoc-deps"></a>deps |  A list of bzl_library dependencies which the input depends on.   |  <code>[]</code> |
@@ -35,6 +32,6 @@ This rule is an experimental replacement for the existing skylark_doc rule.
 | <a id="stardoc-header_template"></a>header_template |  The input file template for the header of the output documentation.   |  <code>Label("//stardoc:templates/markdown_tables/header.vm")</code> |
 | <a id="stardoc-provider_template"></a>provider_template |  The input file template for generating documentation of providers.   |  <code>Label("//stardoc:templates/markdown_tables/provider.vm")</code> |
 | <a id="stardoc-rule_template"></a>rule_template |  The input file template for generating documentation of rules.   |  <code>Label("//stardoc:templates/markdown_tables/rule.vm")</code> |
-| <a id="stardoc-kwargs"></a>kwargs |  <p align="center"> - </p>   |  none |
+| <a id="stardoc-kwargs"></a>kwargs |  Further arguments to pass to stardoc.   |  none |
 
 

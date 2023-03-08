@@ -106,9 +106,7 @@ def _stardoc_impl(ctx):
 stardoc = rule(
     _stardoc_impl,
     doc = """
-Generates documentation for exported skylark rule definitions in a target starlark file.
-
-This rule is an experimental replacement for the existing skylark_doc rule.
+Generates documentation for starlark skylark rule definitions in a target starlark file.
 """,
     attrs = {
         "input": attr.label(
