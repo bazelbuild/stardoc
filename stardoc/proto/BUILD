@@ -1,7 +1,7 @@
 licenses(["notice"])
 
 package(
-    default_applicable_license = ["//:license"],
+    default_applicable_licenses = ["//:license"],
     default_visibility = ["//visibility:public"],
 )
 
