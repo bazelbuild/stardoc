@@ -2,6 +2,7 @@ load("@io_bazel_stardoc//:version.bzl", "version")
 load("@rules_pkg//:pkg.bzl", "pkg_tar")
 
 package(
+    default_applicable_licenses = ["//:license"],
     default_visibility = ["//visibility:private"],
 )
 

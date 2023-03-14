@@ -1,5 +1,7 @@
 load(":stardoc_test.bzl", "stardoc_test")
 
+package(default_applicable_licenses = ["//:license"])
+
 licenses(["notice"])  # Apache 2.0
 
 sh_test(
