@@ -11,8 +11,7 @@ submitting pull requests.
 In general, we prefer contributions that fix bugs or add features (as opposed to
 purely stylistic, refactoring, or "cleanup" changes). Please check with us by
 opening a [GitHub Issue](https://github.com/bazelbuild/stardoc/issues) or
-emailing the [bazel-dev](https://groups.google.com/forum/#!forum/bazel-dev)
-mailing list.
+starting a [GitHub Discussion](https://github.com/bazelbuild/bazel/discussions).
 
 ## Stardoc code structure
 
@@ -33,8 +32,7 @@ mailing list.
   plan](https://www.bazel.build/governance.html) and Stardoc's [contribution
   guidelines](../CONTRIBUTING.md).
 * Open an [Issue](https://github.com/bazelbuild/stardoc/issues) or discuss your
-  plan or design on the [bazel-dev](https://groups.google.com/forum/#!forum/bazel-dev)
-  mailing list.
+  plan or design on [Github Discussions](https://github.com/bazelbuild/bazel/discussions)
 * Prepare a Git commit that implements your feature or bug fix. Don't forget to
   add tests and reference the corresponding bug, if any.
 * Open a [Pull Request](https://github.com/bazelbuild/stardoc/pulls) on the Stardoc
