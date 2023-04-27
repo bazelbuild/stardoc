@@ -26,7 +26,6 @@ bzl_library(
     visibility = ["//visibility:public"],
     deps = [
         "//stardoc/private:stardoc_lib",
-        "@bazel_skylib//:bzl_library",
         "@rules_java//java:rules",
     ],
 )

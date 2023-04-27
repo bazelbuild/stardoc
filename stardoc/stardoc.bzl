@@ -64,6 +64,7 @@ def stardoc(
 
     stardoc_with_runfiles_name = name + "_stardoc"
 
+    testonly = {"testonly": kwargs["testonly"]} if "testonly" in kwargs else {}
     java_binary(
         name = stardoc_with_runfiles_name,
         main_class = "com.google.devtools.build.skydoc.SkydocMain",
@@ -71,6 +72,7 @@ def stardoc(
         data = [input] + deps,
         tags = ["manual"],
         visibility = ["//visibility:private"],
+        **testonly
     )
 
     _stardoc(
