@@ -26,7 +26,7 @@ def stardoc(
         format = "markdown",
         symbol_names = [],
         semantic_flags = [],
-        stardoc = Label("//stardoc:prebuilt_stardoc_binary"),
+        stardoc = Label("//stardoc"),
         renderer = Label("//stardoc:renderer"),
         aspect_template = Label("//stardoc:templates/markdown_tables/aspect.vm"),
         func_template = Label("//stardoc:templates/markdown_tables/func.vm"),
@@ -52,8 +52,8 @@ def stardoc(
         For example, if `//foo:bar.bzl` does not build except when a user would specify
         `--incompatible_foo_semantic=false`, then this attribute should contain
         "--incompatible_foo_semantic=false".
-      stardoc: The location of the stardoc tool.
-      renderer: The location of the renderer tool.
+      stardoc: The location of the stardoc tool (a `java_binary` target or a `.jar` file).
+      renderer: The location of the renderer tool (a `java_binary` target or a `.jar` file).
       aspect_template: The input file template for generating documentation of aspects
       header_template: The input file template for the header of the output documentation.
       func_template: The input file template for generating documentation of functions.
@@ -68,7 +68,9 @@ def stardoc(
     java_binary(
         name = stardoc_with_runfiles_name,
         main_class = "com.google.devtools.build.skydoc.SkydocMain",
-        runtime_deps = [stardoc],
+        # java_binary targets cannot be added as deps of a java_binary, so we may need to get the
+        # corresponding _deploy.jar target.
+        runtime_deps = [_get_deploy_jar_label_if_not_jar(stardoc)],
         data = [input] + deps,
         tags = ["manual"],
         visibility = ["//visibility:private"],
@@ -91,3 +93,22 @@ def stardoc(
         rule_template = rule_template,
         **kwargs
     )
+
+def _get_deploy_jar_label_if_not_jar(label):
+    """Returns the label of the _deploy.jar target corresponding to the given java_binary label."""
+
+    # label could be a string or a Label.
+    label_str = str(label)
+
+    # Convert "@my_stardoc" to "@my_stardoc//:my_stardoc".
+    if not "//" in label_str:
+        if not label_str.startswith("@"):
+            fail("Invalid label: %s" % label_str)
+        label_str = label_str + "//:" + label_str[1]
+    if not ":" in label_str:
+        label_str = label_str + ":" + label_str.split("/")[-1]
+
+    if label_str.endswith(".jar"):
+        return label_str
+    else:
+        return label_str + "_deploy.jar"
