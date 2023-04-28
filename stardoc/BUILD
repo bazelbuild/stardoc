@@ -60,7 +60,7 @@ java_binary(
 java_import(
     name = "prebuilt_stardoc_binary",
     jars = ["stardoc_binary.jar"],
-    visibility = ["//visibility:private"],
+    visibility = ["//visibility:public"],
 )
 
 java_binary(
