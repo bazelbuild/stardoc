@@ -1,24 +1,27 @@
 ---
-platforms:
-  ubuntu1804:
+matrix:
+  platform:
+    - ubuntu1804
+    - ubuntu2004
+    - macos
+    - windows
+
+tasks:
+  build_and_test:
+    name: Build and test
+    platform: ${{ platform }}
     build_targets:
-    - "//..."
+      - "//..."
     test_targets:
-    - "//..."
-  ubuntu2004:
+      - "//..."
+
+  bzlmod:
+    name: Bzlmod example
+    platform: ${{ platform }}
+    working_directory: test/bzlmod
     build_targets:
-    - "//..."
+      - "//..."
     test_targets:
-    - "//..."
-  macos:
-    build_targets:
-    - "//..."
-    test_targets:
-    - "//..."
-  windows:
-    build_targets:
-    - "//..."
-    test_targets:
-    - "//..."
+      - "//..."
 
 buildifier: latest
