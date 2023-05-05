@@ -14,10 +14,8 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 # Needed for generating the Stardoc release binary.
 git_repository(
     name = "io_bazel",
-    commit = "901c75e459d737220cb8e29649c1b6ba24e2221d",  # Sep 27, 2022
-    patches = ["@//:bazel.patch"],  # TODO: Remove after next bazel update
+    commit = "c6a8c0827061697fa8fa9dd21310b276d9887e8c",  # 2023-04-27
     remote = "https://github.com/bazelbuild/bazel.git",
-    shallow_since = "1664304093 -0700",
 )
 
 # The following binds are needed for building protobuf java libraries.
@@ -36,6 +34,68 @@ bind(
     actual = "@io_bazel//third_party:error_prone_annotations",
 )
 
+RULES_JVM_EXTERNAL_TAG = "4.5"
+
+RULES_JVM_EXTERNAL_SHA = "b17d7388feb9bfa7f2fa09031b32707df529f26c91ab9e5d909eb1676badd9a6"
+
+http_archive(
+    name = "rules_jvm_external",
+    sha256 = RULES_JVM_EXTERNAL_SHA,
+    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+    url = "https://github.com/bazelbuild/rules_jvm_external/archive/refs/tags/%s.zip" % RULES_JVM_EXTERNAL_TAG,
+)
+
+load("@rules_jvm_external//:repositories.bzl", "rules_jvm_external_deps")
+
+rules_jvm_external_deps()
+
+load("@rules_jvm_external//:setup.bzl", "rules_jvm_external_setup")
+
+rules_jvm_external_setup()
+
+load("@rules_jvm_external//:defs.bzl", "maven_install")
+
+maven_install(
+    artifacts = [
+        "com.github.ben-manes.caffeine:caffeine:3.0.5",
+        "com.github.stephenc.jcip:jcip-annotations:1.0-1",
+        "com.google.auto.service:auto-service-annotations:1.0.1",
+        "com.google.auto.service:auto-service:1.0",
+        "com.google.auto.value:auto-value-annotations:1.9",
+        "com.google.auto.value:auto-value:1.8.2",
+        "com.google.auto:auto-common:1.2.1",
+        "com.google.code.findbugs:jsr305:3.0.2",
+        "com.google.code.gson:gson:2.9.0",
+        "com.google.errorprone:error_prone_annotations:2.18.0",
+        "com.google.errorprone:error_prone_type_annotations:2.18.0",
+        "com.google.flogger:flogger-system-backend:0.5.1",
+        "com.google.flogger:flogger:0.5.1",
+        "com.google.flogger:google-extensions:0.5.1",
+        "com.google.guava:failureaccess:1.0.1",
+        "com.google.guava:guava:31.1-jre",
+        "com.google.j2objc:j2objc-annotations:1.3",
+        "com.ryanharter.auto.value:auto-value-gson-extension:1.3.1",
+        "com.ryanharter.auto.value:auto-value-gson-runtime:1.3.1",
+        "com.ryanharter.auto.value:auto-value-gson-factory:1.3.1",
+        "com.squareup:javapoet:1.12.0",
+        "commons-collections:commons-collections:3.2.2",
+        "commons-lang:commons-lang:2.6",
+        "org.apache.tomcat:tomcat-annotations-api:8.0.5",
+        "org.apache.velocity:velocity:1.7",
+        "org.checkerframework:checker-qual:3.19.0",
+    ],
+    fail_if_repin_required = True,
+    maven_install_json = "//:maven_install.json",
+    repositories = [
+        "https://repo1.maven.org/maven2",
+    ],
+    strict_visibility = True,
+)
+
+load("@maven//:defs.bzl", "pinned_maven_install")
+
+pinned_maven_install()
+
 # Needed only because of java_tools.
 http_archive(
     name = "rules_cc",
@@ -48,11 +108,11 @@ http_archive(
 )
 
 # Needed as a transitive dependency of @io_bazel
-git_repository(
+http_archive(
     name = "rules_python",
-    commit = "4b84ad270387a7c439ebdccfd530e2339601ef27",
-    remote = "https://github.com/bazelbuild/rules_python.git",
-    shallow_since = "1564776078 -0400",
+    sha256 = "a644da969b6824cc87f8fe7b18101a8a6c57da5db39caa6566ec6109f37d2141",
+    strip_prefix = "rules_python-0.20.0",
+    urls = ["https://github.com/bazelbuild/rules_python/releases/download/0.20.0/rules_python-0.20.0.tar.gz"],
 )
 
 # Needed for //distro:__pkg__ and as a transitive dependency of @io_bazel
@@ -72,10 +132,10 @@ rules_pkg_dependencies()
 # Needed as a transitive dependency of @io_bazel
 http_archive(
     name = "rules_proto",
-    sha256 = "9850fcf6ad40fa348e6f13b2cfef4bb4639762f804794f2bf61d988f4ba0dae9",
-    strip_prefix = "rules_proto-4.0.0-3.19.2-2",
+    sha256 = "dc3fb206a2cb3441b485eb1e423165b231235a1ea9b031b4433cf7bc1fa460dd",
+    strip_prefix = "rules_proto-5.3.0-21.7",
     urls = [
-        "https://github.com/bazelbuild/rules_proto/archive/refs/tags/4.0.0-3.19.2-2.tar.gz",
+        "https://github.com/bazelbuild/rules_proto/archive/refs/tags/5.3.0-21.7.tar.gz",
     ],
 )
 

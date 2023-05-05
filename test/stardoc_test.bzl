@@ -59,7 +59,7 @@ def stardoc_test(
         lib_name = "%s_lib" % name,
         input_file = input_file,
         golden_file = golden_file,
-        stardoc_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc",
+        stardoc_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc:skydoc_deploy.jar",
         renderer_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc/renderer",
         test = test,
         **kwargs
@@ -70,7 +70,7 @@ def stardoc_test(
         lib_name = "%s_lib" % name,
         input_file = input_file,
         golden_file = golden_file,
-        stardoc_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc",
+        stardoc_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc:skydoc_deploy.jar",
         renderer_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc/renderer",
         test = test,
         **kwargs

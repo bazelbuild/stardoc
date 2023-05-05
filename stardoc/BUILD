@@ -25,7 +25,8 @@ bzl_library(
     srcs = ["stardoc.bzl"],
     visibility = ["//visibility:public"],
     deps = [
-        "@bazel_skylib//:bzl_library",
+        "//stardoc/private:stardoc_lib",
+        "@rules_java//java:rules",
     ],
 )
 
@@ -50,14 +51,6 @@ stardoc(
 
 java_binary(
     name = "stardoc",
-    jvm_flags = [
-        # quiet warnings from com.google.protobuf.UnsafeUtil,
-        # see: https://github.com/google/protobuf/issues/3781
-        # TODO(cparsons): Remove once Stardoc has the fix.
-        "-XX:+IgnoreUnrecognizedVMOptions",
-        "--add-opens=java.base/java.nio=ALL-UNNAMED",
-        "--add-opens=java.base/java.lang=ALL-UNNAMED",
-    ],
     main_class = "com.google.devtools.build.skydoc.SkydocMain",
     runtime_deps = [
         ":prebuilt_stardoc_binary",
@@ -67,19 +60,11 @@ java_binary(
 java_import(
     name = "prebuilt_stardoc_binary",
     jars = ["stardoc_binary.jar"],
-    visibility = ["//visibility:private"],
+    visibility = ["//visibility:public"],
 )
 
 java_binary(
     name = "renderer",
-    jvm_flags = [
-        # quiet warnings from com.google.protobuf.UnsafeUtil,
-        # see: https://github.com/google/protobuf/issues/3781
-        # TODO(cparsons): Remove once Stardoc has the fix.
-        "-XX:+IgnoreUnrecognizedVMOptions",
-        "--add-opens=java.base/java.nio=ALL-UNNAMED",
-        "--add-opens=java.base/java.lang=ALL-UNNAMED",
-    ],
     main_class = "com.google.devtools.build.skydoc.renderer.RendererMain",
     runtime_deps = [
         ":prebuilt_renderer_binary",
