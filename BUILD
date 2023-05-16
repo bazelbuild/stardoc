@@ -31,6 +31,7 @@ filegroup(
         "CHANGELOG.md",
         "CONTRIBUTORS",
         "LICENSE",
+        "MODULE.bazel",
         "//stardoc:distro_srcs",
         "//stardoc/proto:distro_srcs",
     ] + glob(["*.bzl"]),
