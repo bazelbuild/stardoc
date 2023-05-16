@@ -14,7 +14,7 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 # Needed for generating the Stardoc release binary.
 git_repository(
     name = "io_bazel",
-    commit = "c6a8c0827061697fa8fa9dd21310b276d9887e8c",  # 2023-04-27
+    commit = "c2394ca2d201bdc72887b3920680ca119d46a26e",  # 2023-05-10
     remote = "https://github.com/bazelbuild/bazel.git",
 )
 
@@ -40,6 +40,8 @@ RULES_JVM_EXTERNAL_SHA = "b17d7388feb9bfa7f2fa09031b32707df529f26c91ab9e5d909eb1
 
 http_archive(
     name = "rules_jvm_external",
+    patch_args = ["-p1"],
+    patches = ["//:rules_jvm_external.patch"],
     sha256 = RULES_JVM_EXTERNAL_SHA,
     strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
     url = "https://github.com/bazelbuild/rules_jvm_external/archive/refs/tags/%s.zip" % RULES_JVM_EXTERNAL_TAG,
