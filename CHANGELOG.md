@@ -1,3 +1,15 @@
+## Release 0.5.4
+
+**New Features**
+
+-   Stardoc supports bzlmod! (#141, special thanks to Fabian Meumertzheim)
+-   Stardoc output files are now exposed in stardoc() target runfiles (#139)
+
+**Contributors**
+
+Alexandre Rostovtsev, Fabian Meumertzheim, Greg Estren, Ivo List, Keith Smiley,
+lberki, Philipp Schrader
+
 ## Release 0.5.3
 
 Bugfix release: fixes angle bracket escaping and a crash on labels with `@@`
