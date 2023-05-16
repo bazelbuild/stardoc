@@ -33,6 +33,7 @@ filegroup(
         "LICENSE",
         "MODULE.bazel",
         "//stardoc:distro_srcs",
+        "//stardoc/private:distro_srcs",
         "//stardoc/proto:distro_srcs",
     ] + glob(["*.bzl"]),
     visibility = ["//:__subpackages__"],
