@@ -5,3 +5,14 @@ bzl_library(
     srcs = ["stardoc.bzl"],
     visibility = ["//stardoc:__pkg__"],
 )
+
+# Sources needed for release tarball.
+filegroup(
+    name = "distro_srcs",
+    srcs = [
+        "BUILD",
+    ] + glob([
+        "*.bzl",
+    ]),
+    visibility = ["//:__pkg__"],
+)
