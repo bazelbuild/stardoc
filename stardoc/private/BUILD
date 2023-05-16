@@ -9,7 +9,7 @@ bzl_library(
 # Sources needed for release tarball.
 filegroup(
     name = "distro_srcs",
-    srcs =[
+    srcs = [
         "BUILD",
     ] + glob([
         "*.bzl",
