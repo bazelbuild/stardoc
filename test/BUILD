@@ -247,22 +247,6 @@ stardoc_test(
     input_file = "testdata/config_apis_test/input.bzl",
 )
 
-genrule(
-    name = "generate_bzl_test_dep",
-    srcs = ["testdata/generated_bzl_test/dep.bzl.tpl"],
-    outs = ["testdata/generated_bzl_test/dep.bzl"],
-    cmd = "cp $< $@",
-)
-
-stardoc_test(
-    name = "generated_bzl_test",
-    golden_file = "testdata/generated_bzl_test/golden.md",
-    input_file = "testdata/generated_bzl_test/input.bzl",
-    deps = [
-        "testdata/generated_bzl_test/dep.bzl",
-    ],
-)
-
 sh_test(
     name = "local_repository_test_e2e_test",
     srcs = ["diff_test_runner.sh"],

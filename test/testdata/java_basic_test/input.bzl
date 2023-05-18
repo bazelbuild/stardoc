@@ -3,7 +3,6 @@
 def exercise_the_api():
     var1 = java_common.JavaRuntimeInfo  # @unused
     var2 = JavaInfo  # @unused
-    var3 = java_proto_common  # @unused
 
 exercise_the_api()
 
