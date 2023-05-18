@@ -15,7 +15,8 @@
 """Starlark rule for stardoc: a documentation generator tool written in Java."""
 
 load("@rules_java//java:defs.bzl", "java_binary")
-load("//stardoc/private:stardoc.bzl", _stardoc = "stardoc")
+load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
+load("//stardoc/private:stardoc.bzl", "stardoc_markdown_renderer", _stardoc = "stardoc")
 
 def stardoc(
         *,
@@ -40,7 +41,7 @@ def stardoc(
       name: The name of the stardoc target.
       input: The starlark file to generate documentation for (mandatory).
       out: The file to which documentation will be output (mandatory).
-      deps: A list of bzl_library dependencies which the input depends on.
+      deps: (deprecated in Bazel 7) A list of bzl_library dependencies which the input depends on.
       format: The format of the output file. Valid values: 'markdown' or 'proto'.
       symbol_names: A list of symbol names to generate documentation for. These should correspond to the names of rule
         definitions in the input file. If this list is empty, then documentation for all exported rule definitions will
@@ -62,32 +63,70 @@ def stardoc(
       **kwargs: Further arguments to pass to stardoc.
     """
 
-    stardoc_with_runfiles_name = name + "_stardoc"
+    if hasattr(native, "starlark_doc_extract"):
+        # Use starlark_doc_extract as extractor
+        if format == "proto" and Label(name + ".binaryproto") == Label(out):
+            extractor_name = name
+        else:
+            extractor_name = name + ".extract"
 
-    testonly = {"testonly": kwargs["testonly"]} if "testonly" in kwargs else {}
-    java_binary(
-        name = stardoc_with_runfiles_name,
-        main_class = "com.google.devtools.build.skydoc.SkydocMain",
-        runtime_deps = [stardoc],
-        data = [input] + deps,
-        tags = ["manual"],
-        visibility = ["//visibility:private"],
-        **testonly
-    )
+        proto_name = extractor_name + ".binaryproto"
 
-    _stardoc(
-        name = name,
-        input = input,
-        out = out,
-        format = format,
-        symbol_names = symbol_names,
-        semantic_flags = semantic_flags,
-        stardoc = stardoc_with_runfiles_name,
-        renderer = renderer,
-        aspect_template = aspect_template,
-        func_template = func_template,
-        header_template = header_template,
-        provider_template = provider_template,
-        rule_template = rule_template,
-        **kwargs
-    )
+        native.starlark_doc_extract(
+            name = extractor_name,
+            src = input,
+            symbol_names = symbol_names,
+            **kwargs
+        )
+
+        if format == "markdown":
+            stardoc_markdown_renderer(
+                name = name,
+                src = proto_name,
+                out = out,
+                renderer = renderer,
+                aspect_template = aspect_template,
+                func_template = func_template,
+                header_template = header_template,
+                provider_template = provider_template,
+                rule_template = rule_template,
+                **kwargs
+            )
+        elif format == "proto" and Label(proto_name) != Label(out):
+            copy_file(
+                name = name,
+                src = proto_name,
+                out = out,
+                **kwargs
+            )
+
+    else:
+        # Use legacy extractor
+        stardoc_with_runfiles_name = name + "_stardoc"
+
+        testonly = {"testonly": kwargs["testonly"]} if "testonly" in kwargs else {}
+        java_binary(
+            name = stardoc_with_runfiles_name,
+            main_class = "com.google.devtools.build.skydoc.SkydocMain",
+            runtime_deps = [stardoc],
+            data = [input] + deps,
+            tags = ["manual"],
+            visibility = ["//visibility:private"],
+            **testonly
+        )
+        _stardoc(
+            name = name,
+            input = input,
+            out = out,
+            format = format,
+            symbol_names = symbol_names,
+            semantic_flags = semantic_flags,
+            stardoc = stardoc_with_runfiles_name,
+            renderer = renderer,
+            aspect_template = aspect_template,
+            func_template = func_template,
+            header_template = header_template,
+            provider_template = provider_template,
+            rule_template = rule_template,
+            **kwargs
+        )

@@ -14,6 +14,27 @@
 
 """Starlark rule for stardoc: a documentation generator tool written in Java."""
 
+def _renderer_action_run(ctx, out_file, proto_file):
+    """Helper for declaring the markdown renderer action"""
+    renderer_args = ctx.actions.args()
+    renderer_args.add("--input=" + str(proto_file.path))
+    renderer_args.add("--output=" + str(ctx.outputs.out.path))
+    renderer_args.add("--aspect_template=" + str(ctx.file.aspect_template.path))
+    renderer_args.add("--header_template=" + str(ctx.file.header_template.path))
+    renderer_args.add("--func_template=" + str(ctx.file.func_template.path))
+    renderer_args.add("--provider_template=" + str(ctx.file.provider_template.path))
+    renderer_args.add("--rule_template=" + str(ctx.file.rule_template.path))
+    renderer = ctx.executable.renderer
+    ctx.actions.run(
+        outputs = [out_file],
+        inputs = [proto_file, ctx.file.aspect_template, ctx.file.header_template, ctx.file.func_template, ctx.file.provider_template, ctx.file.rule_template],
+        executable = renderer,
+        arguments = [renderer_args],
+        mnemonic = "Renderer",
+        progress_message = ("Converting proto format of %s to markdown format" %
+                            (ctx.label.name)),
+    )
+
 def _stardoc_impl(ctx):
     """Implementation of the stardoc rule."""
     for semantic_flag in ctx.attr.semantic_flags:
@@ -52,30 +73,52 @@ def _stardoc_impl(ctx):
             progress_message = ("Generating proto for Starlark doc for %s" %
                                 (ctx.label.name)),
         )
-        renderer_args = ctx.actions.args()
-        renderer_args.add("--input=" + str(proto_file.path))
-        renderer_args.add("--output=" + str(ctx.outputs.out.path))
-        renderer_args.add("--aspect_template=" + str(ctx.file.aspect_template.path))
-        renderer_args.add("--header_template=" + str(ctx.file.header_template.path))
-        renderer_args.add("--func_template=" + str(ctx.file.func_template.path))
-        renderer_args.add("--provider_template=" + str(ctx.file.provider_template.path))
-        renderer_args.add("--rule_template=" + str(ctx.file.rule_template.path))
-        renderer = ctx.executable.renderer
-        ctx.actions.run(
-            outputs = [out_file],
-            inputs = [proto_file, ctx.file.aspect_template, ctx.file.header_template, ctx.file.func_template, ctx.file.provider_template, ctx.file.rule_template],
-            executable = renderer,
-            arguments = [renderer_args],
-            mnemonic = "Renderer",
-            progress_message = ("Converting proto format of %s to markdown format" %
-                                (ctx.label.name)),
-        )
+        _renderer_action_run(ctx, out_file = out_file, proto_file = proto_file)
 
     # Work around default outputs not getting captured by sh_binary:
     # https://github.com/bazelbuild/bazel/issues/15043.
     # See discussion in https://github.com/bazelbuild/stardoc/pull/139.
     outputs = [out_file]
     return [DefaultInfo(files = depset(outputs), runfiles = ctx.runfiles(files = outputs))]
+
+_common_renderer_attrs = {
+    "out": attr.output(
+        doc = "The (markdown) file to which documentation will be output.",
+        mandatory = True,
+    ),
+    "renderer": attr.label(
+        doc = "The location of the renderer tool.",
+        allow_files = True,
+        cfg = "exec",
+        executable = True,
+        mandatory = True,
+    ),
+    "aspect_template": attr.label(
+        doc = "The input file template for generating documentation of aspects.",
+        allow_single_file = [".vm"],
+        mandatory = True,
+    ),
+    "header_template": attr.label(
+        doc = "The input file template for the header of the output documentation.",
+        allow_single_file = [".vm"],
+        mandatory = True,
+    ),
+    "func_template": attr.label(
+        doc = "The input file template for generating documentation of functions.",
+        allow_single_file = [".vm"],
+        mandatory = True,
+    ),
+    "provider_template": attr.label(
+        doc = "The input file template for generating documentation of providers.",
+        allow_single_file = [".vm"],
+        mandatory = True,
+    ),
+    "rule_template": attr.label(
+        doc = "The input file template for generating documentation of rules.",
+        allow_single_file = [".vm"],
+        mandatory = True,
+    ),
+}
 
 stardoc = rule(
     _stardoc_impl,
@@ -86,10 +129,6 @@ Generates documentation for starlark skylark rule definitions in a target starla
         "input": attr.label(
             doc = "The starlark file to generate documentation for.",
             allow_single_file = [".bzl"],
-            mandatory = True,
-        ),
-        "out": attr.output(
-            doc = "The (markdown) file to which documentation will be output.",
             mandatory = True,
         ),
         "format": attr.string(
@@ -124,37 +163,29 @@ For example, if `//foo:bar.bzl` does not build except when a user would specify
             executable = True,
             mandatory = True,
         ),
-        "renderer": attr.label(
-            doc = "The location of the renderer tool.",
-            allow_files = True,
-            cfg = "exec",
-            executable = True,
+    } | _common_renderer_attrs,
+)
+
+def _stardoc_markdown_renderer_impl(ctx):
+    out_file = ctx.outputs.out
+    _renderer_action_run(ctx, out_file = out_file, proto_file = ctx.file.src)
+
+    # Work around default outputs not getting captured by sh_binary:
+    # https://github.com/bazelbuild/bazel/issues/15043.
+    # See discussion in https://github.com/bazelbuild/stardoc/pull/139.
+    outputs = [out_file]
+    return [DefaultInfo(files = depset(outputs), runfiles = ctx.runfiles(files = outputs))]
+
+stardoc_markdown_renderer = rule(
+    _stardoc_markdown_renderer_impl,
+    doc = """
+Generates markdown documentation for starlark rule definitions from the corresponding binary proto.
+""",
+    attrs = {
+        "src": attr.label(
+            doc = "The .binaryproto file from which to generate documentation.",
+            allow_single_file = [".binaryproto"],
             mandatory = True,
         ),
-        "aspect_template": attr.label(
-            doc = "The input file template for generating documentation of aspects.",
-            allow_single_file = [".vm"],
-            mandatory = True,
-        ),
-        "header_template": attr.label(
-            doc = "The input file template for the header of the output documentation.",
-            allow_single_file = [".vm"],
-            mandatory = True,
-        ),
-        "func_template": attr.label(
-            doc = "The input file template for generating documentation of functions.",
-            allow_single_file = [".vm"],
-            mandatory = True,
-        ),
-        "provider_template": attr.label(
-            doc = "The input file template for generating documentation of providers.",
-            allow_single_file = [".vm"],
-            mandatory = True,
-        ),
-        "rule_template": attr.label(
-            doc = "The input file template for generating documentation of rules.",
-            allow_single_file = [".vm"],
-            mandatory = True,
-        ),
-    },
+    } | _common_renderer_attrs,
 )
