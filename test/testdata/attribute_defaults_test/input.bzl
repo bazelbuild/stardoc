@@ -14,7 +14,7 @@ my_aspect = aspect(
     doc = "This is my aspect. It does stuff.",
     attr_aspects = ["deps", "attr_aspect"],
     attrs = {
-        "_x": attr.label(mandatory = True),
+        "_x": attr.label(mandatory = True, default = "//foo:bar"),
         "y": attr.string(default = "why", doc = "some string"),
         "z": attr.string(mandatory = True),
     },

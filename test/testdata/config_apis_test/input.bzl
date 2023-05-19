@@ -1,7 +1,7 @@
 # buildifier: disable=module-docstring
 # buildifier: disable=function-docstring
 def exercise_the_api():
-    _var6 = configuration_field("foo", "bar")  # @unused
+    _unused = configuration_field(fragment = "cpp", name = "custom_malloc")  # @unused
 
 exercise_the_api()
 
