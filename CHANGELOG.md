@@ -1,4 +1,4 @@
-## Release 0.5.5
+## Release 0.5.6 (initially tagged as 0.5.5)
 
 Bugfix release: update `@rules_java` dependency to fix breakage with Bazel at HEAD.
 
