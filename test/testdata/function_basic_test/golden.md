@@ -24,12 +24,12 @@ Use `bazel build` to run the check.
 | :------------- | :------------- | :------------- |
 | <a id="check_sources-name"></a>name |  A unique name for this rule.   |  none |
 | <a id="check_sources-required_param"></a>required_param |  Use your imagination.   |  none |
-| <a id="check_sources-bool_param"></a>bool_param |  <p align="center"> - </p>   |  <code>True</code> |
-| <a id="check_sources-srcs"></a>srcs |  Source files to run the checks against.   |  <code>[]</code> |
-| <a id="check_sources-string_param"></a>string_param |  <p align="center"> - </p>   |  <code>""</code> |
-| <a id="check_sources-int_param"></a>int_param |  Your favorite number.   |  <code>2</code> |
-| <a id="check_sources-dict_param"></a>dict_param |  <p align="center"> - </p>   |  <code>{}</code> |
-| <a id="check_sources-struct_param"></a>struct_param |  <p align="center"> - </p>   |  <code>struct(foo = "bar")</code> |
+| <a id="check_sources-bool_param"></a>bool_param |  <p align="center"> - </p>   |  `True` |
+| <a id="check_sources-srcs"></a>srcs |  Source files to run the checks against.   |  `[]` |
+| <a id="check_sources-string_param"></a>string_param |  <p align="center"> - </p>   |  `""` |
+| <a id="check_sources-int_param"></a>int_param |  Your favorite number.   |  `2` |
+| <a id="check_sources-dict_param"></a>dict_param |  <p align="center"> - </p>   |  `{}` |
+| <a id="check_sources-struct_param"></a>struct_param |  <p align="center"> - </p>   |  `struct(foo = "bar")` |
 
 
 <a id="deprecated_do_not_use"></a>
