@@ -29,6 +29,6 @@ This is my rule. It does stuff.
 | <a id="my_rule-i"></a>i |  Some string   | String | required |  |
 | <a id="my_rule-j"></a>j |  Some string_dict   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> String</a> | required |  |
 | <a id="my_rule-k"></a>k |  Some string_list   | List of strings | required |  |
-| <a id="my_rule-l"></a>l |  Some string_list_dict   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> List of strings</a> | optional | <code>{}</code> |
+| <a id="my_rule-l"></a>l |  Some string_list_dict   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> List of strings</a> | optional | {} |
 
 
