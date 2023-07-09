@@ -79,7 +79,7 @@ foo = "<thing>"
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 | <a id="bracket_function-param"></a>param |  an arg with **formatted** docstring, <code>&lt;default&gt;</code> by default.   |  `"<default>"` |
-| <a id="bracket_function-md_string"></a>md_string |  A markdown string.   |  `"foo `1<<10` bar"` |
+| <a id="bracket_function-md_string"></a>md_string |  A markdown string.   |  ``"foo `1<<10` bar"`` |
 
 **RETURNS**
 
