@@ -54,6 +54,7 @@ def deprecated_do_not_use():
     """
     pass
 
+# buildifier: disable=unused-variable
 def undocumented_function(a, b, c):
     pass
 

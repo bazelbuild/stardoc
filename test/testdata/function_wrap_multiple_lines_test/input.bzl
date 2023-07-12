@@ -1,5 +1,6 @@
 """Rules for ANTLR 3."""
 
+# buildifier: disable=unused-variable
 def _generate(ctx):
     return None
 
