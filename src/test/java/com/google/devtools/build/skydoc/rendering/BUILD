@@ -18,7 +18,7 @@ java_test(
     srcs = ["MarkdownUtilTest.java"],
     deps = [
         "//src/main/java/com/google/devtools/build/skydoc/rendering",
-        "//third_party:junit4",
-        "//third_party:truth",
+        "@maven//:com_google_truth_truth",
+        "@maven//:junit_junit",
     ],
 )
