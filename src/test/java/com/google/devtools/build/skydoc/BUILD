@@ -1,4 +1,3 @@
-load("@rules_java//java:defs.bzl", "java_test")
 load(":skydoc_test.bzl", "skydoc_test")
 
 package(
@@ -15,28 +14,6 @@ filegroup(
         "//src/test/java/com/google/devtools/build/skydoc/testdata/same_level_file_test:srcs",
     ],
     visibility = ["//src:__pkg__"],
-)
-
-java_test(
-    name = "SkydocTest",
-    size = "medium",
-    srcs = ["SkydocTest.java"],
-    visibility = ["//devtools/blaze/main:__pkg__"],
-    deps = [
-        "//src/main/java/com/google/devtools/build/lib/cmdline",
-        "//src/main/java/com/google/devtools/build/lib/packages/semantics",
-        "//src/main/java/com/google/devtools/build/skydoc:skydoc_lib",
-        "//src/main/java/com/google/devtools/build/skydoc/fakebuildapi",
-        "//src/main/java/com/google/devtools/build/skydoc/rendering",
-        "//src/main/java/com/google/devtools/build/skydoc/rendering:function_util",
-        "//src/main/java/net/starlark/java/eval",
-        "//src/test/java/com/google/devtools/build/lib/testutil:TestUtils",
-        "//stardoc/proto:stardoc_output_java_proto",
-        "//third_party:guava",
-        "//third_party:junit4",
-        "//third_party:truth",
-        "//tools/java/runfiles",
-    ],
 )
 
 skydoc_test(
