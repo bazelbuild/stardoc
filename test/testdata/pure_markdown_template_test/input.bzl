@@ -1,5 +1,6 @@
 """Input file for markdown template test"""
 
+# buildifier: disable=unused-variable
 def example_function(foo, bar = "bar"):
     """Small example of function using a markdown template.
 
@@ -28,6 +29,7 @@ ExampleProviderInfo = provider(
     },
 )
 
+# buildifier: disable=unused-variable
 def _rule_impl(ctx):
     return []
 
@@ -40,6 +42,7 @@ example_rule = rule(
     },
 )
 
+# buildifier: disable=unused-variable
 def _aspect_impl(ctx):
     return []
 

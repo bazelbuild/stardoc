@@ -57,6 +57,7 @@ def deprecated_do_not_use():
 def undocumented_function(a, b, c):
     pass
 
+# buildifier: disable=unused-variable
 def param_doc_multiline(complex):
     """Has a complex parameter.
 
