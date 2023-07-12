@@ -32,6 +32,7 @@ maven_install(
     artifacts = [
         "com.beust:jcommander:1.82",
         "com.google.guava:guava:31.1-jre",
+        "com.google.truth:truth:1.1.3",
         "org.apache.velocity:velocity:1.7",
         "junit:junit:4.13.2",
         # Artifacts below this line are only needed for building @io_bazel for
@@ -53,7 +54,6 @@ maven_install(
         "com.google.flogger:google-extensions:0.5.1",
         "com.google.guava:failureaccess:1.0.1",
         "com.google.j2objc:j2objc-annotations:1.3",
-        "com.google.truth:truth:1.1.3",
         "com.ryanharter.auto.value:auto-value-gson-extension:1.3.1",
         "com.ryanharter.auto.value:auto-value-gson-runtime:1.3.1",
         "com.ryanharter.auto.value:auto-value-gson-factory:1.3.1",
