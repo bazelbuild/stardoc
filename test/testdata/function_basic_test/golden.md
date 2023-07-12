@@ -48,6 +48,24 @@ This function is deprecated.
 Use literally anything but this function.
 
 
+<a id="param_doc_multiline"></a>
+
+## param_doc_multiline
+
+<pre>
+param_doc_multiline(<a href="#param_doc_multiline-complex">complex</a>)
+</pre>
+
+Has a complex parameter.
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="param_doc_multiline-complex"></a>complex |  A parameter with some non-obvious behavior.<br><br> For example, it does things that require **multiple paragraphs** to explain.<br><br>Note: we should preserve the nested indent in the following code:<br><br><pre><code>json {     "key": "value" } </code></pre>   |  none |
+
+
 <a id="returns_a_thing"></a>
 
 ## returns_a_thing

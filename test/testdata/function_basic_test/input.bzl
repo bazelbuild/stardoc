@@ -55,5 +55,22 @@ def deprecated_do_not_use():
     pass
 
 def undocumented_function(a, b, c):
-    _ignore = [a, b, c]  # @unused
+    pass
+
+def param_doc_multiline(complex):
+    """Has a complex parameter.
+
+    Args:
+        complex: A parameter with some non-obvious behavior.
+
+            For example, it does things that require **multiple paragraphs** to explain.
+
+           Note: we should preserve the nested indent in the following code:
+
+           ```json
+           {
+               "key": "value"
+           }
+           ```
+    """
     pass

@@ -1,12 +1,9 @@
 # buildifier: disable=module-docstring
 load(
     ":testdata/filter_rules_test/dep.bzl",
+    "my_rule_impl",
     dep_rule = "my_rule",
 )
-
-def my_rule_impl(ctx):
-    _ignore = [ctx]  # @unused
-    return []
 
 my_rule = rule(
     implementation = my_rule_impl,
@@ -29,7 +26,7 @@ other_rule = rule(
     },
 )
 
-whitelisted_dep_rule = dep_rule
+allowlisted_dep_rule = dep_rule
 
 yet_another_rule = rule(
     implementation = my_rule_impl,
