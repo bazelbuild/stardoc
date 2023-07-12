@@ -21,28 +21,6 @@ Asserts the two given lists are not empty.
 | <a id="my_namespace.assert_non_empty-other_list"></a>other_list |  The second list   |  none |
 
 
-<a id="my_namespace.min"></a>
-
-## my_namespace.min
-
-<pre>
-my_namespace.min(<a href="#my_namespace.min-integers">integers</a>)
-</pre>
-
-Returns the minimum of given elements.
-
-**PARAMETERS**
-
-
-| Name  | Description | Default Value |
-| :------------- | :------------- | :------------- |
-| <a id="my_namespace.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
-
-**RETURNS**
-
-The minimum integer in the given list.
-
-
 <a id="my_namespace.join_strings"></a>
 
 ## my_namespace.join_strings
@@ -64,5 +42,27 @@ Joins the given strings with a delimiter.
 **RETURNS**
 
 The joined string.
+
+
+<a id="my_namespace.min"></a>
+
+## my_namespace.min
+
+<pre>
+my_namespace.min(<a href="#my_namespace.min-integers">integers</a>)
+</pre>
+
+Returns the minimum of given elements.
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="my_namespace.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
+
+**RETURNS**
+
+The minimum integer in the given list.
 
 

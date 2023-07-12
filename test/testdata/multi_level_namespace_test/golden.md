@@ -2,26 +2,16 @@
 
 A test that verifies documenting a multi-leveled namespace of functions.
 
-<a id="my_namespace.min"></a>
+<a id="my_namespace.foo.bar.baz"></a>
 
-## my_namespace.min
+## my_namespace.foo.bar.baz
 
 <pre>
-my_namespace.min(<a href="#my_namespace.min-integers">integers</a>)
+my_namespace.foo.bar.baz()
 </pre>
 
-Returns the minimum of given elements.
+This function does nothing.
 
-**PARAMETERS**
-
-
-| Name  | Description | Default Value |
-| :------------- | :------------- | :------------- |
-| <a id="my_namespace.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
-
-**RETURNS**
-
-The minimum integer in the given list.
 
 
 <a id="my_namespace.math.min"></a>
@@ -46,12 +36,34 @@ Returns the minimum of given elements.
 The minimum integer in the given list.
 
 
-<a id="my_namespace.foo.bar.baz"></a>
+<a id="my_namespace.min"></a>
 
-## my_namespace.foo.bar.baz
+## my_namespace.min
 
 <pre>
-my_namespace.foo.bar.baz()
+my_namespace.min(<a href="#my_namespace.min-integers">integers</a>)
+</pre>
+
+Returns the minimum of given elements.
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="my_namespace.min-integers"></a>integers |  A list of integers. Must not be empty.   |  none |
+
+**RETURNS**
+
+The minimum integer in the given list.
+
+
+<a id="my_namespace.one.three.does_nothing"></a>
+
+## my_namespace.one.three.does_nothing
+
+<pre>
+my_namespace.one.three.does_nothing()
 </pre>
 
 This function does nothing.
@@ -78,17 +90,5 @@ Returns the minimum of given elements.
 **RETURNS**
 
 The minimum integer in the given list.
-
-
-<a id="my_namespace.one.three.does_nothing"></a>
-
-## my_namespace.one.three.does_nothing
-
-<pre>
-my_namespace.one.three.does_nothing()
-</pre>
-
-This function does nothing.
-
 
 
