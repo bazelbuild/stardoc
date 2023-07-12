@@ -15,7 +15,7 @@ genrule(
     name = "distro_workspace",
     srcs = ["//:WORKSPACE"],
     outs = ["WORKSPACE"],
-    cmd = "sed -e '/### INTERNAL ONLY/,$$d' $(location //:WORKSPACE) >$@",
+    cmd = "sed -e '/### INTERNAL ONLY/,/### END INTERNAL ONLY/d' $(location //:WORKSPACE) >$@",
 )
 
 pkg_tar(

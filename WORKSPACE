@@ -87,8 +87,6 @@ http_archive(
 
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 
-protobuf_deps()
-
 ### INTERNAL ONLY - lines after this are not included in the release packaging.
 #
 # Include dependencies which are only needed for development of Stardoc here.
@@ -172,3 +170,7 @@ load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_
 rules_proto_dependencies()
 
 rules_proto_toolchains()
+
+### END INTERNAL ONLY
+# protobuf_deps() must not be called before @rules_python are loaded (if they are loaded).
+protobuf_deps()
