@@ -59,6 +59,7 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
     artifacts = [
+        "com.beust:jcommander:1.82",
         "com.github.ben-manes.caffeine:caffeine:3.0.5",
         "com.github.stephenc.jcip:jcip-annotations:1.0-1",
         "com.google.auto.service:auto-service-annotations:1.0.1",
@@ -76,6 +77,7 @@ maven_install(
         "com.google.guava:failureaccess:1.0.1",
         "com.google.guava:guava:31.1-jre",
         "com.google.j2objc:j2objc-annotations:1.3",
+        "com.google.truth:truth:1.1.3",
         "com.ryanharter.auto.value:auto-value-gson-extension:1.3.1",
         "com.ryanharter.auto.value:auto-value-gson-runtime:1.3.1",
         "com.ryanharter.auto.value:auto-value-gson-factory:1.3.1",
@@ -85,6 +87,7 @@ maven_install(
         "org.apache.tomcat:tomcat-annotations-api:8.0.5",
         "org.apache.velocity:velocity:1.7",
         "org.checkerframework:checker-qual:3.19.0",
+        "junit:junit:4.13.2",
     ],
     fail_if_repin_required = True,
     maven_install_json = "//:maven_install.json",
@@ -152,3 +155,17 @@ load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_
 rules_proto_dependencies()
 
 rules_proto_toolchains()
+
+http_archive(
+    name = "com_google_protobuf",
+    sha256 = "75be42bd736f4df6d702a0e4e4d30de9ee40eac024c4b845d17ae4cc831fe4ae",
+    strip_prefix = "protobuf-21.7",
+    urls = [
+        "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/archive/v21.7.tar.gz",
+        "https://github.com/protocolbuffers/protobuf/archive/v21.7.tar.gz",
+    ],
+)
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()
