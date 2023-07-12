@@ -20,10 +20,10 @@ java_library(
     ],
     deps = [
         "//src/main/java/com/google/devtools/build/lib/cmdline",
-        "//src/main/java/com/google/devtools/build/skydoc/rendering/proto:stardoc_output_java_proto",
         "//src/main/java/net/starlark/java/eval",
         "//src/main/java/net/starlark/java/syntax",
         "//src/tools/starlark/java/com/google/devtools/starlark/common",
+        "//stardoc/proto:stardoc_output_java_proto",
         "//third_party:guava",
         "//third_party:jsr305",
     ],
@@ -40,9 +40,9 @@ java_library(
     ),
     deps = [
         ":function_util",
-        "//src/main/java/com/google/devtools/build/skydoc/rendering/proto:stardoc_output_java_proto",
         "//src/main/java/net/starlark/java/eval",
         "//src/main/java/net/starlark/java/syntax",
+        "//stardoc/proto:stardoc_output_java_proto",
         "//third_party:apache_velocity",
         "//third_party:guava",
     ],
