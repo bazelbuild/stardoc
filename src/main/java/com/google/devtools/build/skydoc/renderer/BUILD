@@ -34,9 +34,9 @@ java_library(
     srcs = glob(["*.java"]),
     deps = [
         "//src/main/java/com/google/devtools/build/skydoc/rendering",
-        "//src/main/java/com/google/devtools/common/options",
         "//stardoc/proto:stardoc_output_java_proto",
-        "//third_party:guava",
-        "//third_party/protobuf:protobuf_java",
+        "@com_google_protobuf//:protobuf_java",
+        "@maven//:com_beust_jcommander",
+        "@maven//:com_google_guava_guava",
     ],
 )

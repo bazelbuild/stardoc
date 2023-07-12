@@ -1,4 +1,4 @@
-// Copyright 2019 The Bazel Authors. All rights reserved.
+// Copyright 2023 The Bazel Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,77 +14,58 @@
 
 package com.google.devtools.build.skydoc.renderer;
 
-import com.google.devtools.common.options.Option;
-import com.google.devtools.common.options.OptionDocumentationCategory;
-import com.google.devtools.common.options.OptionEffectTag;
-import com.google.devtools.common.options.OptionsBase;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.Parameters;
 
 /** Contains options for running {@link RendererMain}. */
-public class RendererOptions extends OptionsBase {
+@Parameters(separators = "=")
+class RendererOptions {
 
-  @Option(
-      name = "input",
-      defaultValue = "",
-      documentationCategory = OptionDocumentationCategory.UNDOCUMENTED,
-      effectTags = OptionEffectTag.UNKNOWN,
-      help = "The path of the proto file that will be converted to markdown")
-  public String inputPath;
+  @Parameter(
+      names = "--input",
+      required = true,
+      description = "The path of the proto file that will be converted to markdown")
+  String inputPath;
 
-  @Option(
-      name = "output",
-      defaultValue = "",
-      documentationCategory = OptionDocumentationCategory.UNDOCUMENTED,
-      effectTags = OptionEffectTag.UNKNOWN,
-      help = "The path of the file to output documentation into")
-  public String outputFilePath;
+  @Parameter(
+      names = "--output",
+      required = true,
+      description = "The path of the file to output documentation into")
+  String outputFilePath;
 
-  @Option(
-      name = "header_template",
-      defaultValue = "",
-      documentationCategory = OptionDocumentationCategory.UNDOCUMENTED,
-      effectTags = OptionEffectTag.UNKNOWN,
-      help =
-          "The template for the header string. If the option is unspecified,"
-              + " a default markdown output template will be used.")
-  public String headerTemplateFilePath;
+  @Parameter(
+      names = "--header_template",
+      required = true,
+      description = "The template for the header string")
+  String headerTemplateFilePath;
 
-  @Option(
-      name = "rule_template",
-      defaultValue = "",
-      documentationCategory = OptionDocumentationCategory.UNDOCUMENTED,
-      effectTags = OptionEffectTag.UNKNOWN,
-      help =
-          "The template for the documentation of a rule. If the option is unspecified, a"
-              + " default markdown output template will be used.")
-  public String ruleTemplateFilePath;
+  @Parameter(
+      names = "--rule_template",
+      required = true,
+      description = "The template for the documentation of a rule")
+  String ruleTemplateFilePath;
 
-  @Option(
-      name = "provider_template",
-      defaultValue = "",
-      documentationCategory = OptionDocumentationCategory.UNDOCUMENTED,
-      effectTags = OptionEffectTag.UNKNOWN,
-      help =
-          "The template for the documentation of a provider. If the option is"
-              + " unspecified, a default markdown output template will be used.")
-  public String providerTemplateFilePath;
+  @Parameter(
+      names = "--provider_template",
+      required = true,
+      description = "The template for the documentation of a provider")
+  String providerTemplateFilePath;
 
-  @Option(
-      name = "func_template",
-      defaultValue = "",
-      documentationCategory = OptionDocumentationCategory.UNDOCUMENTED,
-      effectTags = OptionEffectTag.UNKNOWN,
-      help =
-          "The template for the documentation of a function. If the option is"
-              + " unspecified, a default markdown output template will be used.")
-  public String funcTemplateFilePath;
+  @Parameter(
+      names = "--func_template",
+      required = true,
+      description = "The template for the documentation of a function")
+  String funcTemplateFilePath;
 
-  @Option(
-      name = "aspect_template",
-      defaultValue = "",
-      documentationCategory = OptionDocumentationCategory.UNDOCUMENTED,
-      effectTags = OptionEffectTag.UNKNOWN,
-      help =
-          "The template for the documentation of a aspect. If the option is unspecified, a"
-              + " default markdown output template will be used.")
-  public String aspectTemplateFilePath;
+  @Parameter(
+      names = "--aspect_template",
+      required = true,
+      description = "The template for the documentation of an aspect")
+  String aspectTemplateFilePath;
+
+  @Parameter(
+      names = {"--help", "-h"},
+      description = "Print help and exit",
+      help = true)
+  boolean printHelp;
 }

@@ -18,6 +18,7 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Comparator.comparing;
 
+import com.beust.jcommander.JCommander;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.devtools.build.skydoc.rendering.MarkdownRenderer;
@@ -27,10 +28,8 @@ import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.Modu
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ProviderInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.StarlarkFunctionInfo;
-import com.google.devtools.common.options.OptionsParser;
 import com.google.protobuf.InvalidProtocolBufferException;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Comparator;
@@ -44,29 +43,19 @@ import java.util.List;
 public class RendererMain {
 
   public static void main(String[] args) throws IOException {
-    OptionsParser parser = OptionsParser.builder().optionsClasses(RendererOptions.class).build();
-    parser.parseAndExitUponError(args);
-    RendererOptions rendererOptions = parser.getOptions(RendererOptions.class);
 
-    if (rendererOptions.inputPath.isEmpty() || rendererOptions.outputFilePath.isEmpty()) {
-      throw new IllegalArgumentException(
-          "Both --input and --output must be specified. Usage: "
-              + "{renderer_bin} --input=\"{input_proto_file}\" --output=\"{output_file}\"");
+    RendererOptions rendererOptions = new RendererOptions();
+    JCommander jcommander =
+        JCommander.newBuilder().addObject(rendererOptions).build();
+    jcommander.setProgramName("renderer");
+    jcommander.parse(args);
+    if (rendererOptions.printHelp) {
+      jcommander.usage();
+      return;
     }
 
     String inputPath = rendererOptions.inputPath;
     String outputPath = rendererOptions.outputFilePath;
-
-    if (rendererOptions.headerTemplateFilePath.isEmpty()
-        || rendererOptions.ruleTemplateFilePath.isEmpty()
-        || rendererOptions.providerTemplateFilePath.isEmpty()
-        || rendererOptions.funcTemplateFilePath.isEmpty()
-        || rendererOptions.aspectTemplateFilePath.isEmpty()) {
-      throw new FileNotFoundException(
-          "Input templates --header_template --func_template --provider_template --rule_template"
-              + " --aspect_template must be specified.");
-    }
-
     String headerTemplatePath = rendererOptions.headerTemplateFilePath;
     String ruleTemplatePath = rendererOptions.ruleTemplateFilePath;
     String providerTemplatePath = rendererOptions.providerTemplateFilePath;
