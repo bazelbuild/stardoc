@@ -31,9 +31,9 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 maven_install(
     artifacts = [
         "com.beust:jcommander:1.82",
+        "com.google.escapevelocity:escapevelocity:1.1",
         "com.google.guava:guava:31.1-jre",
         "com.google.truth:truth:1.1.3",
-        "org.apache.velocity:velocity:1.7",
         "junit:junit:4.13.2",
         # Artifacts below this line are only needed for building @io_bazel for
         # stardoc_binary.jar integration tests. They should be removed once we
@@ -61,6 +61,7 @@ maven_install(
         "commons-collections:commons-collections:3.2.2",
         "commons-lang:commons-lang:2.6",
         "org.apache.tomcat:tomcat-annotations-api:8.0.5",
+        "org.apache.velocity:velocity:1.7",
         "org.checkerframework:checker-qual:3.19.0",
     ],
     fail_if_repin_required = True,

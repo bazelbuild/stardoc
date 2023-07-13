@@ -16,27 +16,23 @@ package com.google.devtools.build.skydoc.rendering;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AspectInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ProviderInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.StarlarkFunctionInfo;
+import com.google.escapevelocity.EvaluationException;
+import com.google.escapevelocity.ParseException;
+import com.google.escapevelocity.Template;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.exception.MethodInvocationException;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
-import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
-import org.apache.velocity.runtime.resource.loader.JarResourceLoader;
 
 /** Produces skydoc output in markdown form. */
 public class MarkdownRenderer {
@@ -46,8 +42,6 @@ public class MarkdownRenderer {
   private final String providerTemplateFilename;
   private final String functionTemplateFilename;
   private final String aspectTemplateFilename;
-
-  private final VelocityEngine velocityEngine;
 
   public MarkdownRenderer(
       String headerTemplate,
@@ -60,18 +54,6 @@ public class MarkdownRenderer {
     this.providerTemplateFilename = providerTemplate;
     this.functionTemplateFilename = functionTemplate;
     this.aspectTemplateFilename = aspectTemplate;
-
-    this.velocityEngine = new VelocityEngine();
-    velocityEngine.setProperty("resource.loader", "classpath, jar");
-    velocityEngine.setProperty(
-        "classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
-    velocityEngine.setProperty("jar.resource.loader.class", JarResourceLoader.class.getName());
-    velocityEngine.setProperty("input.encoding", "UTF-8");
-    velocityEngine.setProperty("output.encoding", "UTF-8");
-    velocityEngine.setProperty("runtime.references.strict", true);
-
-    // Ensure formatting is the same on Velocity 1.7 and 2.x.
-    velocityEngine.setProperty("parser.space_gobbling", "bc");
   }
 
   /**
@@ -79,18 +61,15 @@ public class MarkdownRenderer {
    * summary for the input Starlark module.
    */
   public String renderMarkdownHeader(ModuleInfo moduleInfo) throws IOException {
-    VelocityContext context = new VelocityContext();
-    context.put("util", new MarkdownUtil());
-    context.put("moduleDocstring", moduleInfo.getModuleDocstring());
-
-    StringWriter stringWriter = new StringWriter();
+    ImmutableMap<String, Object> vars =
+        ImmutableMap.of(
+            "util", new MarkdownUtil(), "moduleDocstring", moduleInfo.getModuleDocstring());
     Reader reader = readerFromPath(headerTemplateFilename);
     try {
-      velocityEngine.evaluate(context, stringWriter, headerTemplateFilename, reader);
-    } catch (ResourceNotFoundException | ParseErrorException | MethodInvocationException e) {
+      return Template.parseFrom(reader).evaluate(vars);
+    } catch (ParseException | EvaluationException e) {
       throw new IOException(e);
     }
-    return stringWriter.toString();
   }
 
   /**
@@ -98,19 +77,14 @@ public class MarkdownRenderer {
    * the given rule name.
    */
   public String render(String ruleName, RuleInfo ruleInfo) throws IOException {
-    VelocityContext context = new VelocityContext();
-    context.put("util", new MarkdownUtil());
-    context.put("ruleName", ruleName);
-    context.put("ruleInfo", ruleInfo);
-
-    StringWriter stringWriter = new StringWriter();
+    ImmutableMap<String, Object> vars =
+        ImmutableMap.of("util", new MarkdownUtil(), "ruleName", ruleName, "ruleInfo", ruleInfo);
     Reader reader = readerFromPath(ruleTemplateFilename);
     try {
-      velocityEngine.evaluate(context, stringWriter, ruleTemplateFilename, reader);
-    } catch (ResourceNotFoundException | ParseErrorException | MethodInvocationException e) {
+      return Template.parseFrom(reader).evaluate(vars);
+    } catch (ParseException | EvaluationException e) {
       throw new IOException(e);
     }
-    return stringWriter.toString();
   }
 
   /**
@@ -118,19 +92,15 @@ public class MarkdownRenderer {
    * object with the given name.
    */
   public String render(String providerName, ProviderInfo providerInfo) throws IOException {
-    VelocityContext context = new VelocityContext();
-    context.put("util", new MarkdownUtil());
-    context.put("providerName", providerName);
-    context.put("providerInfo", providerInfo);
-
-    StringWriter stringWriter = new StringWriter();
+    ImmutableMap<String, Object> vars =
+        ImmutableMap.of(
+            "util", new MarkdownUtil(), "providerName", providerName, "providerInfo", providerInfo);
     Reader reader = readerFromPath(providerTemplateFilename);
     try {
-      velocityEngine.evaluate(context, stringWriter, providerTemplateFilename, reader);
-    } catch (ResourceNotFoundException | ParseErrorException | MethodInvocationException e) {
+      return Template.parseFrom(reader).evaluate(vars);
+    } catch (ParseException | EvaluationException e) {
       throw new IOException(e);
     }
-    return stringWriter.toString();
   }
 
   /**
@@ -138,18 +108,14 @@ public class MarkdownRenderer {
    * object.
    */
   public String render(StarlarkFunctionInfo functionInfo) throws IOException {
-    VelocityContext context = new VelocityContext();
-    context.put("util", new MarkdownUtil());
-    context.put("funcInfo", functionInfo);
-
-    StringWriter stringWriter = new StringWriter();
+    ImmutableMap<String, Object> vars =
+        ImmutableMap.of("util", new MarkdownUtil(), "funcInfo", functionInfo);
     Reader reader = readerFromPath(functionTemplateFilename);
     try {
-      velocityEngine.evaluate(context, stringWriter, functionTemplateFilename, reader);
-    } catch (ResourceNotFoundException | ParseErrorException | MethodInvocationException e) {
+      return Template.parseFrom(reader).evaluate(vars);
+    } catch (ParseException | EvaluationException e) {
       throw new IOException(e);
     }
-    return stringWriter.toString();
   }
 
   /**
@@ -157,20 +123,17 @@ public class MarkdownRenderer {
    * with the given aspect name.
    */
   public String render(String aspectName, AspectInfo aspectInfo) throws IOException {
-    VelocityContext context = new VelocityContext();
-    context.put("util", new MarkdownUtil());
-    context.put("aspectName", aspectName);
-    context.put("aspectInfo", aspectInfo);
-
-    StringWriter stringWriter = new StringWriter();
+    ImmutableMap<String, Object> vars =
+        ImmutableMap.of(
+            "util", new MarkdownUtil(), "aspectName", aspectName, "aspectInfo", aspectInfo);
     Reader reader = readerFromPath(aspectTemplateFilename);
     try {
-      velocityEngine.evaluate(context, stringWriter, aspectTemplateFilename, reader);
-    } catch (ResourceNotFoundException | ParseErrorException | MethodInvocationException e) {
+      return Template.parseFrom(reader).evaluate(vars);
+    } catch (ParseException | EvaluationException e) {
       throw new IOException(e);
     }
-    return stringWriter.toString();
   }
+
   /**
    * Returns a reader from the given path.
    *
@@ -179,7 +142,7 @@ public class MarkdownRenderer {
   private static Reader readerFromPath(String filePath) throws IOException {
     if (Files.exists(Paths.get(filePath))) {
       Path path = Paths.get(filePath);
-      return Files.newBufferedReader(path);
+      return Files.newBufferedReader(path, UTF_8);
     }
 
     InputStream inputStream = MarkdownRenderer.class.getClassLoader().getResourceAsStream(filePath);
