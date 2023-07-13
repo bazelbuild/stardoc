@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+// Vendored from src/main/java/com/google/devtools/build/skydoc/rendering/proto/stardoc_output.proto
+// in the Bazel source tree at commit e33c2d14728aea6914b165fe11f08ff4982196ca
+//
 // Protos for Stardoc data.
 //
 // Stardoc collects information about Starlark functions, providers, and rules.
