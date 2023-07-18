@@ -25,7 +25,7 @@ set -eu
 # golden test pattern
 EXCLUDED_TESTS="namespace_test_with_whitelist|proto_format_test|multi_level_namespace_test_with_whitelist|local_repository_test"
 echo "** Querying for tests..."
-regen_targets=$(bazel query //test:all | grep regenerate_with_jar | grep -vE "$EXCLUDED_TESTS")
+regen_targets=$(bazel query //test:all | grep regenerate_with_jar | grep -vE "_golden_stardoc\$|$EXCLUDED_TESTS")
 
 echo "** Building goldens..."
 bazel build $regen_targets

@@ -21,6 +21,29 @@ Asserts the two given lists are not empty.
 | <a id="my_namespace.assert_non_empty-other_list"></a>other_list |  The second list   |  none |
 
 
+<a id="my_namespace.join_strings"></a>
+
+## my_namespace.join_strings
+
+<pre>
+my_namespace.join_strings(<a href="#my_namespace.join_strings-strings">strings</a>, <a href="#my_namespace.join_strings-delimiter">delimiter</a>)
+</pre>
+
+Joins the given strings with a delimiter.
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="my_namespace.join_strings-strings"></a>strings |  A list of strings to join.   |  none |
+| <a id="my_namespace.join_strings-delimiter"></a>delimiter |  The delimiter to use   |  `", "` |
+
+**RETURNS**
+
+The joined string.
+
+
 <a id="my_namespace.min"></a>
 
 ## my_namespace.min
@@ -41,28 +64,5 @@ Returns the minimum of given elements.
 **RETURNS**
 
 The minimum integer in the given list.
-
-
-<a id="my_namespace.join_strings"></a>
-
-## my_namespace.join_strings
-
-<pre>
-my_namespace.join_strings(<a href="#my_namespace.join_strings-strings">strings</a>, <a href="#my_namespace.join_strings-delimiter">delimiter</a>)
-</pre>
-
-Joins the given strings with a delimiter.
-
-**PARAMETERS**
-
-
-| Name  | Description | Default Value |
-| :------------- | :------------- | :------------- |
-| <a id="my_namespace.join_strings-strings"></a>strings |  A list of strings to join.   |  none |
-| <a id="my_namespace.join_strings-delimiter"></a>delimiter |  The delimiter to use   |  <code>", "</code> |
-
-**RETURNS**
-
-The joined string.
 
 

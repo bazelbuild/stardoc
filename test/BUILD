@@ -144,7 +144,7 @@ stardoc_test(
     input_file = "testdata/filter_rules_test/input.bzl",
     symbol_names = [
         "my_rule",
-        "whitelisted_dep_rule",
+        "allowlisted_dep_rule",
     ],
     deps = [
         "testdata/filter_rules_test/dep.bzl",
@@ -164,13 +164,19 @@ stardoc_test(
 )
 
 stardoc_test(
+    name = "function_wrap_multiple_lines_test",
+    golden_file = "testdata/function_wrap_multiple_lines_test/golden.md",
+    input_file = "testdata/function_wrap_multiple_lines_test/input.bzl",
+)
+
+stardoc_test(
     name = "namespace_test",
     golden_file = "testdata/namespace_test/golden.md",
     input_file = "testdata/namespace_test/input.bzl",
 )
 
 stardoc_test(
-    name = "namespace_test_with_whitelist",
+    name = "namespace_test_with_allowlist",
     golden_file = "testdata/namespace_test/golden.md",
     input_file = "testdata/namespace_test/input.bzl",
     symbol_names = [
@@ -185,9 +191,9 @@ stardoc_test(
 )
 
 stardoc_test(
-    name = "multi_level_namespace_test_with_whitelist",
-    golden_file = "testdata/multi_level_namespace_test_with_whitelist/golden.md",
-    input_file = "testdata/multi_level_namespace_test_with_whitelist/input.bzl",
+    name = "multi_level_namespace_test_with_allowlist",
+    golden_file = "testdata/multi_level_namespace_test_with_allowlist/golden.md",
+    input_file = "testdata/multi_level_namespace_test_with_allowlist/input.bzl",
     symbol_names = [
         "my_namespace",
         "other_namespace.foo.nothing",
@@ -198,6 +204,12 @@ stardoc_test(
     name = "macro_kwargs_test",
     golden_file = "testdata/macro_kwargs_test/golden.md",
     input_file = "testdata/macro_kwargs_test/input.bzl",
+)
+
+stardoc_test(
+    name = "pure_markdown_template_test",
+    golden_file = "testdata/pure_markdown_template_test/golden.md",
+    input_file = "testdata/pure_markdown_template_test/input.bzl",
 )
 
 stardoc_test(
@@ -245,22 +257,6 @@ stardoc_test(
     name = "config_apis_test",
     golden_file = "testdata/config_apis_test/golden.md",
     input_file = "testdata/config_apis_test/input.bzl",
-)
-
-genrule(
-    name = "generate_bzl_test_dep",
-    srcs = ["testdata/generated_bzl_test/dep.bzl.tpl"],
-    outs = ["testdata/generated_bzl_test/dep.bzl"],
-    cmd = "cp $< $@",
-)
-
-stardoc_test(
-    name = "generated_bzl_test",
-    golden_file = "testdata/generated_bzl_test/golden.md",
-    input_file = "testdata/generated_bzl_test/input.bzl",
-    deps = [
-        "testdata/generated_bzl_test/dep.bzl",
-    ],
 )
 
 sh_test(

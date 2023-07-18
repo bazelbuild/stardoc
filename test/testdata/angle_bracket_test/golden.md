@@ -1,19 +1,27 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-Input file to test &lt;angle bracket bugs&gt;
+Input file to test angle bracket bug (https://github.com/bazelbuild/skydoc/issues/186)
 
-See https://github.com/bazelbuild/skydoc/issues/186
-and https://github.com/bazelbuild/stardoc/issues/132
+See https://github.com/bazelbuild/skydoc/issues/186,
+https://github.com/bazelbuild/stardoc/issues/132,
+and https://github.com/bazelbuild/stardoc/issues/137.
+
+<b>HTML formatting</b> can be used in docstrings, just as in regular Markdown.
+Literal angle brackets can be obtained by escaping them with a backslash, where
+the backslash itself must be escaped for use in a Starlark docstring
+(`\\<` becomes \<), or by using HTML entities (`&lt;` becomes &lt;).
+Angle brackets are also preserved in inline code blocks (`#include <vector>`).
+
 
 <a id="my_anglebrac"></a>
 
 ## my_anglebrac
 
 <pre>
-my_anglebrac(<a href="#my_anglebrac-name">name</a>, <a href="#my_anglebrac-useless">useless</a>)
+my_anglebrac(<a href="#my_anglebrac-name">name</a>, <a href="#my_anglebrac-also_useless">also_useless</a>, <a href="#my_anglebrac-useless">useless</a>)
 </pre>
 
-Rule with &lt;brackets&gt;
+Rule with \<brackets>
 
 **ATTRIBUTES**
 
@@ -21,7 +29,8 @@ Rule with &lt;brackets&gt;
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="my_anglebrac-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="my_anglebrac-useless"></a>useless |  Args with some tags: &lt;tag1&gt;, &lt;tag2&gt;   | String | optional | <code>"Find &lt;brackets&gt;"</code> |
+| <a id="my_anglebrac-also_useless"></a>also_useless |  Args with some formatted tags: <code>&lt;tag&gt;</code>   | String | optional |  `"1<<5"`  |
+| <a id="my_anglebrac-useless"></a>useless |  Args with some tags: &lt;tag1&gt;, &lt;tag2&gt;   | String | optional |  `"Find \<brackets>"`  |
 
 
 <a id="bracketuse"></a>
@@ -32,7 +41,7 @@ Rule with &lt;brackets&gt;
 bracketuse(<a href="#bracketuse-foo">foo</a>, <a href="#bracketuse-bar">bar</a>, <a href="#bracketuse-baz">baz</a>)
 </pre>
 
-Information with &lt;brackets&gt;
+Information with \<brackets>
 
 **FIELDS**
 
@@ -49,12 +58,19 @@ Information with &lt;brackets&gt;
 ## bracket_function
 
 <pre>
-bracket_function(<a href="#bracket_function-param">param</a>)
+bracket_function(<a href="#bracket_function-param">param</a>, <a href="#bracket_function-md_string">md_string</a>)
 </pre>
 
-Dummy docstring with &lt;brackets&gt;.
+Dummy docstring with \<brackets>.
 
-This rule runs checks on &lt;angle brackets&gt;.
+This rule runs checks on `<angle brackets>`.
+
+Sometimes, we have such things on their own, but they may
+also appear in code blocks, like
+
+```starlark
+foo = "<thing>"
+```
 
 
 **PARAMETERS**
@@ -62,15 +78,16 @@ This rule runs checks on &lt;angle brackets&gt;.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a id="bracket_function-param"></a>param |  an arg with **formatted** docstring, &lt;default&gt; by default.   |  <code>"&lt;default&gt;"</code> |
+| <a id="bracket_function-param"></a>param |  an arg with **formatted** docstring, <code>&lt;default&gt;</code> by default.   |  `"<default>"` |
+| <a id="bracket_function-md_string"></a>md_string |  A markdown string.   |  ``"foo `1<<10` bar"`` |
 
 **RETURNS**
 
-some &lt;angled&gt; brackets
+some \<angled> brackets
 
 **DEPRECATED**
 
-deprecated for &lt;reasons&gt;
+deprecated for \<reasons> as well as `<reasons>`.
 
 
 <a id="bracket_aspect"></a>
@@ -81,7 +98,14 @@ deprecated for &lt;reasons&gt;
 bracket_aspect(<a href="#bracket_aspect-name">name</a>, <a href="#bracket_aspect-brackets">brackets</a>)
 </pre>
 
-Aspect with &lt;brackets&gt;
+Aspect.
+
+Sometimes, we want a code block like
+```starlark
+foo = "<brackets>"
+```
+which includes angle brackets.
+
 
 **ASPECT ATTRIBUTES**
 
@@ -96,7 +120,7 @@ Aspect with &lt;brackets&gt;
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="bracket_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |   |
-| <a id="bracket_aspect-brackets"></a>brackets |  Attribute with &lt;brackets&gt;   | String | optional |  <code>"&lt;default&gt;"</code>   |
+| <a id="bracket_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="bracket_aspect-brackets"></a>brackets |  Attribute with \&lt;brackets&gt;   | String | optional |  `"<default>"`  |
 
 

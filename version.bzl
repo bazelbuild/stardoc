@@ -13,4 +13,4 @@
 # limitations under the License.
 """The version of Stardoc."""
 
-version = "0.5.4"
+version = "0.5.6"

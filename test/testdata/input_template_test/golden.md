@@ -132,7 +132,7 @@ This is my aspect. It does stuff.
         </p>
 <b>
       <code>first</code>
-        <a href="https://bazel.build/concepts/labels">Label</a>; required
+        String; required
 </b>
 
 

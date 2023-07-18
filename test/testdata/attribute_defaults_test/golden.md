@@ -18,16 +18,16 @@ This is my rule. It does stuff.
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="my_rule-a"></a>a |  Some bool   | Boolean | optional | <code>False</code> |
-| <a id="my_rule-b"></a>b |  Some int   | Integer | optional | <code>2</code> |
-| <a id="my_rule-c"></a>c |  Some int_list   | List of integers | optional | <code>[0, 1]</code> |
-| <a id="my_rule-d"></a>d |  Some label   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>//foo:bar</code> |
-| <a id="my_rule-e"></a>e |  Some label_keyed_string_dict   | <a href="https://bazel.build/rules/lib/dict">Dictionary: Label -> String</a> | optional | <code>{"//foo:bar": "hello", "//bar:baz": "goodbye"}</code> |
-| <a id="my_rule-f"></a>f |  Some label_list   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional | <code>["//foo:bar", "//bar:baz"]</code> |
-| <a id="my_rule-g"></a>g |  Some string   | String | optional | <code>""</code> |
-| <a id="my_rule-h"></a>h |  Some string_dict   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> String</a> | optional | <code>{"animal": "bunny", "color": "orange"}</code> |
-| <a id="my_rule-i"></a>i |  Some string_list   | List of strings | optional | <code>["cat", "dog"]</code> |
-| <a id="my_rule-j"></a>j |  Some string_list_dict   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> List of strings</a> | optional | <code>{"animal": ["cat", "bunny"], "color": ["blue", "orange"]}</code> |
+| <a id="my_rule-a"></a>a |  Some bool   | Boolean | optional |  `False`  |
+| <a id="my_rule-b"></a>b |  Some int   | Integer | optional |  `2`  |
+| <a id="my_rule-c"></a>c |  Some int_list   | List of integers | optional |  `[0, 1]`  |
+| <a id="my_rule-d"></a>d |  Some label   | <a href="https://bazel.build/concepts/labels">Label</a> | optional |  `//foo:bar`  |
+| <a id="my_rule-e"></a>e |  Some label_keyed_string_dict   | <a href="https://bazel.build/rules/lib/dict">Dictionary: Label -> String</a> | optional |  `{"//foo:bar": "hello", "//bar:baz": "goodbye"}`  |
+| <a id="my_rule-f"></a>f |  Some label_list   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional |  `["//foo:bar", "//bar:baz"]`  |
+| <a id="my_rule-g"></a>g |  Some string   | String | optional |  `""`  |
+| <a id="my_rule-h"></a>h |  Some string_dict   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> String</a> | optional |  `{"animal": "bunny", "color": "orange"}`  |
+| <a id="my_rule-i"></a>i |  Some string_list   | List of strings | optional |  `["cat", "dog"]`  |
+| <a id="my_rule-j"></a>j |  Some string_list_dict   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> List of strings</a> | optional |  `{"animal": ["cat", "bunny"], "color": ["blue", "orange"]}`  |
 | <a id="my_rule-k"></a>k |  Some bool   | Boolean | required |  |
 | <a id="my_rule-l"></a>l |  Some int   | Integer | required |  |
 | <a id="my_rule-m"></a>m |  Some int_list   | List of integers | required |  |
@@ -38,9 +38,9 @@ This is my rule. It does stuff.
 | <a id="my_rule-r"></a>r |  Some string_dict   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> String</a> | required |  |
 | <a id="my_rule-s"></a>s |  Some string_list   | List of strings | required |  |
 | <a id="my_rule-t"></a>t |  Some string_list_dict   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> List of strings</a> | required |  |
-| <a id="my_rule-u"></a>u |  -   | String | optional | <code>""</code> |
-| <a id="my_rule-v"></a>v |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
-| <a id="my_rule-w"></a>w |  -   | Integer | optional | <code>0</code> |
+| <a id="my_rule-u"></a>u |  -   | String | optional |  `""`  |
+| <a id="my_rule-v"></a>v |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional |  `None`  |
+| <a id="my_rule-w"></a>w |  -   | Integer | optional |  `0`  |
 
 
 <a id="my_aspect"></a>
@@ -67,8 +67,8 @@ This is my aspect. It does stuff.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="my_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |   |
-| <a id="my_aspect-y"></a>y |  some string   | String | optional |  <code>"why"</code>   |
-| <a id="my_aspect-z"></a>z |  -   | String | required |   |
+| <a id="my_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="my_aspect-y"></a>y |  some string   | String | optional |  `"why"`  |
+| <a id="my_aspect-z"></a>z |  -   | String | required |  |
 
 

@@ -5,6 +5,89 @@ load(":setup.bzl", "stardoc_repositories")
 
 stardoc_repositories()
 
+RULES_JVM_EXTERNAL_TAG = "4.5"
+
+RULES_JVM_EXTERNAL_SHA = "b17d7388feb9bfa7f2fa09031b32707df529f26c91ab9e5d909eb1676badd9a6"
+
+http_archive(
+    name = "rules_jvm_external",
+    patch_args = ["-p1"],
+    patches = ["//:rules_jvm_external.patch"],
+    sha256 = RULES_JVM_EXTERNAL_SHA,
+    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+    url = "https://github.com/bazelbuild/rules_jvm_external/archive/refs/tags/%s.zip" % RULES_JVM_EXTERNAL_TAG,
+)
+
+load("@rules_jvm_external//:repositories.bzl", "rules_jvm_external_deps")
+
+rules_jvm_external_deps()
+
+load("@rules_jvm_external//:setup.bzl", "rules_jvm_external_setup")
+
+rules_jvm_external_setup()
+
+load("@rules_jvm_external//:defs.bzl", "maven_install")
+
+maven_install(
+    artifacts = [
+        "com.beust:jcommander:1.82",
+        "com.google.escapevelocity:escapevelocity:1.1",
+        "com.google.guava:guava:31.1-jre",
+        "com.google.truth:truth:1.1.3",
+        "junit:junit:4.13.2",
+        # Artifacts below this line are only needed for building @io_bazel for
+        # stardoc_binary.jar integration tests. They should be removed once we
+        # fully migrate to starlark_doc_extract after Bazel 7.
+        "com.github.ben-manes.caffeine:caffeine:3.0.5",
+        "com.github.stephenc.jcip:jcip-annotations:1.0-1",
+        "com.google.auto.service:auto-service-annotations:1.0.1",
+        "com.google.auto.service:auto-service:1.0",
+        "com.google.auto.value:auto-value-annotations:1.9",
+        "com.google.auto.value:auto-value:1.8.2",
+        "com.google.auto:auto-common:1.2.1",
+        "com.google.code.findbugs:jsr305:3.0.2",
+        "com.google.code.gson:gson:2.9.0",
+        "com.google.errorprone:error_prone_annotations:2.18.0",
+        "com.google.errorprone:error_prone_type_annotations:2.18.0",
+        "com.google.flogger:flogger-system-backend:0.5.1",
+        "com.google.flogger:flogger:0.5.1",
+        "com.google.flogger:google-extensions:0.5.1",
+        "com.google.guava:failureaccess:1.0.1",
+        "com.google.j2objc:j2objc-annotations:1.3",
+        "com.ryanharter.auto.value:auto-value-gson-extension:1.3.1",
+        "com.ryanharter.auto.value:auto-value-gson-runtime:1.3.1",
+        "com.ryanharter.auto.value:auto-value-gson-factory:1.3.1",
+        "com.squareup:javapoet:1.12.0",
+        "commons-collections:commons-collections:3.2.2",
+        "commons-lang:commons-lang:2.6",
+        "org.apache.tomcat:tomcat-annotations-api:8.0.5",
+        "org.apache.velocity:velocity:1.7",
+        "org.checkerframework:checker-qual:3.19.0",
+    ],
+    fail_if_repin_required = True,
+    maven_install_json = "//:maven_install.json",
+    repositories = [
+        "https://repo1.maven.org/maven2",
+    ],
+    strict_visibility = True,
+)
+
+load("@maven//:defs.bzl", "pinned_maven_install")
+
+pinned_maven_install()
+
+http_archive(
+    name = "com_google_protobuf",
+    sha256 = "75be42bd736f4df6d702a0e4e4d30de9ee40eac024c4b845d17ae4cc831fe4ae",
+    strip_prefix = "protobuf-21.7",
+    urls = [
+        "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/archive/v21.7.tar.gz",
+        "https://github.com/protocolbuffers/protobuf/archive/v21.7.tar.gz",
+    ],
+)
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
 ### INTERNAL ONLY - lines after this are not included in the release packaging.
 #
 # Include dependencies which are only needed for development of Stardoc here.
@@ -33,70 +116,6 @@ bind(
     name = "error_prone_annotations",
     actual = "@io_bazel//third_party:error_prone_annotations",
 )
-
-RULES_JVM_EXTERNAL_TAG = "4.5"
-
-RULES_JVM_EXTERNAL_SHA = "b17d7388feb9bfa7f2fa09031b32707df529f26c91ab9e5d909eb1676badd9a6"
-
-http_archive(
-    name = "rules_jvm_external",
-    patch_args = ["-p1"],
-    patches = ["//:rules_jvm_external.patch"],
-    sha256 = RULES_JVM_EXTERNAL_SHA,
-    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
-    url = "https://github.com/bazelbuild/rules_jvm_external/archive/refs/tags/%s.zip" % RULES_JVM_EXTERNAL_TAG,
-)
-
-load("@rules_jvm_external//:repositories.bzl", "rules_jvm_external_deps")
-
-rules_jvm_external_deps()
-
-load("@rules_jvm_external//:setup.bzl", "rules_jvm_external_setup")
-
-rules_jvm_external_setup()
-
-load("@rules_jvm_external//:defs.bzl", "maven_install")
-
-maven_install(
-    artifacts = [
-        "com.github.ben-manes.caffeine:caffeine:3.0.5",
-        "com.github.stephenc.jcip:jcip-annotations:1.0-1",
-        "com.google.auto.service:auto-service-annotations:1.0.1",
-        "com.google.auto.service:auto-service:1.0",
-        "com.google.auto.value:auto-value-annotations:1.9",
-        "com.google.auto.value:auto-value:1.8.2",
-        "com.google.auto:auto-common:1.2.1",
-        "com.google.code.findbugs:jsr305:3.0.2",
-        "com.google.code.gson:gson:2.9.0",
-        "com.google.errorprone:error_prone_annotations:2.18.0",
-        "com.google.errorprone:error_prone_type_annotations:2.18.0",
-        "com.google.flogger:flogger-system-backend:0.5.1",
-        "com.google.flogger:flogger:0.5.1",
-        "com.google.flogger:google-extensions:0.5.1",
-        "com.google.guava:failureaccess:1.0.1",
-        "com.google.guava:guava:31.1-jre",
-        "com.google.j2objc:j2objc-annotations:1.3",
-        "com.ryanharter.auto.value:auto-value-gson-extension:1.3.1",
-        "com.ryanharter.auto.value:auto-value-gson-runtime:1.3.1",
-        "com.ryanharter.auto.value:auto-value-gson-factory:1.3.1",
-        "com.squareup:javapoet:1.12.0",
-        "commons-collections:commons-collections:3.2.2",
-        "commons-lang:commons-lang:2.6",
-        "org.apache.tomcat:tomcat-annotations-api:8.0.5",
-        "org.apache.velocity:velocity:1.7",
-        "org.checkerframework:checker-qual:3.19.0",
-    ],
-    fail_if_repin_required = True,
-    maven_install_json = "//:maven_install.json",
-    repositories = [
-        "https://repo1.maven.org/maven2",
-    ],
-    strict_visibility = True,
-)
-
-load("@maven//:defs.bzl", "pinned_maven_install")
-
-pinned_maven_install()
 
 # Needed only because of java_tools.
 http_archive(
@@ -152,3 +171,7 @@ load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_
 rules_proto_dependencies()
 
 rules_proto_toolchains()
+
+### END INTERNAL ONLY
+# protobuf_deps() must not be called before @rules_python are loaded (if they are loaded).
+protobuf_deps()

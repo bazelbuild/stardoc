@@ -44,9 +44,9 @@ This is my aspect. It does stuff.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="my_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |   |
-| <a id="my_aspect-first"></a>first |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |   |
-| <a id="my_aspect-second"></a>second |  -   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> String</a> | required |   |
+| <a id="my_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="my_aspect-first"></a>first |  -   | Boolean | required |  |
+| <a id="my_aspect-second"></a>second |  -   | String | required |  |
 
 
 <a id="other_aspect"></a>
@@ -72,7 +72,7 @@ This is another aspect.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="other_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |   |
-| <a id="other_aspect-third"></a>third |  -   | Integer | required |   |
+| <a id="other_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="other_aspect-third"></a>third |  -   | Integer | required |  |
 
 

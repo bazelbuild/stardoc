@@ -1,3 +1,5 @@
+load("@rules_java//java:defs.bzl", "java_proto_library")
+
 licenses(["notice"])
 
 package(
@@ -14,4 +16,14 @@ filegroup(
         "BUILD",
     ] + glob(["*.proto"]),
     visibility = ["//:__pkg__"],
+)
+
+proto_library(
+    name = "stardoc_output_proto",
+    srcs = ["stardoc_output.proto"],
+)
+
+java_proto_library(
+    name = "stardoc_output_java_proto",
+    deps = [":stardoc_output_proto"],
 )

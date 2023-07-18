@@ -63,18 +63,9 @@ java_import(
     visibility = ["//visibility:public"],
 )
 
-java_binary(
+alias(
     name = "renderer",
-    main_class = "com.google.devtools.build.skydoc.renderer.RendererMain",
-    runtime_deps = [
-        ":prebuilt_renderer_binary",
-    ],
-)
-
-java_import(
-    name = "prebuilt_renderer_binary",
-    jars = ["renderer_binary.jar"],
-    visibility = ["//visibility:private"],
+    actual = "//src/main/java/com/google/devtools/build/skydoc/renderer",
 )
 
 # Sources needed for release tarball.

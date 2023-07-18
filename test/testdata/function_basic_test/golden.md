@@ -24,12 +24,12 @@ Use `bazel build` to run the check.
 | :------------- | :------------- | :------------- |
 | <a id="check_sources-name"></a>name |  A unique name for this rule.   |  none |
 | <a id="check_sources-required_param"></a>required_param |  Use your imagination.   |  none |
-| <a id="check_sources-bool_param"></a>bool_param |  <p align="center"> - </p>   |  <code>True</code> |
-| <a id="check_sources-srcs"></a>srcs |  Source files to run the checks against.   |  <code>[]</code> |
-| <a id="check_sources-string_param"></a>string_param |  <p align="center"> - </p>   |  <code>""</code> |
-| <a id="check_sources-int_param"></a>int_param |  Your favorite number.   |  <code>2</code> |
-| <a id="check_sources-dict_param"></a>dict_param |  <p align="center"> - </p>   |  <code>{}</code> |
-| <a id="check_sources-struct_param"></a>struct_param |  <p align="center"> - </p>   |  <code>struct(foo = "bar")</code> |
+| <a id="check_sources-bool_param"></a>bool_param |  <p align="center"> - </p>   |  `True` |
+| <a id="check_sources-srcs"></a>srcs |  Source files to run the checks against.   |  `[]` |
+| <a id="check_sources-string_param"></a>string_param |  <p align="center"> - </p>   |  `""` |
+| <a id="check_sources-int_param"></a>int_param |  Your favorite number.   |  `2` |
+| <a id="check_sources-dict_param"></a>dict_param |  <p align="center"> - </p>   |  `{}` |
+| <a id="check_sources-struct_param"></a>struct_param |  <p align="center"> - </p>   |  `struct(foo = "bar")` |
 
 
 <a id="deprecated_do_not_use"></a>
@@ -46,6 +46,24 @@ This function is deprecated.
 **DEPRECATED**
 
 Use literally anything but this function.
+
+
+<a id="param_doc_multiline"></a>
+
+## param_doc_multiline
+
+<pre>
+param_doc_multiline(<a href="#param_doc_multiline-complex">complex</a>)
+</pre>
+
+Has a complex parameter.
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="param_doc_multiline-complex"></a>complex |  A parameter with some non-obvious behavior.<br><br> For example, it does things that require **multiple paragraphs** to explain.<br><br>Note: we should preserve the nested indent in the following code:<br><br><pre><code>json {     "key": "value" } </code></pre>   |  none |
 
 
 <a id="returns_a_thing"></a>

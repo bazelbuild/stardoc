@@ -60,7 +60,6 @@ def stardoc_test(
         input_file = input_file,
         golden_file = golden_file,
         stardoc_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc:skydoc_deploy.jar",
-        renderer_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc/renderer",
         test = test,
         **kwargs
     )
@@ -71,7 +70,6 @@ def stardoc_test(
         input_file = input_file,
         golden_file = golden_file,
         stardoc_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc:skydoc_deploy.jar",
-        renderer_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc/renderer",
         test = test,
         **kwargs
     )
@@ -83,7 +81,6 @@ def _create_test_targets(
         input_file,
         golden_file,
         stardoc_bin,
-        renderer_bin,
         test,
         **kwargs):
     actual_generated_doc = "%s.out" % genrule_name
@@ -107,7 +104,6 @@ def _create_test_targets(
             out = actual_generated_doc,
             input = input_file,
             deps = [lib_name],
-            renderer = renderer_bin,
             stardoc = stardoc_bin,
             **kwargs
         )
@@ -117,7 +113,6 @@ def _create_test_targets(
             out = actual_generated_doc,
             input = input_file,
             deps = [lib_name],
-            renderer = renderer_bin,
             stardoc = stardoc_bin,
             **kwargs
         )
