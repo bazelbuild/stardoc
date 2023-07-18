@@ -64,7 +64,9 @@ def stardoc(
       provider_template: The input file template for generating documentation of providers.
       rule_template: The input file template for generating documentation of rules.
       repository_rule_template: The input file template for generating documentation of repository rules.
+        This template is used only when using the native `starlark_doc_extract` rule.
       module_extension_template: The input file template for generating documentation of module extensions.
+        This template is used only when using the native `starlark_doc_extract` rule.
       use_starlark_doc_extract: Use the native `starlark_doc_extract` rule if available.
       **kwargs: Further arguments to pass to stardoc.
     """

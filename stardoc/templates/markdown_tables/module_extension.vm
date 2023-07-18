@@ -1,0 +1,34 @@
+<a id="${extensionName}"></a>
+
+#[[##]]# ${extensionName}
+
+<pre>
+${util.moduleExtensionSummary($extensionName, $extensionInfo)}
+</pre>
+#if (!$extensionInfo.docString.isEmpty())
+
+${extensionInfo.docString}
+#end
+
+#if (!$extensionInfo.getTagClassList().isEmpty())
+
+**TAG CLASSES**
+#foreach ($tagClass in $extensionInfo.getTagClassList())
+
+<a id="${extensionName}-${tagClass.tagName}"></a>
+
+#[[###]]# ${tagClass.tagName}
+#if (!$tagClass.docString.isEmpty())
+
+${tagClass.docString}
+#end
+
+**Attributes**
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+#foreach ($attribute in $tagClass.getAttributeList())
+| <a id="${extensionName}.${tagClass.tagName}-${attribute.name}"></a>$attribute.name | #if(!$attribute.docString.isEmpty()) ${util.markdownCellFormat($attribute.docString)} #else - #end  | ${util.attributeTypeString($attribute)} | ${util.mandatoryString($attribute)} | #if(!$attribute.defaultValue.isEmpty()) ${util.markdownCodeSpan($attribute.defaultValue)} #end |
+#end
+#end
+#end

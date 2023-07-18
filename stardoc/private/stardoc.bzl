@@ -24,10 +24,21 @@ def _renderer_action_run(ctx, out_file, proto_file):
     renderer_args.add("--func_template=" + str(ctx.file.func_template.path))
     renderer_args.add("--provider_template=" + str(ctx.file.provider_template.path))
     renderer_args.add("--rule_template=" + str(ctx.file.rule_template.path))
+    renderer_args.add("--repository_rule_template=" + str(ctx.file.repository_rule_template.path))
+    renderer_args.add("--module_extension_template=" + str(ctx.file.module_extension_template.path))
     renderer = ctx.executable.renderer
     ctx.actions.run(
         outputs = [out_file],
-        inputs = [proto_file, ctx.file.aspect_template, ctx.file.header_template, ctx.file.func_template, ctx.file.provider_template, ctx.file.rule_template],
+        inputs = [
+            proto_file,
+            ctx.file.aspect_template,
+            ctx.file.header_template,
+            ctx.file.func_template,
+            ctx.file.provider_template,
+            ctx.file.rule_template,
+            ctx.file.repository_rule_template,
+            ctx.file.module_extension_template,
+        ],
         executable = renderer,
         arguments = [renderer_args],
         mnemonic = "Renderer",
@@ -59,7 +70,7 @@ def _stardoc_impl(ctx):
             executable = stardoc,
             arguments = [stardoc_args],
             mnemonic = "Stardoc",
-            progress_message = ("Generating Starlark doc for %s" %
+            progress_message = ("Generating proto for Starlark doc for %s" %
                                 (ctx.label.name)),
         )
     elif ctx.attr.format == "markdown":
@@ -115,6 +126,18 @@ _common_renderer_attrs = {
     ),
     "rule_template": attr.label(
         doc = "The input file template for generating documentation of rules.",
+        allow_single_file = [".vm"],
+        mandatory = True,
+    ),
+    "repository_rule_template": attr.label(
+        doc = "The input file template for generating documentation of repository rules." +
+              " This template is not used when rendering the output of the legacy extractor.",
+        allow_single_file = [".vm"],
+        mandatory = True,
+    ),
+    "module_extension_template": attr.label(
+        doc = "The input file template for generating documentation of module extensions." +
+              " This template is not used when rendering the output of the legacy extractor.",
         allow_single_file = [".vm"],
         mandatory = True,
     ),

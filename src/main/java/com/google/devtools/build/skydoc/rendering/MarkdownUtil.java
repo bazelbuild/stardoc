@@ -27,6 +27,9 @@ import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.Func
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ProviderInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ProviderNameGroup;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RuleInfo;
+import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RepositoryRuleInfo;
+import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleExtensionInfo;
+import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleExtensionTagClassInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.StarlarkFunctionInfo;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +37,13 @@ import java.util.regex.Pattern;
 
 /** Contains a number of utility methods for markdown rendering. */
 public final class MarkdownUtil {
+  private final String extensionBzlFile;
+
   private static final int MAX_LINE_LENGTH = 100;
+
+  public MarkdownUtil(String extensionBzlFile) {
+    this.extensionBzlFile = extensionBzlFile;
+  }
 
   /**
    * Return a string that formats the input string so it is displayable in a markdown table cell.
@@ -152,6 +161,46 @@ public final class MarkdownUtil {
             .map(AttributeInfo::getName)
             .collect(toImmutableList());
     return summary(aspectName, attributeNames);
+  }
+
+  /**
+   * Return a string representing the repository rule summary for the given repository rule with the given name.
+   *
+   * <p>For example: 'my_repo_rule(foo, bar)'. The summary will contain hyperlinks for each attribute.
+   */
+  @SuppressWarnings("unused") // Used by markdown template.
+  public String repositoryRuleSummary(String ruleName, RepositoryRuleInfo ruleInfo) {
+    ImmutableList<String> attributeNames =
+        ruleInfo.getAttributeList().stream()
+            .map(AttributeInfo::getName)
+            .collect(toImmutableList());
+    return summary(ruleName, attributeNames);
+  }
+
+  /**
+   * Return a string representing the module extension summary for the given module extension with the given name.
+   *
+   * <p>For example:
+   * <pre>
+   * my_ext = use_extension("//some:file.bzl", "my_ext")
+   * my_ext.tag1(foo, bar)
+   * my_ext.tag2(baz)
+   * </pre>
+   *
+   * <p>The summary will contain hyperlinks for each attribute.
+   */
+  @SuppressWarnings("unused") // Used by markdown template.
+  public String moduleExtensionSummary(String extensionName, ModuleExtensionInfo extensionInfo) {
+    StringBuilder summaryBuilder = new StringBuilder();
+    summaryBuilder.append(String.format("%s = use_extension(\"%s\", \"%s\")", extensionName, extensionBzlFile, extensionName));
+    for (ModuleExtensionTagClassInfo tagClass : extensionInfo.getTagClassList()) {
+      ImmutableList<String> attributeNames =
+        tagClass.getAttributeList().stream()
+            .map(AttributeInfo::getName)
+            .collect(toImmutableList());
+      summaryBuilder.append("\n").append(summary(String.format("%s.%s", extensionName, tagClass.getTagName()), attributeNames));
+    }
+    return summaryBuilder.toString();
   }
 
   /**
