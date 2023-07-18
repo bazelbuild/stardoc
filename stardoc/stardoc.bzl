@@ -34,6 +34,8 @@ def stardoc(
         header_template = Label("//stardoc:templates/markdown_tables/header.vm"),
         provider_template = Label("//stardoc:templates/markdown_tables/provider.vm"),
         rule_template = Label("//stardoc:templates/markdown_tables/rule.vm"),
+        repository_rule_template = Label("//stardoc:templates/markdown_tables/repository_rule.vm"),
+        module_extension_template = Label("//stardoc:templates/markdown_tables/module_extension.vm"),
         use_starlark_doc_extract = True,
         **kwargs):
     """Generates documentation for exported starlark rule definitions in a target starlark file.
@@ -42,7 +44,7 @@ def stardoc(
       name: The name of the stardoc target.
       input: The starlark file to generate documentation for (mandatory).
       out: The file to which documentation will be output (mandatory).
-      deps: (deprecated in Bazel 7) A list of bzl_library dependencies which the input depends on.
+      deps: A list of bzl_library dependencies which the input depends on.
       format: The format of the output file. Valid values: 'markdown' or 'proto'.
       symbol_names: A list of symbol names to generate documentation for. These should correspond to the names of rule
         definitions in the input file. If this list is empty, then documentation for all exported rule definitions will
@@ -61,6 +63,8 @@ def stardoc(
       func_template: The input file template for generating documentation of functions.
       provider_template: The input file template for generating documentation of providers.
       rule_template: The input file template for generating documentation of rules.
+      repository_rule_template: The input file template for generating documentation of repository rules.
+      module_extension_template: The input file template for generating documentation of module extensions.
       use_starlark_doc_extract: Use the native `starlark_doc_extract` rule if available.
       **kwargs: Further arguments to pass to stardoc.
     """
@@ -105,6 +109,8 @@ def stardoc(
                 header_template = header_template,
                 provider_template = provider_template,
                 rule_template = rule_template,
+                repository_rule_template = repository_rule_template,
+                module_extension_template = module_extension_template,
                 **kwargs
             )
         elif format == "proto" and not extractor_is_main_target:
@@ -141,5 +147,7 @@ def stardoc(
             header_template = header_template,
             provider_template = provider_template,
             rule_template = rule_template,
+            repository_rule_template = repository_rule_template,
+            module_extension_template = module_extension_template,
             **kwargs
         )
