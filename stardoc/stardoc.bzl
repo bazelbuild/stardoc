@@ -34,6 +34,7 @@ def stardoc(
         header_template = Label("//stardoc:templates/markdown_tables/header.vm"),
         provider_template = Label("//stardoc:templates/markdown_tables/provider.vm"),
         rule_template = Label("//stardoc:templates/markdown_tables/rule.vm"),
+        use_starlark_doc_extract = True,
         **kwargs):
     """Generates documentation for exported starlark rule definitions in a target starlark file.
 
@@ -60,14 +61,27 @@ def stardoc(
       func_template: The input file template for generating documentation of functions.
       provider_template: The input file template for generating documentation of providers.
       rule_template: The input file template for generating documentation of rules.
+      use_starlark_doc_extract: Use the native `starlark_doc_extract` rule if available.
       **kwargs: Further arguments to pass to stardoc.
     """
 
-    if hasattr(native, "starlark_doc_extract"):
-        # Use starlark_doc_extract as extractor
+    if format not in ["markdown", "proto"]:
+        fail("`format` must be \"markdown\" or \"proto\"")
+
+    auxiliary_target_kwargs = {
+        "tags": ["manual"],
+        "visibility": ["//visibility:private"],
+    }
+    if "testonly" in kwargs:
+        auxiliary_target_kwargs["testonly"] = kwargs["testonly"]
+
+    if use_starlark_doc_extract and hasattr(native, "starlark_doc_extract"):
+        # Use native.starlark_doc_extract as extractor
         if format == "proto" and Label(name + ".binaryproto") == Label(out):
+            extractor_is_main_target = True
             extractor_name = name
         else:
+            extractor_is_main_target = False
             extractor_name = name + ".extract"
 
         proto_name = extractor_name + ".binaryproto"
@@ -75,8 +89,9 @@ def stardoc(
         native.starlark_doc_extract(
             name = extractor_name,
             src = input,
+            deps = deps,
             symbol_names = symbol_names,
-            **kwargs
+            **(kwargs if extractor_is_main_target else auxiliary_target_kwargs)
         )
 
         if format == "markdown":
@@ -92,7 +107,7 @@ def stardoc(
                 rule_template = rule_template,
                 **kwargs
             )
-        elif format == "proto" and Label(proto_name) != Label(out):
+        elif format == "proto" and not extractor_is_main_target:
             copy_file(
                 name = name,
                 src = proto_name,
@@ -104,16 +119,14 @@ def stardoc(
         # Use legacy extractor
         stardoc_with_runfiles_name = name + "_stardoc"
 
-        testonly = {"testonly": kwargs["testonly"]} if "testonly" in kwargs else {}
         java_binary(
             name = stardoc_with_runfiles_name,
             main_class = "com.google.devtools.build.skydoc.SkydocMain",
             runtime_deps = [stardoc],
             data = [input] + deps,
-            tags = ["manual"],
-            visibility = ["//visibility:private"],
-            **testonly
+            **auxiliary_target_kwargs
         )
+
         _stardoc(
             name = name,
             input = input,
