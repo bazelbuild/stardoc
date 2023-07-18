@@ -14,7 +14,9 @@
 
 package com.google.devtools.build.skydoc.rendering;
 
+import static com.google.common.collect.ImmutableList.toImmutableList;
 import static java.util.Comparator.naturalOrder;
+import static java.util.stream.Collectors.joining;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
@@ -29,7 +31,6 @@ import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.Star
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /** Contains a number of utility methods for markdown rendering. */
 public final class MarkdownUtil {
@@ -116,30 +117,26 @@ public final class MarkdownUtil {
   /**
    * Return a string representing the rule summary for the given rule with the given name.
    *
-   * For example: 'my_rule(foo, bar)'.
-   * The summary will contain hyperlinks for each attribute.
+   * <p>For example: 'my_rule(foo, bar)'. The summary will contain hyperlinks for each attribute.
    */
   @SuppressWarnings("unused") // Used by markdown template.
   public String ruleSummary(String ruleName, RuleInfo ruleInfo) {
-    List<String> attributeNames =
-        ruleInfo.getAttributeList().stream()
-            .map(AttributeInfo::getName)
-            .collect(Collectors.toList());
+    ImmutableList<String> attributeNames =
+        ruleInfo.getAttributeList().stream().map(AttributeInfo::getName).collect(toImmutableList());
     return summary(ruleName, attributeNames);
   }
 
   /**
    * Return a string representing the summary for the given provider with the given name.
    *
-   * For example: 'MyInfo(foo, bar)'.
-   * The summary will contain hyperlinks for each field.
+   * <p>For example: 'MyInfo(foo, bar)'. The summary will contain hyperlinks for each field.
    */
   @SuppressWarnings("unused") // Used by markdown template.
   public String providerSummary(String providerName, ProviderInfo providerInfo) {
-    List<String> fieldNames =
+    ImmutableList<String> fieldNames =
         providerInfo.getFieldInfoList().stream()
             .map(field -> field.getName())
-            .collect(Collectors.toList());
+            .collect(toImmutableList());
     return summary(providerName, fieldNames);
   }
 
@@ -150,10 +147,10 @@ public final class MarkdownUtil {
    */
   @SuppressWarnings("unused") // Used by markdown template.
   public String aspectSummary(String aspectName, AspectInfo aspectInfo) {
-    List<String> attributeNames =
+    ImmutableList<String> attributeNames =
         aspectInfo.getAttributeList().stream()
             .map(AttributeInfo::getName)
-            .collect(Collectors.toList());
+            .collect(toImmutableList());
     return summary(aspectName, attributeNames);
   }
 
@@ -164,21 +161,22 @@ public final class MarkdownUtil {
    */
   @SuppressWarnings("unused") // Used by markdown template.
   public String funcSummary(StarlarkFunctionInfo funcInfo) {
-    List<String> paramNames =
+    ImmutableList<String> paramNames =
         funcInfo.getParameterList().stream()
             .map(FunctionParamInfo::getName)
-            .collect(Collectors.toList());
+            .collect(toImmutableList());
     return summary(funcInfo.getFunctionName(), paramNames);
   }
 
-  private static String summary(String functionName, List<String> paramNames) {
-    List<List<String>> paramLines = wrap(functionName, paramNames, MAX_LINE_LENGTH);
+  private static String summary(String functionName, ImmutableList<String> paramNames) {
+    ImmutableList<ImmutableList<String>> paramLines =
+        wrap(functionName, paramNames, MAX_LINE_LENGTH);
     List<String> paramLinksLines = new ArrayList<>();
     for (List<String> params : paramLines) {
       String paramLinksLine =
           params.stream()
               .map(param -> String.format("<a href=\"#%s-%s\">%s</a>", functionName, param, param))
-              .collect(Collectors.joining(", "));
+              .collect(joining(", "));
       paramLinksLines.add(paramLinksLine);
     }
     String paramList =
@@ -195,9 +193,9 @@ public final class MarkdownUtil {
    * @param maxLineLength the maximal line length.
    * @return the lines with the wrapped parameter names.
    */
-  private static List<List<String>> wrap(
-      String functionName, List<String> paramNames, int maxLineLength) {
-    List<List<String>> paramLines = new ArrayList<>();
+  private static ImmutableList<ImmutableList<String>> wrap(
+      String functionName, ImmutableList<String> paramNames, int maxLineLength) {
+    ImmutableList.Builder<ImmutableList<String>> paramLines = ImmutableList.builder();
     ImmutableList.Builder<String> linesBuilder = new ImmutableList.Builder<>();
     int leading = functionName.length();
     int length = leading;
@@ -212,7 +210,7 @@ public final class MarkdownUtil {
       linesBuilder.add(paramName);
     }
     paramLines.add(linesBuilder.build());
-    return paramLines;
+    return paramLines.build();
   }
 
   /**

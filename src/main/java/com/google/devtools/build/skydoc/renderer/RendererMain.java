@@ -28,6 +28,7 @@ import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.Modu
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ProviderInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.StarlarkFunctionInfo;
+import com.google.protobuf.ExtensionRegistry;
 import com.google.protobuf.InvalidProtocolBufferException;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -40,13 +41,12 @@ import java.util.List;
  *
  * <p>This Renderer takes in raw stardoc_proto protos as input and produces rich markdown output.
  */
-public class RendererMain {
+public final class RendererMain {
 
   public static void main(String[] args) throws IOException {
 
     RendererOptions rendererOptions = new RendererOptions();
-    JCommander jcommander =
-        JCommander.newBuilder().addObject(rendererOptions).build();
+    JCommander jcommander = JCommander.newBuilder().addObject(rendererOptions).build();
     jcommander.setProgramName("renderer");
     jcommander.parse(args);
     if (rendererOptions.printHelp) {
@@ -77,7 +77,9 @@ public class RendererMain {
             write("\n");
           }
         }) {
-      ModuleInfo moduleInfo = ModuleInfo.parseFrom(new FileInputStream(inputPath));
+      ModuleInfo moduleInfo =
+          ModuleInfo.parseFrom(
+              new FileInputStream(inputPath), ExtensionRegistry.getEmptyRegistry());
       printWriter.println(renderer.renderMarkdownHeader(moduleInfo));
       printRuleInfos(printWriter, renderer, moduleInfo.getRuleInfoList());
       printProviderInfos(printWriter, renderer, moduleInfo.getProviderInfoList());
@@ -181,4 +183,6 @@ public class RendererMain {
       printWriter.println();
     }
   }
+
+  private RendererMain() {}
 }
