@@ -17,8 +17,8 @@ Stores information about a foo.
 
 | Name  | Description |
 | :------------- | :------------- |
-| <a id="MyFooInfo-bar"></a>bar |  -    |
-| <a id="MyFooInfo-baz"></a>baz |  -    |
+| <a id="MyFooInfo-bar"></a>bar |  (Undocumented)    |
+| <a id="MyFooInfo-baz"></a>baz |  (Undocumented)    |
 
 
 <a id="MyPoorlyDocumentedInfo"></a>

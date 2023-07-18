@@ -21,7 +21,7 @@ This is my rule. It does stuff.
 | <a id="my_rule-a"></a>a |  Some bool   | Boolean | optional |  `False`  |
 | <a id="my_rule-b"></a>b |  Some int   | Integer | optional |  `2`  |
 | <a id="my_rule-c"></a>c |  Some int_list   | List of integers | optional |  `[0, 1]`  |
-| <a id="my_rule-d"></a>d |  Some label   | <a href="https://bazel.build/concepts/labels">Label</a> | optional |  `"//foo:bar"`  |
+| <a id="my_rule-d"></a>d |  Some label   | <a href="https://bazel.build/concepts/labels">Label</a> | optional |  `//foo:bar`  |
 | <a id="my_rule-e"></a>e |  Some label_keyed_string_dict   | <a href="https://bazel.build/rules/lib/dict">Dictionary: Label -> String</a> | optional |  `{"//foo:bar": "hello", "//bar:baz": "goodbye"}`  |
 | <a id="my_rule-f"></a>f |  Some label_list   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional |  `["//foo:bar", "//bar:baz"]`  |
 | <a id="my_rule-g"></a>g |  Some string   | String | optional |  `""`  |

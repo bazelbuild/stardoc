@@ -21,27 +21,63 @@
 
 set -eu
 
+# Allow users to override the bazel command with e.g. bazelisk.
+: "${BAZEL:=bazel}"
+
+echo "** Verifying Bazel version..."
+if ! ${BAZEL} build --experimental_enable_starlark_doc_extract &> /dev/null; then
+  echo >&2 "Please use a development version of Bazel, or Bazel 7 once it is released."
+  echo >&2 "For example: USE_BAZEL_VERSION=last_green BAZEL=bazelisk ./update-stardoc-tests.sh"
+  exit 1
+fi
+
 # Some tests cannot be automatically regenerated using this script, as they don't fall under the normal
 # golden test pattern
-EXCLUDED_TESTS="namespace_test_with_whitelist|proto_format_test|multi_level_namespace_test_with_whitelist|local_repository_test"
+EXCLUDED_TESTS="namespace_test_with_allowlist|multi_level_namespace_test_with_allowlist|local_repository_test"
 echo "** Querying for tests..."
-regen_targets=$(bazel query //test:all | grep regenerate_with_jar | grep -vE "_golden_stardoc\$|$EXCLUDED_TESTS")
+regen_legacy_targets=$(${BAZEL} query //test:all | grep regenerate_with_jar | grep -vE "_golden_stardoc|$EXCLUDED_TESTS")
+regen_starlark_doc_extract_targets=$(${BAZEL} query //test:all | grep regenerate_ | grep -vE "_legacy|_golden\.extract|$EXCLUDED_TESTS")
 
 echo "** Building goldens..."
-bazel build $regen_targets
+${BAZEL} build $regen_legacy_targets $regen_starlark_doc_extract_targets
 
-echo "** Copying goldens..."
-for regen_target in $regen_targets; do
+echo "** Copying starlark_doc_extract goldens..."
+for regen_target in $regen_starlark_doc_extract_targets; do
   base_target_name=$(echo $regen_target | sed 's/\/\/test://g')
-  testdata_pkg_name=$(echo $base_target_name | sed 's/regenerate_with_jar_//g' | sed 's/_golden//g')
+  testdata_pkg_name=$(echo $base_target_name | sed 's/regenerate_//g' | sed 's/_golden//g')
   out_file="bazel-bin/test/${base_target_name}.out"
-  cp $out_file "test/testdata/${testdata_pkg_name}/golden.md"
+  if [[ $regen_target == *"proto_format"* ]]; then
+    ext="binaryproto"
+  else
+    ext="md"
+  fi
+  golden="test/testdata/${testdata_pkg_name}/golden.${ext}"
+  cp "${out_file}" "${golden}"
+  chmod 644 "${golden}"
+done
+
+echo "** Copying legacy goldens..."
+for regen_target in $regen_legacy_targets; do
+  base_target_name=$(echo $regen_target | sed 's/\/\/test://g')
+  testdata_pkg_name=$(echo $base_target_name | sed 's/regenerate_with_jar_//g' | sed 's/_legacy_golden//g')
+  out_file="bazel-bin/test/${base_target_name}.out"
+  if [[ $regen_target == *"proto_format"* ]]; then
+    ext="binaryproto"
+  else
+    ext="md"
+  fi
+  golden="test/testdata/${testdata_pkg_name}/golden.${ext}"
+  legacy_golden="test/testdata/${testdata_pkg_name}/legacy_golden.${ext}"
+  if diff "${out_file}" "${golden}" > /dev/null; then
+    cp "${out_file}" "${legacy_golden}"
+    chmod 644 "${legacy_golden}"
+  fi
 done
 
 echo "** Files copied."
 echo "Please note that not all golden files are correctly copied by this script."
 echo "You may want to manually run:"
 echo ""
-echo "bazel test //test:all"
+echo "${BAZEL} test //test:all"
 echo ""
 echo "...and manually update tests which are still broken."
