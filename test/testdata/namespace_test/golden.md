@@ -37,7 +37,7 @@ Joins the given strings with a delimiter.
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 | <a id="my_namespace.join_strings-strings"></a>strings |  A list of strings to join.   |  none |
-| <a id="my_namespace.join_strings-delimiter"></a>delimiter |  The delimiter to use   |  <code>", "</code> |
+| <a id="my_namespace.join_strings-delimiter"></a>delimiter |  The delimiter to use   |  `", "` |
 
 **RETURNS**
 

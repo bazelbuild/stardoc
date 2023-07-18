@@ -44,7 +44,7 @@ Not much else to say.
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 | <a id="macro_with_both-name"></a>name |  The name of the test rule.   |  none |
-| <a id="macro_with_both-number"></a>number |  Some number used for important things   |  <code>3</code> |
+| <a id="macro_with_both-number"></a>number |  Some number used for important things   |  `3` |
 | <a id="macro_with_both-args"></a>args |  Other arguments to include   |  none |
 | <a id="macro_with_both-kwargs"></a>kwargs |  Other attributes to include   |  none |
 
@@ -77,7 +77,7 @@ vel mollis eros pellentesque.
 | :------------- | :------------- | :------------- |
 | <a id="macro_with_kwargs-name"></a>name |  The name of the test rule.   |  none |
 | <a id="macro_with_kwargs-config"></a>config |  Config to use for my macro   |  none |
-| <a id="macro_with_kwargs-deps"></a>deps |  List of my macro's dependencies   |  <code>[]</code> |
+| <a id="macro_with_kwargs-deps"></a>deps |  List of my macro's dependencies   |  `[]` |
 | <a id="macro_with_kwargs-kwargs"></a>kwargs |  Other attributes to include   |  none |
 
 **RETURNS**

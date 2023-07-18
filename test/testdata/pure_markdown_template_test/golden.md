@@ -18,8 +18,8 @@ Small example of rule using a markdown template.
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="example_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="example_rule-first"></a>first |  This is the first attribute   | String | optional | <code>""</code> |
-| <a id="example_rule-second"></a>second |  -   | String | optional | <code>"2"</code> |
+| <a id="example_rule-first"></a>first |  This is the first attribute   | String | optional |  `""`  |
+| <a id="example_rule-second"></a>second |  -   | String | optional |  `"2"`  |
 
 
 <a id="ExampleProviderInfo"></a>
@@ -58,7 +58,7 @@ Small example of function using a markdown template.
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 | <a id="example_function-foo"></a>foo |  This parameter does foo related things.   |  none |
-| <a id="example_function-bar"></a>bar |  This parameter does bar related things.<br><br>For example, it does things that require **multiple paragraphs** to explain.<br><br>Note: we should preserve the nested indent in the following code:<br><br><pre><code>json {     "key": "value" } </code></pre>   |  <code>"bar"</code> |
+| <a id="example_function-bar"></a>bar |  This parameter does bar related things.<br><br>For example, it does things that require **multiple paragraphs** to explain.<br><br>Note: we should preserve the nested indent in the following code:<br><br><pre><code>json {     "key": "value" } </code></pre>   |  `"bar"` |
 
 
 <a id="example_aspect"></a>
@@ -85,8 +85,8 @@ Small example of aspect using a markdown template.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="example_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |   |
-| <a id="example_aspect-first"></a>first |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |   |
-| <a id="example_aspect-second"></a>second |  This is the second attribute.   | String | optional |  <code>""</code>   |
+| <a id="example_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="example_aspect-first"></a>first |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
+| <a id="example_aspect-second"></a>second |  This is the second attribute.   | String | optional |  `""`  |
 
 
