@@ -56,7 +56,7 @@ def stardoc(
         For example, if `//foo:bar.bzl` does not build except when a user would specify
         `--incompatible_foo_semantic=false`, then this attribute should contain
         "--incompatible_foo_semantic=false".
-      stardoc: The location of the stardoc tool.
+      stardoc: The location of the legacy Stardoc extractor. Ignored when using the native `starlark_doc_extract` rule.
       renderer: The location of the renderer tool.
       aspect_template: The input file template for generating documentation of aspects
       header_template: The input file template for the header of the output documentation.
