@@ -61,9 +61,36 @@ public class MarkdownRenderer {
    * summary for the input Starlark module.
    */
   public String renderMarkdownHeader(ModuleInfo moduleInfo) throws IOException {
+    StringBuilder builder = new StringBuilder();
+    if (moduleInfo.getRuleInfoCount() > 0) {
+      builder.append("## Rules:\n");
+      for (RuleInfo info : moduleInfo.getRuleInfoList()) {
+        builder.append(String.format("* [%s](#%<s)\n", info.getRuleName()));
+      }
+    }
+    if (moduleInfo.getProviderInfoCount() > 0) {
+      builder.append("## Providers:\n");
+      for (ProviderInfo info : moduleInfo.getProviderInfoList()) {
+        builder.append(String.format("* [%s](#%<s)\n", info.getProviderName()));
+      }
+    }
+    if (moduleInfo.getFuncInfoCount() > 0) {
+      builder.append("## Functions:\n");
+      for (StarlarkFunctionInfo info : moduleInfo.getFuncInfoList()) {
+        builder.append(String.format("* [%s](#%<s)\n", info.getFunctionName()));
+      }
+    }
+    if (moduleInfo.getAspectInfoCount() > 0) {
+      builder.append("## Aspects:\n");
+      for (AspectInfo info : moduleInfo.getAspectInfoList()) {
+        builder.append(String.format("* [%s](#%<s)\n", info.getAspectName()));
+      }
+    }
+
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
-            "util", new MarkdownUtil(), "moduleDocstring", moduleInfo.getModuleDocstring());
+            "util", new MarkdownUtil(), "moduleDocstring", moduleInfo.getModuleDocstring(),
+            "tableOfContents", builder.toString());
     Reader reader = readerFromPath(headerTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
