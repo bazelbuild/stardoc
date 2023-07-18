@@ -19,7 +19,7 @@ Small example of rule using a markdown template.
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="example_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="example_rule-first"></a>first |  This is the first attribute   | String | optional |  `""`  |
-| <a id="example_rule-second"></a>second |  -   | String | optional |  `"2"`  |
+| <a id="example_rule-second"></a>second |  -   | Integer | optional |  `2`  |
 
 
 <a id="ExampleProviderInfo"></a>
@@ -86,7 +86,7 @@ Small example of aspect using a markdown template.
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="example_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="example_aspect-first"></a>first |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
+| <a id="example_aspect-first"></a>first |  -   | String | required |  |
 | <a id="example_aspect-second"></a>second |  This is the second attribute.   | String | optional |  `""`  |
 
 
