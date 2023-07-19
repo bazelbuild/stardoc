@@ -33,16 +33,16 @@ stardoc_test(
 stardoc_test(
     name = "angle_bracket_test",
     golden_file = "testdata/angle_bracket_test/golden.md",
-    legacy_golden_file = "testdata/angle_bracket_test/legacy_golden.md",
     input_file = "testdata/angle_bracket_test/input.bzl",
+    legacy_golden_file = "testdata/angle_bracket_test/legacy_golden.md",
 )
 
 stardoc_test(
     name = "proto_format_test",
     format = "proto",
     golden_file = "testdata/proto_format_test/golden.binaryproto",
-    legacy_golden_file = "testdata/proto_format_test/legacy_golden.binaryproto",
     input_file = "testdata/proto_format_test/input.bzl",
+    legacy_golden_file = "testdata/proto_format_test/legacy_golden.binaryproto",
 )
 
 stardoc_test(
@@ -61,8 +61,8 @@ stardoc_test(
 stardoc_test(
     name = "repo_rules_test",
     golden_file = "testdata/repo_rules_test/golden.md",
-    legacy_golden_file = "testdata/repo_rules_test/legacy_golden.md",
     input_file = "testdata/repo_rules_test/input.bzl",
+    legacy_golden_file = "testdata/repo_rules_test/legacy_golden.md",
 )
 
 stardoc_test(
@@ -166,8 +166,8 @@ stardoc_test(
 stardoc_test(
     name = "provider_basic_test",
     golden_file = "testdata/provider_basic_test/golden.md",
-    legacy_golden_file = "testdata/provider_basic_test/legacy_golden.md",
     input_file = "testdata/provider_basic_test/input.bzl",
+    legacy_golden_file = "testdata/provider_basic_test/legacy_golden.md",
 )
 
 stardoc_test(
@@ -179,8 +179,8 @@ stardoc_test(
 stardoc_test(
     name = "function_wrap_multiple_lines_test",
     golden_file = "testdata/function_wrap_multiple_lines_test/golden.md",
-    legacy_golden_file = "testdata/function_wrap_multiple_lines_test/legacy_golden.md",
     input_file = "testdata/function_wrap_multiple_lines_test/input.bzl",
+    legacy_golden_file = "testdata/function_wrap_multiple_lines_test/legacy_golden.md",
 )
 
 stardoc_test(
@@ -242,8 +242,8 @@ stardoc_test(
 stardoc_test(
     name = "aspect_test",
     golden_file = "testdata/aspect_test/golden.md",
-    legacy_golden_file = "testdata/aspect_test/legacy_golden.md",
     input_file = "testdata/aspect_test/input.bzl",
+    legacy_golden_file = "testdata/aspect_test/legacy_golden.md",
 )
 
 stardoc_test(
