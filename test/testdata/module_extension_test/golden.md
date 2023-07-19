@@ -1,6 +1,6 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-Minimal example of a .bzl file definining a module extension.
+Minimal example of a .bzl file defining a module extension.
 
 <a id="my_ext"></a>
 
@@ -17,7 +17,7 @@ Minimal example of a module extension.
 
 **TAG CLASSES**
 
-<a id="my_ext-install"></a>
+<a id="my_ext.install"></a>
 
 ### install
 
@@ -29,7 +29,7 @@ Install tag
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="my_ext.install-artifacts"></a>artifacts |  Install artifacts   | List of strings | optional |  `[]`  |
 
-<a id="my_ext-artifact"></a>
+<a id="my_ext.artifact"></a>
 
 ### artifact
 

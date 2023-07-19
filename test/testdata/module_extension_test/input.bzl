@@ -1,4 +1,4 @@
-"""Minimal example of a .bzl file definining a module extension."""
+"""Minimal example of a .bzl file defining a module extension."""
 
 # buildifier: disable=unused-variable
 def _impl(module_ctx):

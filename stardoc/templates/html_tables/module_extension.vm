@@ -15,7 +15,7 @@ ${extensionInfo.docString}
 **TAG CLASSES**
 #foreach ($tagClass in $extensionInfo.getTagClassList())
 
-<a id="${extensionName}-${tagClass.tagName}"></a>
+<a id="${extensionName}.${tagClass.tagName}"></a>
 
 #[[###]]# ${tagClass.tagName}
 #if (!$tagClass.docString.isEmpty())
