@@ -68,7 +68,7 @@ for regen_target in $regen_legacy_targets; do
   fi
   golden="test/testdata/${testdata_pkg_name}/golden.${ext}"
   legacy_golden="test/testdata/${testdata_pkg_name}/legacy_golden.${ext}"
-  if diff "${out_file}" "${golden}" > /dev/null; then
+  if ! diff "${out_file}" "${golden}" > /dev/null; then
     cp "${out_file}" "${legacy_golden}"
     chmod 644 "${legacy_golden}"
   fi
