@@ -76,13 +76,6 @@ class RendererOptions {
   String moduleExtensionTemplateFilePath;
 
   @Parameter(
-      names = "--workspace_name",
-      description =
-          "The name of the current workspace; used when rendering labels in certain contexts (e.g."
-              + " for module extensions)")
-  String workspaceName = "";
-
-  @Parameter(
       names = {"--help", "-h"},
       description = "Print help and exit",
       help = true)
