@@ -21,6 +21,17 @@
 
 set -eu
 
+function run_buildozer () {
+  # buildozer uses return code 3 to signal a no-op, so we can't use "set -e"
+  set +e
+  buildozer "$@"
+  ret=$?
+  set -e
+  if [[ $ret != 0 && $ret != 3 ]]; then
+    return $ret
+  fi
+}
+
 # Allow users to override the bazel command with e.g. bazelisk.
 : "${BAZEL:=bazel}"
 
@@ -68,9 +79,15 @@ for regen_target in $regen_legacy_targets; do
   fi
   golden="test/testdata/${testdata_pkg_name}/golden.${ext}"
   legacy_golden="test/testdata/${testdata_pkg_name}/legacy_golden.${ext}"
-  if ! diff "${out_file}" "${golden}" > /dev/null; then
+  legacy_golden_target="${legacy_golden#test/}"
+  if diff "${out_file}" "${golden}" > /dev/null; then
+    # legacy_golden is no longer needed; we only need golden
+    [[ -e "${legacy_golden}" ]] && rm "${legacy_golden}"
+    run_buildozer "remove legacy_golden_file" "//test:${testdata_pkg_name}"
+  else
     cp "${out_file}" "${legacy_golden}"
     chmod 644 "${legacy_golden}"
+    run_buildozer "set legacy_golden_file \"${legacy_golden_target}\"" "//test:${testdata_pkg_name}"
   fi
 done
 
