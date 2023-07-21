@@ -81,7 +81,7 @@ public final class RendererMain {
               rendererOptions.aspectTemplateFilePath,
               rendererOptions.repositoryRuleTemplateFilePath,
               rendererOptions.moduleExtensionTemplateFilePath,
-              getExtensionBzlFile(moduleInfo));
+              moduleInfo.getFile() != null ? moduleInfo.getFile() : "...");
 
       printWriter.println(renderer.renderMarkdownHeader(moduleInfo));
       printRuleInfos(printWriter, renderer, moduleInfo.getRuleInfoList());
@@ -254,17 +254,6 @@ public final class RendererMain {
           renderer.render(moduleExtensionProto.getExtensionName(), moduleExtensionProto));
       printWriter.println();
     }
-  }
-
-  /**
-   * Formats the label of the .bzl module being documented for use in documentation, falling back to
-   * "..." if the label is not available.
-   */
-  // TODO(arostovtsev): we ought to add an option to semi-canonicalize .bzl file labels in the local
-  // repo for external consumption by prefixing them with @local_repo_name - but there is currently
-  // no API to do so when using bzlmod.
-  private static String getExtensionBzlFile(ModuleInfo moduleInfo) {
-    return moduleInfo.getFile() != null ? moduleInfo.getFile() : "...";
   }
 
   private RendererMain() {}
