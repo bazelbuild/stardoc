@@ -37,9 +37,10 @@ def stardoc_test(
        legacy golden file when updating stardoc, named "regenerate_{name}_legacy_golden".
     3 & 4. Targets identical to (1) and (2) except they use the prebuilt-stardoc jar, and
        are named "{name}_e2e_jar_legacy_test" and "regenerate_with_jar_{name}_legacy_golden".
-    5 & 6. Targets identical to (1) and (2) except they use starlark_doc_extract, and are named
-       "{name}_e2e_test" and "regenerate_{name}_golden". The latter target should be used to
-       regenerate the golden file when updating Stardoc.
+    5 & 6. Only if the host Bazel supports the `native.starlark_doc_extract` rule: Targets
+       identical to (1) and (2) except they use starlark_doc_extract, and are named "{name}_e2e_test"
+       and "regenerate_{name}_golden". The latter target should be used to regenerate the golden
+       file when updating Stardoc.
     7. A bzl_library target for convenient wrapping of input bzl files, named "{name}_lib".
 
     Args:
@@ -50,7 +51,7 @@ def stardoc_test(
           is run on the input file.
       legacy_golden_file: The label string of the golden file when using the legacy documentation
           extractor. If `legacy_golden_file` is not set, `golden_file` will be used for both extractors.
-      test_legacy_extractor: Create legacy extractor test targets.
+      test_legacy_extractor: Whether to create legacy extractor test targets.
       deps: A list of label strings of starlark file dependencies of the input_file.
       test: The type of test (default or html_tables).
       **kwargs: A dictionary of input template names mapped to template file path for which documentation is generated.
