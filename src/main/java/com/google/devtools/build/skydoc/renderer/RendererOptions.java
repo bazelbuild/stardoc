@@ -64,6 +64,18 @@ class RendererOptions {
   String aspectTemplateFilePath;
 
   @Parameter(
+      names = "--repository_rule_template",
+      required = true,
+      description = "The template for the documentation of a repository rule")
+  String repositoryRuleTemplateFilePath;
+
+  @Parameter(
+      names = "--module_extension_template",
+      required = true,
+      description = "The template for the documentation of a module extension")
+  String moduleExtensionTemplateFilePath;
+
+  @Parameter(
       names = {"--help", "-h"},
       description = "Print help and exit",
       help = true)

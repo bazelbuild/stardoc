@@ -62,6 +62,10 @@ This is another aspect.
 **ASPECT ATTRIBUTES**
 
 
+| Name | Type |
+| :------------- | :------------- |
+| *| String |
+
 
 **ATTRIBUTES**
 

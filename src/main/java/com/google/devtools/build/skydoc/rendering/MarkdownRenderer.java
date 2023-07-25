@@ -18,8 +18,10 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AspectInfo;
+import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleExtensionInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ProviderInfo;
+import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RepositoryRuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.StarlarkFunctionInfo;
 import com.google.escapevelocity.EvaluationException;
@@ -42,18 +44,27 @@ public class MarkdownRenderer {
   private final String providerTemplateFilename;
   private final String functionTemplateFilename;
   private final String aspectTemplateFilename;
+  private final String repositoryRuleTemplateFilename;
+  private final String moduleExtensionTemplateFilename;
+  private final String extensionBzlFile;
 
   public MarkdownRenderer(
       String headerTemplate,
       String ruleTemplate,
       String providerTemplate,
       String functionTemplate,
-      String aspectTemplate) {
+      String aspectTemplate,
+      String repositoryRuleTemplate,
+      String moduleExtensionTemplate,
+      String extensionBzlFile) {
     this.headerTemplateFilename = headerTemplate;
     this.ruleTemplateFilename = ruleTemplate;
     this.providerTemplateFilename = providerTemplate;
     this.functionTemplateFilename = functionTemplate;
     this.aspectTemplateFilename = aspectTemplate;
+    this.repositoryRuleTemplateFilename = repositoryRuleTemplate;
+    this.moduleExtensionTemplateFilename = moduleExtensionTemplate;
+    this.extensionBzlFile = extensionBzlFile;
   }
 
   /**
@@ -63,7 +74,10 @@ public class MarkdownRenderer {
   public String renderMarkdownHeader(ModuleInfo moduleInfo) throws IOException {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
-            "util", new MarkdownUtil(), "moduleDocstring", moduleInfo.getModuleDocstring());
+            "util",
+            new MarkdownUtil(extensionBzlFile),
+            "moduleDocstring",
+            moduleInfo.getModuleDocstring());
     Reader reader = readerFromPath(headerTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
@@ -78,7 +92,8 @@ public class MarkdownRenderer {
    */
   public String render(String ruleName, RuleInfo ruleInfo) throws IOException {
     ImmutableMap<String, Object> vars =
-        ImmutableMap.of("util", new MarkdownUtil(), "ruleName", ruleName, "ruleInfo", ruleInfo);
+        ImmutableMap.of(
+            "util", new MarkdownUtil(extensionBzlFile), "ruleName", ruleName, "ruleInfo", ruleInfo);
     Reader reader = readerFromPath(ruleTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
@@ -94,7 +109,12 @@ public class MarkdownRenderer {
   public String render(String providerName, ProviderInfo providerInfo) throws IOException {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
-            "util", new MarkdownUtil(), "providerName", providerName, "providerInfo", providerInfo);
+            "util",
+            new MarkdownUtil(extensionBzlFile),
+            "providerName",
+            providerName,
+            "providerInfo",
+            providerInfo);
     Reader reader = readerFromPath(providerTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
@@ -109,7 +129,7 @@ public class MarkdownRenderer {
    */
   public String render(StarlarkFunctionInfo functionInfo) throws IOException {
     ImmutableMap<String, Object> vars =
-        ImmutableMap.of("util", new MarkdownUtil(), "funcInfo", functionInfo);
+        ImmutableMap.of("util", new MarkdownUtil(extensionBzlFile), "funcInfo", functionInfo);
     Reader reader = readerFromPath(functionTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
@@ -125,8 +145,57 @@ public class MarkdownRenderer {
   public String render(String aspectName, AspectInfo aspectInfo) throws IOException {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
-            "util", new MarkdownUtil(), "aspectName", aspectName, "aspectInfo", aspectInfo);
+            "util",
+            new MarkdownUtil(extensionBzlFile),
+            "aspectName",
+            aspectName,
+            "aspectInfo",
+            aspectInfo);
     Reader reader = readerFromPath(aspectTemplateFilename);
+    try {
+      return Template.parseFrom(reader).evaluate(vars);
+    } catch (ParseException | EvaluationException e) {
+      throw new IOException(e);
+    }
+  }
+
+  /**
+   * Returns a markdown rendering of repository rule documentation for the given repository rule
+   * information object with the given name.
+   */
+  public String render(String repositoryRuleName, RepositoryRuleInfo repositoryRuleInfo)
+      throws IOException {
+    ImmutableMap<String, Object> vars =
+        ImmutableMap.of(
+            "util",
+            new MarkdownUtil(extensionBzlFile),
+            "ruleName",
+            repositoryRuleName,
+            "ruleInfo",
+            repositoryRuleInfo);
+    Reader reader = readerFromPath(repositoryRuleTemplateFilename);
+    try {
+      return Template.parseFrom(reader).evaluate(vars);
+    } catch (ParseException | EvaluationException e) {
+      throw new IOException(e);
+    }
+  }
+
+  /**
+   * Returns a markdown rendering of module extension documentation for the given module extension
+   * information object with the given name.
+   */
+  public String render(String moduleExtensionName, ModuleExtensionInfo moduleExtensionInfo)
+      throws IOException {
+    ImmutableMap<String, Object> vars =
+        ImmutableMap.of(
+            "util",
+            new MarkdownUtil(extensionBzlFile),
+            "extensionName",
+            moduleExtensionName,
+            "extensionInfo",
+            moduleExtensionInfo);
+    Reader reader = readerFromPath(moduleExtensionTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
     } catch (ParseException | EvaluationException e) {

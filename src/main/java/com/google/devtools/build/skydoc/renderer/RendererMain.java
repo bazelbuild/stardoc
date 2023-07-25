@@ -24,8 +24,11 @@ import com.google.common.collect.ImmutableMap;
 import com.google.devtools.build.skydoc.rendering.MarkdownRenderer;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AspectInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AttributeInfo;
+import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleExtensionInfo;
+import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleExtensionTagClassInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ProviderInfo;
+import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RepositoryRuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.StarlarkFunctionInfo;
 import com.google.protobuf.ExtensionRegistry;
@@ -56,19 +59,7 @@ public final class RendererMain {
 
     String inputPath = rendererOptions.inputPath;
     String outputPath = rendererOptions.outputFilePath;
-    String headerTemplatePath = rendererOptions.headerTemplateFilePath;
-    String ruleTemplatePath = rendererOptions.ruleTemplateFilePath;
-    String providerTemplatePath = rendererOptions.providerTemplateFilePath;
-    String funcTemplatePath = rendererOptions.funcTemplateFilePath;
-    String aspectTemplatePath = rendererOptions.aspectTemplateFilePath;
 
-    MarkdownRenderer renderer =
-        new MarkdownRenderer(
-            headerTemplatePath,
-            ruleTemplatePath,
-            providerTemplatePath,
-            funcTemplatePath,
-            aspectTemplatePath);
     try (PrintWriter printWriter =
         new PrintWriter(outputPath, UTF_8) {
           // Use consistent line endings on all platforms.
@@ -80,11 +71,25 @@ public final class RendererMain {
       ModuleInfo moduleInfo =
           ModuleInfo.parseFrom(
               new FileInputStream(inputPath), ExtensionRegistry.getEmptyRegistry());
+
+      MarkdownRenderer renderer =
+          new MarkdownRenderer(
+              rendererOptions.headerTemplateFilePath,
+              rendererOptions.ruleTemplateFilePath,
+              rendererOptions.providerTemplateFilePath,
+              rendererOptions.funcTemplateFilePath,
+              rendererOptions.aspectTemplateFilePath,
+              rendererOptions.repositoryRuleTemplateFilePath,
+              rendererOptions.moduleExtensionTemplateFilePath,
+              moduleInfo.getFile() != null ? moduleInfo.getFile() : "...");
+
       printWriter.println(renderer.renderMarkdownHeader(moduleInfo));
       printRuleInfos(printWriter, renderer, moduleInfo.getRuleInfoList());
       printProviderInfos(printWriter, renderer, moduleInfo.getProviderInfoList());
       printStarlarkFunctions(printWriter, renderer, moduleInfo.getFuncInfoList());
       printAspectInfos(printWriter, renderer, moduleInfo.getAspectInfoList());
+      printRepositoryRuleInfos(printWriter, renderer, moduleInfo.getRepositoryRuleInfoList());
+      printModuleExtensionInfos(printWriter, renderer, moduleInfo.getModuleExtensionInfoList());
     } catch (InvalidProtocolBufferException e) {
       throw new IllegalArgumentException("Input file is not a valid ModuleInfo proto.", e);
     }
@@ -126,6 +131,39 @@ public final class RendererMain {
             ImmutableList.sortedCopyOf(
                 comparing(AttributeInfo::getName, ATTRIBUTE_NAME_COMPARATOR),
                 ruleInfo.getAttributeList()))
+        .build();
+  }
+
+  private static RepositoryRuleInfo withSortedRuleAttributes(
+      RepositoryRuleInfo repositoryRuleInfo) {
+    return repositoryRuleInfo.toBuilder()
+        .clearAttribute()
+        .addAllAttribute(
+            ImmutableList.sortedCopyOf(
+                comparing(AttributeInfo::getName, ATTRIBUTE_NAME_COMPARATOR),
+                repositoryRuleInfo.getAttributeList()))
+        .build();
+  }
+
+  private static ModuleExtensionTagClassInfo withSortedTagAttributes(
+      ModuleExtensionTagClassInfo moduleExtensionTagClassInfo) {
+    return moduleExtensionTagClassInfo.toBuilder()
+        .clearAttribute()
+        .addAllAttribute(
+            ImmutableList.sortedCopyOf(
+                comparing(AttributeInfo::getName, ATTRIBUTE_NAME_COMPARATOR),
+                moduleExtensionTagClassInfo.getAttributeList()))
+        .build();
+  }
+
+  private static ModuleExtensionInfo withSortedTagAttributes(
+      ModuleExtensionInfo moduleExtensionInfo) {
+    return moduleExtensionInfo.toBuilder()
+        .clearTagClass()
+        .addAllTagClass(
+            moduleExtensionInfo.getTagClassList().stream()
+                .map(RendererMain::withSortedTagAttributes)
+                .collect(toImmutableList()))
         .build();
   }
 
@@ -180,6 +218,40 @@ public final class RendererMain {
         ImmutableList.sortedCopyOf(comparing(AspectInfo::getAspectName), aspectInfos);
     for (AspectInfo aspectProto : sortedAspectInfos) {
       printWriter.println(renderer.render(aspectProto.getAspectName(), aspectProto));
+      printWriter.println();
+    }
+  }
+
+  private static void printRepositoryRuleInfos(
+      PrintWriter printWriter, MarkdownRenderer renderer, List<RepositoryRuleInfo> ruleInfos)
+      throws IOException {
+    // Repository rules are printed sorted by their qualified name, and their attributes are sorted
+    // by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for some standard attributes.
+    ImmutableList<RepositoryRuleInfo> sortedRepositoryRuleInfos =
+        ruleInfos.stream()
+            .map(RendererMain::withSortedRuleAttributes)
+            .sorted(comparing(RepositoryRuleInfo::getRuleName))
+            .collect(toImmutableList());
+    for (RepositoryRuleInfo repositoryRuleProto : sortedRepositoryRuleInfos) {
+      printWriter.println(renderer.render(repositoryRuleProto.getRuleName(), repositoryRuleProto));
+      printWriter.println();
+    }
+  }
+
+  private static void printModuleExtensionInfos(
+      PrintWriter printWriter, MarkdownRenderer renderer, List<ModuleExtensionInfo> ruleInfos)
+      throws IOException {
+    // Module extension are printed sorted by their qualified name, and their tag classes'
+    // attributes are sorted by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for some
+    // standard attributes.
+    ImmutableList<ModuleExtensionInfo> sortedModuleExtensionInfos =
+        ruleInfos.stream()
+            .map(RendererMain::withSortedTagAttributes)
+            .sorted(comparing(ModuleExtensionInfo::getExtensionName))
+            .collect(toImmutableList());
+    for (ModuleExtensionInfo moduleExtensionProto : sortedModuleExtensionInfos) {
+      printWriter.println(
+          renderer.render(moduleExtensionProto.getExtensionName(), moduleExtensionProto));
       printWriter.println();
     }
   }

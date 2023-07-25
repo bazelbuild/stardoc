@@ -15,7 +15,8 @@
 """Starlark rule for stardoc: a documentation generator tool written in Java."""
 
 load("@rules_java//java:defs.bzl", "java_binary")
-load("//stardoc/private:stardoc.bzl", _stardoc = "stardoc")
+load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
+load("//stardoc/private:stardoc.bzl", "stardoc_markdown_renderer", _stardoc = "stardoc")
 
 def stardoc(
         *,
@@ -33,6 +34,9 @@ def stardoc(
         header_template = Label("//stardoc:templates/markdown_tables/header.vm"),
         provider_template = Label("//stardoc:templates/markdown_tables/provider.vm"),
         rule_template = Label("//stardoc:templates/markdown_tables/rule.vm"),
+        repository_rule_template = Label("//stardoc:templates/markdown_tables/repository_rule.vm"),
+        module_extension_template = Label("//stardoc:templates/markdown_tables/module_extension.vm"),
+        use_starlark_doc_extract = True,
         **kwargs):
     """Generates documentation for exported starlark rule definitions in a target starlark file.
 
@@ -52,42 +56,100 @@ def stardoc(
         For example, if `//foo:bar.bzl` does not build except when a user would specify
         `--incompatible_foo_semantic=false`, then this attribute should contain
         "--incompatible_foo_semantic=false".
-      stardoc: The location of the stardoc tool.
+      stardoc: The location of the legacy Stardoc extractor. Ignored when using the native `starlark_doc_extract` rule.
       renderer: The location of the renderer tool.
       aspect_template: The input file template for generating documentation of aspects
       header_template: The input file template for the header of the output documentation.
       func_template: The input file template for generating documentation of functions.
       provider_template: The input file template for generating documentation of providers.
       rule_template: The input file template for generating documentation of rules.
+      repository_rule_template: The input file template for generating documentation of repository rules.
+        This template is used only when using the native `starlark_doc_extract` rule.
+      module_extension_template: The input file template for generating documentation of module extensions.
+        This template is used only when using the native `starlark_doc_extract` rule.
+      use_starlark_doc_extract: Use the native `starlark_doc_extract` rule if available.
       **kwargs: Further arguments to pass to stardoc.
     """
 
-    stardoc_with_runfiles_name = name + "_stardoc"
+    if format not in ["markdown", "proto"]:
+        fail("`format` must be \"markdown\" or \"proto\"")
 
-    testonly = {"testonly": kwargs["testonly"]} if "testonly" in kwargs else {}
-    java_binary(
-        name = stardoc_with_runfiles_name,
-        main_class = "com.google.devtools.build.skydoc.SkydocMain",
-        runtime_deps = [stardoc],
-        data = [input] + deps,
-        tags = ["manual"],
-        visibility = ["//visibility:private"],
-        **testonly
-    )
+    auxiliary_target_kwargs = {
+        "tags": ["manual"],
+        "visibility": ["//visibility:private"],
+    }
+    if "testonly" in kwargs:
+        auxiliary_target_kwargs["testonly"] = kwargs["testonly"]
 
-    _stardoc(
-        name = name,
-        input = input,
-        out = out,
-        format = format,
-        symbol_names = symbol_names,
-        semantic_flags = semantic_flags,
-        stardoc = stardoc_with_runfiles_name,
-        renderer = renderer,
-        aspect_template = aspect_template,
-        func_template = func_template,
-        header_template = header_template,
-        provider_template = provider_template,
-        rule_template = rule_template,
-        **kwargs
-    )
+    if use_starlark_doc_extract and hasattr(native, "starlark_doc_extract"):
+        # Use native.starlark_doc_extract as extractor
+        if format == "proto" and Label(name + ".binaryproto") == Label(out):
+            extractor_is_main_target = True
+            extractor_name = name
+        else:
+            extractor_is_main_target = False
+            extractor_name = name + ".extract"
+
+        proto_name = extractor_name + ".binaryproto"
+
+        native.starlark_doc_extract(
+            name = extractor_name,
+            src = input,
+            deps = deps,
+            symbol_names = symbol_names,
+            **(kwargs if extractor_is_main_target else auxiliary_target_kwargs)
+        )
+
+        if format == "markdown":
+            stardoc_markdown_renderer(
+                name = name,
+                src = proto_name,
+                out = out,
+                renderer = renderer,
+                aspect_template = aspect_template,
+                func_template = func_template,
+                header_template = header_template,
+                provider_template = provider_template,
+                rule_template = rule_template,
+                repository_rule_template = repository_rule_template,
+                module_extension_template = module_extension_template,
+                **kwargs
+            )
+        elif format == "proto" and not extractor_is_main_target:
+            copy_file(
+                name = name,
+                src = proto_name,
+                out = out,
+                **kwargs
+            )
+
+    else:
+        # Use legacy extractor
+        stardoc_with_runfiles_name = name + "_stardoc"
+
+        java_binary(
+            name = stardoc_with_runfiles_name,
+            main_class = "com.google.devtools.build.skydoc.SkydocMain",
+            runtime_deps = [stardoc],
+            data = [input] + deps,
+            **auxiliary_target_kwargs
+        )
+
+        _stardoc(
+            name = name,
+            input = input,
+            out = out,
+            format = format,
+            symbol_names = symbol_names,
+            semantic_flags = semantic_flags,
+            stardoc = stardoc_with_runfiles_name,
+            renderer = renderer,
+            aspect_template = aspect_template,
+            func_template = func_template,
+            header_template = header_template,
+            provider_template = provider_template,
+            rule_template = rule_template,
+            repository_rule_template = repository_rule_template,
+            module_extension_template = module_extension_template,
+            **kwargs
+        )

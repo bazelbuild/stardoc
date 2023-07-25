@@ -1,0 +1,50 @@
+<a id="${ruleName}"></a>
+
+#[[##]]# ${ruleName}
+
+<pre>
+${util.repositoryRuleSummary($ruleName, $ruleInfo)}
+</pre>
+#if (!$ruleInfo.docString.isEmpty())
+
+${ruleInfo.docString}
+#end
+
+**ATTRIBUTES**
+
+#if (!$ruleInfo.getAttributeList().isEmpty())
+<table class="params-table">
+<colgroup>
+<col class="col-param" />
+<col class="col-description" />
+</colgroup>
+<tbody>
+#foreach ($attribute in $ruleInfo.getAttributeList())
+<tr id="${ruleName}-${attribute.name}">
+<td><code>${attribute.name}</code></td>
+<td>
+
+${util.attributeTypeString($attribute)}; ${util.mandatoryString($attribute)}
+
+#if (!$attribute.docString.isEmpty())
+<p>
+
+${attribute.docString.trim()}
+
+</p>
+#end
+</td>
+</tr>
+#end
+</tbody>
+</table>
+#end
+#if (!$ruleInfo.getEnvironList().isEmpty())
+
+**ENVIRONMENT VARIABLES**
+
+This repository rule depends on the following environment variables:
+#foreach ($var in $ruleInfo.getEnvironList())
+* ${util.markdownCodeSpan($var)}
+#end
+#end

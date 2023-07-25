@@ -24,7 +24,7 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class MarkdownUtilTest {
 
-  MarkdownUtil util = new MarkdownUtil();
+  MarkdownUtil util = new MarkdownUtil("//:test.bzl");
 
   @Test
   public void markdownCodeSpan() {

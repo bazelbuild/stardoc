@@ -11,4 +11,5 @@ my_repo = repository_rule(
             default = "ignoreme",
         ),
     },
+    environ = ["FOO_CC", "BAR_PATH"],
 )

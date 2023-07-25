@@ -38,7 +38,7 @@ example_rule = rule(
     doc = "Small example of rule using a markdown template.",
     attrs = {
         "first": attr.string(doc = "This is the first attribute"),
-        "second": attr.string(default = "2"),
+        "second": attr.int(default = 2),
     },
 )
 
@@ -51,7 +51,7 @@ example_aspect = aspect(
     doc = "Small example of aspect using a markdown template.",
     attr_aspects = ["deps", "attr_aspect"],
     attrs = {
-        "first": attr.label(mandatory = True, allow_single_file = True),
+        "first": attr.string(mandatory = True),
         "second": attr.string(doc = "This is the second attribute."),
     },
 )

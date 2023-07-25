@@ -33,5 +33,7 @@ def html_tables_stardoc(name, **kwargs):
         header_template = Label("//stardoc:templates/html_tables/header.vm"),
         provider_template = Label("//stardoc:templates/html_tables/provider.vm"),
         rule_template = Label("//stardoc:templates/html_tables/rule.vm"),
+        repository_rule_template = Label("//stardoc:templates/html_tables/repository_rule.vm"),
+        module_extension_template = Label("//stardoc:templates/html_tables/module_extension.vm"),
         **kwargs
     )
