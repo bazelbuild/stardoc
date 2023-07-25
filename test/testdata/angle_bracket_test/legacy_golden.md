@@ -30,7 +30,7 @@ Rule with \<brackets>
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="my_anglebrac-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="my_anglebrac-also_useless"></a>also_useless |  Args with some formatted tags: `<tag>`   | String | optional |  `"1<<5"`  |
-| <a id="my_anglebrac-useless"></a>useless |  Args with some tags: <tag1>, <tag2>   | String | optional |  `"Find \<brackets>"`  |
+| <a id="my_anglebrac-useless"></a>useless |  Args with some tags: \<tag1>, \<tag2>   | String | optional |  `"Find \<brackets>"`  |
 
 
 <a id="bracketuse"></a>

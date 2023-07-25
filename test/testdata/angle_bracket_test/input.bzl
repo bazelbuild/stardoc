@@ -54,7 +54,7 @@ my_anglebrac = rule(
     doc = "Rule with \\<brackets>",
     attrs = {
         "useless": attr.string(
-            doc = "Args with some tags: <tag1>, <tag2>",
+            doc = "Args with some tags: \\<tag1>, \\<tag2>",
             default = "Find \\<brackets>",
         ),
         "also_useless": attr.string(
