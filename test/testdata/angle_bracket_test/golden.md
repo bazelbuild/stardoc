@@ -29,7 +29,7 @@ Rule with \<brackets>
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="my_anglebrac-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="my_anglebrac-also_useless"></a>also_useless |  Args with some formatted tags: `<tag>`   | String | optional |  `"1<<5"`  |
+| <a id="my_anglebrac-also_useless"></a>also_useless |  Args with some formatted tags: `<tag>` and <pre><code class="language-xml">&lt;tag2&gt;x&lt;/tag2&gt;</code></pre>   | String | optional |  `"1<<5"`  |
 | <a id="my_anglebrac-useless"></a>useless |  Args with some tags: \<tag1>, \<tag2>   | String | optional |  `"Find \\<brackets>"`  |
 
 
@@ -48,7 +48,7 @@ Information with \<brackets>
 
 | Name  | Description |
 | :------------- | :------------- |
-| <a id="bracketuse-foo"></a>foo |  A string representing <foo>    |
+| <a id="bracketuse-foo"></a>foo |  A string representing \<foo>    |
 | <a id="bracketuse-bar"></a>bar |  A string representing bar    |
 | <a id="bracketuse-baz"></a>baz |  A string representing baz    |
 

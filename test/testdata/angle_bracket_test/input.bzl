@@ -39,7 +39,7 @@ def bracket_function(param = "<default>", md_string = "foo `1<<10` bar"):
 bracketuse = provider(
     doc = "Information with \\<brackets>",
     fields = {
-        "foo": "A string representing <foo>",
+        "foo": "A string representing \\<foo>",
         "bar": "A string representing bar",
         "baz": "A string representing baz",
     },
@@ -58,7 +58,11 @@ my_anglebrac = rule(
             default = "Find \\<brackets>",
         ),
         "also_useless": attr.string(
-            doc = "Args with some formatted tags: `<tag>`",
+            doc = """Args with some formatted tags: `<tag>` and
+```xml
+<tag2>x</tag2>
+```
+""",
             default = "1<<5",
         ),
     },
