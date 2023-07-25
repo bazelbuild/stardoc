@@ -15,6 +15,15 @@ tasks:
     test_targets:
       - "//..."
 
+  build_and_test_last_green:
+    name: Build and test - last green/green
+    platform: ${{ platform }}
+    bazel: last_green
+    build_targets:
+      - "//..."
+    test_targets:
+      - "//..."
+
   bzlmod:
     name: Bzlmod example
     platform: ${{ platform }}
