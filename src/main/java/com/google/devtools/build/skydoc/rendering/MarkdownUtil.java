@@ -59,61 +59,124 @@ public final class MarkdownUtil {
    *       into line break HTML tags.
    *   <li>Turns remaining newlines into spaces (as they generally indicate intended line wrap).
    * </ul>
+   *
+   * TODO(https://github.com/bazelbuild/stardoc/issues/118): also format Markdown lists as HTML.
    */
   public static String markdownCellFormat(String docString) {
-    String resultString = docString.trim().replace("|", "\\|");
-    resultString = markdownFencedCodeBlockToHtml(resultString);
-    return resultString.replaceAll("\r?\n(\\s*\n)+", "<br><br>").replaceAll("\r?\n", " ");
+    return new MarkdownCellFormatter(docString).format();
   }
 
-  // Start of input or a newline, followed by 0-3 spaces, followed by 3 or more backticks or tildes,
-  // optionally followed by a language name (optionally preceded by spaces and followed by arbitrary
-  // text), followed by a newline.
-  private static Pattern MARKDOWN_CODE_BLOCK_OPENING_FENCE =
-      Pattern.compile(
-          "(?<openingNewline>^|\r?\n) {0,3}(?<fence>```+|~~~+) *(?<lang>\\w*)[^`~\r\n]*\r?\n");
+  // See https://github.github.com/gfm
+  private static final class MarkdownCellFormatter {
+    private final ImmutableList<String> lines;
+    int currentLine;
+    StringBuilder result;
 
-  // See https://github.github.com/gfm/#fenced-code-blocks
-  private static String markdownFencedCodeBlockToHtml(String input) {
-    Matcher codeBlockOpeningFenceMatcher = MARKDOWN_CODE_BLOCK_OPENING_FENCE.matcher(input);
-    StringBuilder result = new StringBuilder();
-    int position = 0;
-    while (position < input.length()) {
-      if (!codeBlockOpeningFenceMatcher.find(position)) {
-        break;
-      }
-      String language = codeBlockOpeningFenceMatcher.group("lang");
-      int fenceStart = codeBlockOpeningFenceMatcher.start();
-      int contentStart = codeBlockOpeningFenceMatcher.end();
+    private static Pattern CODE_BLOCK_OPENING_FENCE =
+        Pattern.compile(" {0,3}(?<fence>```+|~~~+) *(?<lang>\\w*)[^`~\r\n]*\r?");
 
-      // Newline, followed by 0-3 spaces, followed by same number of backticks or tildes as for the
-      // opening fence, followed by optional spaces, and finally a newline or end of input.
-      Pattern codeBlockClosingFence =
-          Pattern.compile(
-              "\r?\n {0,3}"
-                  + codeBlockOpeningFenceMatcher.group("fence")
-                  + " *(?<closingNewline>$|\r?\n)");
-      Matcher codeBlockClosingFenceMatcher = codeBlockClosingFence.matcher(input);
-      if (!codeBlockClosingFenceMatcher.find(contentStart)) {
-        break;
-      }
-      int contentEnd = codeBlockClosingFenceMatcher.start();
-      int fenceEnd = codeBlockClosingFenceMatcher.end();
-
-      result.append(input.substring(position, fenceStart));
-      result.append(codeBlockOpeningFenceMatcher.group("openingNewline"));
-      if (language != null && !language.isEmpty()) {
-        result.append("<pre><code class=\"language-").append(language).append("\">");
-      } else {
-        result.append("<pre><code>");
-      }
-      result.append(newlineEscape(htmlEscape(input.substring(contentStart, contentEnd))));
-      result.append("</code></pre>");
-      result.append(codeBlockClosingFenceMatcher.group("closingNewline"));
-      position = fenceEnd;
+    MarkdownCellFormatter(String docString) {
+      lines = ImmutableList.copyOf(docString.trim().replace("|", "\\|").split("\r?\n"));
+      currentLine = 0;
+      result = new StringBuilder();
     }
-    result.append(input.substring(position, input.length()));
-    return result.toString();
+
+    String format() {
+      boolean prefixContentWithSpace = false;
+      for (; currentLine < lines.size(); currentLine++) {
+        if (formatParagraphBreak()) {
+          prefixContentWithSpace = false;
+          continue;
+        }
+        if (prefixContentWithSpace) {
+          result.append(" ");
+        }
+        prefixContentWithSpace = true;
+        if (formatFencedCodeBlock()) {
+          continue;
+        }
+        result.append(lines.get(currentLine));
+      }
+      return result.toString();
+    }
+
+    /**
+     * If a fenced code block begins at {@link #currentLine}, render to {@link #result}, update
+     * {@link #currentLine} to point to end of block, and return true.
+     */
+    private boolean formatFencedCodeBlock() {
+      // See https://github.github.com/gfm/#fenced-code-blocks
+      Matcher opening = CODE_BLOCK_OPENING_FENCE.matcher(lines.get(currentLine));
+      if (!opening.matches()) {
+        return false;
+      }
+      Pattern closingFence = Pattern.compile("^ {0,3}" + opening.group("fence") + " *\r?$");
+      for (int closingLine = currentLine + 1; closingLine < lines.size(); closingLine++) {
+        if (closingFence.matcher(lines.get(closingLine)).matches()) {
+          // We found the closing fence: format the block's contents as HTML.
+          String language = opening.group("lang");
+          if (language != null && !language.isEmpty()) {
+            result.append("<pre><code class=\"language-").append(language).append("\">");
+          } else {
+            result.append("<pre><code>");
+          }
+          int firstContentLine = currentLine + 1;
+          for (int i = firstContentLine; i < closingLine; i++) {
+            if (i > firstContentLine) {
+              result.append(newlineEscape("\n"));
+            }
+            result.append(newlineEscape(htmlEscape(lines.get(i))));
+          }
+          result.append("</code></pre>");
+          currentLine = closingLine;
+          return true;
+        }
+      }
+      // We did not find the closing fence.
+      return false;
+    }
+
+    /**
+     * If blank lines appear at {@link #currentLine}, render to {@link #result}, update {@link
+     * #currentLine} to point to end of break, and return true.
+     */
+    private boolean formatParagraphBreak() {
+      int numEmptyLines = 0;
+      for (int i = currentLine; i < lines.size(); i++) {
+        if (lines.get(i).isEmpty() || lines.get(i).equals("\r")) {
+          numEmptyLines++;
+        } else {
+          break;
+        }
+      }
+      if (numEmptyLines > 0) {
+        result.append("<br><br>");
+        currentLine += numEmptyLines - 1;
+        return true;
+      }
+      return false;
+    }
+
+    /**
+     * If a paragraph break begins at {@link #currentLine}, render it to {@link #result}, update
+     * {@link #currentLine} to point to end of break, and return true.
+     */
+    private boolean renderParagraphBreak() {
+      int numBlankLines = 0;
+      for (int i = currentLine; i < lines.size(); i++) {
+        if (lines.get(i).isEmpty() || lines.get(i).equals("\r")) {
+          numBlankLines++;
+        } else {
+          break;
+        }
+      }
+      if (numBlankLines >= 2) {
+        result.append("<br><br>");
+        currentLine = currentLine + numBlankLines;
+        return true;
+      }
+      return false;
+    }
   }
 
   /**
