@@ -24,15 +24,16 @@ import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.Aspe
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AttributeInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AttributeType;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.FunctionParamInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ProviderInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ProviderNameGroup;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RuleInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RepositoryRuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleExtensionInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleExtensionTagClassInfo;
+import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ProviderInfo;
+import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ProviderNameGroup;
+import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RepositoryRuleInfo;
+import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.StarlarkFunctionInfo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /** Contains a number of utility methods for markdown rendering. */
@@ -46,44 +47,73 @@ public final class MarkdownUtil {
   }
 
   /**
-   * Return a string that formats the input string so it is displayable in a markdown table cell.
-   * This performs the following operations:
+   * Formats the input string so that it is displayable in a Markdown table cell. This performs the
+   * following operations:
    *
    * <ul>
    *   <li>Trims the string of leading/trailing whitespace.
-   *   <li>Transforms the string using {@link #htmlEscape}.
-   *   <li>Transforms multline code (```) tags into preformatted code HTML tags.
-   *   <li>Transforms single-tick code (`) tags into code HTML tags.
-   *   <li>Transforms 'new paraphgraph' patterns (two or more sequential newline characters) into
-   *       line break HTML tags.
-   *   <li>Turns lingering new line tags into spaces (as they generally indicate intended line wrap.
+   *   <li>Escapes pipe characters ({@code |}) as {@code \|}.
+   *   <li>Transforms Markdown code blocks ({@code ```}) into HTML preformatted code blocks, and
+   *       transforms newlines within those code blocks into character entities
+   *   <li>Transforms remaining 'new paragraph' patterns (two or more sequential newline characters)
+   *       into line break HTML tags.
+   *   <li>Turns remaining newlines into spaces (as they generally indicate intended line wrap).
    * </ul>
    */
-  public String markdownCellFormat(String docString) {
-    String resultString = htmlEscape(docString.trim());
-
-    resultString = replaceWithTag(resultString, "```", "<pre><code>", "</code></pre>");
-    resultString = replaceWithTag(resultString, "`", "<code>", "</code>");
-
-    return resultString.replaceAll("\n(\\s*\n)+", "<br><br>").replace('\n', ' ');
+  public static String markdownCellFormat(String docString) {
+    String resultString = docString.trim().replace("|", "\\|");
+    resultString = markdownFencedCodeBlockToHtml(resultString);
+    return resultString.replaceAll("\r?\n(\\s*\n)+", "<br><br>").replaceAll("\r?\n", " ");
   }
 
-  private static String replaceWithTag(
-      String wholeString, String stringToReplace, String openTag, String closeTag) {
-    String remainingString = wholeString;
-    StringBuilder resultString = new StringBuilder();
+  // Start of input or a newline, followed by 0-3 spaces, followed by 3 or more backticks or tildes,
+  // optionally followed by a language name (optionally preceded by spaces and followed by arbitrary
+  // text), followed by a newline.
+  private static Pattern MARKDOWN_CODE_BLOCK_OPENING_FENCE =
+      Pattern.compile(
+          "(?<openingNewline>^|\r?\n) {0,3}(?<fence>```+|~~~+) *(?<lang>\\w*)[^`~\r\n]*\r?\n");
 
-    boolean openTagNext = true;
-    int index = remainingString.indexOf(stringToReplace);
-    while (index > -1) {
-      resultString.append(remainingString, 0, index);
-      resultString.append(openTagNext ? openTag : closeTag);
-      openTagNext = !openTagNext;
-      remainingString = remainingString.substring(index + stringToReplace.length());
-      index = remainingString.indexOf(stringToReplace);
+  // See https://github.github.com/gfm/#fenced-code-blocks
+  private static String markdownFencedCodeBlockToHtml(String input) {
+    Matcher codeBlockOpeningFenceMatcher = MARKDOWN_CODE_BLOCK_OPENING_FENCE.matcher(input);
+    StringBuilder result = new StringBuilder();
+    int position = 0;
+    while (position < input.length()) {
+      if (!codeBlockOpeningFenceMatcher.find(position)) {
+        break;
+      }
+      String language = codeBlockOpeningFenceMatcher.group("lang");
+      int fenceStart = codeBlockOpeningFenceMatcher.start();
+      int contentStart = codeBlockOpeningFenceMatcher.end();
+
+      // Newline, followed by 0-3 spaces, followed by same number of backticks or tildes as for the
+      // opening fence, followed by optional spaces, and finally a newline or end of input.
+      Pattern codeBlockClosingFence =
+          Pattern.compile(
+              "\r?\n {0,3}"
+                  + codeBlockOpeningFenceMatcher.group("fence")
+                  + " *(?<closingNewline>$|\r?\n)");
+      Matcher codeBlockClosingFenceMatcher = codeBlockClosingFence.matcher(input);
+      if (!codeBlockClosingFenceMatcher.find(contentStart)) {
+        break;
+      }
+      int contentEnd = codeBlockClosingFenceMatcher.start();
+      int fenceEnd = codeBlockClosingFenceMatcher.end();
+
+      result.append(input.substring(position, fenceStart));
+      result.append(codeBlockOpeningFenceMatcher.group("openingNewline"));
+      if (language != null && !language.isEmpty()) {
+        result.append("<pre><code class=\"language-").append(language).append("\">");
+      } else {
+        result.append("<pre><code>");
+      }
+      result.append(newlineEscape(htmlEscape(input.substring(contentStart, contentEnd))));
+      result.append("</code></pre>");
+      result.append(codeBlockClosingFenceMatcher.group("closingNewline"));
+      position = fenceEnd;
     }
-    resultString.append(remainingString);
-    return resultString.toString();
+    result.append(input.substring(position, input.length()));
+    return result.toString();
   }
 
   /**
@@ -91,8 +121,13 @@ public final class MarkdownUtil {
    *
    * <p>For example: 'Information with <brackets>.' becomes 'Information with &lt;brackets&gt;'.
    */
-  public String htmlEscape(String docString) {
+  public static String htmlEscape(String docString) {
     return docString.replace("<", "&lt;").replace(">", "&gt;");
+  }
+
+  /** Returns a string that escapes newlines and carriage returns with HTML entities. */
+  private static String newlineEscape(String docString) {
+    return docString.replace("\n", "&#10;").replace("\r", "&#13;");
   }
 
   private static final Pattern CONSECUTIVE_BACKTICKS = Pattern.compile("`+");
@@ -164,23 +199,25 @@ public final class MarkdownUtil {
   }
 
   /**
-   * Return a string representing the repository rule summary for the given repository rule with the given name.
+   * Return a string representing the repository rule summary for the given repository rule with the
+   * given name.
    *
-   * <p>For example: 'my_repo_rule(foo, bar)'. The summary will contain hyperlinks for each attribute.
+   * <p>For example: 'my_repo_rule(foo, bar)'. The summary will contain hyperlinks for each
+   * attribute.
    */
   @SuppressWarnings("unused") // Used by markdown template.
   public String repositoryRuleSummary(String ruleName, RepositoryRuleInfo ruleInfo) {
     ImmutableList<String> attributeNames =
-        ruleInfo.getAttributeList().stream()
-            .map(AttributeInfo::getName)
-            .collect(toImmutableList());
+        ruleInfo.getAttributeList().stream().map(AttributeInfo::getName).collect(toImmutableList());
     return summary(ruleName, attributeNames);
   }
 
   /**
-   * Return a string representing the module extension summary for the given module extension with the given name.
+   * Return a string representing the module extension summary for the given module extension with
+   * the given name.
    *
    * <p>For example:
+   *
    * <pre>
    * my_ext = use_extension("//some:file.bzl", "my_ext")
    * my_ext.tag1(foo, bar)
@@ -192,13 +229,19 @@ public final class MarkdownUtil {
   @SuppressWarnings("unused") // Used by markdown template.
   public String moduleExtensionSummary(String extensionName, ModuleExtensionInfo extensionInfo) {
     StringBuilder summaryBuilder = new StringBuilder();
-    summaryBuilder.append(String.format("%s = use_extension(\"%s\", \"%s\")", extensionName, extensionBzlFile, extensionName));
+    summaryBuilder.append(
+        String.format(
+            "%s = use_extension(\"%s\", \"%s\")", extensionName, extensionBzlFile, extensionName));
     for (ModuleExtensionTagClassInfo tagClass : extensionInfo.getTagClassList()) {
       ImmutableList<String> attributeNames =
-        tagClass.getAttributeList().stream()
-            .map(AttributeInfo::getName)
-            .collect(toImmutableList());
-      summaryBuilder.append("\n").append(summary(String.format("%s.%s", extensionName, tagClass.getTagName()), attributeNames));
+          tagClass.getAttributeList().stream()
+              .map(AttributeInfo::getName)
+              .collect(toImmutableList());
+      summaryBuilder
+          .append("\n")
+          .append(
+              summary(
+                  String.format("%s.%s", extensionName, tagClass.getTagName()), attributeNames));
     }
     return summaryBuilder.toString();
   }

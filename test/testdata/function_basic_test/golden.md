@@ -63,7 +63,7 @@ Has a complex parameter.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a id="param_doc_multiline-complex"></a>complex |  A parameter with some non-obvious behavior.<br><br> For example, it does things that require **multiple paragraphs** to explain.<br><br>Note: we should preserve the nested indent in the following code:<br><br><pre><code>json {     "key": "value" } </code></pre>   |  none |
+| <a id="param_doc_multiline-complex"></a>complex |  A parameter with some non-obvious behavior.<br><br> For example, it does things that require **multiple paragraphs** to explain.<br><br>Note: we should preserve the nested indent in the following code:<br><br><pre><code class="language-json">{&#10;    "key": "value"&#10;}</code></pre>   |  none |
 
 
 <a id="returns_a_thing"></a>

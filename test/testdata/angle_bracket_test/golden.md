@@ -29,8 +29,8 @@ Rule with \<brackets>
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="my_anglebrac-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="my_anglebrac-also_useless"></a>also_useless |  Args with some formatted tags: <code>&lt;tag&gt;</code>   | String | optional |  `"1<<5"`  |
-| <a id="my_anglebrac-useless"></a>useless |  Args with some tags: &lt;tag1&gt;, &lt;tag2&gt;   | String | optional |  `"Find \\<brackets>"`  |
+| <a id="my_anglebrac-also_useless"></a>also_useless |  Args with some formatted tags: `<tag>`   | String | optional |  `"1<<5"`  |
+| <a id="my_anglebrac-useless"></a>useless |  Args with some tags: <tag1>, <tag2>   | String | optional |  `"Find \\<brackets>"`  |
 
 
 <a id="bracketuse"></a>
@@ -48,7 +48,7 @@ Information with \<brackets>
 
 | Name  | Description |
 | :------------- | :------------- |
-| <a id="bracketuse-foo"></a>foo |  A string representing &lt;foo&gt;    |
+| <a id="bracketuse-foo"></a>foo |  A string representing <foo>    |
 | <a id="bracketuse-bar"></a>bar |  A string representing bar    |
 | <a id="bracketuse-baz"></a>baz |  A string representing baz    |
 
@@ -78,7 +78,7 @@ foo = "<thing>"
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a id="bracket_function-param"></a>param |  an arg with **formatted** docstring, <code>&lt;default&gt;</code> by default.   |  `"<default>"` |
+| <a id="bracket_function-param"></a>param |  an arg with **formatted** docstring, `<default>` by default.   |  `"<default>"` |
 | <a id="bracket_function-md_string"></a>md_string |  A markdown string.   |  ``"foo `1<<10` bar"`` |
 
 **RETURNS**
@@ -121,6 +121,6 @@ which includes angle brackets.
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="bracket_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="bracket_aspect-brackets"></a>brackets |  Attribute with \&lt;brackets&gt;   | String | optional |  `"<default>"`  |
+| <a id="bracket_aspect-brackets"></a>brackets |  Attribute with \<brackets>   | String | optional |  `"<default>"`  |
 
 
