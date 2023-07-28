@@ -37,6 +37,7 @@ def stardoc(
         repository_rule_template = Label("//stardoc:templates/markdown_tables/repository_rule.vm"),
         module_extension_template = Label("//stardoc:templates/markdown_tables/module_extension.vm"),
         use_starlark_doc_extract = True,
+        render_main_repo_name = True,
         **kwargs):
     """Generates documentation for exported starlark rule definitions in a target starlark file.
 
@@ -67,6 +68,9 @@ def stardoc(
         This template is used only when using the native `starlark_doc_extract` rule.
       module_extension_template: The input file template for generating documentation of module extensions.
         This template is used only when using the native `starlark_doc_extract` rule.
+      render_main_repo_name: Render labels in the main repository with a repo component (either
+        the module name or workspace name). This parameter is used only when using the native
+        `starlark_doc_extract` rule.
       use_starlark_doc_extract: Use the native `starlark_doc_extract` rule if available.
       **kwargs: Further arguments to pass to stardoc.
     """
@@ -96,6 +100,7 @@ def stardoc(
             name = extractor_name,
             src = input,
             deps = deps,
+            render_main_repo_name = render_main_repo_name,
             symbol_names = symbol_names,
             **(kwargs if extractor_is_main_target else auxiliary_target_kwargs)
         )
