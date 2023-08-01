@@ -43,10 +43,8 @@ MyPoorlyDocumentedInfo()
 MyVeryDocumentedInfo(<a href="#MyVeryDocumentedInfo-favorite_food">favorite_food</a>, <a href="#MyVeryDocumentedInfo-favorite_color">favorite_color</a>)
 </pre>
 
-
 A provider with some really neat documentation.
 Look on my works, ye mighty, and despair!
-
 
 **FIELDS**
 
