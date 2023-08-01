@@ -1,3 +1,88 @@
+## Release 0.6.0
+
+**New Features**
+
+-   Stardoc no longer escapes HTML tags in documentation. Feel free to
+    use HTML formatting in your docs! We now also have much-improved
+    rendering for fenced code blocks in attribute docs, and render attribute
+    default values using Markdown instead of HTML markup. (#161, #167)
+-   Stardoc now dedents and trims all doc strings - not only in macros (#170).
+    This means you can have
+
+    ```bzl
+    my_rule = rule(
+        doc = """
+        This is my rule.
+
+        Here is more info about it.
+
+        ...
+        """,
+        ...
+    )
+    ```
+
+    and Stardoc will dedent and trim the doc to
+
+    ```
+    This is my rule.
+
+    Here is more info about it.
+
+    ...
+    ```
+-   When using Bazel 7 or newer (or current Bazel HEAD), Stardoc will by
+    default use the native `starlark_doc_extract` rule internally (#166).
+
+    This means, in particular:
+    *   correct default values for rule attributes in all cases
+    *   documentation for module extensions
+    *   more complete documentation for repository rules
+    *   by default (this can be turned off via `render_main_repo_name = False`),
+        we will render labels in your main repo with a repo component: your
+        main module name (when using bzlmod) or WORKSPACE name (#168).
+
+    You may temporarily disable the new extractor by calling Stardoc with
+    `use_starlark_doc_extract = False`. However, after Bazel 7 is released,
+    we plan to remove this argument and always use the new extractor.
+
+**Incompatible Changes**
+
+-   The Markdown renderer now uses Google EscapeVelocity instead of Apache
+    Velocity for templating. The templating engines are _almost_ compatible,
+    with the exception of escapes in string literals: if in your template you
+    had a string literal with a character escape, you would need to expand it.
+
+    For example, instead of 
+
+    ```velocity
+    ${funcInfo.docString.replaceAll("\n", " ")}
+    ```
+
+    you would need
+
+    ```velocity
+    ${funcInfo.docString.replaceAll("
+    ", " ")}
+    ```
+-   When using the native `starlark_doc_extract` extractor, Stardoc requires
+    two additional templates: `repository_rule_template` and
+    `module_extension_template`. If you are using custom templates, you will
+    probably want to define these, following the examples in
+    `stardoc/templates/markdown_tables`.
+-   When using the native `starlark_doc_extract` extractor, Stardoc cannot
+    document generated .bzl files any more - because Bazel cannot `load()`
+    generated .bzl files.
+
+**Other Notable Changes**
+
+-   The Markdown renderer's source now lives in the Stardoc repo; we build the
+    renderer from source instead of using a bundled jar.
+
+**Contributors**
+
+Alexandre Rostovtsev, Fabian Meumertzheim
+
 ## Release 0.5.6 (initially tagged as 0.5.5)
 
 Bugfix release: update `@rules_java` dependency to fix breakage with Bazel at HEAD.
