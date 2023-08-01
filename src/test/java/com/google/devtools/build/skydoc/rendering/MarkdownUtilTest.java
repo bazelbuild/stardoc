@@ -47,4 +47,38 @@ public class MarkdownUtilTest {
     assertThat(MarkdownUtil.markdownCodeSpan("foo`")).isEqualTo("`` foo` ``");
     assertThat(MarkdownUtil.markdownCodeSpan("foo``")).isEqualTo("``` foo`` ```");
   }
+
+  @Test
+  public void markdownCellFormat_pipes() {
+    assertThat(MarkdownUtil.markdownCellFormat("foo|bar")).isEqualTo("foo\\|bar");
+    assertThat(MarkdownUtil.markdownCellFormat("|\\|foobar||")).isEqualTo("\\|\\\\|foobar\\|\\|");
+  }
+
+  @Test
+  public void markdownCellFormat_newlines() {
+    assertThat(MarkdownUtil.markdownCellFormat("\nfoo\nbar\n\nbaz\r\n\r\n\r\nqux\r\n"))
+        .isEqualTo("foo bar<br><br>baz<br><br>qux");
+    // Newline escapes are not expanded
+    assertThat(MarkdownUtil.markdownCellFormat("hello\\r\\nworld")).isEqualTo("hello\\r\\nworld");
+  }
+
+  @Test
+  public void markdownCellFormat_codeBlocks() {
+    assertThat(MarkdownUtil.markdownCellFormat("```\nhello();\n```"))
+        .isEqualTo("<pre><code>hello();</code></pre>");
+    assertThat(MarkdownUtil.markdownCellFormat("```\nhello();\n```\nor\n~~~\nbye();\n~~~"))
+        .isEqualTo("<pre><code>hello();</code></pre> or <pre><code>bye();</code></pre>");
+    assertThat(MarkdownUtil.markdownCellFormat("```bash\ncat foo.txt | cmd > /dev/null\n```"))
+        .isEqualTo(
+            "<pre><code class=\"language-bash\">cat foo.txt \\| cmd &gt; /dev/null</code></pre>");
+    assertThat(MarkdownUtil.markdownCellFormat("````\n```\n```\n````"))
+        .isEqualTo("<pre><code>```&#10;```</code></pre>");
+  }
+
+  @Test
+  public void markdownCellFormat_inlineMarkup() {
+    assertThat(MarkdownUtil.markdownCellFormat("<b>bold</b> <i>italic</i>"))
+        .isEqualTo("<b>bold</b> <i>italic</i>");
+    assertThat(MarkdownUtil.markdownCellFormat("**bold** _italic_")).isEqualTo("**bold** _italic_");
+  }
 }
