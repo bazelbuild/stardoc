@@ -68,8 +68,11 @@ public final class MarkdownUtil {
 
   // See https://github.github.com/gfm
   private static final class MarkdownCellFormatter {
+    // Lines of the input docstring, without "\n" or "\r\n" terminators.
     private final ImmutableList<String> lines;
+    // Index of the current line in lines, 0-based.
     int currentLine;
+    // Formatted result.
     StringBuilder result;
 
     private static final Pattern CODE_BLOCK_OPENING_FENCE =
@@ -81,6 +84,7 @@ public final class MarkdownUtil {
       result = new StringBuilder();
     }
 
+    /** Consumes the input and yields the formatted result. */
     String format() {
       boolean prefixContentWithSpace = false;
       for (; currentLine < lines.size(); currentLine++) {
@@ -102,7 +106,7 @@ public final class MarkdownUtil {
 
     /**
      * If a fenced code block begins at {@link #currentLine}, render to {@link #result}, update
-     * {@link #currentLine} to point to end of block, and return true.
+     * {@link #currentLine} to point to the closing fence, and return true.
      */
     private boolean formatFencedCodeBlock() {
       // See https://github.github.com/gfm/#fenced-code-blocks
@@ -138,7 +142,7 @@ public final class MarkdownUtil {
 
     /**
      * If blank lines appear at {@link #currentLine}, render to {@link #result}, update {@link
-     * #currentLine} to point to end of break, and return true.
+     * #currentLine} to point to the last line of the break, and return true.
      */
     private boolean formatParagraphBreak() {
       int numEmptyLines = 0;
