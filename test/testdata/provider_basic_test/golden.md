@@ -44,6 +44,7 @@ MyVeryDocumentedInfo(<a href="#MyVeryDocumentedInfo-favorite_food">favorite_food
 </pre>
 
 A provider with some really neat documentation.
+
 Look on my works, ye mighty, and despair!
 
 **FIELDS**
@@ -51,7 +52,7 @@ Look on my works, ye mighty, and despair!
 
 | Name  | Description |
 | :------------- | :------------- |
-| <a id="MyVeryDocumentedInfo-favorite_food"></a>favorite_food |  A string representing my favorite food    |
+| <a id="MyVeryDocumentedInfo-favorite_food"></a>favorite_food |  A string representing my favorite food<br><br>Expected to be delicious.    |
 | <a id="MyVeryDocumentedInfo-favorite_color"></a>favorite_color |  A string representing my favorite color    |
 
 

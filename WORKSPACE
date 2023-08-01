@@ -97,7 +97,7 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 # Needed for generating the Stardoc release binary.
 git_repository(
     name = "io_bazel",
-    commit = "c2394ca2d201bdc72887b3920680ca119d46a26e",  # 2023-05-10
+    commit = "b71b2df2b22e052f8540a23051b589c6ef870d0a",  # 2023-08-01
     remote = "https://github.com/bazelbuild/bazel.git",
 )
 
@@ -171,6 +171,17 @@ load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_
 rules_proto_dependencies()
 
 rules_proto_toolchains()
+
+# Needed as a transitive dependency of @io_bazel
+http_archive(
+    name = "blake3",
+    build_file = "@io_bazel//third_party:blake3/blake3.BUILD",
+    sha256 = "bb529ba133c0256df49139bd403c17835edbf60d2ecd6463549c6a5fe279364d",
+    strip_prefix = "BLAKE3-1.3.3",
+    urls = [
+        "https://github.com/BLAKE3-team/BLAKE3/archive/refs/tags/1.3.3.zip",
+    ],
+)
 
 ### END INTERNAL ONLY
 # protobuf_deps() must not be called before @rules_python are loaded (if they are loaded).

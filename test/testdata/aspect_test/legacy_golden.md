@@ -28,7 +28,9 @@ my_aspect_impl(<a href="#my_aspect_impl-ctx">ctx</a>)
 my_aspect(<a href="#my_aspect-name">name</a>, <a href="#my_aspect-first">first</a>, <a href="#my_aspect-second">second</a>)
 </pre>
 
-This is my aspect. It does stuff.
+This is my aspect.
+
+It does stuff.
 
 **ASPECT ATTRIBUTES**
 
