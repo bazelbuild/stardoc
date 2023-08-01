@@ -68,7 +68,7 @@ public final class MarkdownUtil {
 
   // See https://github.github.com/gfm
   private static final class MarkdownCellFormatter {
-    // Lines of the input docstring, without "\n" or "\r\n" terminators.
+    // Lines of the input docstring, without newline terminators.
     private final ImmutableList<String> lines;
     // Index of the current line in lines, 0-based.
     int currentLine;
@@ -76,7 +76,7 @@ public final class MarkdownUtil {
     StringBuilder result;
 
     private static final Pattern CODE_BLOCK_OPENING_FENCE =
-        Pattern.compile(" {0,3}(?<fence>```+|~~~+) *(?<lang>\\w*)[^`~]*");
+        Pattern.compile("^ {0,3}(?<fence>```+|~~~+) *(?<lang>\\w*)[^`~]*$");
 
     MarkdownCellFormatter(String docString) {
       lines = docString.trim().replace("|", "\\|").lines().collect(toImmutableList());
@@ -114,7 +114,7 @@ public final class MarkdownUtil {
       if (!opening.matches()) {
         return false;
       }
-      Pattern closingFence = Pattern.compile("^ {0,3}" + opening.group("fence") + " *\r?$");
+      Pattern closingFence = Pattern.compile("^ {0,3}" + opening.group("fence") + " *$");
       for (int closingLine = currentLine + 1; closingLine < lines.size(); closingLine++) {
         if (closingFence.matcher(lines.get(closingLine)).matches()) {
           // We found the closing fence: format the block's contents as HTML.
@@ -129,7 +129,7 @@ public final class MarkdownUtil {
             if (i > firstContentLine) {
               result.append(newlineEscape("\n"));
             }
-            result.append(newlineEscape(htmlEscape(lines.get(i))));
+            result.append(htmlEscape(lines.get(i)));
           }
           result.append("</code></pre>");
           currentLine = closingLine;
@@ -147,7 +147,7 @@ public final class MarkdownUtil {
     private boolean formatParagraphBreak() {
       int numEmptyLines = 0;
       for (int i = currentLine; i < lines.size(); i++) {
-        if (lines.get(i).isEmpty() || lines.get(i).equals("\r")) {
+        if (lines.get(i).isEmpty()) {
           numEmptyLines++;
         } else {
           break;
@@ -171,9 +171,9 @@ public final class MarkdownUtil {
     return docString.replace("<", "&lt;").replace(">", "&gt;");
   }
 
-  /** Returns a string that escapes newlines and carriage returns with HTML entities. */
+  /** Returns a string that escapes newlines with HTML entities. */
   private static String newlineEscape(String docString) {
-    return docString.replace("\n", "&#10;").replace("\r", "&#13;");
+    return docString.replace("\n", "&#10;");
   }
 
   private static final Pattern CONSECUTIVE_BACKTICKS = Pattern.compile("`+");
