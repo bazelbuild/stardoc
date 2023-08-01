@@ -81,7 +81,7 @@ public final class RendererMain {
               rendererOptions.aspectTemplateFilePath,
               rendererOptions.repositoryRuleTemplateFilePath,
               rendererOptions.moduleExtensionTemplateFilePath,
-              moduleInfo.getFile() != null ? moduleInfo.getFile() : "...");
+              !moduleInfo.getFile().isEmpty() ? moduleInfo.getFile() : "...");
 
       printWriter.println(renderer.renderMarkdownHeader(moduleInfo));
       printRuleInfos(printWriter, renderer, moduleInfo.getRuleInfoList());
