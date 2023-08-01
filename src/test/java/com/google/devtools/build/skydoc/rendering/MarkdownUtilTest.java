@@ -58,6 +58,8 @@ public class MarkdownUtilTest {
   public void markdownCellFormat_newlines() {
     assertThat(MarkdownUtil.markdownCellFormat("\nfoo\nbar\n\nbaz\r\n\r\n\r\nqux\r\n"))
         .isEqualTo("foo bar<br><br>baz<br><br>qux");
+    // Newline escapes are not expanded
+    assertThat(MarkdownUtil.markdownCellFormat("hello\\r\\nworld")).isEqualTo("hello\\r\\nworld");
   }
 
   @Test
