@@ -72,11 +72,11 @@ public final class MarkdownUtil {
     int currentLine;
     StringBuilder result;
 
-    private static Pattern CODE_BLOCK_OPENING_FENCE =
-        Pattern.compile(" {0,3}(?<fence>```+|~~~+) *(?<lang>\\w*)[^`~\r\n]*\r?");
+    private static final Pattern CODE_BLOCK_OPENING_FENCE =
+        Pattern.compile(" {0,3}(?<fence>```+|~~~+) *(?<lang>\\w*)[^`~]*");
 
     MarkdownCellFormatter(String docString) {
-      lines = ImmutableList.copyOf(docString.trim().replace("|", "\\|").split("\r?\n"));
+      lines = docString.trim().replace("|", "\\|").lines().collect(toImmutableList());
       currentLine = 0;
       result = new StringBuilder();
     }
@@ -152,27 +152,6 @@ public final class MarkdownUtil {
       if (numEmptyLines > 0) {
         result.append("<br><br>");
         currentLine += numEmptyLines - 1;
-        return true;
-      }
-      return false;
-    }
-
-    /**
-     * If a paragraph break begins at {@link #currentLine}, render it to {@link #result}, update
-     * {@link #currentLine} to point to end of break, and return true.
-     */
-    private boolean renderParagraphBreak() {
-      int numBlankLines = 0;
-      for (int i = currentLine; i < lines.size(); i++) {
-        if (lines.get(i).isEmpty() || lines.get(i).equals("\r")) {
-          numBlankLines++;
-        } else {
-          break;
-        }
-      }
-      if (numBlankLines >= 2) {
-        result.append("<br><br>");
-        currentLine = currentLine + numBlankLines;
         return true;
       }
       return false;
