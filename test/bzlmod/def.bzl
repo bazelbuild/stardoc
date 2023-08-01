@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""A simple macro used to test stardoc."""
+"""A simple .bzl file used to test stardoc."""
 
+load("@my_skylib//rules:copy_file.bzl", "copy_file")
 load("@my_skylib//rules:write_file.bzl", "write_file")
 load("@local_config_platform//:constraints.bzl", "HOST_CONSTRAINTS")
 
@@ -28,4 +29,18 @@ def write_host_constraints(name):
         name = name,
         content = HOST_CONSTRAINTS,
         out = name + ".txt",
+    )
+
+def copy_host_constraints(name, src = Label("//:host_constraints")):
+    """Copies the host constraints file.
+
+    Args:
+      name: The name of the target. The output file will be named
+        `<name>.txt`.
+      src: File to copy.
+    """
+    copy_file(
+        name = name,
+        out = name + ".txt",
+        src = src,
     )
