@@ -1,21 +1,21 @@
 
-Ä
+Õ
 
 my_exampleSmall example of rule.*
 nameA unique name for this target. 7
 uselessThis argument will be ignored.2
-"ignoreme""9
+"ignoreme""J
 
-my_example+//test:testdata/proto_format_test/input.bzlÍ
+my_example<@io_bazel_stardoc//test:testdata/proto_format_test/input.bzlÞ
 example$Stores information about an example. 
 fooA string representing foo 
 barA string representing bar 
-bazA string representing baz"6
-example+//test:testdata/proto_format_test/input.bzl…
+bazA string representing baz"G
+example<@io_bazel_stardoc//test:testdata/proto_format_test/input.bzl–
 check_function%
 fooA unique name for this rule. ŒRuns some checks on the given function parameter.
 
 This rule runs checks on a given function parameter.
 Use `bazel build` to run the check.
-2=
-check_function+//test:testdata/proto_format_test/input.bzl* Input file for proto format test2+//test:testdata/proto_format_test/input.bzl
+2N
+check_function<@io_bazel_stardoc//test:testdata/proto_format_test/input.bzl* Input file for proto format test2<@io_bazel_stardoc//test:testdata/proto_format_test/input.bzl

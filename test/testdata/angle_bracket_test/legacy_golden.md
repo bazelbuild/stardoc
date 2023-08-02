@@ -12,7 +12,6 @@ the backslash itself must be escaped for use in a Starlark docstring
 (`\\<` becomes \<), or by using HTML entities (`&lt;` becomes &lt;).
 Angle brackets are also preserved in inline code blocks (`#include <vector>`).
 
-
 <a id="my_anglebrac"></a>
 
 ## my_anglebrac
@@ -105,7 +104,6 @@ Sometimes, we want a code block like
 foo = "<brackets>"
 ```
 which includes angle brackets.
-
 
 **ASPECT ATTRIBUTES**
 
