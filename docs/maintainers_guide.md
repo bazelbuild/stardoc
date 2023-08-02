@@ -16,7 +16,11 @@ To update the jar:
 
 ## Making a New Release
 
-1.  Update CHANGELOG.md at the top. You may want to use the following template:
+1.  Verify tests. Verify that dependencies are consistent between `setup.bzl` +
+    `WORKSPACE` and `MODULE.bazel` (but note that `MODULE.bazel` does not
+    include dependencies on `io_bazel` and its transitive deps).
+2.  Update `CHANGELOG.md` at the top. You may want to use the following \
+    template:
 
 --------------------------------------------------------------------------------
 
@@ -38,22 +42,26 @@ Name 1, Name 2, Name 3 (alphabetically)
 
 --------------------------------------------------------------------------------
 
-2.  Bump `version` in version.bzl to the new version.
-3.  Ensure that the commits for steps 1 and 2 have been merged. All further
-    steps must be performed on a single, known-good git commit.
-4.  `bazel build //distro`
-5.  Copy the `stardoc-$VERSION.tar.gz` tarball to the mirror (you'll need Bazel
+3.  Bump `version` in `version.bzl` *and* `MODULE.bazel` to the new version.
+4.  Ensure that the commits for steps 1-3 have been merged. All further steps
+    must be performed on a single, known-good git commit.
+5.  `bazel build //distro`
+6.  Copy the `stardoc-$VERSION.tar.gz` tarball to the mirror (you'll need Bazel
     developer gcloud credentials; assuming you are a Bazel developer, you can
     obtain them via `gcloud init`):
 
-```
-gsutil cp bazel-bin/distro/stardoc-$VERSION.tar.gz gs://bazel-mirror/github.com/bazelbuild/stardoc/releases/download/$VERSION/stardoc-$VERSION.tar.gz
-gsutil setmeta -h "Cache-Control: public, max-age=31536000" "gs://bazel-mirror/github.com/bazelbuild/stardoc/releases/download/$VERSION/stardoc-$VERSION.tar.gz"
-```
+    ```bash
+    gsutil cp bazel-bin/distro/stardoc-$VERSION.tar.gz gs://bazel-mirror/github.com/bazelbuild/stardoc/releases/download/$VERSION/stardoc-$VERSION.tar.gz
+    gsutil setmeta -h "Cache-Control: public, max-age=31536000" "gs://bazel-mirror/github.com/bazelbuild/stardoc/releases/download/$VERSION/stardoc-$VERSION.tar.gz"
+    ```
 
-6.  Run `sha256sum bazel-bin/distro/stardoc-$VERSION.tar.gz`; you'll need the
-    checksum for the release notes.
-7.  Draft a new release with a new tag named $VERSION in github. Attach
+7.  Obtain checksum for release notes:
+
+    ```bash
+    sha256sum bazel-bin/distro/stardoc-$VERSION.tar.gz
+    ```
+
+8.  Draft a new release with a new tag named $VERSION in github. Attach
     `stardoc-$VERSION.tar.gz` to the release. For the release notes, use the
     CHANGELOG.md entry plus the following template:
 
@@ -63,7 +71,7 @@ gsutil setmeta -h "Cache-Control: public, max-age=31536000" "gs://bazel-mirror/g
 
 To use Stardoc, add the following to your `WORKSPACE` file:
 
-```
+```starlark
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
@@ -89,3 +97,40 @@ See [the source](https://github.com/bazelbuild/stardoc/tree/$VERSION).
 
 --------------------------------------------------------------------------------
 
+9.  Obtain [Subresource Integrity](https://w3c.github.io/webappsec-subresource-integrity/#integrity-metadata-description)
+    format checksum for bzlmod:
+
+```bash
+echo -n sha256-; cat bazel-bin/distro/stardoc-$VERSION.tar.gz | openssl dgst -sha256 -binary | base64
+```
+
+10. Create a PR at [Bazel Central Registry](https://github.com/bazelbuild/bazel-central-registry)
+    to update the registry's versions of bazel_skylib and
+    bazel_skylib_gazelle_plugin.
+
+    Use https://github.com/bazelbuild/bazel-central-registry/pull/677 as the
+    model; you will need to update `modules/stardoc/metadata.json` to list the
+    new version in `versions`, and create new $VERSION subdirectories for the
+    updated module, using the latest existing version subdirectories as the
+    guide. Use Subresource Integrity checksums obtained above in the new
+    `source.json` file.
+
+    Ensure that the `MODULE.bazel` file you add in the new $VERSION
+    subdirectory exactly matches the `MODULE.bazel` file packaged in the
+    stardoc-$VERSION.tar.gz tarball - or buildkite checks will fail.
+
+11. Once the Bazel Central Registry PR is merged, insert in the release
+    description after the `WORKSPACE` setup section:
+
+--------------------------------------------------------------------------------
+
+**MODULE.bazel setup**
+
+```starlark
+bazel_dep(name = "stardoc", version = "$VERSION")
+```
+
+For compatibility with `WORKSPACE` setup, add `repo_name = "io_bazel_stardoc"`
+to the `bazel_dep` call.
+
+--------------------------------------------------------------------------------
