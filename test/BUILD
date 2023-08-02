@@ -1,20 +1,14 @@
-load(":stardoc_test.bzl", "stardoc_test")
+load(":stardoc_test.bzl", "self_gen_test", "stardoc_test")
 
 package(default_applicable_licenses = ["//:license"])
 
 licenses(["notice"])  # Apache 2.0
 
-sh_test(
+self_gen_test(
     name = "stardoc_self_gen_test",
-    srcs = ["diff_test_runner.sh"],
-    args = [
-        "$(location //stardoc:stardoc_doc.md)",
-        "$(location //:stardoc_rule_doc)",
-    ],
-    data = [
-        "//:stardoc_rule_doc",
-        "//stardoc:stardoc_doc.md",
-    ],
+    golden_file = "//stardoc:stardoc_doc.md",
+    require_starlark_doc_extract = True,
+    stardoc_doc = "//:stardoc_rule_doc",
 )
 
 exports_files(["testdata/fakedeps/dep.bzl"])
