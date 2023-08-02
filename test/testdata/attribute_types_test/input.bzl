@@ -6,7 +6,11 @@ def my_rule_impl(ctx):
 
 my_rule = rule(
     implementation = my_rule_impl,
-    doc = "This is my rule. It does stuff.",
+    doc = """
+    This is my rule.
+
+    It does stuff.
+    """,
     attrs = {
         "a": attr.bool(mandatory = True, doc = "Some bool"),
         "b": attr.int(mandatory = True, doc = "Some int"),
