@@ -12,17 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Repository external dependency resolution functions."""
+"""WORKSPACE prerequisites for Stardoc."""
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
-def _include_if_not_defined(repo_rule, name, **kwargs):
-    if not native.existing_rule(name):
-        repo_rule(name = name, **kwargs)
+load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
 def stardoc_repositories():
-    """Adds the external repositories used by the Starlark rules."""
-    _include_if_not_defined(
+    """Adds the external repositories for rules used by Stardoc."""
+    maybe(
         http_archive,
         name = "bazel_skylib",
         urls = [
@@ -31,7 +28,19 @@ def stardoc_repositories():
         ],
         sha256 = "66ffd9315665bfaafc96b52278f57c7e2dd09f5ede279ea6d39b2be471e7e3aa",
     )
-    _include_if_not_defined(
+
+    maybe(
+        http_archive,
+        name = "com_google_protobuf",
+        sha256 = "75be42bd736f4df6d702a0e4e4d30de9ee40eac024c4b845d17ae4cc831fe4ae",
+        strip_prefix = "protobuf-21.7",
+        urls = [
+            "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/archive/v21.7.tar.gz",
+            "https://github.com/protocolbuffers/protobuf/archive/v21.7.tar.gz",
+        ],
+    )
+
+    maybe(
         http_archive,
         name = "rules_java",
         urls = [
@@ -40,7 +49,20 @@ def stardoc_repositories():
         ],
         sha256 = "76402a50ae6859d50bd7aed8c1b8ef09dae5c1035bb3ca7d276f7f3ce659818a",
     )
-    _include_if_not_defined(
+
+    RULES_JVM_EXTERNAL_TAG = "4.5"
+    RULES_JVM_EXTERNAL_SHA = "b17d7388feb9bfa7f2fa09031b32707df529f26c91ab9e5d909eb1676badd9a6"
+    maybe(
+        http_archive,
+        name = "rules_jvm_external",
+        patch_args = ["-p1"],
+        patches = ["@io_bazel_stardoc//:rules_jvm_external.patch"],
+        sha256 = RULES_JVM_EXTERNAL_SHA,
+        strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+        url = "https://github.com/bazelbuild/rules_jvm_external/archive/refs/tags/%s.zip" % RULES_JVM_EXTERNAL_TAG,
+    )
+
+    maybe(
         http_archive,
         name = "rules_license",
         urls = [
@@ -48,4 +70,26 @@ def stardoc_repositories():
             "https://github.com/bazelbuild/rules_license/releases/download/0.0.7/rules_license-0.0.7.tar.gz",
         ],
         sha256 = "4531deccb913639c30e5c7512a054d5d875698daeb75d8cf90f284375fe7c360",
+    )
+
+    # Transitive dep of com_google_protobuf. Unfortunately, protobuf_deps()
+    # pulls in a dep that's too old.
+    maybe(
+        http_archive,
+        name = "rules_proto",
+        sha256 = "dc3fb206a2cb3441b485eb1e423165b231235a1ea9b031b4433cf7bc1fa460dd",
+        strip_prefix = "rules_proto-5.3.0-21.7",
+        urls = [
+            "https://github.com/bazelbuild/rules_proto/archive/refs/tags/5.3.0-21.7.tar.gz",
+        ],
+    )
+
+    # Transitive dep of com_google_protobuf. Unfortunately, protobuf_deps()
+    # pulls in a dep that's too old.
+    maybe(
+        http_archive,
+        name = "rules_python",
+        sha256 = "a644da969b6824cc87f8fe7b18101a8a6c57da5db39caa6566ec6109f37d2141",
+        strip_prefix = "rules_python-0.20.0",
+        url = "https://github.com/bazelbuild/rules_python/releases/download/0.20.0/rules_python-0.20.0.tar.gz",
     )

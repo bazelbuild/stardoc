@@ -21,7 +21,7 @@ java_library(
     ),
     deps = [
         "//stardoc/proto:stardoc_output_java_proto",
-        "@maven//:com_google_escapevelocity_escapevelocity",
-        "@maven//:com_google_guava_guava",
+        "@stardoc_maven//:com_google_escapevelocity_escapevelocity",
+        "@stardoc_maven//:com_google_guava_guava",
     ],
 )

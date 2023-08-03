@@ -21,7 +21,7 @@ java_test(
     srcs = ["MarkdownUtilTest.java"],
     deps = [
         "//src/main/java/com/google/devtools/build/skydoc/rendering",
-        "@maven//:com_google_truth_truth",
-        "@maven//:junit_junit",
+        "@stardoc_maven//:com_google_truth_truth",
+        "@stardoc_maven//:junit_junit",
     ],
 )

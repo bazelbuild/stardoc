@@ -39,7 +39,7 @@ java_library(
         "//src/main/java/com/google/devtools/build/skydoc/rendering",
         "//stardoc/proto:stardoc_output_java_proto",
         "@com_google_protobuf//:protobuf_java",
-        "@maven//:com_beust_jcommander",
-        "@maven//:com_google_guava_guava",
+        "@stardoc_maven//:com_beust_jcommander",
+        "@stardoc_maven//:com_google_guava_guava",
     ],
 )
