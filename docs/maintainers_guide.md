@@ -104,8 +104,10 @@ load("@stardoc_maven//:defs.bzl", stardoc_pinned_maven_install = "pinned_maven_i
 stardoc_pinned_maven_install()
 ```
 
-The load statements and function calls after the `io_bazel_stardoc` repository
-definition ensure that this repository's dependencies are loaded.
+The sequence of function calls and load statements after the `io_bazel_stardoc`
+repository definition ensure that this repository's dependencies are loaded
+(each function call defines additional repositories for Stardoc's dependencies,
+which are then used by subsequent load statements).
 
 **Using the rules**
 
