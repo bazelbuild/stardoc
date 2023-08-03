@@ -53,7 +53,7 @@
     with the exception of escapes in string literals: if in your template you
     had a string literal with a character escape, you would need to expand it.
 
-    For example, instead of 
+    For example, instead of
 
     ```velocity
     ${funcInfo.docString.replaceAll("\n", " ")}
