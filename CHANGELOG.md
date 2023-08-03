@@ -77,7 +77,9 @@
 **Other Notable Changes**
 
 -   The Markdown renderer's source now lives in the Stardoc repo; we build the
-    renderer from source instead of using a bundled jar.
+    renderer from source instead of using a bundled jar. Unfortunately, if you
+    are not using bzlmod, this requires a rather complicated WORKSPACE setup;
+    see https://github.com/bazelbuild/stardoc/releases/tag/0.6.0
 
 **Contributors**
 
