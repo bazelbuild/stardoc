@@ -143,32 +143,29 @@ _common_renderer_attrs = {
     ),
 }
 
-stardoc = rule(
-    _stardoc_impl,
-    doc = """
-Generates documentation for starlark skylark rule definitions in a target starlark file.
-""",
-    attrs = {
-        "input": attr.label(
-            doc = "The starlark file to generate documentation for.",
-            allow_single_file = [".bzl"],
-            mandatory = True,
-        ),
-        "format": attr.string(
-            doc = "The format of the output file. Valid values: 'markdown' or 'proto'.",
-            values = ["markdown", "proto"],
-            mandatory = True,
-        ),
-        "symbol_names": attr.string_list(
-            doc = """
+# TODO(arostovtsev): replace with ... attrs = { ... } | _common_renderer_attrs
+# in rule definition below after we drop support for Bazel 5.
+_stardoc_attrs = {
+    "input": attr.label(
+        doc = "The starlark file to generate documentation for.",
+        allow_single_file = [".bzl"],
+        mandatory = True,
+    ),
+    "format": attr.string(
+        doc = "The format of the output file. Valid values: 'markdown' or 'proto'.",
+        values = ["markdown", "proto"],
+        mandatory = True,
+    ),
+    "symbol_names": attr.string_list(
+        doc = """
 A list of symbol names to generate documentation for. These should correspond to
 the names of rule definitions in the input file. If this list is empty, then
 documentation for all exported rule definitions will be generated.
 """,
-            mandatory = True,
-        ),
-        "semantic_flags": attr.string_list(
-            doc = """
+        mandatory = True,
+    ),
+    "semantic_flags": attr.string_list(
+        doc = """
 A list of canonical flags to affect Starlark semantics for the Starlark interpretter
 during documentation generation. This should only be used to maintain compatibility with
 non-default semantic flags required to use the given Starlark symbols.
@@ -177,16 +174,24 @@ For example, if `//foo:bar.bzl` does not build except when a user would specify
 `--incompatible_foo_semantic=false`, then this attribute should contain
 "--incompatible_foo_semantic=false".
 """,
-            mandatory = True,
-        ),
-        "stardoc": attr.label(
-            doc = "The location of the stardoc tool.",
-            allow_files = True,
-            cfg = "exec",
-            executable = True,
-            mandatory = True,
-        ),
-    } | _common_renderer_attrs,
+        mandatory = True,
+    ),
+    "stardoc": attr.label(
+        doc = "The location of the stardoc tool.",
+        allow_files = True,
+        cfg = "exec",
+        executable = True,
+        mandatory = True,
+    ),
+}
+_stardoc_attrs.update(_common_renderer_attrs.items())
+
+stardoc = rule(
+    _stardoc_impl,
+    doc = """
+Generates documentation for starlark skylark rule definitions in a target starlark file.
+""",
+    attrs = _stardoc_attrs,
 )
 
 def _stardoc_markdown_renderer_impl(ctx):
@@ -199,16 +204,21 @@ def _stardoc_markdown_renderer_impl(ctx):
     outputs = [out_file]
     return [DefaultInfo(files = depset(outputs), runfiles = ctx.runfiles(files = outputs))]
 
+# TODO(arostovtsev): replace with ... attrs = { ... } | _common_renderer_attrs
+# in rule definition below after we drop support for Bazel 5.
+_stardoc_markdown_renderer_attrs = {
+    "src": attr.label(
+        doc = "The .binaryproto file from which to generate documentation.",
+        allow_single_file = [".binaryproto"],
+        mandatory = True,
+    ),
+}
+_stardoc_markdown_renderer_attrs.update(_common_renderer_attrs.items())
+
 stardoc_markdown_renderer = rule(
     _stardoc_markdown_renderer_impl,
     doc = """
 Generates markdown documentation for starlark rule definitions from the corresponding binary proto.
 """,
-    attrs = {
-        "src": attr.label(
-            doc = "The .binaryproto file from which to generate documentation.",
-            allow_single_file = [".binaryproto"],
-            mandatory = True,
-        ),
-    } | _common_renderer_attrs,
+    attrs = _stardoc_markdown_renderer_attrs,
 )
