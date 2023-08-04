@@ -1,3 +1,16 @@
+## Release 0.6.1
+
+Bugfix release: fix `rules_jvm_external` pin warnings.
+
+This release temporarily restores compatibility with Bazel 5 (manually tested).
+Note that normally we only test Stardoc with the current stable Bazel and with
+Bazel at HEAD - not with older releases. We make no promises about maintaining
+compatibility with Bazel 5.
+
+**Contributors**
+
+Alexandre Rostovtsev
+
 ## Release 0.6.0
 
 **New Features**
