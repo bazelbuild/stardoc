@@ -1,4 +1,5 @@
 load(":stardoc_test.bzl", "self_gen_test", "stardoc_test")
+load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
 
 package(default_applicable_licenses = ["//:license"])
 
@@ -280,4 +281,52 @@ sh_test(
         "@local_repository_test//:golden.md",
         "@local_repository_test//:output.md",
     ],
+)
+
+# Consistency tests for WORKSPACE-related .bzl files vs. MODULE.bazel
+
+genrule(
+    name = "stardoc_maven_artifacts_in_deps_bzl",
+    srcs = ["//:deps.bzl"],
+    outs = ["stardoc_maven_artifacts_in_deps_bzl.txt"],
+    # Remove all lines except those from 'STARDOC_MAVEN_ARTIFACTS = [' to next ']'
+    cmd = "sed -e '/STARDOC_MAVEN_ARTIFACTS = \\[/,/\\]/!d' $< >$@",
+)
+
+genrule(
+    name = "stardoc_maven_artifacts_in_module_bazel",
+    srcs = ["//:MODULE.bazel"],
+    outs = ["stardoc_maven_artifacts_in_module_bazel.txt"],
+    # Remove all lines except those from 'STARDOC_MAVEN_ARTIFACTS = [' to next ']'
+    cmd = "sed -e '/STARDOC_MAVEN_ARTIFACTS = \\[/,/\\]/!d' $< >$@",
+)
+
+diff_test(
+    name = "stardoc_maven_artifacts_consistency_test",
+    failure_message = "STARDOC_MAVEN_ARTIFACTS in deps.bzl and MODULE.bazel are inconsistent",
+    file1 = "stardoc_maven_artifacts_in_deps_bzl",
+    file2 = "stardoc_maven_artifacts_in_module_bazel",
+)
+
+genrule(
+    name = "stardoc_version_in_version_bzl",
+    srcs = ["//:version.bzl"],
+    outs = ["stardoc_version_in_version_bzl.txt"],
+    # Find first line starting containing 'version = ' and extract the string value
+    cmd = "grep -m 1 'version = ' $< | sed -e 's/.*version = \\(\".*\"\\).*/\\1/' >$@",
+)
+
+genrule(
+    name = "stardoc_version_in_module_bazel",
+    srcs = ["//:MODULE.bazel"],
+    outs = ["stardoc_version_in_module_bazel.txt"],
+    # Find first line starting containing 'version = ' and extract the string value
+    cmd = "grep -m 1 'version = ' $< | sed -e 's/.*version = \\(\".*\"\\).*/\\1/' >$@",
+)
+
+diff_test(
+    name = "stardoc_version_consistency_test",
+    failure_message = "version in version.bzl and MODULE.bazel is inconsistent",
+    file1 = "stardoc_version_in_version_bzl",
+    file2 = "stardoc_version_in_module_bazel",
 )

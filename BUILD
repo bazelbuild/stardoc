@@ -10,10 +10,17 @@ license(
 
 licenses(["notice"])
 
-exports_files([
-    "LICENSE",
-    "WORKSPACE",
-])
+# Inputs for distro transformations and consistency tests.
+exports_files(
+    [
+        "LICENSE",
+        "WORKSPACE",
+        "MODULE.bazel",
+        "deps.bzl",
+        "version.bzl",
+    ],
+    visibility = ["//:__subpackages__"],
+)
 
 filegroup(
     name = "stardoc_rule_doc",
