@@ -17,7 +17,7 @@
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 
-# Maven artifacts required by Stardoc
+# Maven artifacts required by Stardoc; keep consistent with MODULE.bazel
 STARDOC_MAVEN_ARTIFACTS = [
     "com.beust:jcommander:1.82",
     "com.google.escapevelocity:escapevelocity:1.1",
