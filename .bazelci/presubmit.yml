@@ -10,6 +10,8 @@ tasks:
   build_and_test:
     name: Build and test
     platform: ${{ platform }}
+    build_flags:
+      - "--incompatible_disable_starlark_host_transitions"
     build_targets:
       - "//..."
     test_targets:
@@ -19,6 +21,8 @@ tasks:
     name: Build and test - last green
     platform: ${{ platform }}
     bazel: last_green
+    build_flags:
+      - "--incompatible_disable_starlark_host_transitions"
     build_targets:
       - "//..."
     test_targets:
@@ -28,6 +32,9 @@ tasks:
     name: Bzlmod example
     platform: ${{ platform }}
     working_directory: test/bzlmod
+    build_flags:
+      - "--incompatible_disable_starlark_host_transitions"
+      - "--enable_bzlmod"
     build_targets:
       - "//..."
     test_targets:
