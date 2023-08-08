@@ -16,7 +16,7 @@ tasks:
     test_targets:
       - "//..."
 
-  build_and_test:
+  build_and_test_windows:
     name: Build and test - Windows
     platform: windows
     environment:
@@ -31,7 +31,7 @@ tasks:
       - "//..."
 
   build_and_test_last_green:
-    name: Build and test - last green
+    name: Build and test - Bazel last green
     platform: ${{ platform }}
     bazel: last_green
     build_flags:
@@ -41,8 +41,8 @@ tasks:
     test_targets:
       - "//..."
 
-  build_and_test_last_green:
-    name: Build and test - last green - Windows
+  build_and_test_last_green_windows:
+    name: Build and test - Bazel last green - Windows
     platform: windows
     bazel: last_green
     environment:
@@ -68,7 +68,7 @@ tasks:
     test_targets:
       - "//..."
 
-  bzlmod:
+  bzlmod_windows:
     name: Bzlmod example - Windows
     platform: windows
     working_directory: test/bzlmod
