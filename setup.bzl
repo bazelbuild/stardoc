@@ -44,10 +44,10 @@ def stardoc_repositories():
         http_archive,
         name = "rules_java",
         urls = [
-            "https://mirror.bazel.build/github.com/bazelbuild/rules_java/releases/download/6.1.1/rules_java-6.1.1.tar.gz",
-            "https://github.com/bazelbuild/rules_java/releases/download/6.1.1/rules_java-6.1.1.tar.gz",
+            "https://mirror.bazel.build/github.com/bazelbuild/rules_java/releases/download/6.3.0/rules_java-6.3.0.tar.gz",
+            "https://github.com/bazelbuild/rules_java/releases/download/6.3.0/rules_java-6.3.0.tar.gz",
         ],
-        sha256 = "76402a50ae6859d50bd7aed8c1b8ef09dae5c1035bb3ca7d276f7f3ce659818a",
+        sha256 = "29ba147c583aaf5d211686029842c5278e12aaea86f66bd4a9eb5e525b7f2701",
     )
 
     RULES_JVM_EXTERNAL_TAG = "5.2"
