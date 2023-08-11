@@ -1,3 +1,12 @@
+## Release 0.6.2
+
+Bugfix release: bumps `rules_jvm_external` dependency to support building with
+`--incompatible_disable_starlark_host_transitions`
+
+**Contributors**
+
+Alexandre Rostovtsev
+
 ## Release 0.6.1
 
 Bugfix release: fix `rules_jvm_external` pin warnings.
