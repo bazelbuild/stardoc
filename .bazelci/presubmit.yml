@@ -4,6 +4,7 @@ matrix:
     - ubuntu1804
     - ubuntu2004
     - macos
+    - windows
 
 tasks:
   build_and_test:
@@ -13,20 +14,8 @@ tasks:
       - "--incompatible_disable_starlark_host_transitions"
     build_targets:
       - "//..."
-    test_targets:
-      - "//..."
-
-  build_and_test_windows:
-    name: Build and test - Windows
-    platform: windows
-    environment:
-      # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012
-      # when using --incompatible_disable_starlark_host_transitions on Windows
-      BAZELISK_SHUTDOWN: "1"
-    build_flags:
+    test_flags:
       - "--incompatible_disable_starlark_host_transitions"
-    build_targets:
-      - "//..."
     test_targets:
       - "//..."
 
@@ -38,21 +27,8 @@ tasks:
       - "--incompatible_disable_starlark_host_transitions"
     build_targets:
       - "//..."
-    test_targets:
-      - "//..."
-
-  build_and_test_last_green_windows:
-    name: Build and test - Bazel last green - Windows
-    platform: windows
-    bazel: last_green
-    environment:
-      # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012
-      # when using --incompatible_disable_starlark_host_transitions on Windows
-      BAZELISK_SHUTDOWN: "1"
-    build_flags:
+    test_flags:
       - "--incompatible_disable_starlark_host_transitions"
-    build_targets:
-      - "//..."
     test_targets:
       - "//..."
 
@@ -65,22 +41,9 @@ tasks:
       - "--enable_bzlmod"
     build_targets:
       - "//..."
-    test_targets:
-      - "//..."
-
-  bzlmod_windows:
-    name: Bzlmod example - Windows
-    platform: windows
-    working_directory: test/bzlmod
-    environment:
-      # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012
-      # when using --incompatible_disable_starlark_host_transitions on Windows
-      BAZELISK_SHUTDOWN: "1"
-    build_flags:
+    test_flags:
       - "--incompatible_disable_starlark_host_transitions"
       - "--enable_bzlmod"
-    build_targets:
-      - "//..."
     test_targets:
       - "//..."
 
