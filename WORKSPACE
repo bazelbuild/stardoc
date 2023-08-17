@@ -32,6 +32,10 @@ git_repository(
     name = "io_bazel",
     commit = "1f15b87b6cf0474ade552284db70b42606f0e3ba",  # 2023-08-07
     remote = "https://github.com/bazelbuild/bazel.git",
+    patch_cmds = [
+        # Used by update-release-binary.sh for vendoring files from @io_bazel
+        "git log -n 1 --format=%H > .io_bazel.sha",
+    ]
 )
 
 load("@rules_jvm_external//:defs.bzl", "maven_install")
