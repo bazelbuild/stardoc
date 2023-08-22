@@ -5,10 +5,10 @@ matrix:
     - ubuntu2004
     - macos
 
-.common_flags: &common_flags
+.common_flags: !!set &common_flags
   ? "--incompatible_disable_starlark_host_transitions"
 
-.common_windows_flags: &common_windows_flags
+.common_windows_flags: !!set &common_windows_flags
   <<: *common_flags
   # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012
   ? "--noexperimental_repository_cache_hardlinks"
@@ -54,10 +54,10 @@ tasks:
     name: Bzlmod example
     platform: ${{ platform }}
     working_directory: test/bzlmod
-    build_flags:
+    build_flags: !!set
       <<: *common_flags
       ? "--enable_bzlmod"
-    test_flags:
+    test_flags: !!set
       <<: *common_flags
       ? "--enable_bzlmod"
 
@@ -66,10 +66,10 @@ tasks:
     name: Bzlmod example - Windows
     platform: windows
     working_directory: test/bzlmod
-    build_flags:
+    build_flags: !!set
       <<: *common_windows_flags
       ? "--enable_bzlmod"
-    test_flags:
+    test_flags: !!set
       <<: *common_windows_flags
       ? "--enable_bzlmod"
 
