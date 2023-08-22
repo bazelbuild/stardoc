@@ -5,75 +5,82 @@ matrix:
     - ubuntu2004
     - macos
 
+# Simplify these after https://github.com/bazelbuild/continuous-integration/pull/1727 is merged
+
+.common_flags: &common_flags
+  - "--incompatible_disable_starlark_host_transitions"
+
+.bzlmod_flags: &bzlmod_flags
+  - "--incompatible_disable_starlark_host_transitions"
+  - "--enable_bzlmod"
+
+.windows_flags: &windows_flags
+  - "--incompatible_disable_starlark_host_transitions"
+  # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012
+  - "--noexperimental_repository_cache_hardlinks"
+
+.windows_bzlmod_flags: &windows_bzlmod_flags
+  - "--incompatible_disable_starlark_host_transitions"
+  - "--enable_bzlmod"
+  # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012
+  - "--noexperimental_repository_cache_hardlinks"
+
+.common_task_config: &common_task_config
+  build_flags: *common_flags
+  build_targets:
+    - "//..."
+  test_flags: *common_flags
+  test_targets:
+    - "//..."
+
+.bzlmod_task_config: &bzlmod_task_config
+  <<: *common_task_config
+  build_flags: *common_bzlmod_flags
+  test_flags: *common_bzlmod_flags
+
+.windows_task_config: &windows_task_config
+  <<: *common_task_config
+  build_flags: *windows_flags
+  test_flags: *windows_flags
+
+.windows_bzlmod_task_config: &windows_bzlmod_task_config
+  <<: *common_task_config
+  build_flags: *windows_bzlmod_flags
+  test_flags: *windows_bzlmod_flags
+
 tasks:
   build_and_test:
+    <<: *common_task_config
     name: Build and test
     platform: ${{ platform }}
-    build_flags:
-      - "--incompatible_disable_starlark_host_transitions"
-    build_targets:
-      - "//..."
-    test_targets:
-      - "//..."
 
   build_and_test_windows:
+    <<: *windows_task_config
     name: Build and test - Windows
     platform: windows
-    build_flags:
-      - "--incompatible_disable_starlark_host_transitions"
-      # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012
-      - "--noexperimental_repository_cache_hardlinks"
-    build_targets:
-      - "//..."
-    test_targets:
-      - "//..."
 
   build_and_test_last_green:
+    <<: *common_task_config
     name: Build and test - Bazel last green
     platform: ${{ platform }}
     bazel: last_green
-    build_flags:
-      - "--incompatible_disable_starlark_host_transitions"
-    build_targets:
-      - "//..."
-    test_targets:
-      - "//..."
 
   build_and_test_last_green_windows:
+    <<: *windows_task_config
     name: Build and test - Bazel last green - Windows
     platform: windows
     bazel: last_green
-    build_flags:
-      - "--incompatible_disable_starlark_host_transitions"
-      # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012
-      - "--noexperimental_repository_cache_hardlinks"
-    build_targets:
-      - "//..."
-    test_targets:
-      - "//..."
 
   bzlmod:
+    <<: *bzlmod_task_config
     name: Bzlmod example
     platform: ${{ platform }}
     working_directory: test/bzlmod
-    build_flags:
-      - "--incompatible_disable_starlark_host_transitions"
-      - "--enable_bzlmod"
-    build_targets:
-      - "//..."
-    test_targets:
-      - "//..."
 
   bzlmod_windows:
+    <<: *windows_bzlmod_task_config
     name: Bzlmod example - Windows
     platform: windows
     working_directory: test/bzlmod
-    build_flags:
-      - "--incompatible_disable_starlark_host_transitions"
-      - "--enable_bzlmod"
-    build_targets:
-      - "//..."
-    test_targets:
-      - "//..."
 
 buildifier: latest
