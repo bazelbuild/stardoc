@@ -35,8 +35,8 @@ matrix:
 
 .bzlmod_task_config: &bzlmod_task_config
   <<: *common_task_config
-  build_flags: *common_bzlmod_flags
-  test_flags: *common_bzlmod_flags
+  build_flags: *bzlmod_flags
+  test_flags: *bzlmod_flags
 
 .windows_task_config: &windows_task_config
   <<: *common_task_config
