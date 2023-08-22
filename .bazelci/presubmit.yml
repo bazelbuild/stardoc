@@ -6,29 +6,25 @@ matrix:
     - macos
 
 .common_flags: &common_flags
-  - "--incompatible_disable_starlark_host_transitions"
+  ? "--incompatible_disable_starlark_host_transitions"
 
 .common_windows_flags: &common_windows_flags
-  - *common_flags
+  <<: *common_flags
   # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012
-  - "--noexperimental_repository_cache_hardlinks"
+  ? "--noexperimental_repository_cache_hardlinks"
 
 .common_task_config: &common_task_config
-  build_flags:
-    - *common_flags
+  build_flags: *common_flags
   build_targets:
     - "//..."
-  test_flags:
-    - *common_flags
+  test_flags: *common_flags
   test_targets:
     - "//..."
 
 .common_windows_task_config: &common_windows_task_config
   <<: *common_task_config
-  build_flags:
-    - *common_windows_flags
-  test_flags:
-    - *common_windows_flags
+  build_flags: *common_windows_flags
+  test_flags: *common_windows_flags
 
 tasks:
   build_and_test:
@@ -59,11 +55,11 @@ tasks:
     platform: ${{ platform }}
     working_directory: test/bzlmod
     build_flags:
-      - *common_flags
-      - "--enable_bzlmod"
+      <<: *common_flags
+      ? "--enable_bzlmod"
     test_flags:
-      - *common_flags
-      - "--enable_bzlmod"
+      <<: *common_flags
+      ? "--enable_bzlmod"
 
   bzlmod_windows:
     <<: *common_windows_task_config
@@ -71,10 +67,10 @@ tasks:
     platform: windows
     working_directory: test/bzlmod
     build_flags:
-      - *common_windows_flags
-      - "--enable_bzlmod"
+      <<: *common_windows_flags
+      ? "--enable_bzlmod"
     test_flags:
-      - *common_windows_flags
-      - "--enable_bzlmod"
+      <<: *common_windows_flags
+      ? "--enable_bzlmod"
 
 buildifier: latest
