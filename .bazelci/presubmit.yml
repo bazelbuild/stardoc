@@ -5,13 +5,21 @@ matrix:
     - ubuntu2004
     - macos
 
-.common_flags: !!set &common_flags
+.common_flags: &common_flags
   ? "--incompatible_disable_starlark_host_transitions"
 
-.common_windows_flags: !!set &common_windows_flags
+.bzlmod_flags: &bzlmod_flags
+  <<: *common_flags
+  ? "--enable_bzlmod"
+
+.windows_flags: &windows_flags
   <<: *common_flags
   # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012
   ? "--noexperimental_repository_cache_hardlinks"
+
+.windows_bzlmod_flags: &bzlmod_flags
+  <<: *windows_flags
+  ? "--enable_bzlmod"
 
 .common_task_config: &common_task_config
   build_flags: *common_flags
@@ -21,10 +29,20 @@ matrix:
   test_targets:
     - "//..."
 
-.common_windows_task_config: &common_windows_task_config
+.bzlmod_task_config: &bzlmod_task_config
   <<: *common_task_config
-  build_flags: *common_windows_flags
-  test_flags: *common_windows_flags
+  build_flags: *bzlmod_flags
+  test_flags: *bzlmod_flags
+
+.windows_task_config: &windows_task_config
+  <<: *common_task_config
+  build_flags: *windows_flags
+  test_flags: *windows_flags
+
+.windows_bzlmod_task_config: &windows_bzlmod_task_config
+  <<: *common_task_config
+  build_flags: *windows_bzlmod_flags
+  test_flags: *windows_bzlmod_flags
 
 tasks:
   build_and_test:
@@ -33,7 +51,7 @@ tasks:
     platform: ${{ platform }}
 
   build_and_test_windows:
-    <<: *common_windows_task_config
+    <<: *windows_task_config
     name: Build and test - Windows
     platform: windows
 
@@ -44,33 +62,21 @@ tasks:
     bazel: last_green
 
   build_and_test_last_green_windows:
-    <<: *common_windows_task_config
+    <<: *windows_task_config
     name: Build and test - Bazel last green - Windows
     platform: windows
     bazel: last_green
 
   bzlmod:
-    <<: *common_task_config
+    <<: *bzlmod_task_config
     name: Bzlmod example
     platform: ${{ platform }}
     working_directory: test/bzlmod
-    build_flags: !!set
-      <<: *common_flags
-      ? "--enable_bzlmod"
-    test_flags: !!set
-      <<: *common_flags
-      ? "--enable_bzlmod"
 
   bzlmod_windows:
-    <<: *common_windows_task_config
+    <<: *windows_bzlmod_task_config
     name: Bzlmod example - Windows
     platform: windows
     working_directory: test/bzlmod
-    build_flags: !!set
-      <<: *common_windows_flags
-      ? "--enable_bzlmod"
-    test_flags: !!set
-      <<: *common_windows_flags
-      ? "--enable_bzlmod"
 
 buildifier: latest
