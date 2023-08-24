@@ -17,7 +17,7 @@ matrix:
   # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012
   ? "--noexperimental_repository_cache_hardlinks"
 
-.windows_bzlmod_flags: &bzlmod_flags
+.windows_bzlmod_flags: &windows_bzlmod_flags
   <<: *windows_flags
   ? "--enable_bzlmod"
 
