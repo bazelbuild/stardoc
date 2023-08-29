@@ -14,8 +14,8 @@
 
 """Starlark rule for stardoc: a documentation generator tool written in Java."""
 
-load("@rules_java//java:defs.bzl", "java_binary")
 load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
+load("@rules_java//java:defs.bzl", "java_binary")
 load("//stardoc/private:stardoc.bzl", "stardoc_markdown_renderer", _stardoc = "stardoc")
 
 def stardoc(

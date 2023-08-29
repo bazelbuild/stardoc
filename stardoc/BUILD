@@ -1,6 +1,6 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-load("//stardoc:stardoc.bzl", "stardoc")
 load("@rules_java//java:defs.bzl", "java_binary", "java_import")
+load("//stardoc:stardoc.bzl", "stardoc")
 
 licenses(["notice"])
 
