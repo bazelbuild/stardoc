@@ -109,6 +109,23 @@ repository definition ensures that this repository's dependencies are loaded
 (each function call defines additional repositories for Stardoc's dependencies,
 which are then used by subsequent load statements).
 
+Note that `WORKSPACE` files are sensitive to the order of dependencies. If,
+after updating to a newer version of Stardoc, you encounter "not a valid
+maven_install.json file" or other repository fetch errors (example: #186), try
+moving the Stardoc dependency block above or below other dependencies in your
+`WORKSPACE` file.
+
+<!-- Uncomment after updating Stardoc in Bazel Central Registry
+**MODULE.bazel setup**
+
+```starlark
+bazel_dep(name = "stardoc", version = "$VERSION")
+```
+
+For compatibility with `WORKSPACE` setup, add `repo_name = "io_bazel_stardoc"`
+to the `bazel_dep` call.
+-->
+
 **Using the rules**
 
 See [the source](https://github.com/bazelbuild/stardoc/tree/$VERSION).
@@ -123,8 +140,7 @@ echo -n sha256-; cat bazel-bin/distro/stardoc-$VERSION.tar.gz | openssl dgst -sh
 ```
 
 10. Create a PR at [Bazel Central Registry](https://github.com/bazelbuild/bazel-central-registry)
-    to update the registry's versions of bazel_skylib and
-    bazel_skylib_gazelle_plugin.
+    to update the registry's versions of Stardoc.
 
     Use https://github.com/bazelbuild/bazel-central-registry/pull/677 as the
     model; you will need to update `modules/stardoc/metadata.json` to list the
@@ -137,18 +153,5 @@ echo -n sha256-; cat bazel-bin/distro/stardoc-$VERSION.tar.gz | openssl dgst -sh
     subdirectory exactly matches the `MODULE.bazel` file packaged in the
     stardoc-$VERSION.tar.gz tarball - or buildkite checks will fail.
 
-11. Once the Bazel Central Registry PR is merged, insert in the release
-    description after the `WORKSPACE` setup section:
-
---------------------------------------------------------------------------------
-
-**MODULE.bazel setup**
-
-```starlark
-bazel_dep(name = "stardoc", version = "$VERSION")
-```
-
-For compatibility with `WORKSPACE` setup, add `repo_name = "io_bazel_stardoc"`
-to the `bazel_dep` call.
-
---------------------------------------------------------------------------------
+11. Once the Bazel Central Registry PR is merged, uncomment the MODULE.bazel
+    block in the release description.

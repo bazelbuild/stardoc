@@ -14,8 +14,8 @@
 
 """A simple macro used to test stardoc."""
 
-load("@my_skylib//rules:write_file.bzl", "write_file")
 load("@local_config_platform//:constraints.bzl", "HOST_CONSTRAINTS")
+load("@my_skylib//rules:write_file.bzl", "write_file")
 
 def write_host_constraints(name):
     """Emits the constraints of the host platform to a file.
