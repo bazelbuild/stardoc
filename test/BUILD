@@ -1,5 +1,5 @@
-load(":stardoc_test.bzl", "self_gen_test", "stardoc_test")
 load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
+load(":stardoc_test.bzl", "self_gen_test", "stardoc_test")
 
 package(default_applicable_licenses = ["//:license"])
 
