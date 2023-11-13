@@ -21,7 +21,7 @@ Runs [ANTLR 3](https://www.antlr3.org//) on a set of grammars.
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="antlr-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="antlr-deps"></a>deps |  The dependencies to use. Defaults to the most recent ANTLR 3 release, but if you need to use a different version, you can specify the dependencies here.   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional |  `[Label("@antlr3_runtimes//:tool")]`  |
+| <a id="antlr-deps"></a>deps |  The dependencies to use. Defaults to the most recent ANTLR 3 release, but if you need to use a different version, you can specify the dependencies here.   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional |  `[Label("@@antlr3_runtimes//:tool")]`  |
 | <a id="antlr-srcs"></a>srcs |  The grammar files to process.   | <a href="https://bazel.build/concepts/labels">List of labels</a> | required |  |
 | <a id="antlr-Xconversiontimeout"></a>Xconversiontimeout |  Set NFA conversion timeout for each decision.   | Integer | optional |  `0`  |
 | <a id="antlr-Xdbgconversion"></a>Xdbgconversion |  Dump lots of info during NFA conversion.   | Boolean | optional |  `False`  |
