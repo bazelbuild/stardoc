@@ -226,6 +226,10 @@ stardoc_test(
     golden_file = "testdata/py_rule_test/golden.md",
     input_file = "testdata/py_rule_test/input.bzl",
     symbol_names = ["py_related_rule"],
+    deps = [
+        "@rules_python//docs:bazel_repo_tools",
+        "@rules_python//python:py_info_bzl",
+    ],
 )
 
 stardoc_test(
@@ -247,6 +251,8 @@ stardoc_test(
     input_file = "testdata/providers_for_attributes_test/input.bzl",
     deps = [
         "testdata/providers_for_attributes_test/dep.bzl",
+        "@rules_python//docs:bazel_repo_tools",
+        "@rules_python//python:py_info_bzl",
     ],
 )
 

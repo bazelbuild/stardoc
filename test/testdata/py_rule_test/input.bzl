@@ -1,5 +1,7 @@
 """The input file for the python rule test"""
 
+load("@rules_python//python:py_info.bzl", "PyInfo")
+
 def exercise_the_api():
     var1 = PyRuntimeInfo  # @unused
     var2 = PyInfo  # @unused

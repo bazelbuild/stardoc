@@ -1,5 +1,6 @@
 """The input file for the providers for attributes test"""
 
+load("@rules_python//python:py_info.bzl", "PyInfo")
 load(":testdata/providers_for_attributes_test/dep.bzl", "DepProviderInfo")
 
 def my_rule_impl(ctx):
