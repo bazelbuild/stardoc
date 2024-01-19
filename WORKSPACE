@@ -30,7 +30,7 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 # Needed for generating the Stardoc release binary.
 git_repository(
     name = "io_bazel",
-    commit = "1f15b87b6cf0474ade552284db70b42606f0e3ba",  # 2023-08-07
+    commit = "ff36d875b9b236ad141dce40e65cae5f4ffbfdcb",  # Bazel 7.0.1 - 2024-01-18
     patch_cmds = [
         # Used by update-release-binary.sh for vendoring files from @io_bazel
         "git log -n 1 --format=%H > .io_bazel.sha",
