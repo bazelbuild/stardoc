@@ -23,7 +23,7 @@ Suppose you have a project containing Stardoc rules you want to document:
 ```
 
 To generate documentation for the rules in `checkstyle.bzl`, add the
-following target to `rules/BUILD`:
+following target to `checkstyle/BUILD`:
 
 ```python
 load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
