@@ -25,7 +25,7 @@ my_rule = rule(
     doc = "This rule does things.",
     attrs = {
         "first": attr.label_keyed_string_dict(
-            providers = [MyProviderInfo, PyInfo, cc_common.CcToolchainInfo],
+            providers = [MyProviderInfo, cc_common.CcToolchainInfo],
             doc = "this is the first attribute.",
         ),
         "second": attr.label_list(
