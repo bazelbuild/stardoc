@@ -2,7 +2,6 @@
 
 def exercise_the_api():
     var1 = PyRuntimeInfo  # @unused
-    var2 = PyInfo  # @unused
 
 exercise_the_api()
 
