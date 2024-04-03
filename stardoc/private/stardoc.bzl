@@ -21,6 +21,7 @@ def _renderer_action_run(ctx, out_file, proto_file):
     renderer_args.add("--output=" + str(ctx.outputs.out.path))
     renderer_args.add("--aspect_template=" + str(ctx.file.aspect_template.path))
     renderer_args.add("--header_template=" + str(ctx.file.header_template.path))
+    renderer_args.add("--table_of_contents_template=" + str(ctx.file.table_of_contents_template.path))
     renderer_args.add("--func_template=" + str(ctx.file.func_template.path))
     renderer_args.add("--provider_template=" + str(ctx.file.provider_template.path))
     renderer_args.add("--rule_template=" + str(ctx.file.rule_template.path))
@@ -33,6 +34,7 @@ def _renderer_action_run(ctx, out_file, proto_file):
             proto_file,
             ctx.file.aspect_template,
             ctx.file.header_template,
+            ctx.file.table_of_contents_template,
             ctx.file.func_template,
             ctx.file.provider_template,
             ctx.file.rule_template,
@@ -111,6 +113,11 @@ _common_renderer_attrs = {
     ),
     "header_template": attr.label(
         doc = "The input file template for the header of the output documentation.",
+        allow_single_file = [".vm"],
+        mandatory = True,
+    ),
+    "table_of_contents_template": attr.label(
+        doc = "The input file template for the table of contents of the output documentation.",
         allow_single_file = [".vm"],
         mandatory = True,
     ),

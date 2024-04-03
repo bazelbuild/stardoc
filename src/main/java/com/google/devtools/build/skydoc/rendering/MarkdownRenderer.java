@@ -35,11 +35,13 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 /** Produces skydoc output in markdown form. */
 public class MarkdownRenderer {
   // TODO(kendalllane): Refactor MarkdownRenderer to take in something other than filepaths.
   private final String headerTemplateFilename;
+  private final String tableOfContentsTemplateFilename;
   private final String ruleTemplateFilename;
   private final String providerTemplateFilename;
   private final String functionTemplateFilename;
@@ -50,6 +52,7 @@ public class MarkdownRenderer {
 
   public MarkdownRenderer(
       String headerTemplate,
+      String tableOfContentsTemplateFilename,
       String ruleTemplate,
       String providerTemplate,
       String functionTemplate,
@@ -58,6 +61,7 @@ public class MarkdownRenderer {
       String moduleExtensionTemplate,
       String extensionBzlFile) {
     this.headerTemplateFilename = headerTemplate;
+    this.tableOfContentsTemplateFilename = tableOfContentsTemplateFilename;
     this.ruleTemplateFilename = ruleTemplate;
     this.providerTemplateFilename = providerTemplate;
     this.functionTemplateFilename = functionTemplate;
@@ -79,6 +83,35 @@ public class MarkdownRenderer {
             "moduleDocstring",
             moduleInfo.getModuleDocstring());
     Reader reader = readerFromPath(headerTemplateFilename);
+    try {
+      return Template.parseFrom(reader).evaluate(vars);
+    } catch (ParseException | EvaluationException e) {
+      throw new IOException(e);
+    }
+  }
+
+  /**
+   * Returns a markdown string of a Table of Contents, appearing after
+   * the header and before the documentation.
+   */
+  public String renderTableOfContents(
+      List<RuleInfo> ruleInfos,
+      List<ProviderInfo> providerInfos,
+      List<StarlarkFunctionInfo> starlarkFunctions,
+      List<AspectInfo> aspectInfos,
+      List<RepositoryRuleInfo> repositoryRuleInfos,
+      List<ModuleExtensionInfo> moduleExtensionInfos) throws IOException {
+
+    ImmutableMap<String, Object> vars =
+        ImmutableMap.of(
+            "util", new MarkdownUtil(extensionBzlFile),
+            "ruleInfos", ruleInfos,
+            "providerInfos", providerInfos,
+            "functionInfos", starlarkFunctions,
+            "aspectInfos", aspectInfos,
+            "repositoryRuleInfos", repositoryRuleInfos,
+            "moduleExtensionInfos", moduleExtensionInfos);
+    Reader reader = readerFromPath(tableOfContentsTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
     } catch (ParseException | EvaluationException e) {
