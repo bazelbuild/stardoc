@@ -25,6 +25,7 @@ ${ruleInfo.docString}
 **ENVIRONMENT VARIABLES**
 
 This repository rule depends on the following environment variables:
+
 #foreach ($var in $ruleInfo.getEnvironList())
 * ${util.markdownCodeSpan($var)}
 #end
