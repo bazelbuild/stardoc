@@ -22,6 +22,7 @@ import com.beust.jcommander.JCommander;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.devtools.build.skydoc.rendering.MarkdownRenderer;
+import com.google.devtools.build.skydoc.rendering.MarkdownRenderer.Renderer;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AspectInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AttributeInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleExtensionInfo;
@@ -132,15 +133,23 @@ public final class RendererMain {
             sortedRepositoryRuleInfos,
             sortedModuleExtensionInfos)); 
       }
-      printRuleInfos(printWriter, renderer, sortedRuleInfos);
-      printProviderInfos(printWriter, renderer, sortedProviderInfos);
-      printStarlarkFunctions(printWriter, renderer, sortedStarlarkFunctions);
-      printAspectInfos(printWriter, renderer, sortedAspectInfos);
-      printRepositoryRuleInfos(printWriter, renderer, sortedRepositoryRuleInfos);
-      printModuleExtensionInfos(printWriter, renderer, sortedModuleExtensionInfos);
+      print(printWriter, renderer::render, sortedRuleInfos);
+      print(printWriter, renderer::render, sortedProviderInfos);
+      print(printWriter, renderer::render, sortedStarlarkFunctions);
+      print(printWriter, renderer::render, sortedAspectInfos);
+      print(printWriter, renderer::render, sortedRepositoryRuleInfos);
+      print(printWriter, renderer::render, sortedModuleExtensionInfos);
 
     } catch (InvalidProtocolBufferException e) {
       throw new IllegalArgumentException("Input file is not a valid ModuleInfo proto.", e);
+    }
+  }
+
+  private static <T> void print(PrintWriter printWriter, Renderer<T> renderer, List<T> infos)
+      throws IOException {
+    for (T info : infos) {
+      printWriter.println(renderer.render(info));
+      printWriter.println();
     }
   }
 
@@ -214,63 +223,6 @@ public final class RendererMain {
                 .map(RendererMain::withSortedTagAttributes)
                 .collect(toImmutableList()))
         .build();
-  }
-
-  private static void printRuleInfos(
-      PrintWriter printWriter, MarkdownRenderer renderer, List<RuleInfo> ruleInfos)
-      throws IOException {
-    for (RuleInfo ruleProto : ruleInfos) {
-      printWriter.println(renderer.render(ruleProto.getRuleName(), ruleProto));
-      printWriter.println();
-    }
-  }
-
-  private static void printProviderInfos(
-      PrintWriter printWriter, MarkdownRenderer renderer, List<ProviderInfo> providerInfos)
-      throws IOException {
-    for (ProviderInfo providerProto : providerInfos) {
-      printWriter.println(renderer.render(providerProto.getProviderName(), providerProto));
-      printWriter.println();
-    }
-  }
-
-  private static void printStarlarkFunctions(
-      PrintWriter printWriter,
-      MarkdownRenderer renderer,
-      List<StarlarkFunctionInfo> starlarkFunctions)
-      throws IOException {
-    for (StarlarkFunctionInfo funcProto : starlarkFunctions) {
-      printWriter.println(renderer.render(funcProto));
-      printWriter.println();
-    }
-  }
-
-  private static void printAspectInfos(
-      PrintWriter printWriter, MarkdownRenderer renderer, List<AspectInfo> aspectInfos)
-      throws IOException {
-    for (AspectInfo aspectProto : aspectInfos) {
-      printWriter.println(renderer.render(aspectProto.getAspectName(), aspectProto));
-      printWriter.println();
-    }
-  }
-
-  private static void printRepositoryRuleInfos(
-      PrintWriter printWriter, MarkdownRenderer renderer, List<RepositoryRuleInfo> repositoryRuleInfos)
-      throws IOException {
-    for (RepositoryRuleInfo repositoryRuleProto : repositoryRuleInfos) {
-      printWriter.println(renderer.render(repositoryRuleProto.getRuleName(), repositoryRuleProto));
-      printWriter.println();
-    }
-  }
-
-  private static void printModuleExtensionInfos(
-      PrintWriter printWriter, MarkdownRenderer renderer, List<ModuleExtensionInfo> moduleExtensionInfos)
-      throws IOException {
-    for (ModuleExtensionInfo moduleExtensionProto : moduleExtensionInfos) {
-      printWriter.println(
-          renderer.render(moduleExtensionProto.getExtensionName(), moduleExtensionProto));
-      printWriter.println();
-    }
   }
 
   private RendererMain() {}

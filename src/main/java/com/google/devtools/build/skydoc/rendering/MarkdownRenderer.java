@@ -39,6 +39,11 @@ import java.util.List;
 
 /** Produces skydoc output in markdown form. */
 public class MarkdownRenderer {
+
+  public interface Renderer<T> {
+    String render(T info) throws IOException;
+  }
+
   // TODO(kendalllane): Refactor MarkdownRenderer to take in something other than filepaths.
   private final String headerTemplateFilename;
   private final String tableOfContentsTemplateFilename;
@@ -123,10 +128,12 @@ public class MarkdownRenderer {
    * Returns a markdown rendering of rule documentation for the given rule information object with
    * the given rule name.
    */
-  public String render(String ruleName, RuleInfo ruleInfo) throws IOException {
+  public String render(RuleInfo ruleInfo) throws IOException {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
-            "util", new MarkdownUtil(extensionBzlFile), "ruleName", ruleName, "ruleInfo", ruleInfo);
+            "util", new MarkdownUtil(extensionBzlFile),
+            "ruleName", ruleInfo.getRuleName(),
+            "ruleInfo", ruleInfo);
     Reader reader = readerFromPath(ruleTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
@@ -139,13 +146,13 @@ public class MarkdownRenderer {
    * Returns a markdown rendering of provider documentation for the given provider information
    * object with the given name.
    */
-  public String render(String providerName, ProviderInfo providerInfo) throws IOException {
+  public String render(ProviderInfo providerInfo) throws IOException {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
             new MarkdownUtil(extensionBzlFile),
             "providerName",
-            providerName,
+            providerInfo.getProviderName(),
             "providerInfo",
             providerInfo);
     Reader reader = readerFromPath(providerTemplateFilename);
@@ -175,13 +182,13 @@ public class MarkdownRenderer {
    * Returns a markdown rendering of aspect documentation for the given aspect information object
    * with the given aspect name.
    */
-  public String render(String aspectName, AspectInfo aspectInfo) throws IOException {
+  public String render(AspectInfo aspectInfo) throws IOException {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
             new MarkdownUtil(extensionBzlFile),
             "aspectName",
-            aspectName,
+            aspectInfo.getAspectName(),
             "aspectInfo",
             aspectInfo);
     Reader reader = readerFromPath(aspectTemplateFilename);
@@ -196,14 +203,14 @@ public class MarkdownRenderer {
    * Returns a markdown rendering of repository rule documentation for the given repository rule
    * information object with the given name.
    */
-  public String render(String repositoryRuleName, RepositoryRuleInfo repositoryRuleInfo)
+  public String render(RepositoryRuleInfo repositoryRuleInfo)
       throws IOException {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
             new MarkdownUtil(extensionBzlFile),
             "ruleName",
-            repositoryRuleName,
+            repositoryRuleInfo.getRuleName(),
             "ruleInfo",
             repositoryRuleInfo);
     Reader reader = readerFromPath(repositoryRuleTemplateFilename);
@@ -218,14 +225,14 @@ public class MarkdownRenderer {
    * Returns a markdown rendering of module extension documentation for the given module extension
    * information object with the given name.
    */
-  public String render(String moduleExtensionName, ModuleExtensionInfo moduleExtensionInfo)
+  public String render(ModuleExtensionInfo moduleExtensionInfo)
       throws IOException {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
             new MarkdownUtil(extensionBzlFile),
             "extensionName",
-            moduleExtensionName,
+            moduleExtensionInfo.getExtensionName(),
             "extensionInfo",
             moduleExtensionInfo);
     Reader reader = readerFromPath(moduleExtensionTemplateFilename);
