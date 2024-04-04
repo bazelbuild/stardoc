@@ -39,6 +39,7 @@ def stardoc(
         module_extension_template = Label("//stardoc:templates/markdown_tables/module_extension.vm"),
         use_starlark_doc_extract = True,
         render_main_repo_name = True,
+        generate_table_of_contents = False,
         **kwargs):
     """Generates documentation for exported starlark rule definitions in a target starlark file.
 
@@ -62,6 +63,8 @@ def stardoc(
       renderer: The location of the renderer tool.
       aspect_template: The input file template for generating documentation of aspects
       header_template: The input file template for the header of the output documentation.
+      table_of_contents_template: The input file template for the table of contents of the output documentation.
+        See also the generate_table_of_contents attr.
       func_template: The input file template for generating documentation of functions.
       provider_template: The input file template for generating documentation of providers.
       rule_template: The input file template for generating documentation of rules.
@@ -72,6 +75,8 @@ def stardoc(
       render_main_repo_name: Render labels in the main repository with a repo component (either
         the module name or workspace name). This parameter is used only when using the native
         `starlark_doc_extract` rule.
+      generate_table_of_contents: Whether to generate the table of contents. Defaults to False for
+        backwards compatibility. See also the table_of_contents_template attr.
       use_starlark_doc_extract: Use the native `starlark_doc_extract` rule if available.
       **kwargs: Further arguments to pass to stardoc.
     """
@@ -116,6 +121,7 @@ def stardoc(
                 func_template = func_template,
                 header_template = header_template,
                 table_of_contents_template = table_of_contents_template,
+                generate_table_of_contents = generate_table_of_contents,
                 provider_template = provider_template,
                 rule_template = rule_template,
                 repository_rule_template = repository_rule_template,

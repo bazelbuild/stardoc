@@ -31,6 +31,7 @@ def html_tables_stardoc(name, **kwargs):
         aspect_template = Label("//stardoc:templates/html_tables/aspect.vm"),
         func_template = Label("//stardoc:templates/html_tables/func.vm"),
         header_template = Label("//stardoc:templates/html_tables/header.vm"),
+        table_of_contents_template = Label("//stardoc:templates/markdown_tables/table_of_contents.vm"),  # no tables, so use the markdown template
         provider_template = Label("//stardoc:templates/html_tables/provider.vm"),
         rule_template = Label("//stardoc:templates/html_tables/rule.vm"),
         repository_rule_template = Label("//stardoc:templates/html_tables/repository_rule.vm"),

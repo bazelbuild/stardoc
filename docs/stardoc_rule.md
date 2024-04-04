@@ -8,9 +8,9 @@ Starlark rule for stardoc: a documentation generator tool written in Java.
 
 <pre>
 stardoc(<a href="#stardoc-name">name</a>, <a href="#stardoc-input">input</a>, <a href="#stardoc-out">out</a>, <a href="#stardoc-deps">deps</a>, <a href="#stardoc-format">format</a>, <a href="#stardoc-symbol_names">symbol_names</a>, <a href="#stardoc-semantic_flags">semantic_flags</a>, <a href="#stardoc-stardoc">stardoc</a>, <a href="#stardoc-renderer">renderer</a>,
-        <a href="#stardoc-aspect_template">aspect_template</a>, <a href="#stardoc-func_template">func_template</a>, <a href="#stardoc-header_template">header_template</a>, <a href="#stardoc-provider_template">provider_template</a>, <a href="#stardoc-rule_template">rule_template</a>,
-        <a href="#stardoc-repository_rule_template">repository_rule_template</a>, <a href="#stardoc-module_extension_template">module_extension_template</a>, <a href="#stardoc-use_starlark_doc_extract">use_starlark_doc_extract</a>,
-        <a href="#stardoc-render_main_repo_name">render_main_repo_name</a>, <a href="#stardoc-kwargs">kwargs</a>)
+        <a href="#stardoc-aspect_template">aspect_template</a>, <a href="#stardoc-func_template">func_template</a>, <a href="#stardoc-header_template">header_template</a>, <a href="#stardoc-table_of_contents_template">table_of_contents_template</a>,
+        <a href="#stardoc-provider_template">provider_template</a>, <a href="#stardoc-rule_template">rule_template</a>, <a href="#stardoc-repository_rule_template">repository_rule_template</a>, <a href="#stardoc-module_extension_template">module_extension_template</a>,
+        <a href="#stardoc-use_starlark_doc_extract">use_starlark_doc_extract</a>, <a href="#stardoc-render_main_repo_name">render_main_repo_name</a>, <a href="#stardoc-generate_table_of_contents">generate_table_of_contents</a>, <a href="#stardoc-kwargs">kwargs</a>)
 </pre>
 
 Generates documentation for exported starlark rule definitions in a target starlark file.
@@ -32,12 +32,14 @@ Generates documentation for exported starlark rule definitions in a target starl
 | <a id="stardoc-aspect_template"></a>aspect_template |  The input file template for generating documentation of aspects   |  `Label("@io_bazel_stardoc//stardoc:templates/markdown_tables/aspect.vm")` |
 | <a id="stardoc-func_template"></a>func_template |  The input file template for generating documentation of functions.   |  `Label("@io_bazel_stardoc//stardoc:templates/markdown_tables/func.vm")` |
 | <a id="stardoc-header_template"></a>header_template |  The input file template for the header of the output documentation.   |  `Label("@io_bazel_stardoc//stardoc:templates/markdown_tables/header.vm")` |
+| <a id="stardoc-table_of_contents_template"></a>table_of_contents_template |  The input file template for the table of contents of the output documentation. See also the generate_table_of_contents attr.   |  `Label("@io_bazel_stardoc//stardoc:templates/markdown_tables/table_of_contents.vm")` |
 | <a id="stardoc-provider_template"></a>provider_template |  The input file template for generating documentation of providers.   |  `Label("@io_bazel_stardoc//stardoc:templates/markdown_tables/provider.vm")` |
 | <a id="stardoc-rule_template"></a>rule_template |  The input file template for generating documentation of rules.   |  `Label("@io_bazel_stardoc//stardoc:templates/markdown_tables/rule.vm")` |
 | <a id="stardoc-repository_rule_template"></a>repository_rule_template |  The input file template for generating documentation of repository rules. This template is used only when using the native `starlark_doc_extract` rule.   |  `Label("@io_bazel_stardoc//stardoc:templates/markdown_tables/repository_rule.vm")` |
 | <a id="stardoc-module_extension_template"></a>module_extension_template |  The input file template for generating documentation of module extensions. This template is used only when using the native `starlark_doc_extract` rule.   |  `Label("@io_bazel_stardoc//stardoc:templates/markdown_tables/module_extension.vm")` |
 | <a id="stardoc-use_starlark_doc_extract"></a>use_starlark_doc_extract |  Use the native `starlark_doc_extract` rule if available.   |  `True` |
 | <a id="stardoc-render_main_repo_name"></a>render_main_repo_name |  Render labels in the main repository with a repo component (either the module name or workspace name). This parameter is used only when using the native `starlark_doc_extract` rule.   |  `True` |
+| <a id="stardoc-generate_table_of_contents"></a>generate_table_of_contents |  Whether to generate the table of contents. Defaults to False for backwards compatibility. See also the table_of_contents_template attr.   |  `False` |
 | <a id="stardoc-kwargs"></a>kwargs |  Further arguments to pass to stardoc.   |  none |
 
 

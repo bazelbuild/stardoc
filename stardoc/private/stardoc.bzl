@@ -21,26 +21,30 @@ def _renderer_action_run(ctx, out_file, proto_file):
     renderer_args.add("--output=" + str(ctx.outputs.out.path))
     renderer_args.add("--aspect_template=" + str(ctx.file.aspect_template.path))
     renderer_args.add("--header_template=" + str(ctx.file.header_template.path))
-    renderer_args.add("--table_of_contents_template=" + str(ctx.file.table_of_contents_template.path))
+    if ctx.attr.generate_table_of_contents:
+        renderer_args.add("--table_of_contents_template=" + str(ctx.file.table_of_contents_template.path))
     renderer_args.add("--func_template=" + str(ctx.file.func_template.path))
     renderer_args.add("--provider_template=" + str(ctx.file.provider_template.path))
     renderer_args.add("--rule_template=" + str(ctx.file.rule_template.path))
     renderer_args.add("--repository_rule_template=" + str(ctx.file.repository_rule_template.path))
     renderer_args.add("--module_extension_template=" + str(ctx.file.module_extension_template.path))
-    renderer = ctx.executable.renderer
-    ctx.actions.run(
-        outputs = [out_file],
-        inputs = [
+
+    inputs = [
             proto_file,
             ctx.file.aspect_template,
             ctx.file.header_template,
-            ctx.file.table_of_contents_template,
             ctx.file.func_template,
             ctx.file.provider_template,
             ctx.file.rule_template,
             ctx.file.repository_rule_template,
             ctx.file.module_extension_template,
-        ],
+    ]
+    if ctx.attr.generate_table_of_contents:
+        inputs.append(ctx.file.table_of_contents_template)
+    renderer = ctx.executable.renderer
+    ctx.actions.run(
+        outputs = [out_file],
+        inputs = inputs,
         executable = renderer,
         arguments = [renderer_args],
         mnemonic = "Renderer",
@@ -116,10 +120,14 @@ _common_renderer_attrs = {
         allow_single_file = [".vm"],
         mandatory = True,
     ),
+    "generate_table_of_contents": attr.bool(
+        doc = "Whether to generate a Table of Contents after the header. See also the table_of_contents_template attr.",
+        default = False,
+    ),
     "table_of_contents_template": attr.label(
-        doc = "The input file template for the table of contents of the output documentation.",
+        doc = "The input file template for the table of contents of the output documentation. See also the generate_table_of_contents attr.",
         allow_single_file = [".vm"],
-        mandatory = True,
+        mandatory = False,  # False for backwards compatibility.
     ),
     "func_template": attr.label(
         doc = "The input file template for generating documentation of functions.",
