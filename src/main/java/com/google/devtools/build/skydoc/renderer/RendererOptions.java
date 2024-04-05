@@ -81,6 +81,16 @@ class RendererOptions {
   String moduleExtensionTemplateFilePath;
 
   @Parameter(
+      names = "--stamping_stable_status_file",
+      description = "The file path to the stable status file for stapming")
+  String stampingStableStatusFilePath;
+
+  @Parameter(
+      names = "--stamping_volatile_status_file",
+      description = "The file path to the stable status file for stapming")
+  String stampingVolatileStatusFilePath;
+
+  @Parameter(
       names = {"--help", "-h"},
       description = "Print help and exit",
       help = true)

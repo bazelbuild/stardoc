@@ -40,6 +40,7 @@ def stardoc(
         use_starlark_doc_extract = True,
         render_main_repo_name = True,
         generate_table_of_contents = False,
+        stamp = False,
         **kwargs):
     """Generates documentation for exported starlark rule definitions in a target starlark file.
 
@@ -78,6 +79,7 @@ def stardoc(
       generate_table_of_contents: Whether to generate the table of contents. Defaults to False for
         backwards compatibility. See also the table_of_contents_template attr.
       use_starlark_doc_extract: Use the native `starlark_doc_extract` rule if available.
+      stamp: Whether to provide stamping information to templates.
       **kwargs: Further arguments to pass to stardoc.
     """
 
@@ -126,6 +128,7 @@ def stardoc(
                 rule_template = rule_template,
                 repository_rule_template = repository_rule_template,
                 module_extension_template = module_extension_template,
+                stamp = stamp,
                 **kwargs
             )
         elif format == "proto" and not extractor_is_main_target:
