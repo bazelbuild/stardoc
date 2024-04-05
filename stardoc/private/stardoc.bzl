@@ -33,14 +33,14 @@ def _renderer_action_run(ctx, out_file, proto_file):
         renderer_args.add("--stamping_volatile_status_file=" + str(ctx.version_file.path))
 
     inputs = [
-            proto_file,
-            ctx.file.aspect_template,
-            ctx.file.header_template,
-            ctx.file.func_template,
-            ctx.file.provider_template,
-            ctx.file.rule_template,
-            ctx.file.repository_rule_template,
-            ctx.file.module_extension_template,
+        proto_file,
+        ctx.file.aspect_template,
+        ctx.file.header_template,
+        ctx.file.func_template,
+        ctx.file.provider_template,
+        ctx.file.rule_template,
+        ctx.file.repository_rule_template,
+        ctx.file.module_extension_template,
     ]
     if ctx.attr.generate_table_of_contents:
         inputs.append(ctx.file.table_of_contents_template)
@@ -50,11 +50,11 @@ def _renderer_action_run(ctx, out_file, proto_file):
 
     renderer = ctx.executable.renderer
     ctx.actions.run(
-        outputs = [out_file],
-        inputs = inputs,
-        executable = renderer,
         arguments = [renderer_args],
+        executable = renderer,
+        inputs = inputs,
         mnemonic = "Renderer",
+        outputs = [out_file],
         progress_message = ("Converting proto format of %s to markdown format" %
                             (ctx.label.name)),
     )

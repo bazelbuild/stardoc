@@ -285,11 +285,11 @@ bzl_library(
 
 stardoc_test(
     name = "table_of_contents_test",
+    generate_table_of_contents = True,
     golden_file = "testdata/table_of_contents_test/golden.md",
     input_file = "testdata/table_of_contents_test/input.bzl",
-    deps = [":table_of_contents_test_deps"],
-    generate_table_of_contents = True,
     test_legacy_extractor = False,
+    deps = [":table_of_contents_test_deps"],
 )
 
 stardoc_test(
