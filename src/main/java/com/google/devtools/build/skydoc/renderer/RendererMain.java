@@ -97,6 +97,7 @@ public final class RendererMain {
               rendererOptions.repositoryRuleTemplateFilePath,
               rendererOptions.moduleExtensionTemplateFilePath,
               !moduleInfo.getFile().isEmpty() ? moduleInfo.getFile() : "...",
+              rendererOptions.footerTemplateFilePath,
               stamping);
 
       // rules are printed sorted by their qualified name, and their attributes are sorted by name,
@@ -153,6 +154,9 @@ public final class RendererMain {
       print(printWriter, renderer::render, sortedAspectInfos);
       print(printWriter, renderer::render, sortedRepositoryRuleInfos);
       print(printWriter, renderer::render, sortedModuleExtensionInfos);
+      if (rendererOptions.footerTemplateFilePath != null) {
+        printWriter.println(renderer.renderMarkdownFooter(moduleInfo));
+      }
 
     } catch (InvalidProtocolBufferException e) {
       throw new IllegalArgumentException("Input file is not a valid ModuleInfo proto.", e);

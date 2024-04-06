@@ -28,6 +28,8 @@ def _renderer_action_run(ctx, out_file, proto_file):
     renderer_args.add("--rule_template=" + str(ctx.file.rule_template.path))
     renderer_args.add("--repository_rule_template=" + str(ctx.file.repository_rule_template.path))
     renderer_args.add("--module_extension_template=" + str(ctx.file.module_extension_template.path))
+    if ctx.file.footer_template:
+        renderer_args.add("--footer_template=" + str(ctx.file.footer_template.path))
     if ctx.attr.stamp:
         renderer_args.add("--stamping_stable_status_file=" + str(ctx.info_file.path))
         renderer_args.add("--stamping_volatile_status_file=" + str(ctx.version_file.path))
@@ -44,6 +46,8 @@ def _renderer_action_run(ctx, out_file, proto_file):
     ]
     if ctx.attr.generate_table_of_contents:
         inputs.append(ctx.file.table_of_contents_template)
+    if ctx.file.footer_template:
+        inputs.append(ctx.file.footer_template)
     if ctx.attr.stamp:
         inputs.append(ctx.info_file)
         inputs.append(ctx.version_file)
@@ -162,6 +166,10 @@ _common_renderer_attrs = {
               " This template is not used when rendering the output of the legacy extractor.",
         allow_single_file = [".vm"],
         mandatory = True,
+    ),
+    "footer_template": attr.label(
+        doc = "The input file template for generating the footer of the output documentation. Optional.",
+        allow_single_file = [".vm"],
     ),
     "stamp": attr.bool(
         doc = "Whether to provide stamping information to templates",
