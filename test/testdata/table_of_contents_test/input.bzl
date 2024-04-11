@@ -1,3 +1,5 @@
+"""Test rules / providers / etc for the table of contents generation test."""
+
 load("//test:testdata/aspect_test/input.bzl", _my_aspect = "my_aspect", _other_aspect = "other_aspect")
 load("//test:testdata/function_basic_test/input.bzl", _check_sources = "check_sources", _returns_a_thing = "returns_a_thing")
 load("//test:testdata/module_extension_test/input.bzl", _my_ext = "my_ext")

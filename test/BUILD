@@ -293,7 +293,7 @@ bzl_library(
 
 stardoc_test(
     name = "table_of_contents_test",
-    generate_table_of_contents = True,
+    table_of_contents_template = "//stardoc:templates/markdown_tables/table_of_contents.vm",
     golden_file = "testdata/table_of_contents_test/golden.md",
     input_file = "testdata/table_of_contents_test/input.bzl",
     test_legacy_extractor = False,

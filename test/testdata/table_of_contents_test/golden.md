@@ -1,34 +1,35 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+Test rules / providers / etc for the table of contents generation test.
 
 
-
-Rules:
+## Rules
 
 - [my_rule](#my_rule)
 
-Providers:
+## Providers
 
 - [MyFooInfo](#MyFooInfo)
 - [MyVeryDocumentedInfo](#MyVeryDocumentedInfo)
 
-Functions:
+## Functions
 
 - [check_sources](#check_sources)
 - [returns_a_thing](#returns_a_thing)
 
-Aspects:
+## Aspects
 
 - [my_aspect](#my_aspect)
 - [other_aspect](#other_aspect)
 
-Repository rules:
+## Repository Rules
 
 - [my_repo](#my_repo)
 
-Module Extensions:
+## Module Extensions
 
 - [my_ext](#my_ext)
+
 
 <a id="my_rule"></a>
 

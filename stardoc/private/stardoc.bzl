@@ -21,7 +21,7 @@ def _renderer_action_run(ctx, out_file, proto_file):
     renderer_args.add("--output=" + str(ctx.outputs.out.path))
     renderer_args.add("--aspect_template=" + str(ctx.file.aspect_template.path))
     renderer_args.add("--header_template=" + str(ctx.file.header_template.path))
-    if ctx.attr.generate_table_of_contents:
+    if ctx.attr.table_of_contents_template:
         renderer_args.add("--table_of_contents_template=" + str(ctx.file.table_of_contents_template.path))
     renderer_args.add("--func_template=" + str(ctx.file.func_template.path))
     renderer_args.add("--provider_template=" + str(ctx.file.provider_template.path))
@@ -44,7 +44,7 @@ def _renderer_action_run(ctx, out_file, proto_file):
         ctx.file.repository_rule_template,
         ctx.file.module_extension_template,
     ]
-    if ctx.attr.generate_table_of_contents:
+    if ctx.attr.table_of_contents_template:
         inputs.append(ctx.file.table_of_contents_template)
     if ctx.file.footer_template:
         inputs.append(ctx.file.footer_template)
@@ -131,14 +131,13 @@ _common_renderer_attrs = {
         allow_single_file = [".vm"],
         mandatory = True,
     ),
-    "generate_table_of_contents": attr.bool(
-        doc = "Whether to generate a Table of Contents after the header. See also the table_of_contents_template attr.",
-        default = False,
-    ),
     "table_of_contents_template": attr.label(
-        doc = "The input file template for the table of contents of the output documentation. See also the generate_table_of_contents attr.",
+        doc = "The input file template for the table of contents of the output documentation. " +
+              "This is unset by default for backwards compatibility. Use " +
+              "`Label(\"@stardoc//stardoc:templates/markdown_tables/table_of_contents.vm\")` " +
+              "for the default template.",
         allow_single_file = [".vm"],
-        mandatory = False,  # False for backwards compatibility.
+        mandatory = False,  # Not mandatory for backwards compatibility.
     ),
     "func_template": attr.label(
         doc = "The input file template for generating documentation of functions.",
