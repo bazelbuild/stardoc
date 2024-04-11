@@ -309,6 +309,15 @@ stardoc_test(
     test_legacy_extractor = False,
 )
 
+stardoc_test(
+    name = "stamping_with_stamping_off_test",
+    golden_file = "testdata/stamping_test/golden_stamping_off.md",
+    header_template = "testdata/stamping_test/stamping_header_stamping_off.vm",
+    input_file = "testdata/stamping_test/input.bzl",
+    stamp = False,
+    test_legacy_extractor = False,
+)
+
 sh_test(
     name = "local_repository_test_e2e_test",
     srcs = ["diff_test_runner.sh"],
