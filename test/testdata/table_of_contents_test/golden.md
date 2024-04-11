@@ -1,6 +1,6 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-
+Test rules / providers / etc for the table of contents generation test.
 
 
 ## Rules
