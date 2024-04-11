@@ -273,9 +273,9 @@ stardoc_test(
 
 stardoc_test(
     name = "footer_test",
+    footer_template = "testdata/footer_test/footer_template.vm",
     golden_file = "testdata/footer_test/golden.md",
     input_file = "testdata/footer_test/input.bzl",
-    footer_template = "testdata/footer_test/footer_template.vm",
     test_legacy_extractor = False,
 )
 
