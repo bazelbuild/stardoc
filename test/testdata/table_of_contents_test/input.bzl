@@ -5,6 +5,8 @@ load("//test:testdata/provider_basic_test/input.bzl", _MyFooInfo = "MyFooInfo", 
 load("//test:testdata/repo_rules_test/input.bzl", _my_repo = "my_repo")
 load("//test:testdata/simple_test/input.bzl", _my_rule = "my_rule")
 
+"""Test rules / providers / etc for the table of contents generation test."""
+
 my_rule = _my_rule
 
 MyFooInfo = _MyFooInfo
