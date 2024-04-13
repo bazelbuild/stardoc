@@ -90,7 +90,8 @@ public class MarkdownRenderer {
             new MarkdownUtil(extensionBzlFile),
             "moduleDocstring",
             moduleInfo.getModuleDocstring(),
-            "stamping", stamping);
+            "stamping",
+            stamping);
     Reader reader = readerFromPath(headerTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);

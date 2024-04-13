@@ -38,8 +38,6 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
 
@@ -65,11 +63,12 @@ public final class RendererMain {
     String outputPath = rendererOptions.outputFilePath;
 
     Stamping stamping;
-    if (rendererOptions.stampingStableStatusFilePath != null &&
-        rendererOptions.stampingVolatileStatusFilePath != null) {
-      stamping = Stamping.read(
-          rendererOptions.stampingStableStatusFilePath,
-          rendererOptions.stampingVolatileStatusFilePath);
+    if (rendererOptions.stampingStableStatusFilePath != null
+        && rendererOptions.stampingVolatileStatusFilePath != null) {
+      stamping =
+          Stamping.read(
+              rendererOptions.stampingStableStatusFilePath,
+              rendererOptions.stampingVolatileStatusFilePath);
     } else {
       stamping = Stamping.empty();
     }
@@ -98,44 +97,6 @@ public final class RendererMain {
               rendererOptions.moduleExtensionTemplateFilePath,
               !moduleInfo.getFile().isEmpty() ? moduleInfo.getFile() : "...",
               stamping);
-
-      // rules are printed sorted by their qualified name, and their attributes are sorted by name,
-      // with ATTRIBUTE_ORDERING specifying a fixed sort order for some standard attributes.
-      ImmutableList<RuleInfo> sortedRuleInfos =
-          moduleInfo.getRuleInfoList().stream()
-              .map(RendererMain::withSortedRuleAttributes)
-              .sorted(comparing(RuleInfo::getRuleName))
-              .collect(toImmutableList());
-
-      // providers are printed sorted by their qualified name.
-      ImmutableList<ProviderInfo> sortedProviderInfos =
-          ImmutableList.sortedCopyOf(comparing(ProviderInfo::getProviderName), moduleInfo.getProviderInfoList());
-
-      // functions are printed sorted by their qualified name.
-      ImmutableList<StarlarkFunctionInfo> sortedStarlarkFunctions =
-          ImmutableList.sortedCopyOf(
-              comparing(StarlarkFunctionInfo::getFunctionName), moduleInfo.getFuncInfoList());
-
-      // aspects are printed sorted by their qualified name.
-      ImmutableList<AspectInfo> sortedAspectInfos =
-          ImmutableList.sortedCopyOf(comparing(AspectInfo::getAspectName), moduleInfo.getAspectInfoList());
-
-      // Repository rules are printed sorted by their qualified name, and their attributes are sorted
-      // by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for some standard attributes.
-      ImmutableList<RepositoryRuleInfo> sortedRepositoryRuleInfos =
-          moduleInfo.getRepositoryRuleInfoList().stream()
-              .map(RendererMain::withSortedRuleAttributes)
-              .sorted(comparing(RepositoryRuleInfo::getRuleName))
-              .collect(toImmutableList());
-
-      // Module extension are printed sorted by their qualified name, and their tag classes'
-      // attributes are sorted by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for some
-      // standard attributes.
-      ImmutableList<ModuleExtensionInfo> sortedModuleExtensionInfos =
-          moduleInfo.getModuleExtensionInfoList().stream()
-              .map(RendererMain::withSortedTagAttributes)
-              .sorted(comparing(ModuleExtensionInfo::getExtensionName))
-              .collect(toImmutableList());
 
       // rules are printed sorted by their qualified name, and their attributes are sorted by name,
       // with ATTRIBUTE_ORDERING specifying a fixed sort order for some standard attributes.

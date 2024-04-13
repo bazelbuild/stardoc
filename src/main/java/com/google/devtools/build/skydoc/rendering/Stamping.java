@@ -14,15 +14,13 @@
 
 package com.google.devtools.build.skydoc.rendering;
 
+import com.google.common.collect.ImmutableMap;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import com.google.common.collect.ImmutableMap;
 
-/**
- * Reads and stores stamping information.
- */
+/** Reads and stores stamping information. */
 public final class Stamping {
 
   public static Stamping read(String stableStatusFile, String volatileStatusFile)
@@ -48,8 +46,7 @@ public final class Stamping {
   }
 
   private Stamping(
-      ImmutableMap<String, String> stableInfo,
-      ImmutableMap<String, String> volatileInfo) {
+      ImmutableMap<String, String> stableInfo, ImmutableMap<String, String> volatileInfo) {
     this.stableInfo = stableInfo;
     this.volatileInfo = volatileInfo;
   }
@@ -57,7 +54,7 @@ public final class Stamping {
   public ImmutableMap<String, String> getStable() {
     return stableInfo;
   }
-  
+
   public ImmutableMap<String, String> getVolatile() {
     return volatileInfo;
   }
