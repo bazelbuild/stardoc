@@ -253,15 +253,10 @@ public class MarkdownRenderer {
     }
   }
 
-  /**
-   * Returns a markdown header string that should appear at the end of Stardoc's output.
-   */
+  /** Returns a markdown header string that should appear at the end of Stardoc's output. */
   public String renderMarkdownFooter(ModuleInfo moduleInfo) throws IOException {
     ImmutableMap<String, Object> vars =
-        ImmutableMap.of(
-            "util",
-            new MarkdownUtil(extensionBzlFile),
-            "stamping", stamping);
+        ImmutableMap.of("util", new MarkdownUtil(extensionBzlFile), "stamping", stamping);
     Reader reader = readerFromPath(footerTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
