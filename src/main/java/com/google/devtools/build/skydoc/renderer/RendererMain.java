@@ -95,7 +95,8 @@ public final class RendererMain {
 
       // providers are printed sorted by their qualified name.
       ImmutableList<ProviderInfo> sortedProviderInfos =
-          ImmutableList.sortedCopyOf(comparing(ProviderInfo::getProviderName), moduleInfo.getProviderInfoList());
+          ImmutableList.sortedCopyOf(
+              comparing(ProviderInfo::getProviderName), moduleInfo.getProviderInfoList());
 
       // functions are printed sorted by their qualified name.
       ImmutableList<StarlarkFunctionInfo> sortedStarlarkFunctions =
@@ -104,10 +105,12 @@ public final class RendererMain {
 
       // aspects are printed sorted by their qualified name.
       ImmutableList<AspectInfo> sortedAspectInfos =
-          ImmutableList.sortedCopyOf(comparing(AspectInfo::getAspectName), moduleInfo.getAspectInfoList());
+          ImmutableList.sortedCopyOf(
+              comparing(AspectInfo::getAspectName), moduleInfo.getAspectInfoList());
 
-      // Repository rules are printed sorted by their qualified name, and their attributes are sorted
-      // by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for some standard attributes.
+      // Repository rules are printed sorted by their qualified name, and their attributes are
+      // sorted by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for some standard
+      // attributes.
       ImmutableList<RepositoryRuleInfo> sortedRepositoryRuleInfos =
           moduleInfo.getRepositoryRuleInfoList().stream()
               .map(RendererMain::withSortedRuleAttributes)
@@ -115,8 +118,8 @@ public final class RendererMain {
               .collect(toImmutableList());
 
       // Module extension are printed sorted by their qualified name, and their tag classes'
-      // attributes are sorted by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for some
-      // standard attributes.
+      // attributes are sorted by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for
+      // some standard attributes.
       ImmutableList<ModuleExtensionInfo> sortedModuleExtensionInfos =
           moduleInfo.getModuleExtensionInfoList().stream()
               .map(RendererMain::withSortedTagAttributes)
@@ -125,13 +128,14 @@ public final class RendererMain {
 
       printWriter.println(renderer.renderMarkdownHeader(moduleInfo));
       if (rendererOptions.tableOfContentsTemplateFilePath != null) {
-        printWriter.println(renderer.renderTableOfContents(
-            sortedRuleInfos, 
-            sortedProviderInfos,
-            sortedStarlarkFunctions,
-            sortedAspectInfos,
-            sortedRepositoryRuleInfos,
-            sortedModuleExtensionInfos)); 
+        printWriter.println(
+            renderer.renderTableOfContents(
+                sortedRuleInfos,
+                sortedProviderInfos,
+                sortedStarlarkFunctions,
+                sortedAspectInfos,
+                sortedRepositoryRuleInfos,
+                sortedModuleExtensionInfos));
       }
       print(printWriter, renderer::render, sortedRuleInfos);
       print(printWriter, renderer::render, sortedProviderInfos);
