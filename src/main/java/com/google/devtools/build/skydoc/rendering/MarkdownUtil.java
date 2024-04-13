@@ -447,8 +447,9 @@ public final class MarkdownUtil {
 
   /**
    * Formats a build timestamp from stamping with the given format. For example:
-   * 
-   * `$util.formatBuildTimestamp($stamping.volatile.BUILD_TIMESTAMP, "UTC", "yyyy MMM dd, HH:mm") UTC`
+   *
+   * <p>`$util.formatBuildTimestamp($stamping.volatile.BUILD_TIMESTAMP, "UTC", "yyyy MMM dd, HH:mm")
+   * UTC`
    */
   public String formatBuildTimestamp(String buildTimestampSeconds, String zoneId, String format) {
     // If stamp is not set to True in the stardoc() rule, then $stamping.volatile.BUILD_TIMESTAMP will
@@ -460,8 +461,7 @@ public final class MarkdownUtil {
     if (isNullOrEmpty(buildTimestampSeconds)) {
       return "";
     }
-    return Instant
-        .ofEpochMilli(Long.parseLong(buildTimestampSeconds) * 1000)
+    return Instant.ofEpochMilli(Long.parseLong(buildTimestampSeconds) * 1000)
         .atZone(ZoneId.of(zoneId))
         .format(DateTimeFormatter.ofPattern(format));
   }

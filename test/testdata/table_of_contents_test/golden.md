@@ -221,6 +221,7 @@ Minimal example of a repository rule.
 **ENVIRONMENT VARIABLES**
 
 This repository rule depends on the following environment variables:
+
 * `FOO_CC`
 * `BAR_PATH`
 
