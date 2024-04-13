@@ -1,0 +1,5 @@
+This Stardoc was built on `$util.formatBuildTimestamp($stamping.volatile.BUILD_TIMESTAMP, "UTC", "yyyy MMM dd, HH:mm")`.
+
+This Stardoc was built on `$util.formatBuildTimestamp("$!stamping.volatile.BUILD_TIMESTAMP", "UTC", "yyyy MMM dd, HH:mm")`.
+
+Host: `$!stamping.stable.BUILD_HOST`.
