@@ -137,15 +137,57 @@ public final class RendererMain {
               .sorted(comparing(ModuleExtensionInfo::getExtensionName))
               .collect(toImmutableList());
 
+      // rules are printed sorted by their qualified name, and their attributes are sorted by name,
+      // with ATTRIBUTE_ORDERING specifying a fixed sort order for some standard attributes.
+      ImmutableList<RuleInfo> sortedRuleInfos =
+          moduleInfo.getRuleInfoList().stream()
+              .map(RendererMain::withSortedRuleAttributes)
+              .sorted(comparing(RuleInfo::getRuleName))
+              .collect(toImmutableList());
+
+      // providers are printed sorted by their qualified name.
+      ImmutableList<ProviderInfo> sortedProviderInfos =
+          ImmutableList.sortedCopyOf(
+              comparing(ProviderInfo::getProviderName), moduleInfo.getProviderInfoList());
+
+      // functions are printed sorted by their qualified name.
+      ImmutableList<StarlarkFunctionInfo> sortedStarlarkFunctions =
+          ImmutableList.sortedCopyOf(
+              comparing(StarlarkFunctionInfo::getFunctionName), moduleInfo.getFuncInfoList());
+
+      // aspects are printed sorted by their qualified name.
+      ImmutableList<AspectInfo> sortedAspectInfos =
+          ImmutableList.sortedCopyOf(
+              comparing(AspectInfo::getAspectName), moduleInfo.getAspectInfoList());
+
+      // Repository rules are printed sorted by their qualified name, and their attributes are
+      // sorted by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for some standard
+      // attributes.
+      ImmutableList<RepositoryRuleInfo> sortedRepositoryRuleInfos =
+          moduleInfo.getRepositoryRuleInfoList().stream()
+              .map(RendererMain::withSortedRuleAttributes)
+              .sorted(comparing(RepositoryRuleInfo::getRuleName))
+              .collect(toImmutableList());
+
+      // Module extension are printed sorted by their qualified name, and their tag classes'
+      // attributes are sorted by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for
+      // some standard attributes.
+      ImmutableList<ModuleExtensionInfo> sortedModuleExtensionInfos =
+          moduleInfo.getModuleExtensionInfoList().stream()
+              .map(RendererMain::withSortedTagAttributes)
+              .sorted(comparing(ModuleExtensionInfo::getExtensionName))
+              .collect(toImmutableList());
+
       printWriter.println(renderer.renderMarkdownHeader(moduleInfo));
       if (rendererOptions.tableOfContentsTemplateFilePath != null) {
-        printWriter.println(renderer.renderTableOfContents(
-            sortedRuleInfos, 
-            sortedProviderInfos,
-            sortedStarlarkFunctions,
-            sortedAspectInfos,
-            sortedRepositoryRuleInfos,
-            sortedModuleExtensionInfos)); 
+        printWriter.println(
+            renderer.renderTableOfContents(
+                sortedRuleInfos,
+                sortedProviderInfos,
+                sortedStarlarkFunctions,
+                sortedAspectInfos,
+                sortedRepositoryRuleInfos,
+                sortedModuleExtensionInfos));
       }
       print(printWriter, renderer::render, sortedRuleInfos);
       print(printWriter, renderer::render, sortedProviderInfos);

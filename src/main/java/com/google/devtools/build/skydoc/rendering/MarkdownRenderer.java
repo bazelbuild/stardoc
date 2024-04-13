@@ -100,8 +100,8 @@ public class MarkdownRenderer {
   }
 
   /**
-   * Returns a markdown string of a Table of Contents, appearing after
-   * the header and before the documentation.
+   * Returns a markdown string of a Table of Contents, appearing after the header and before the
+   * documentation.
    */
   public String renderTableOfContents(
       List<RuleInfo> ruleInfos,
@@ -109,7 +109,8 @@ public class MarkdownRenderer {
       List<StarlarkFunctionInfo> starlarkFunctions,
       List<AspectInfo> aspectInfos,
       List<RepositoryRuleInfo> repositoryRuleInfos,
-      List<ModuleExtensionInfo> moduleExtensionInfos) throws IOException {
+      List<ModuleExtensionInfo> moduleExtensionInfos)
+      throws IOException {
 
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
@@ -135,9 +136,12 @@ public class MarkdownRenderer {
   public String render(RuleInfo ruleInfo) throws IOException {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
-            "util", new MarkdownUtil(extensionBzlFile),
-            "ruleName", ruleInfo.getRuleName(),
-            "ruleInfo", ruleInfo);
+            "util",
+            new MarkdownUtil(extensionBzlFile),
+            "ruleName",
+            ruleInfo.getRuleName(),
+            "ruleInfo",
+            ruleInfo);
     Reader reader = readerFromPath(ruleTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
@@ -207,8 +211,7 @@ public class MarkdownRenderer {
    * Returns a markdown rendering of repository rule documentation for the given repository rule
    * information object with the given name.
    */
-  public String render(RepositoryRuleInfo repositoryRuleInfo)
-      throws IOException {
+  public String render(RepositoryRuleInfo repositoryRuleInfo) throws IOException {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
@@ -229,8 +232,7 @@ public class MarkdownRenderer {
    * Returns a markdown rendering of module extension documentation for the given module extension
    * information object with the given name.
    */
-  public String render(ModuleExtensionInfo moduleExtensionInfo)
-      throws IOException {
+  public String render(ModuleExtensionInfo moduleExtensionInfo) throws IOException {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
