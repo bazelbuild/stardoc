@@ -1,3 +1,4 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
 load(":stardoc_test.bzl", "self_gen_test", "stardoc_test")
 
@@ -268,6 +269,27 @@ stardoc_test(
     name = "config_apis_test",
     golden_file = "testdata/config_apis_test/golden.md",
     input_file = "testdata/config_apis_test/input.bzl",
+)
+
+bzl_library(
+    name = "table_of_contents_test_deps",
+    srcs = [
+        "testdata/aspect_test/input.bzl",
+        "testdata/function_basic_test/input.bzl",
+        "testdata/module_extension_test/input.bzl",
+        "testdata/provider_basic_test/input.bzl",
+        "testdata/repo_rules_test/input.bzl",
+        "testdata/simple_test/input.bzl",
+    ],
+)
+
+stardoc_test(
+    name = "table_of_contents_test",
+    golden_file = "testdata/table_of_contents_test/golden.md",
+    input_file = "testdata/table_of_contents_test/input.bzl",
+    table_of_contents_template = "//stardoc:templates/markdown_tables/table_of_contents.vm",
+    test_legacy_extractor = False,
+    deps = [":table_of_contents_test_deps"],
 )
 
 sh_test(

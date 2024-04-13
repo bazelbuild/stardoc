@@ -40,6 +40,11 @@ class RendererOptions {
   String headerTemplateFilePath;
 
   @Parameter(
+      names = "--table_of_contents_template",
+      description = "The template for the table of contents string")
+  String tableOfContentsTemplateFilePath;
+
+  @Parameter(
       names = "--rule_template",
       required = true,
       description = "The template for the documentation of a rule")

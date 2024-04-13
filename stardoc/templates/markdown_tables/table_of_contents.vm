@@ -1,0 +1,49 @@
+
+#if (!$ruleInfos.isEmpty())
+#[[##]]# Rules
+
+#foreach ($rule in $ruleInfos)
+- [$rule.ruleName](#$rule.ruleName)
+#end
+
+#end
+#if (!$providerInfos.isEmpty())
+#[[##]]# Providers
+
+#foreach ($providerInfo in $providerInfos)
+- [$providerInfo.providerName](#$providerInfo.providerName)
+#end
+
+#end
+#if (!$functionInfos.isEmpty())
+#[[##]]# Functions
+
+#foreach ($functionInfo in $functionInfos)
+- [$functionInfo.functionName](#$functionInfo.functionName)
+#end
+
+#end
+#if (!$aspectInfos.isEmpty())
+#[[##]]# Aspects
+
+#foreach ($aspectInfo in $aspectInfos)
+- [$aspectInfo.aspectName](#$aspectInfo.aspectName)
+#end
+
+#end
+#if (!$repositoryRuleInfos.isEmpty())
+#[[##]]# Repository Rules
+
+#foreach ($repositoryRuleInfo in $repositoryRuleInfos)
+- [$repositoryRuleInfo.ruleName](#$repositoryRuleInfo.ruleName)
+#end
+
+#end
+#if (!$moduleExtensionInfos.isEmpty())
+#[[##]]# Module Extensions
+
+#foreach ($moduleExtensionInfo in $moduleExtensionInfos)
+- [$moduleExtensionInfo.extensionName](#$moduleExtensionInfo.extensionName)
+#end
+
+#end

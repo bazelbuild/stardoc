@@ -32,6 +32,7 @@ def stardoc(
         aspect_template = Label("//stardoc:templates/markdown_tables/aspect.vm"),
         func_template = Label("//stardoc:templates/markdown_tables/func.vm"),
         header_template = Label("//stardoc:templates/markdown_tables/header.vm"),
+        table_of_contents_template = None,
         provider_template = Label("//stardoc:templates/markdown_tables/provider.vm"),
         rule_template = Label("//stardoc:templates/markdown_tables/rule.vm"),
         repository_rule_template = Label("//stardoc:templates/markdown_tables/repository_rule.vm"),
@@ -61,6 +62,9 @@ def stardoc(
       renderer: The location of the renderer tool.
       aspect_template: The input file template for generating documentation of aspects
       header_template: The input file template for the header of the output documentation.
+      table_of_contents_template: The input file template for the table of contents of the output documentation.
+        This is unset by default for backwards compatibility. Use
+        `Label("@stardoc//stardoc:templates/markdown_tables/table_of_contents.vm")` for the default template.
       func_template: The input file template for generating documentation of functions.
       provider_template: The input file template for generating documentation of providers.
       rule_template: The input file template for generating documentation of rules.
@@ -114,6 +118,7 @@ def stardoc(
                 aspect_template = aspect_template,
                 func_template = func_template,
                 header_template = header_template,
+                table_of_contents_template = table_of_contents_template,
                 provider_template = provider_template,
                 rule_template = rule_template,
                 repository_rule_template = repository_rule_template,

@@ -22,6 +22,7 @@ import com.beust.jcommander.JCommander;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.devtools.build.skydoc.rendering.MarkdownRenderer;
+import com.google.devtools.build.skydoc.rendering.MarkdownRenderer.Renderer;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AspectInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AttributeInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleExtensionInfo;
@@ -75,6 +76,7 @@ public final class RendererMain {
       MarkdownRenderer renderer =
           new MarkdownRenderer(
               rendererOptions.headerTemplateFilePath,
+              rendererOptions.tableOfContentsTemplateFilePath,
               rendererOptions.ruleTemplateFilePath,
               rendererOptions.providerTemplateFilePath,
               rendererOptions.funcTemplateFilePath,
@@ -83,15 +85,75 @@ public final class RendererMain {
               rendererOptions.moduleExtensionTemplateFilePath,
               !moduleInfo.getFile().isEmpty() ? moduleInfo.getFile() : "...");
 
+      // rules are printed sorted by their qualified name, and their attributes are sorted by name,
+      // with ATTRIBUTE_ORDERING specifying a fixed sort order for some standard attributes.
+      ImmutableList<RuleInfo> sortedRuleInfos =
+          moduleInfo.getRuleInfoList().stream()
+              .map(RendererMain::withSortedRuleAttributes)
+              .sorted(comparing(RuleInfo::getRuleName))
+              .collect(toImmutableList());
+
+      // providers are printed sorted by their qualified name.
+      ImmutableList<ProviderInfo> sortedProviderInfos =
+          ImmutableList.sortedCopyOf(
+              comparing(ProviderInfo::getProviderName), moduleInfo.getProviderInfoList());
+
+      // functions are printed sorted by their qualified name.
+      ImmutableList<StarlarkFunctionInfo> sortedStarlarkFunctions =
+          ImmutableList.sortedCopyOf(
+              comparing(StarlarkFunctionInfo::getFunctionName), moduleInfo.getFuncInfoList());
+
+      // aspects are printed sorted by their qualified name.
+      ImmutableList<AspectInfo> sortedAspectInfos =
+          ImmutableList.sortedCopyOf(
+              comparing(AspectInfo::getAspectName), moduleInfo.getAspectInfoList());
+
+      // Repository rules are printed sorted by their qualified name, and their attributes are
+      // sorted by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for some standard
+      // attributes.
+      ImmutableList<RepositoryRuleInfo> sortedRepositoryRuleInfos =
+          moduleInfo.getRepositoryRuleInfoList().stream()
+              .map(RendererMain::withSortedRuleAttributes)
+              .sorted(comparing(RepositoryRuleInfo::getRuleName))
+              .collect(toImmutableList());
+
+      // Module extension are printed sorted by their qualified name, and their tag classes'
+      // attributes are sorted by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for
+      // some standard attributes.
+      ImmutableList<ModuleExtensionInfo> sortedModuleExtensionInfos =
+          moduleInfo.getModuleExtensionInfoList().stream()
+              .map(RendererMain::withSortedTagAttributes)
+              .sorted(comparing(ModuleExtensionInfo::getExtensionName))
+              .collect(toImmutableList());
+
       printWriter.println(renderer.renderMarkdownHeader(moduleInfo));
-      printRuleInfos(printWriter, renderer, moduleInfo.getRuleInfoList());
-      printProviderInfos(printWriter, renderer, moduleInfo.getProviderInfoList());
-      printStarlarkFunctions(printWriter, renderer, moduleInfo.getFuncInfoList());
-      printAspectInfos(printWriter, renderer, moduleInfo.getAspectInfoList());
-      printRepositoryRuleInfos(printWriter, renderer, moduleInfo.getRepositoryRuleInfoList());
-      printModuleExtensionInfos(printWriter, renderer, moduleInfo.getModuleExtensionInfoList());
+      if (rendererOptions.tableOfContentsTemplateFilePath != null) {
+        printWriter.println(
+            renderer.renderTableOfContents(
+                sortedRuleInfos,
+                sortedProviderInfos,
+                sortedStarlarkFunctions,
+                sortedAspectInfos,
+                sortedRepositoryRuleInfos,
+                sortedModuleExtensionInfos));
+      }
+      print(printWriter, renderer::render, sortedRuleInfos);
+      print(printWriter, renderer::render, sortedProviderInfos);
+      print(printWriter, renderer::render, sortedStarlarkFunctions);
+      print(printWriter, renderer::render, sortedAspectInfos);
+      print(printWriter, renderer::render, sortedRepositoryRuleInfos);
+      print(printWriter, renderer::render, sortedModuleExtensionInfos);
+
     } catch (InvalidProtocolBufferException e) {
       throw new IllegalArgumentException("Input file is not a valid ModuleInfo proto.", e);
+    }
+  }
+
+  private static <T> void print(PrintWriter printWriter, Renderer<T> renderer, List<T> infos)
+      throws IOException {
+    for (T info : infos) {
+      printWriter.println(renderer.render(info));
+      printWriter.println();
     }
   }
 
@@ -165,95 +227,6 @@ public final class RendererMain {
                 .map(RendererMain::withSortedTagAttributes)
                 .collect(toImmutableList()))
         .build();
-  }
-
-  private static void printRuleInfos(
-      PrintWriter printWriter, MarkdownRenderer renderer, List<RuleInfo> ruleInfos)
-      throws IOException {
-    // rules are printed sorted by their qualified name, and their attributes are sorted by name,
-    // with ATTRIBUTE_ORDERING specifying a fixed sort order for some standard attributes.
-    ImmutableList<RuleInfo> sortedRuleInfos =
-        ruleInfos.stream()
-            .map(RendererMain::withSortedRuleAttributes)
-            .sorted(comparing(RuleInfo::getRuleName))
-            .collect(toImmutableList());
-    for (RuleInfo ruleProto : sortedRuleInfos) {
-      printWriter.println(renderer.render(ruleProto.getRuleName(), ruleProto));
-      printWriter.println();
-    }
-  }
-
-  private static void printProviderInfos(
-      PrintWriter printWriter, MarkdownRenderer renderer, List<ProviderInfo> providerInfos)
-      throws IOException {
-    // providers are printed sorted by their qualified name.
-    ImmutableList<ProviderInfo> sortedProviderInfos =
-        ImmutableList.sortedCopyOf(comparing(ProviderInfo::getProviderName), providerInfos);
-    for (ProviderInfo providerProto : sortedProviderInfos) {
-      printWriter.println(renderer.render(providerProto.getProviderName(), providerProto));
-      printWriter.println();
-    }
-  }
-
-  private static void printStarlarkFunctions(
-      PrintWriter printWriter,
-      MarkdownRenderer renderer,
-      List<StarlarkFunctionInfo> starlarkFunctions)
-      throws IOException {
-    // functions are printed sorted by their qualified name.
-    ImmutableList<StarlarkFunctionInfo> sortedStarlarkFunctions =
-        ImmutableList.sortedCopyOf(
-            comparing(StarlarkFunctionInfo::getFunctionName), starlarkFunctions);
-    for (StarlarkFunctionInfo funcProto : sortedStarlarkFunctions) {
-      printWriter.println(renderer.render(funcProto));
-      printWriter.println();
-    }
-  }
-
-  private static void printAspectInfos(
-      PrintWriter printWriter, MarkdownRenderer renderer, List<AspectInfo> aspectInfos)
-      throws IOException {
-    // aspects are printed sorted by their qualified name.
-    ImmutableList<AspectInfo> sortedAspectInfos =
-        ImmutableList.sortedCopyOf(comparing(AspectInfo::getAspectName), aspectInfos);
-    for (AspectInfo aspectProto : sortedAspectInfos) {
-      printWriter.println(renderer.render(aspectProto.getAspectName(), aspectProto));
-      printWriter.println();
-    }
-  }
-
-  private static void printRepositoryRuleInfos(
-      PrintWriter printWriter, MarkdownRenderer renderer, List<RepositoryRuleInfo> ruleInfos)
-      throws IOException {
-    // Repository rules are printed sorted by their qualified name, and their attributes are sorted
-    // by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for some standard attributes.
-    ImmutableList<RepositoryRuleInfo> sortedRepositoryRuleInfos =
-        ruleInfos.stream()
-            .map(RendererMain::withSortedRuleAttributes)
-            .sorted(comparing(RepositoryRuleInfo::getRuleName))
-            .collect(toImmutableList());
-    for (RepositoryRuleInfo repositoryRuleProto : sortedRepositoryRuleInfos) {
-      printWriter.println(renderer.render(repositoryRuleProto.getRuleName(), repositoryRuleProto));
-      printWriter.println();
-    }
-  }
-
-  private static void printModuleExtensionInfos(
-      PrintWriter printWriter, MarkdownRenderer renderer, List<ModuleExtensionInfo> ruleInfos)
-      throws IOException {
-    // Module extension are printed sorted by their qualified name, and their tag classes'
-    // attributes are sorted by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for some
-    // standard attributes.
-    ImmutableList<ModuleExtensionInfo> sortedModuleExtensionInfos =
-        ruleInfos.stream()
-            .map(RendererMain::withSortedTagAttributes)
-            .sorted(comparing(ModuleExtensionInfo::getExtensionName))
-            .collect(toImmutableList());
-    for (ModuleExtensionInfo moduleExtensionProto : sortedModuleExtensionInfos) {
-      printWriter.println(
-          renderer.render(moduleExtensionProto.getExtensionName(), moduleExtensionProto));
-      printWriter.println();
-    }
   }
 
   private RendererMain() {}

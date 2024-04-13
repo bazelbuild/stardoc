@@ -21,27 +21,33 @@ def _renderer_action_run(ctx, out_file, proto_file):
     renderer_args.add("--output=" + str(ctx.outputs.out.path))
     renderer_args.add("--aspect_template=" + str(ctx.file.aspect_template.path))
     renderer_args.add("--header_template=" + str(ctx.file.header_template.path))
+    if ctx.attr.table_of_contents_template:
+        renderer_args.add("--table_of_contents_template=" + str(ctx.file.table_of_contents_template.path))
     renderer_args.add("--func_template=" + str(ctx.file.func_template.path))
     renderer_args.add("--provider_template=" + str(ctx.file.provider_template.path))
     renderer_args.add("--rule_template=" + str(ctx.file.rule_template.path))
     renderer_args.add("--repository_rule_template=" + str(ctx.file.repository_rule_template.path))
     renderer_args.add("--module_extension_template=" + str(ctx.file.module_extension_template.path))
+
+    inputs = [
+        proto_file,
+        ctx.file.aspect_template,
+        ctx.file.header_template,
+        ctx.file.func_template,
+        ctx.file.provider_template,
+        ctx.file.rule_template,
+        ctx.file.repository_rule_template,
+        ctx.file.module_extension_template,
+    ]
+    if ctx.attr.table_of_contents_template:
+        inputs.append(ctx.file.table_of_contents_template)
     renderer = ctx.executable.renderer
     ctx.actions.run(
-        outputs = [out_file],
-        inputs = [
-            proto_file,
-            ctx.file.aspect_template,
-            ctx.file.header_template,
-            ctx.file.func_template,
-            ctx.file.provider_template,
-            ctx.file.rule_template,
-            ctx.file.repository_rule_template,
-            ctx.file.module_extension_template,
-        ],
-        executable = renderer,
         arguments = [renderer_args],
+        executable = renderer,
+        inputs = inputs,
         mnemonic = "Renderer",
+        outputs = [out_file],
         progress_message = ("Converting proto format of %s to markdown format" %
                             (ctx.label.name)),
     )
@@ -113,6 +119,14 @@ _common_renderer_attrs = {
         doc = "The input file template for the header of the output documentation.",
         allow_single_file = [".vm"],
         mandatory = True,
+    ),
+    "table_of_contents_template": attr.label(
+        doc = "The input file template for the table of contents of the output documentation. " +
+              "This is unset by default for backwards compatibility. Use " +
+              "`Label(\"@stardoc//stardoc:templates/markdown_tables/table_of_contents.vm\")` " +
+              "for the default template.",
+        allow_single_file = [".vm"],
+        mandatory = False,  # Not mandatory for backwards compatibility.
     ),
     "func_template": attr.label(
         doc = "The input file template for generating documentation of functions.",
