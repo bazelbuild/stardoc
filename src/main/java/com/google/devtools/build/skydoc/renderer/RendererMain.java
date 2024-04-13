@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.devtools.build.skydoc.rendering.MarkdownRenderer;
 import com.google.devtools.build.skydoc.rendering.MarkdownRenderer.Renderer;
+import com.google.devtools.build.skydoc.rendering.Stamping;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AspectInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AttributeInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleExtensionInfo;
@@ -61,6 +62,17 @@ public final class RendererMain {
     String inputPath = rendererOptions.inputPath;
     String outputPath = rendererOptions.outputFilePath;
 
+    Stamping stamping;
+    if (rendererOptions.stampingStableStatusFilePath != null
+        && rendererOptions.stampingVolatileStatusFilePath != null) {
+      stamping =
+          Stamping.read(
+              rendererOptions.stampingStableStatusFilePath,
+              rendererOptions.stampingVolatileStatusFilePath);
+    } else {
+      stamping = Stamping.empty();
+    }
+
     try (PrintWriter printWriter =
         new PrintWriter(outputPath, UTF_8) {
           // Use consistent line endings on all platforms.
@@ -83,7 +95,8 @@ public final class RendererMain {
               rendererOptions.aspectTemplateFilePath,
               rendererOptions.repositoryRuleTemplateFilePath,
               rendererOptions.moduleExtensionTemplateFilePath,
-              !moduleInfo.getFile().isEmpty() ? moduleInfo.getFile() : "...");
+              !moduleInfo.getFile().isEmpty() ? moduleInfo.getFile() : "...",
+              stamping);
 
       // rules are printed sorted by their qualified name, and their attributes are sorted by name,
       // with ATTRIBUTE_ORDERING specifying a fixed sort order for some standard attributes.

@@ -54,6 +54,7 @@ public class MarkdownRenderer {
   private final String repositoryRuleTemplateFilename;
   private final String moduleExtensionTemplateFilename;
   private final String extensionBzlFile;
+  private final Stamping stamping;
 
   public MarkdownRenderer(
       String headerTemplate,
@@ -64,7 +65,8 @@ public class MarkdownRenderer {
       String aspectTemplate,
       String repositoryRuleTemplate,
       String moduleExtensionTemplate,
-      String extensionBzlFile) {
+      String extensionBzlFile,
+      Stamping stamping) {
     this.headerTemplateFilename = headerTemplate;
     this.tableOfContentsTemplateFilename = tableOfContentsTemplateFilename;
     this.ruleTemplateFilename = ruleTemplate;
@@ -74,6 +76,7 @@ public class MarkdownRenderer {
     this.repositoryRuleTemplateFilename = repositoryRuleTemplate;
     this.moduleExtensionTemplateFilename = moduleExtensionTemplate;
     this.extensionBzlFile = extensionBzlFile;
+    this.stamping = stamping;
   }
 
   /**
@@ -86,7 +89,9 @@ public class MarkdownRenderer {
             "util",
             new MarkdownUtil(extensionBzlFile),
             "moduleDocstring",
-            moduleInfo.getModuleDocstring());
+            moduleInfo.getModuleDocstring(),
+            "stamping",
+            stamping);
     Reader reader = readerFromPath(headerTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);

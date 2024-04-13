@@ -1,0 +1,11 @@
+## "G" in the format below is for "Era". So long as we don't go back in time ~2000 years, this should always be "AD",
+## and we don't have to fiddle with handling varying timestamps in the test.
+This Stardoc was built in the `$util.formatBuildTimestamp($stamping.volatile.BUILD_TIMESTAMP, "UTC", "G")` era.
+
+## Should test a stable value, but stable contains quasi sensitive info, so don't print that in the test output
+Host empty: $stamping.stable.BUILD_HOST.isEmpty()
+
+## Sometimes Stardoc is built without --workspace_status_command (e.g. in build tests), luckily "$!foo" will tell
+## Velocity to ignore null values:
+This key does not exist: $!stamping.stable.STABLE_GIT_COMMIT
+

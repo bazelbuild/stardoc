@@ -31,6 +31,9 @@ import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.Prov
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RepositoryRuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.StarlarkFunctionInfo;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -439,5 +442,17 @@ public final class MarkdownUtil {
         throw new IllegalArgumentException("Unhandled type " + attributeType);
     }
     throw new IllegalArgumentException("Unhandled type " + attributeType);
+  }
+
+  /**
+   * Formats a build timestamp from stamping with the given format. For example:
+   *
+   * <p>`$util.formatBuildTimestamp($stamping.volatile.BUILD_TIMESTAMP, "UTC", "yyyy MMM dd, HH:mm")
+   * UTC`
+   */
+  public String formatBuildTimestamp(String buildTimestampSeconds, String zoneId, String format) {
+    return Instant.ofEpochMilli(Long.parseLong(buildTimestampSeconds) * 1000)
+        .atZone(ZoneId.of(zoneId))
+        .format(DateTimeFormatter.ofPattern(format));
   }
 }
