@@ -82,12 +82,12 @@ class RendererOptions {
 
   @Parameter(
       names = "--stamping_stable_status_file",
-      description = "The file path to the stable status file for stapming")
+      description = "The file path to the stable status file for stamping")
   String stampingStableStatusFilePath;
 
   @Parameter(
       names = "--stamping_volatile_status_file",
-      description = "The file path to the stable status file for stapming")
+      description = "The file path to the volatile status file for stamping")
   String stampingVolatileStatusFilePath;
 
   @Parameter(
