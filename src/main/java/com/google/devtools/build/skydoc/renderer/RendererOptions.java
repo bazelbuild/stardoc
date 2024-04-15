@@ -82,7 +82,7 @@ class RendererOptions {
 
   @Parameter(
       names = "--footer_template",
-      description = "The template for the documentation of a module extension")
+      description = "The template for the footer string")
   String footerTemplateFilePath;
 
   @Parameter(
