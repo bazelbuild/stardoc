@@ -452,10 +452,12 @@ public final class MarkdownUtil {
    * UTC`
    */
   public String formatBuildTimestamp(String buildTimestampSeconds, String zoneId, String format) {
-    // If stamp is not set to True in the stardoc() rule, then $stamping.volatile.BUILD_TIMESTAMP will
-    // be null, so return the empty string rather than crash. Alternatively, if this function is called as:
+    // If stamp is not set to True in the stardoc() rule, then $stamping.volatile.BUILD_TIMESTAMP
+    // will be null, so return the empty string rather than crash. Alternatively, if this function
+    // is called as:
     //
-    //   $util.formatBuildTimestamp("$!stamping.volatile.BUILD_TIMESTAMP", "UTC", "yyyy MMM dd, HH:mm")
+    //   $util.formatBuildTimestamp("$!stamping.volatile.BUILD_TIMESTAMP", "UTC", "yyyy MMM dd,
+    // HH:mm")
     //
     // then buildTimestampSeconds will be the empty string, so return the empty string too.
     if (isNullOrEmpty(buildTimestampSeconds)) {
