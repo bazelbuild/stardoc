@@ -271,6 +271,14 @@ stardoc_test(
     input_file = "testdata/config_apis_test/input.bzl",
 )
 
+stardoc_test(
+    name = "footer_test",
+    footer_template = "testdata/footer_test/footer_template.vm",
+    golden_file = "testdata/footer_test/golden.md",
+    input_file = "testdata/footer_test/input.bzl",
+    test_legacy_extractor = False,
+)
+
 bzl_library(
     name = "table_of_contents_test_deps",
     srcs = [

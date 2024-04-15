@@ -54,6 +54,7 @@ public class MarkdownRenderer {
   private final String repositoryRuleTemplateFilename;
   private final String moduleExtensionTemplateFilename;
   private final String extensionBzlFile;
+  private final String footerTemplateFilename;
   private final Stamping stamping;
 
   public MarkdownRenderer(
@@ -66,6 +67,7 @@ public class MarkdownRenderer {
       String repositoryRuleTemplate,
       String moduleExtensionTemplate,
       String extensionBzlFile,
+      String footerTemplate,
       Stamping stamping) {
     this.headerTemplateFilename = headerTemplate;
     this.tableOfContentsTemplateFilename = tableOfContentsTemplateFilename;
@@ -76,6 +78,7 @@ public class MarkdownRenderer {
     this.repositoryRuleTemplateFilename = repositoryRuleTemplate;
     this.moduleExtensionTemplateFilename = moduleExtensionTemplate;
     this.extensionBzlFile = extensionBzlFile;
+    this.footerTemplateFilename = footerTemplate;
     this.stamping = stamping;
   }
 
@@ -243,6 +246,18 @@ public class MarkdownRenderer {
             "extensionInfo",
             moduleExtensionInfo);
     Reader reader = readerFromPath(moduleExtensionTemplateFilename);
+    try {
+      return Template.parseFrom(reader).evaluate(vars);
+    } catch (ParseException | EvaluationException e) {
+      throw new IOException(e);
+    }
+  }
+
+  /** Returns a markdown header string that should appear at the end of Stardoc's output. */
+  public String renderMarkdownFooter(ModuleInfo moduleInfo) throws IOException {
+    ImmutableMap<String, Object> vars =
+        ImmutableMap.of("util", new MarkdownUtil(extensionBzlFile), "stamping", stamping);
+    Reader reader = readerFromPath(footerTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
     } catch (ParseException | EvaluationException e) {

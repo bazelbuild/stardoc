@@ -81,6 +81,11 @@ class RendererOptions {
   String moduleExtensionTemplateFilePath;
 
   @Parameter(
+      names = "--footer_template",
+      description = "The template for the footer string")
+  String footerTemplateFilePath;
+
+  @Parameter(
       names = "--stamping_stable_status_file",
       description = "The file path to the stable status file for stamping")
   String stampingStableStatusFilePath;

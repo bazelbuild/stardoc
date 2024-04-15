@@ -10,7 +10,7 @@ Starlark rule for stardoc: a documentation generator tool written in Java.
 stardoc(<a href="#stardoc-name">name</a>, <a href="#stardoc-input">input</a>, <a href="#stardoc-out">out</a>, <a href="#stardoc-deps">deps</a>, <a href="#stardoc-format">format</a>, <a href="#stardoc-symbol_names">symbol_names</a>, <a href="#stardoc-semantic_flags">semantic_flags</a>, <a href="#stardoc-stardoc">stardoc</a>, <a href="#stardoc-renderer">renderer</a>,
         <a href="#stardoc-aspect_template">aspect_template</a>, <a href="#stardoc-func_template">func_template</a>, <a href="#stardoc-header_template">header_template</a>, <a href="#stardoc-table_of_contents_template">table_of_contents_template</a>,
         <a href="#stardoc-provider_template">provider_template</a>, <a href="#stardoc-rule_template">rule_template</a>, <a href="#stardoc-repository_rule_template">repository_rule_template</a>, <a href="#stardoc-module_extension_template">module_extension_template</a>,
-        <a href="#stardoc-use_starlark_doc_extract">use_starlark_doc_extract</a>, <a href="#stardoc-render_main_repo_name">render_main_repo_name</a>, <a href="#stardoc-stamp">stamp</a>, <a href="#stardoc-kwargs">kwargs</a>)
+        <a href="#stardoc-footer_template">footer_template</a>, <a href="#stardoc-use_starlark_doc_extract">use_starlark_doc_extract</a>, <a href="#stardoc-render_main_repo_name">render_main_repo_name</a>, <a href="#stardoc-stamp">stamp</a>, <a href="#stardoc-kwargs">kwargs</a>)
 </pre>
 
 Generates documentation for exported starlark rule definitions in a target starlark file.
@@ -37,6 +37,7 @@ Generates documentation for exported starlark rule definitions in a target starl
 | <a id="stardoc-rule_template"></a>rule_template |  The input file template for generating documentation of rules.   |  `Label("@io_bazel_stardoc//stardoc:templates/markdown_tables/rule.vm")` |
 | <a id="stardoc-repository_rule_template"></a>repository_rule_template |  The input file template for generating documentation of repository rules. This template is used only when using the native `starlark_doc_extract` rule.   |  `Label("@io_bazel_stardoc//stardoc:templates/markdown_tables/repository_rule.vm")` |
 | <a id="stardoc-module_extension_template"></a>module_extension_template |  The input file template for generating documentation of module extensions. This template is used only when using the native `starlark_doc_extract` rule.   |  `Label("@io_bazel_stardoc//stardoc:templates/markdown_tables/module_extension.vm")` |
+| <a id="stardoc-footer_template"></a>footer_template |  The input file template for generating the footer of the output documentation. Optional.   |  `None` |
 | <a id="stardoc-use_starlark_doc_extract"></a>use_starlark_doc_extract |  Use the native `starlark_doc_extract` rule if available.   |  `True` |
 | <a id="stardoc-render_main_repo_name"></a>render_main_repo_name |  Render labels in the main repository with a repo component (either the module name or workspace name). This parameter is used only when using the native `starlark_doc_extract` rule.   |  `True` |
 | <a id="stardoc-stamp"></a>stamp |  Whether to provide stamping information to templates.   |  `False` |
