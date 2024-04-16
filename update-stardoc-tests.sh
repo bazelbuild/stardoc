@@ -44,7 +44,7 @@ fi
 
 # Some tests cannot be automatically regenerated using this script, as they don't fall under the normal
 # golden test pattern
-EXCLUDED_TESTS="namespace_test_with_allowlist|multi_level_namespace_test_with_allowlist|local_repository_test"
+EXCLUDED_TESTS="namespace_test_with_allowlist|multi_level_namespace_test_with_allowlist|local_repository_test|stamping_with_stamping_off"
 echo "** Querying for tests..."
 regen_legacy_targets=$(${BAZEL} query //test:all | grep regenerate_with_jar | grep -vE "_golden_stardoc|$EXCLUDED_TESTS")
 regen_starlark_doc_extract_targets=$(${BAZEL} query //test:all | grep regenerate_ | grep -vE "_legacy|_golden\.extract|$EXCLUDED_TESTS")
