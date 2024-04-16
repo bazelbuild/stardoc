@@ -42,7 +42,7 @@ public final class Stamping {
       String[] kv = line.split(" ", 2); // split on first space only
       builder.put(kv[0], kv[1]);
     }
-    return builder.build();
+    return builder.buildKeepingLast();
   }
 
   private Stamping(
