@@ -12,7 +12,7 @@ licenses(["notice"])
 
 exports_files(
     ["LICENSE"],
-    ["//visibility:public"],
+    visibility = ["//visibility:public"],
 )
 
 # Inputs for distro transformations and consistency tests.
