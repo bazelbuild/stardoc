@@ -463,7 +463,7 @@ public final class MarkdownUtil {
     if (isNullOrEmpty(buildTimestampSeconds)) {
       return "";
     }
-    return Instant.ofEpochMilli(Long.parseLong(buildTimestampSeconds) * 1000)
+    return Instant.ofEpochSecond(Long.parseLong(buildTimestampSeconds))
         .atZone(ZoneId.of(zoneId))
         .format(DateTimeFormatter.ofPattern(format));
   }
