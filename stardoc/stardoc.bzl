@@ -32,12 +32,15 @@ def stardoc(
         aspect_template = Label("//stardoc:templates/markdown_tables/aspect.vm"),
         func_template = Label("//stardoc:templates/markdown_tables/func.vm"),
         header_template = Label("//stardoc:templates/markdown_tables/header.vm"),
+        table_of_contents_template = None,
         provider_template = Label("//stardoc:templates/markdown_tables/provider.vm"),
         rule_template = Label("//stardoc:templates/markdown_tables/rule.vm"),
         repository_rule_template = Label("//stardoc:templates/markdown_tables/repository_rule.vm"),
         module_extension_template = Label("//stardoc:templates/markdown_tables/module_extension.vm"),
+        footer_template = None,
         use_starlark_doc_extract = True,
         render_main_repo_name = True,
+        stamp = False,
         **kwargs):
     """Generates documentation for exported starlark rule definitions in a target starlark file.
 
@@ -61,6 +64,9 @@ def stardoc(
       renderer: The location of the renderer tool.
       aspect_template: The input file template for generating documentation of aspects
       header_template: The input file template for the header of the output documentation.
+      table_of_contents_template: The input file template for the table of contents of the output documentation.
+        This is unset by default for backwards compatibility. Use
+        `Label("@stardoc//stardoc:templates/markdown_tables/table_of_contents.vm")` for the default template.
       func_template: The input file template for generating documentation of functions.
       provider_template: The input file template for generating documentation of providers.
       rule_template: The input file template for generating documentation of rules.
@@ -68,10 +74,12 @@ def stardoc(
         This template is used only when using the native `starlark_doc_extract` rule.
       module_extension_template: The input file template for generating documentation of module extensions.
         This template is used only when using the native `starlark_doc_extract` rule.
+      footer_template: The input file template for generating the footer of the output documentation. Optional.
       render_main_repo_name: Render labels in the main repository with a repo component (either
         the module name or workspace name). This parameter is used only when using the native
         `starlark_doc_extract` rule.
       use_starlark_doc_extract: Use the native `starlark_doc_extract` rule if available.
+      stamp: Whether to provide stamping information to templates.
       **kwargs: Further arguments to pass to stardoc.
     """
 
@@ -114,10 +122,13 @@ def stardoc(
                 aspect_template = aspect_template,
                 func_template = func_template,
                 header_template = header_template,
+                table_of_contents_template = table_of_contents_template,
                 provider_template = provider_template,
                 rule_template = rule_template,
                 repository_rule_template = repository_rule_template,
                 module_extension_template = module_extension_template,
+                footer_template = footer_template,
+                stamp = stamp,
                 **kwargs
             )
         elif format == "proto" and not extractor_is_main_target:

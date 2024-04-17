@@ -10,10 +10,14 @@ license(
 
 licenses(["notice"])
 
+exports_files(
+    ["LICENSE"],
+    visibility = ["//visibility:public"],
+)
+
 # Inputs for distro transformations and consistency tests.
 exports_files(
     [
-        "LICENSE",
         "WORKSPACE",
         "MODULE.bazel",
         "deps.bzl",

@@ -14,6 +14,7 @@
 
 package com.google.devtools.build.skydoc.rendering;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static java.util.Comparator.naturalOrder;
 import static java.util.stream.Collectors.joining;
@@ -31,6 +32,9 @@ import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.Prov
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RepositoryRuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.StarlarkFunctionInfo;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -439,5 +443,28 @@ public final class MarkdownUtil {
         throw new IllegalArgumentException("Unhandled type " + attributeType);
     }
     throw new IllegalArgumentException("Unhandled type " + attributeType);
+  }
+
+  /**
+   * Formats a build timestamp from stamping with the given format. For example:
+   *
+   * <p>`$util.formatBuildTimestamp($stamping.volatile.BUILD_TIMESTAMP, "UTC", "yyyy MMM dd, HH:mm")
+   * UTC`
+   */
+  public String formatBuildTimestamp(String buildTimestampSeconds, String zoneId, String format) {
+    // If stamp is not set to True in the stardoc() rule, then $stamping.volatile.BUILD_TIMESTAMP
+    // will be null, so return the empty string rather than crash. Alternatively, if this function
+    // is called as:
+    //
+    //   $util.formatBuildTimestamp("$!stamping.volatile.BUILD_TIMESTAMP", "UTC", "yyyy MMM dd,
+    // HH:mm")
+    //
+    // then buildTimestampSeconds will be the empty string, so return the empty string too.
+    if (isNullOrEmpty(buildTimestampSeconds)) {
+      return "";
+    }
+    return Instant.ofEpochSecond(Long.parseLong(buildTimestampSeconds))
+        .atZone(ZoneId.of(zoneId))
+        .format(DateTimeFormatter.ofPattern(format));
   }
 }
