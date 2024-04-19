@@ -109,14 +109,12 @@ _common_renderer_attrs = {
         mandatory = True,
     ),
     "repository_rule_template": attr.label(
-        doc = "The input file template for generating documentation of repository rules." +
-              " This template is not used when rendering the output of the legacy extractor.",
+        doc = "The input file template for generating documentation of repository rules.",
         allow_single_file = [".vm"],
         mandatory = True,
     ),
     "module_extension_template": attr.label(
-        doc = "The input file template for generating documentation of module extensions." +
-              " This template is not used when rendering the output of the legacy extractor.",
+        doc = "The input file template for generating documentation of module extensions.",
         allow_single_file = [".vm"],
         mandatory = True,
     ),
