@@ -28,18 +28,12 @@ def stardoc_test(
 
     Each invocation creates multiple targets:
 
-    1. A sh_test target which verifies that stardoc-built-from-source, when run on an input file,
-       creates output matching the contents of a golden file, named "{name}_e2e_legacy_test".
-    2. A `stardoc` target which will generate a new golden file given an input file with the
-       legacy extractor built from Bazel source. This target should be used to regenerate the
-       legacy golden file when updating stardoc, named "regenerate_{name}_legacy_golden".
-    3 & 4. Targets identical to (1) and (2) except they use the prebuilt-stardoc jar, and
-       are named "{name}_e2e_jar_legacy_test" and "regenerate_with_jar_{name}_legacy_golden".
-    5 & 6. Only if the host Bazel supports the `native.starlark_doc_extract` rule: Targets
-       identical to (1) and (2) except they use starlark_doc_extract, and are named "{name}_e2e_test"
-       and "regenerate_{name}_golden". The latter target should be used to regenerate the golden
-       file when updating Stardoc.
-    7. A bzl_library target for convenient wrapping of input bzl files, named "{name}_lib".
+    1. A `stardoc` target which will generate a new golden file given an input
+       file. This target should be used to regenerate the golden file when
+       updating Stardoc, named "regenerate_{name}_golden".
+    2. An `sh_test` target which verifies that the output of the `stardoc`
+       target above matches a golden file.
+    3. A bzl_library target for convenient wrapping of input bzl files, named "{name}_lib".
 
     Args:
       name: A unique name to qualify the created targets.
