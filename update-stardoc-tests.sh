@@ -35,13 +35,6 @@ function run_buildozer () {
 # Allow users to override the bazel command with e.g. bazelisk.
 : "${BAZEL:=bazel}"
 
-echo "** Verifying Bazel version..."
-if ! ${BAZEL} build --experimental_enable_starlark_doc_extract &> /dev/null; then
-  echo >&2 "Please use a development version of Bazel, or Bazel 7 once it is released."
-  echo >&2 "For example: USE_BAZEL_VERSION=last_green BAZEL=bazelisk ./update-stardoc-tests.sh"
-  exit 1
-fi
-
 # Some tests cannot be automatically regenerated using this script, as they don't fall under the normal
 # golden test pattern
 EXCLUDED_TESTS="namespace_test_with_allowlist|multi_level_namespace_test_with_allowlist|local_repository_test|stamping_with_stamping_off"
