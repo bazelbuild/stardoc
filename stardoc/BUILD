@@ -50,20 +50,6 @@ stardoc(
     deps = [":stardoc_lib"],
 )
 
-java_binary(
-    name = "stardoc",
-    main_class = "com.google.devtools.build.skydoc.SkydocMain",
-    runtime_deps = [
-        ":prebuilt_stardoc_binary",
-    ],
-)
-
-java_import(
-    name = "prebuilt_stardoc_binary",
-    jars = ["stardoc_binary.jar"],
-    visibility = ["//visibility:public"],
-)
-
 alias(
     name = "renderer",
     actual = "//src/main/java/com/google/devtools/build/skydoc/renderer",
@@ -76,7 +62,6 @@ filegroup(
         "BUILD",
     ] + glob([
         "*.bzl",
-        "*.jar",
         "templates/**",
     ]),
     visibility = ["//:__pkg__"],

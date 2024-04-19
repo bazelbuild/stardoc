@@ -21,8 +21,6 @@ def stardoc_test(
         name,
         input_file,
         golden_file,
-        legacy_golden_file = None,
-        test_legacy_extractor = True,
         deps = [],
         test = "default",
         **kwargs):
@@ -49,60 +47,25 @@ def stardoc_test(
           in this test.
       golden_file: The label string of the golden file containing the documentation when stardoc
           is run on the input file.
-      legacy_golden_file: The label string of the golden file when using the legacy documentation
-          extractor. If `legacy_golden_file` is not set, `golden_file` will be used for both extractors.
-      test_legacy_extractor: Whether to create legacy extractor test targets.
       deps: A list of label strings of starlark file dependencies of the input_file.
       test: The type of test (default or html_tables).
       **kwargs: A dictionary of input template names mapped to template file path for which documentation is generated.
       """
-
-    if legacy_golden_file == None:
-        legacy_golden_file = golden_file
-
     bzl_library(
         name = "%s_lib" % name,
         srcs = [input_file],
         deps = deps,
     )
 
-    if test_legacy_extractor:
-        _create_test_targets(
-            test_name = "%s_e2e_legacy_test" % name,
-            genrule_name = "regenerate_%s_legacy_golden" % name,
-            lib_name = "%s_lib" % name,
-            input_file = input_file,
-            golden_file = legacy_golden_file,
-            stardoc_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc:skydoc_deploy.jar",
-            test = test,
-            use_starlark_doc_extract = False,
-            **kwargs
-        )
-
-        _create_test_targets(
-            test_name = "%s_e2e_jar_legacy_test" % name,
-            genrule_name = "regenerate_with_jar_%s_legacy_golden" % name,
-            lib_name = "%s_lib" % name,
-            input_file = input_file,
-            golden_file = legacy_golden_file,
-            stardoc_bin = "@io_bazel//src/main/java/com/google/devtools/build/skydoc:skydoc_deploy.jar",
-            test = test,
-            use_starlark_doc_extract = False,
-            **kwargs
-        )
-
-    if hasattr(native, "starlark_doc_extract"):
-        _create_test_targets(
-            test_name = "%s_e2e_test" % name,
-            genrule_name = "regenerate_%s_golden" % name,
-            lib_name = "%s_lib" % name,
-            input_file = input_file,
-            golden_file = golden_file,
-            stardoc_bin = None,
-            test = test,
-            use_starlark_doc_extract = True,
-            **kwargs
-        )
+    _create_test_targets(
+        test_name = "%s_e2e_test" % name,
+        genrule_name = "regenerate_%s_golden" % name,
+        lib_name = "%s_lib" % name,
+        input_file = input_file,
+        golden_file = golden_file,
+        test = test,
+        **kwargs
+    )
 
 def _create_test_targets(
         test_name,
@@ -110,7 +73,6 @@ def _create_test_targets(
         lib_name,
         input_file,
         golden_file,
-        stardoc_bin,
         test,
         **kwargs):
     actual_generated_doc = "%s.out" % genrule_name
@@ -134,7 +96,6 @@ def _create_test_targets(
             out = actual_generated_doc,
             input = input_file,
             deps = [lib_name],
-            stardoc = stardoc_bin,
             **kwargs
         )
     elif test == "html_tables":
@@ -143,7 +104,6 @@ def _create_test_targets(
             out = actual_generated_doc,
             input = input_file,
             deps = [lib_name],
-            stardoc = stardoc_bin,
             **kwargs
         )
     else:
