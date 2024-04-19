@@ -107,7 +107,6 @@ def self_gen_test(
         name,
         stardoc_doc,
         golden_file,
-        require_starlark_doc_extract,
         **kwargs):
     """
     A wrapper around `diff_test_runner.sh` for testing Stardoc's own generated documentation.
@@ -116,13 +115,8 @@ def self_gen_test(
       name: A unique name for the test target.
       stardoc_doc: The Stardoc output being tested.
       golden_file: Expected Stardoc output.
-      require_starlark_doc_extract: If true, and the native `starlark_doc_extract` rule is not available,
-        then no test target will not be created.
       **kwargs: Additional arguments for the test.
     """
-    if require_starlark_doc_extract and not hasattr(native, "starlark_doc_extract"):
-        return
-
     native.sh_test(
         name = name,
         srcs = ["diff_test_runner.sh"],

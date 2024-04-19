@@ -9,7 +9,6 @@ licenses(["notice"])  # Apache 2.0
 self_gen_test(
     name = "stardoc_self_gen_test",
     golden_file = "//stardoc:stardoc_doc.md",
-    require_starlark_doc_extract = True,
     stardoc_doc = "//:stardoc_rule_doc",
 )
 

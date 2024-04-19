@@ -39,13 +39,13 @@ function run_buildozer () {
 # golden test pattern
 EXCLUDED_TESTS="namespace_test_with_allowlist|multi_level_namespace_test_with_allowlist|local_repository_test|stamping_with_stamping_off"
 echo "** Querying for tests..."
-regen_starlark_doc_extract_targets=$(${BAZEL} query //test:all | grep regenerate_ | grep -vE "_golden\.extract|$EXCLUDED_TESTS")
+regen_targets=$(${BAZEL} query //test:all | grep regenerate_ | grep -vE "_golden\.extract|$EXCLUDED_TESTS")
 
 echo "** Building goldens..."
-${BAZEL} build $regen_starlark_doc_extract_targets
+${BAZEL} build $regen_targets
 
-echo "** Copying starlark_doc_extract goldens..."
-for regen_target in $regen_starlark_doc_extract_targets; do
+echo "** Copying goldens..."
+for regen_target in $regen_targets; do
   base_target_name=$(echo $regen_target | sed 's/\/\/test://g')
   testdata_pkg_name=$(echo $base_target_name | sed 's/regenerate_//g' | sed 's/_golden//g')
   out_file="bazel-bin/test/${base_target_name}.out"

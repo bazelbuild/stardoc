@@ -59,13 +59,10 @@ def stardoc(
       provider_template: The input file template for generating documentation of providers.
       rule_template: The input file template for generating documentation of rules.
       repository_rule_template: The input file template for generating documentation of repository rules.
-        This template is used only when using the native `starlark_doc_extract` rule.
       module_extension_template: The input file template for generating documentation of module extensions.
-        This template is used only when using the native `starlark_doc_extract` rule.
       footer_template: The input file template for generating the footer of the output documentation. Optional.
       render_main_repo_name: Render labels in the main repository with a repo component (either
-        the module name or workspace name). This parameter is used only when using the native
-        `starlark_doc_extract` rule.
+        the module name or workspace name).
       stamp: Whether to provide stamping information to templates.
       **kwargs: Further arguments to pass to stardoc.
     """
