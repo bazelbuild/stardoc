@@ -13,9 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Renerates the Stardoc release binary from source in @io_bazel.
-#
-# This should only need to be run for cutting a new Stardoc release.
+# Updates vendored Stardoc output protos from @io_bazel git.
 
 set -eu
 
@@ -26,8 +24,6 @@ PROTO_SRC=src/main/protobuf/stardoc_output.proto
 : "${BAZEL_BRANCH:=master}"
 # Retrieve the first commit to modify ${PROTO_SRC} in the history of ${BAZEL_BRANCH}
 # using Github API; see https://docs.github.com/en/rest/commits/commits?apiVersion=2022-11-28
-# We need this because git_repository does a shallow clone, so our @io_bazel repo
-# does not have the git log for any given file.
 PROTO_SRC_SHA="$(curl -s -L -H "Accept: application/vnd.github+json" \
     "https://api.github.com/repos/bazelbuild/bazel/commits?sha=${BAZEL_BRANCH}&path=${PROTO_SRC}" \
     | grep -m 1 '"sha":' | sed 's/.*"sha": "\(.*\)",.*/\1/')"
