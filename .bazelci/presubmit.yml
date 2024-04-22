@@ -10,7 +10,7 @@ matrix:
 
 .disable_bzlmod_flags: &disable_bzlmod_flags
   <<: *common_flags
-  ? "--enable_bzlmod=0"
+  ? "--noenable_bzlmod"
 
 .windows_flags: &windows_flags
   <<: *common_flags
