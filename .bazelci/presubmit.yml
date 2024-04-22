@@ -8,18 +8,14 @@ matrix:
 .common_flags: &common_flags
   ? "--incompatible_disable_starlark_host_transitions"
 
-.bzlmod_flags: &bzlmod_flags
+.disable_bzlmod_flags: &disable_bzlmod_flags
   <<: *common_flags
-  ? "--enable_bzlmod"
+  ? "--disable_bzlmod"
 
 .windows_flags: &windows_flags
   <<: *common_flags
   # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012
   ? "--noexperimental_repository_cache_hardlinks"
-
-.windows_bzlmod_flags: &windows_bzlmod_flags
-  <<: *windows_flags
-  ? "--enable_bzlmod"
 
 .common_task_config: &common_task_config
   build_flags: *common_flags
@@ -29,20 +25,15 @@ matrix:
   test_targets:
     - "//..."
 
-.bzlmod_task_config: &bzlmod_task_config
+.disable_bzlmod_task_config: &disable_bzlmod_task_config
   <<: *common_task_config
-  build_flags: *bzlmod_flags
-  test_flags: *bzlmod_flags
+  build_flags: *disable_bzlmod_flags
+  test_flags: *disable_bzlmod_flags
 
 .windows_task_config: &windows_task_config
   <<: *common_task_config
   build_flags: *windows_flags
   test_flags: *windows_flags
-
-.windows_bzlmod_task_config: &windows_bzlmod_task_config
-  <<: *common_task_config
-  build_flags: *windows_bzlmod_flags
-  test_flags: *windows_bzlmod_flags
 
 tasks:
   build_and_test:
@@ -54,6 +45,11 @@ tasks:
     <<: *windows_task_config
     name: Build and test - Windows
     platform: windows
+
+  build_and_test_legacy_workspace:
+    <<: *disable_bzlmod_task_config
+    name: Build and test - legacy WORKSPACE setup
+    platform: ${{ platform }}
 
   build_and_test_last_green:
     <<: *common_task_config
@@ -67,15 +63,15 @@ tasks:
     platform: windows
     bazel: last_green
 
-  bzlmod:
-    <<: *bzlmod_task_config
-    name: Bzlmod example
+  bzlmod_usage:
+    <<: *common_task_config
+    name: Stardoc Bzlmod module usage test
     platform: ${{ platform }}
     working_directory: test/bzlmod
 
-  bzlmod_windows:
-    <<: *windows_bzlmod_task_config
-    name: Bzlmod example - Windows
+  bzlmod_usage_windows:
+    <<: *windows_task_config
+    name: Stardoc Bzlmod module usage test - Windows
     platform: windows
     working_directory: test/bzlmod
 
