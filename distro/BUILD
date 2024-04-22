@@ -1,5 +1,5 @@
-load("@stardoc//:version.bzl", "version")
 load("@rules_pkg//:pkg.bzl", "pkg_tar")
+load("@stardoc//:version.bzl", "version")
 
 package(
     default_applicable_licenses = ["//:license"],
