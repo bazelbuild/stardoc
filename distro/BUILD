@@ -1,4 +1,4 @@
-load("@io_bazel_stardoc//:version.bzl", "version")
+load("@stardoc//:version.bzl", "version")
 load("@rules_pkg//:pkg.bzl", "pkg_tar")
 
 package(
