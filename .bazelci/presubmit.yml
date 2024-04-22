@@ -10,7 +10,7 @@ matrix:
 
 .disable_bzlmod_flags: &disable_bzlmod_flags
   <<: *common_flags
-  ? "--disable_bzlmod"
+  ? "--enable_bzlmod=0"
 
 .windows_flags: &windows_flags
   <<: *common_flags
@@ -26,9 +26,24 @@ matrix:
     - "//..."
 
 .disable_bzlmod_task_config: &disable_bzlmod_task_config
-  <<: *common_task_config
   build_flags: *disable_bzlmod_flags
+  build_targets:
+  # Note that //distro/... cannot be loaded in legacy WORKSPACE mode due to repo name change
+    - "//:*"
+    - "//src/..."
+    - "//stardoc/..."
+    - "//test/..."
   test_flags: *disable_bzlmod_flags
+  test_targets:
+  # Some tests are expected to fail in legacy WORKSPACE mode due to repo name change
+    - "//test/..."
+    - "-//test:attribute_defaults_test_e2e_test"
+    - "-//test:function_wrap_multiple_lines_test_e2e_test"
+    - "-//test:misc_apis_test_e2e_test"
+    - "-//test:module_extension_test_e2e_test"
+    - "-//test:proto_format_test_e2e_test"
+    - "-//test:stardoc_self_gen_test"
+    - "-//test:table_of_contents_test_e2e_test"
 
 .windows_task_config: &windows_task_config
   <<: *common_task_config
@@ -46,7 +61,7 @@ tasks:
     name: Build and test - Windows
     platform: windows
 
-  build_and_test_legacy_workspace:
+  legacy_workspace:
     <<: *disable_bzlmod_task_config
     name: Build and test - legacy WORKSPACE setup
     platform: ${{ platform }}
