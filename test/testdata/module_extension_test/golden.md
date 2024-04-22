@@ -7,7 +7,7 @@ Minimal example of a .bzl file defining a module extension.
 ## my_ext
 
 <pre>
-my_ext = use_extension("@io_bazel_stardoc//test:testdata/module_extension_test/input.bzl", "my_ext")
+my_ext = use_extension("@stardoc//test:testdata/module_extension_test/input.bzl", "my_ext")
 my_ext.install(<a href="#my_ext.install-artifacts">artifacts</a>)
 my_ext.artifact(<a href="#my_ext.artifact-artifact">artifact</a>, <a href="#my_ext.artifact-group">group</a>)
 </pre>

@@ -231,7 +231,7 @@ This repository rule depends on the following environment variables:
 ## my_ext
 
 <pre>
-my_ext = use_extension("@io_bazel_stardoc//test:testdata/table_of_contents_test/input.bzl", "my_ext")
+my_ext = use_extension("@stardoc//test:testdata/table_of_contents_test/input.bzl", "my_ext")
 my_ext.install(<a href="#my_ext.install-artifacts">artifacts</a>)
 my_ext.artifact(<a href="#my_ext.artifact-artifact">artifact</a>, <a href="#my_ext.artifact-group">group</a>)
 </pre>
