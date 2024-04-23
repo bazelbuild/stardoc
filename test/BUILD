@@ -9,7 +9,6 @@ licenses(["notice"])  # Apache 2.0
 self_gen_test(
     name = "stardoc_self_gen_test",
     golden_file = "//stardoc:stardoc_doc.md",
-    require_starlark_doc_extract = True,
     stardoc_doc = "//:stardoc_rule_doc",
 )
 
@@ -30,7 +29,6 @@ stardoc_test(
     name = "angle_bracket_test",
     golden_file = "testdata/angle_bracket_test/golden.md",
     input_file = "testdata/angle_bracket_test/input.bzl",
-    legacy_golden_file = "testdata/angle_bracket_test/legacy_golden.md",
 )
 
 stardoc_test(
@@ -38,7 +36,6 @@ stardoc_test(
     format = "proto",
     golden_file = "testdata/proto_format_test/golden.binaryproto",
     input_file = "testdata/proto_format_test/input.bzl",
-    legacy_golden_file = "testdata/proto_format_test/legacy_golden.binaryproto",
 )
 
 stardoc_test(
@@ -58,14 +55,12 @@ stardoc_test(
     name = "repo_rules_test",
     golden_file = "testdata/repo_rules_test/golden.md",
     input_file = "testdata/repo_rules_test/input.bzl",
-    legacy_golden_file = "testdata/repo_rules_test/legacy_golden.md",
 )
 
 stardoc_test(
     name = "module_extension_test",
     golden_file = "testdata/module_extension_test/golden.md",
     input_file = "testdata/module_extension_test/input.bzl",
-    test_legacy_extractor = False,
 )
 
 stardoc_test(
@@ -84,9 +79,6 @@ stardoc_test(
     name = "android_basic_test",
     golden_file = "testdata/android_basic_test/golden.md",
     input_file = "testdata/android_basic_test/input.bzl",
-    semantic_flags = [
-        "--experimental_google_legacy_api",
-    ],
     symbol_names = ["android_related_rule"],
 )
 
@@ -135,14 +127,12 @@ stardoc_test(
     name = "misc_apis_test",
     golden_file = "testdata/misc_apis_test/golden.md",
     input_file = "testdata/misc_apis_test/input.bzl",
-    legacy_golden_file = "testdata/misc_apis_test/legacy_golden.md",
 )
 
 stardoc_test(
     name = "attribute_types_test",
     golden_file = "testdata/attribute_types_test/golden.md",
     input_file = "testdata/attribute_types_test/input.bzl",
-    legacy_golden_file = "testdata/attribute_types_test/legacy_golden.md",
     symbol_names = ["my_rule"],
 )
 
@@ -163,7 +153,6 @@ stardoc_test(
     name = "provider_basic_test",
     golden_file = "testdata/provider_basic_test/golden.md",
     input_file = "testdata/provider_basic_test/input.bzl",
-    legacy_golden_file = "testdata/provider_basic_test/legacy_golden.md",
 )
 
 stardoc_test(
@@ -176,7 +165,6 @@ stardoc_test(
     name = "function_wrap_multiple_lines_test",
     golden_file = "testdata/function_wrap_multiple_lines_test/golden.md",
     input_file = "testdata/function_wrap_multiple_lines_test/input.bzl",
-    legacy_golden_file = "testdata/function_wrap_multiple_lines_test/legacy_golden.md",
 )
 
 stardoc_test(
@@ -239,7 +227,6 @@ stardoc_test(
     name = "aspect_test",
     golden_file = "testdata/aspect_test/golden.md",
     input_file = "testdata/aspect_test/input.bzl",
-    legacy_golden_file = "testdata/aspect_test/legacy_golden.md",
 )
 
 stardoc_test(
@@ -262,7 +249,6 @@ stardoc_test(
     name = "attribute_defaults_test",
     golden_file = "testdata/attribute_defaults_test/golden.md",
     input_file = "testdata/attribute_defaults_test/input.bzl",
-    legacy_golden_file = "testdata/attribute_defaults_test/legacy_golden.md",
 )
 
 stardoc_test(
@@ -276,7 +262,6 @@ stardoc_test(
     footer_template = "testdata/footer_test/footer_template.vm",
     golden_file = "testdata/footer_test/golden.md",
     input_file = "testdata/footer_test/input.bzl",
-    test_legacy_extractor = False,
 )
 
 bzl_library(
@@ -296,7 +281,6 @@ stardoc_test(
     golden_file = "testdata/table_of_contents_test/golden.md",
     input_file = "testdata/table_of_contents_test/input.bzl",
     table_of_contents_template = "//stardoc:templates/markdown_tables/table_of_contents.vm",
-    test_legacy_extractor = False,
     deps = [":table_of_contents_test_deps"],
 )
 
@@ -306,7 +290,6 @@ stardoc_test(
     header_template = "testdata/stamping_test/stamping_header.vm",
     input_file = "testdata/stamping_test/input.bzl",
     stamp = True,
-    test_legacy_extractor = False,
 )
 
 stardoc_test(
@@ -315,7 +298,6 @@ stardoc_test(
     header_template = "testdata/stamping_test/stamping_header_stamping_off.vm",
     input_file = "testdata/stamping_test/input.bzl",
     stamp = False,
-    test_legacy_extractor = False,
 )
 
 sh_test(

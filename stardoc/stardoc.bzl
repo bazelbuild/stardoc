@@ -15,8 +15,7 @@
 """Starlark rule for stardoc: a documentation generator tool written in Java."""
 
 load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
-load("@rules_java//java:defs.bzl", "java_binary")
-load("//stardoc/private:stardoc.bzl", "stardoc_markdown_renderer", _stardoc = "stardoc")
+load("//stardoc/private:stardoc.bzl", "stardoc_markdown_renderer")
 
 def stardoc(
         *,
@@ -26,8 +25,6 @@ def stardoc(
         deps = [],
         format = "markdown",
         symbol_names = [],
-        semantic_flags = [],
-        stardoc = Label("//stardoc:prebuilt_stardoc_binary"),
         renderer = Label("//stardoc:renderer"),
         aspect_template = Label("//stardoc:templates/markdown_tables/aspect.vm"),
         func_template = Label("//stardoc:templates/markdown_tables/func.vm"),
@@ -38,7 +35,6 @@ def stardoc(
         repository_rule_template = Label("//stardoc:templates/markdown_tables/repository_rule.vm"),
         module_extension_template = Label("//stardoc:templates/markdown_tables/module_extension.vm"),
         footer_template = None,
-        use_starlark_doc_extract = True,
         render_main_repo_name = True,
         stamp = False,
         **kwargs):
@@ -53,14 +49,6 @@ def stardoc(
       symbol_names: A list of symbol names to generate documentation for. These should correspond to the names of rule
         definitions in the input file. If this list is empty, then documentation for all exported rule definitions will
         be generated.
-      semantic_flags: A list of canonical flags to affect Starlark semantics for the Starlark interpreter during
-        documentation generation. This should only be used to maintain compatibility with non-default semantic flags
-        required to use the given Starlark symbols.
-
-        For example, if `//foo:bar.bzl` does not build except when a user would specify
-        `--incompatible_foo_semantic=false`, then this attribute should contain
-        "--incompatible_foo_semantic=false".
-      stardoc: The location of the legacy Stardoc extractor. Ignored when using the native `starlark_doc_extract` rule.
       renderer: The location of the renderer tool.
       aspect_template: The input file template for generating documentation of aspects
       header_template: The input file template for the header of the output documentation.
@@ -71,14 +59,10 @@ def stardoc(
       provider_template: The input file template for generating documentation of providers.
       rule_template: The input file template for generating documentation of rules.
       repository_rule_template: The input file template for generating documentation of repository rules.
-        This template is used only when using the native `starlark_doc_extract` rule.
       module_extension_template: The input file template for generating documentation of module extensions.
-        This template is used only when using the native `starlark_doc_extract` rule.
       footer_template: The input file template for generating the footer of the output documentation. Optional.
       render_main_repo_name: Render labels in the main repository with a repo component (either
-        the module name or workspace name). This parameter is used only when using the native
-        `starlark_doc_extract` rule.
-      use_starlark_doc_extract: Use the native `starlark_doc_extract` rule if available.
+        the module name or workspace name).
       stamp: Whether to provide stamping information to templates.
       **kwargs: Further arguments to pass to stardoc.
     """
@@ -93,79 +77,46 @@ def stardoc(
     if "testonly" in kwargs:
         auxiliary_target_kwargs["testonly"] = kwargs["testonly"]
 
-    if use_starlark_doc_extract and hasattr(native, "starlark_doc_extract"):
-        # Use native.starlark_doc_extract as extractor
-        if format == "proto" and Label(name + ".binaryproto") == Label(out):
-            extractor_is_main_target = True
-            extractor_name = name
-        else:
-            extractor_is_main_target = False
-            extractor_name = name + ".extract"
-
-        proto_name = extractor_name + ".binaryproto"
-
-        native.starlark_doc_extract(
-            name = extractor_name,
-            src = input,
-            deps = deps,
-            render_main_repo_name = render_main_repo_name,
-            symbol_names = symbol_names,
-            **(kwargs if extractor_is_main_target else auxiliary_target_kwargs)
-        )
-
-        if format == "markdown":
-            stardoc_markdown_renderer(
-                name = name,
-                src = proto_name,
-                out = out,
-                renderer = renderer,
-                aspect_template = aspect_template,
-                func_template = func_template,
-                header_template = header_template,
-                table_of_contents_template = table_of_contents_template,
-                provider_template = provider_template,
-                rule_template = rule_template,
-                repository_rule_template = repository_rule_template,
-                module_extension_template = module_extension_template,
-                footer_template = footer_template,
-                stamp = stamp,
-                **kwargs
-            )
-        elif format == "proto" and not extractor_is_main_target:
-            copy_file(
-                name = name,
-                src = proto_name,
-                out = out,
-                **kwargs
-            )
-
+    if format == "proto" and Label(name + ".binaryproto") == Label(out):
+        extractor_is_main_target = True
+        extractor_name = name
     else:
-        # Use legacy extractor
-        stardoc_with_runfiles_name = name + "_stardoc"
+        extractor_is_main_target = False
+        extractor_name = name + ".extract"
 
-        java_binary(
-            name = stardoc_with_runfiles_name,
-            main_class = "com.google.devtools.build.skydoc.SkydocMain",
-            runtime_deps = [stardoc],
-            data = [input] + deps,
-            **auxiliary_target_kwargs
-        )
+    proto_name = extractor_name + ".binaryproto"
 
-        _stardoc(
+    native.starlark_doc_extract(
+        name = extractor_name,
+        src = input,
+        deps = deps,
+        render_main_repo_name = render_main_repo_name,
+        symbol_names = symbol_names,
+        **(kwargs if extractor_is_main_target else auxiliary_target_kwargs)
+    )
+
+    if format == "markdown":
+        stardoc_markdown_renderer(
             name = name,
-            input = input,
+            src = proto_name,
             out = out,
-            format = format,
-            symbol_names = symbol_names,
-            semantic_flags = semantic_flags,
-            stardoc = stardoc_with_runfiles_name,
             renderer = renderer,
             aspect_template = aspect_template,
             func_template = func_template,
             header_template = header_template,
+            table_of_contents_template = table_of_contents_template,
             provider_template = provider_template,
             rule_template = rule_template,
             repository_rule_template = repository_rule_template,
             module_extension_template = module_extension_template,
+            footer_template = footer_template,
+            stamp = stamp,
+            **kwargs
+        )
+    elif format == "proto" and not extractor_is_main_target:
+        copy_file(
+            name = name,
+            src = proto_name,
+            out = out,
             **kwargs
         )

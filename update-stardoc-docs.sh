@@ -13,9 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Renerates the Stardoc rule documentation from source in @io_bazel.
-#
-# This should only need to be run for cutting a new Stardoc release.
+# Renerates the Stardoc rule documentation from source.
 
 set -eu
 

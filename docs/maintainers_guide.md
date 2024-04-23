@@ -1,28 +1,20 @@
 # Stardoc Maintainer's Guide
 
-## Updating Proto and Bundled Jar
+## Updating Proto
 
 Stardoc proto definition is vendored from the Bazel source tree at
-https://github.com/bazelbuild/bazel/tree/master/src/main/java/com/google/devtools/build/skydoc/rendering/proto/stardoc_output.proto
+https://github.com/bazelbuild/bazel/tree/master/src/main/protobuf/stardoc_output.proto
 
-Stardoc legacy extractor's source code lives in the Bazel source tree at
-https://github.com/bazelbuild/bazel/tree/master/src/main/java/com/google/devtools/build/skydoc
+To update the proto definition from Bazel's master branch, run
+`update-release-binary.sh`
 
-For simplicity of use and building, Stardoc bundles a pre-built jar for the
-legacy extractor which is built from Bazel source: `stardoc_binary.jar`
-(emits protobuf documentation format).
-
-To update the proto definition and jar:
-
-1.  Update `io_bazel` repo commit in `WORKSPACE`. Update transitive deps in
-    `WORKSPACE` as needed.
-2.  run `update-release-binary.sh`
+To vendor the proto definition from a particular branch or commit in the Bazel
+tree, run `BAZEL_BRANCH=$BRANCH_OR_SHA ./update-release-binary.sh`
 
 ## Making a New Release
 
 1.  Verify tests. Verify that dependencies are consistent between `setup.bzl` +
-    `WORKSPACE` and `MODULE.bazel` (but note that `MODULE.bazel` does not
-    include dependencies on `io_bazel` and its transitive deps).
+    `WORKSPACE` and `MODULE.bazel`.
 2.  Update `CHANGELOG.md` at the top. You may want to use the following \
     template:
 
