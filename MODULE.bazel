@@ -2,6 +2,7 @@ module(
     name = "stardoc",
     version = "0.7.0-pre",
     compatibility_level = 1,
+    bazel_compatibility = [">=7.0.0"],
 )
 
 bazel_dep(name = "bazel_skylib", version = "1.4.2")
