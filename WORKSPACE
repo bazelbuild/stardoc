@@ -79,6 +79,11 @@ http_archive(
 
 # Needed only for testing stardoc across local-repository bounds.
 local_repository(
+    name = "stardoc",  # alias the Bzlmod name of the Stardoc repo for local_repository_test
+    path = ".",
+)
+
+local_repository(
     name = "local_repository_test",
     path = "test/testdata/local_repository_test",
 )
