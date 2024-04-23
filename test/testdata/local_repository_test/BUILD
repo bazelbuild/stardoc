@@ -1,5 +1,5 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
+load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 
 package(
     default_visibility = ["//visibility:public"],
@@ -23,6 +23,6 @@ bzl_library(
     name = "lib",
     srcs = [
         "input.bzl",
-        "@io_bazel_stardoc//test:testdata/fakedeps/dep.bzl",
+        "@stardoc//test:testdata/fakedeps/dep.bzl",
     ],
 )

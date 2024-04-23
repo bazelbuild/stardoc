@@ -18,7 +18,7 @@ to your Starlark code. Use standard markdown formatting constructs instead of
 HTML tags.
 
 For example:
-```python
+```starlark
 def my_function(foo, bar):
   """Does some cool stuff.
 
@@ -109,7 +109,7 @@ To configure stardoc to output raw proto instead of markdown, use the `format`
 attribute of the [stardoc rule](stardoc_rule.md#stardoc-format). Specify `"proto"`.
 An example:
 
-```python
+```starlark
 stardoc(
     name = "docs_proto_output",
     out = "doc_output.raw",
@@ -121,7 +121,7 @@ stardoc(
 # Define a proto_library target to incorporate the stardoc_output_proto
 proto_library(
     name = "stardoc_output_proto",
-    srcs = ["@io_bazel_stardoc//stardoc/proto:stardoc_output.proto"],
+    srcs = ["@stardoc//stardoc/proto:stardoc_output.proto"],
 )
 
 # You'll need to define your own rendering target. This might be a

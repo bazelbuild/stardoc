@@ -19,6 +19,7 @@ exports_files(
 exports_files(
     [
         "WORKSPACE",
+        "WORKSPACE.bzlmod",
         "MODULE.bazel",
         "deps.bzl",
         "version.bzl",

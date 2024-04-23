@@ -9,6 +9,11 @@
 
 The following are some examples of how to use Stardoc.
 
+**Note**: By default - in other words, when using Bzlmod for dependency
+management - Stardoc uses `@stardoc` as its repo name. However, if you are
+using the legacy `WORSKPACE`-based setup for dependency management, replace
+`@stardoc` with `@io_bazel_stardoc` in the examples below.
+
 <a name="single-file"></a>
 ## Single File
 
@@ -25,8 +30,8 @@ Suppose you have a project containing Stardoc rules you want to document:
 To generate documentation for the rules in `checkstyle.bzl`, add the
 following target to `checkstyle/BUILD`:
 
-```python
-load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
+```starlark
+load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 
 stardoc(
     name = "checkstyle-docs",
@@ -43,8 +48,8 @@ rule names you specifically want documentation for using the `symbol_names` attr
 of the `stardoc` rule. If `symbol_names` is specified, only rules matching a name
 in `symbol_names` will be documented:
 
-```python
-load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
+```starlark
+load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 
 stardoc(
     name = "checkstyle-docs",
@@ -81,7 +86,7 @@ Suppose your project has the following structure:
 
 `checkstyle/checkstyle.bzl`:
 
-```python
+```starlark
 load("//lua:lua.bzl", "lua_utility")
 
 lua_utility()
@@ -112,8 +117,8 @@ as a dependency of the `stardoc` target:
 
 `checkstyle/BUILD`:
 
-```python
-load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
+```starlark
+load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 
 stardoc(
     name = "checkstyle-docs",
@@ -137,7 +142,7 @@ which loads these files and binds the rules to be documented as globals:
 
 `doc_hub.bzl`:
 
-```python
+```starlark
 load("//foo:foo.bzl", _foo_rule = "foo_rule")
 load("//bar:bar.bzl", _bar_rule = "bar_rule")
 load("//baz:baz.bzl", _baz_rule = "baz_rule")
@@ -154,7 +159,7 @@ A single `stardoc` target can then be used to generate their documentation:
 `BUILD`:
 
 ```python
-load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
+load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 
 stardoc(
     name = "my-docs",

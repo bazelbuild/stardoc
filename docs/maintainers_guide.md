@@ -63,7 +63,19 @@ Name 1, Name 2, Name 3 (alphabetically)
 
 --------------------------------------------------------------------------------
 
-**WORKSPACE setup**
+**MODULE.bazel setup**
+
+```starlark
+bazel_dep(name = "stardoc", version = "$VERSION")
+```
+
+By default - in other words, when using Bzlmod for dependency management -
+Stardoc uses `@stardoc` as its repo name. The legacy `WORSKSPACE` setup (see
+below) used `@io_bazel_stardoc` instead. For compatibility with the legacy
+`WORKSPACE` setup, you may add `repo_name = "io_bazel_stardoc"` to the
+`bazel_dep` call.
+
+**Legacy WORKSPACE setup**
 
 To use Stardoc, add the following to your `WORKSPACE` file:
 
@@ -110,17 +122,6 @@ after updating to a newer version of Stardoc, you encounter "not a valid
 maven_install.json file" or other repository fetch errors (example: #186), try
 moving the Stardoc dependency block above or below other dependencies in your
 `WORKSPACE` file.
-
-<!-- Uncomment after updating Stardoc in Bazel Central Registry
-**MODULE.bazel setup**
-
-```starlark
-bazel_dep(name = "stardoc", version = "$VERSION")
-```
-
-For compatibility with `WORKSPACE` setup, add `repo_name = "io_bazel_stardoc"`
-to the `bazel_dep` call.
--->
 
 **Using the rules**
 

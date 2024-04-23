@@ -57,10 +57,9 @@ bind(
 # Needed for //distro:__pkg__
 http_archive(
     name = "rules_pkg",
-    sha256 = "eea0f59c28a9241156a47d7a8e32db9122f3d50b505fae0f33de6ce4d9b61834",
+    sha256 = "d250924a2ecc5176808fc4c25d5cf5e9e79e6346d79d5ab1c493e289e722d1d0",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_pkg/releases/download/0.8.0/rules_pkg-0.8.0.tar.gz",
-        "https://github.com/bazelbuild/rules_pkg/releases/download/0.8.0/rules_pkg-0.8.0.tar.gz",
+        "https://github.com/bazelbuild/rules_pkg/releases/download/0.10.1/rules_pkg-0.10.1.tar.gz",
     ],
 )
 
@@ -79,6 +78,11 @@ http_archive(
 )
 
 # Needed only for testing stardoc across local-repository bounds.
+local_repository(
+    name = "stardoc",  # alias the Bzlmod name of the Stardoc repo for local_repository_test
+    path = ".",
+)
+
 local_repository(
     name = "local_repository_test",
     path = "test/testdata/local_repository_test",
