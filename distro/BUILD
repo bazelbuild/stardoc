@@ -1,5 +1,6 @@
 load("@rules_pkg//:pkg.bzl", "pkg_tar")
 load("@stardoc//:version.bzl", "version")
+load(":distro.bzl", "strip_internal_only")
 
 package(
     default_applicable_licenses = ["//:license"],
@@ -11,17 +12,23 @@ alias(
     actual = "stardoc-%s" % version,
 )
 
-genrule(
+strip_internal_only(
     name = "distro_workspace",
-    srcs = ["//:WORKSPACE"],
-    outs = ["WORKSPACE"],
-    cmd = "sed -e '/### INTERNAL ONLY/,/### END INTERNAL ONLY/d' $(location //:WORKSPACE) >$@",
+    src = "//:WORKSPACE",
+    out = "WORKSPACE",
+)
+
+strip_internal_only(
+    name = "distro_workspace_bzlmod",
+    src = "//:WORKSPACE.bzlmod",
+    out = "WORKSPACE.bzlmod",
 )
 
 pkg_tar(
     name = "distro_srcs",
     srcs = [
         "distro_workspace",
+        "distro_workspace_bzlmod",
         "//:distro_srcs",
     ],
     mode = "0644",
