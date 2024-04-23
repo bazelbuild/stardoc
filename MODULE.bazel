@@ -32,3 +32,6 @@ maven.install(
     strict_visibility = True,
 )
 use_repo(maven, "stardoc_maven")
+
+# Dev-only and test-only dependencies
+bazel_dep(name = "rules_pkg", version = "0.10.1", dev_dependency = True)
