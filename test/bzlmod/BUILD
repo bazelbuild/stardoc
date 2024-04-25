@@ -11,8 +11,8 @@ stardoc(
     out = "docs.md",
     input = "def.bzl",
     deps = [
-        "@local_config_platform//:constraints.bzl",
         "@my_skylib//rules:write_file",
+        "@platforms//host:constraints_lib",
     ],
 )
 
