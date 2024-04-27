@@ -7,6 +7,7 @@
 ## my_rule
 
 <pre>
+load("@stardoc//test:testdata/multiple_rules_test/input.bzl", "my_rule")
 my_rule(<a href="#my_rule-name">name</a>, <a href="#my_rule-first">first</a>, <a href="#my_rule-second">second</a>)
 </pre>
 
@@ -27,6 +28,7 @@ This is my rule. It does stuff.
 ## other_rule
 
 <pre>
+load("@stardoc//test:testdata/multiple_rules_test/input.bzl", "other_rule")
 other_rule(<a href="#other_rule-name">name</a>, <a href="#other_rule-fourth">fourth</a>, <a href="#other_rule-third">third</a>)
 </pre>
 
@@ -47,6 +49,7 @@ This is another rule.
 ## yet_another_rule
 
 <pre>
+load("@stardoc//test:testdata/multiple_rules_test/input.bzl", "yet_another_rule")
 yet_another_rule(<a href="#yet_another_rule-name">name</a>, <a href="#yet_another_rule-fifth">fifth</a>)
 </pre>
 
@@ -66,6 +69,7 @@ This is yet another rule
 ## my_rule_impl
 
 <pre>
+load("@stardoc//test:testdata/multiple_rules_test/input.bzl", "my_rule_impl")
 my_rule_impl(<a href="#my_rule_impl-ctx">ctx</a>)
 </pre>
 

@@ -7,6 +7,7 @@
 ## my_rule_impl
 
 <pre>
+load("@stardoc//test:testdata/unknown_name_test/input.bzl", "my_rule_impl")
 my_rule_impl(<a href="#my_rule_impl-ctx">ctx</a>)
 </pre>
 

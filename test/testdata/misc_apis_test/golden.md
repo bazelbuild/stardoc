@@ -7,6 +7,7 @@
 ## my_rule
 
 <pre>
+load("@stardoc//test:testdata/misc_apis_test/input.bzl", "my_rule")
 my_rule(<a href="#my_rule-name">name</a>, <a href="#my_rule-deps">deps</a>, <a href="#my_rule-src">src</a>, <a href="#my_rule-out">out</a>, <a href="#my_rule-extra_arguments">extra_arguments</a>, <a href="#my_rule-tool">tool</a>)
 </pre>
 
@@ -30,6 +31,7 @@ This rule exercises some of the build API.
 ## MyInfo
 
 <pre>
+load("@stardoc//test:testdata/misc_apis_test/input.bzl", "MyInfo")
 MyInfo(<a href="#MyInfo-foo">foo</a>, <a href="#MyInfo-bar">bar</a>)
 </pre>
 
@@ -49,6 +51,7 @@ MyInfo(<a href="#MyInfo-foo">foo</a>, <a href="#MyInfo-bar">bar</a>)
 ## exercise_the_api
 
 <pre>
+load("@stardoc//test:testdata/misc_apis_test/input.bzl", "exercise_the_api")
 exercise_the_api()
 </pre>
 
@@ -61,6 +64,7 @@ exercise_the_api()
 ## my_rule_impl
 
 <pre>
+load("@stardoc//test:testdata/misc_apis_test/input.bzl", "my_rule_impl")
 my_rule_impl(<a href="#my_rule_impl-ctx">ctx</a>)
 </pre>
 

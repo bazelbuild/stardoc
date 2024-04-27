@@ -7,6 +7,7 @@ A golden test to verify attribute default values.
 ## my_rule
 
 <pre>
+load("@stardoc//test:testdata/attribute_defaults_test/input.bzl", "my_rule")
 my_rule(<a href="#my_rule-name">name</a>, <a href="#my_rule-a">a</a>, <a href="#my_rule-b">b</a>, <a href="#my_rule-c">c</a>, <a href="#my_rule-d">d</a>, <a href="#my_rule-e">e</a>, <a href="#my_rule-f">f</a>, <a href="#my_rule-g">g</a>, <a href="#my_rule-h">h</a>, <a href="#my_rule-i">i</a>, <a href="#my_rule-j">j</a>, <a href="#my_rule-k">k</a>, <a href="#my_rule-l">l</a>, <a href="#my_rule-m">m</a>, <a href="#my_rule-n">n</a>, <a href="#my_rule-o">o</a>, <a href="#my_rule-p">p</a>, <a href="#my_rule-q">q</a>, <a href="#my_rule-r">r</a>, <a href="#my_rule-s">s</a>, <a href="#my_rule-t">t</a>, <a href="#my_rule-u">u</a>, <a href="#my_rule-v">v</a>, <a href="#my_rule-w">w</a>)
 </pre>
 
@@ -48,6 +49,9 @@ This is my rule. It does stuff.
 ## my_aspect
 
 <pre>
+load("@stardoc//test:testdata/attribute_defaults_test/input.bzl", "my_aspect")
+# or on the command line:
+# --aspects=@stardoc//test:testdata/attribute_defaults_test/input.bzl%my_aspect
 my_aspect(<a href="#my_aspect-name">name</a>, <a href="#my_aspect-y">y</a>, <a href="#my_aspect-z">z</a>)
 </pre>
 

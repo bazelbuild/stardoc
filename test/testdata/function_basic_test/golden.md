@@ -7,6 +7,7 @@ A test that verifies basic user function documentation.
 ## check_sources
 
 <pre>
+load("@stardoc//test:testdata/function_basic_test/input.bzl", "check_sources")
 check_sources(<a href="#check_sources-name">name</a>, <a href="#check_sources-required_param">required_param</a>, <a href="#check_sources-bool_param">bool_param</a>, <a href="#check_sources-srcs">srcs</a>, <a href="#check_sources-string_param">string_param</a>, <a href="#check_sources-int_param">int_param</a>, <a href="#check_sources-dict_param">dict_param</a>,
               <a href="#check_sources-struct_param">struct_param</a>)
 </pre>
@@ -37,6 +38,7 @@ Use `bazel build` to run the check.
 ## deprecated_do_not_use
 
 <pre>
+load("@stardoc//test:testdata/function_basic_test/input.bzl", "deprecated_do_not_use")
 deprecated_do_not_use()
 </pre>
 
@@ -53,6 +55,7 @@ Use literally anything but this function.
 ## param_doc_multiline
 
 <pre>
+load("@stardoc//test:testdata/function_basic_test/input.bzl", "param_doc_multiline")
 param_doc_multiline(<a href="#param_doc_multiline-complex">complex</a>)
 </pre>
 
@@ -71,6 +74,7 @@ Has a complex parameter.
 ## returns_a_thing
 
 <pre>
+load("@stardoc//test:testdata/function_basic_test/input.bzl", "returns_a_thing")
 returns_a_thing(<a href="#returns_a_thing-name">name</a>)
 </pre>
 
@@ -93,6 +97,7 @@ A suffixed version of the name.
 ## undocumented_function
 
 <pre>
+load("@stardoc//test:testdata/function_basic_test/input.bzl", "undocumented_function")
 undocumented_function(<a href="#undocumented_function-a">a</a>, <a href="#undocumented_function-b">b</a>, <a href="#undocumented_function-c">c</a>)
 </pre>
 

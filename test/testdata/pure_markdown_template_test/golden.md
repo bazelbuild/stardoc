@@ -7,6 +7,7 @@ Input file for markdown template test
 ## example_rule
 
 <pre>
+load("@stardoc//test:testdata/pure_markdown_template_test/input.bzl", "example_rule")
 example_rule(<a href="#example_rule-name">name</a>, <a href="#example_rule-first">first</a>, <a href="#example_rule-second">second</a>)
 </pre>
 
@@ -27,6 +28,7 @@ Small example of rule using a markdown template.
 ## ExampleProviderInfo
 
 <pre>
+load("@stardoc//test:testdata/pure_markdown_template_test/input.bzl", "ExampleProviderInfo")
 ExampleProviderInfo(<a href="#ExampleProviderInfo-foo">foo</a>, <a href="#ExampleProviderInfo-bar">bar</a>, <a href="#ExampleProviderInfo-baz">baz</a>)
 </pre>
 
@@ -47,6 +49,7 @@ Small example of provider using a markdown template.
 ## example_function
 
 <pre>
+load("@stardoc//test:testdata/pure_markdown_template_test/input.bzl", "example_function")
 example_function(<a href="#example_function-foo">foo</a>, <a href="#example_function-bar">bar</a>)
 </pre>
 
@@ -66,6 +69,9 @@ Small example of function using a markdown template.
 ## example_aspect
 
 <pre>
+load("@stardoc//test:testdata/pure_markdown_template_test/input.bzl", "example_aspect")
+# or on the command line:
+# --aspects=@stardoc//test:testdata/pure_markdown_template_test/input.bzl%example_aspect
 example_aspect(<a href="#example_aspect-name">name</a>, <a href="#example_aspect-first">first</a>, <a href="#example_aspect-second">second</a>)
 </pre>
 

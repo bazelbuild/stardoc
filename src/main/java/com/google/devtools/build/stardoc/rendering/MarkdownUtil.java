@@ -21,6 +21,7 @@ import static java.util.stream.Collectors.joining;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AspectInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AttributeInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AttributeType;
@@ -37,17 +38,18 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /** Contains a number of utility methods for markdown rendering. */
 public final class MarkdownUtil {
-  private final String extensionBzlFile;
+  private final Optional<String> entrypointBzlFile;
 
   private static final int MAX_LINE_LENGTH = 100;
 
-  public MarkdownUtil(String extensionBzlFile) {
-    this.extensionBzlFile = extensionBzlFile;
+  public MarkdownUtil(Optional<String> entrypointBzlFile) {
+    this.entrypointBzlFile = entrypointBzlFile;
   }
 
   /**
@@ -217,7 +219,7 @@ public final class MarkdownUtil {
   public String ruleSummary(String ruleName, RuleInfo ruleInfo) {
     ImmutableList<String> attributeNames =
         ruleInfo.getAttributeList().stream().map(AttributeInfo::getName).collect(toImmutableList());
-    return summary(ruleName, attributeNames);
+    return maybeLoad(ruleName) + summary(ruleName, attributeNames);
   }
 
   /**
@@ -229,9 +231,9 @@ public final class MarkdownUtil {
   public String providerSummary(String providerName, ProviderInfo providerInfo) {
     ImmutableList<String> fieldNames =
         providerInfo.getFieldInfoList().stream()
-            .map(field -> field.getName())
+            .map(StardocOutputProtos.ProviderFieldInfo::getName)
             .collect(toImmutableList());
-    return summary(providerName, fieldNames);
+    return maybeLoad(providerName) + summary(providerName, fieldNames);
   }
 
   /**
@@ -245,7 +247,16 @@ public final class MarkdownUtil {
         aspectInfo.getAttributeList().stream()
             .map(AttributeInfo::getName)
             .collect(toImmutableList());
-    return summary(aspectName, attributeNames);
+    String aspectFlag =
+        entrypointBzlFile
+            // Namespaced aspects can't be referenced on the command line.
+            .filter(unused -> !aspectName.contains("."))
+            .map(
+                file ->
+                    String.format(
+                        "# or on the command line:\n# --aspects=%s%%%s\n", file, aspectName))
+            .orElse("");
+    return maybeLoad(aspectName) + aspectFlag + summary(aspectName, attributeNames);
   }
 
   /**
@@ -259,7 +270,7 @@ public final class MarkdownUtil {
   public String repositoryRuleSummary(String ruleName, RepositoryRuleInfo ruleInfo) {
     ImmutableList<String> attributeNames =
         ruleInfo.getAttributeList().stream().map(AttributeInfo::getName).collect(toImmutableList());
-    return summary(ruleName, attributeNames);
+    return maybeLoad(ruleName) + summary(ruleName, attributeNames);
   }
 
   /**
@@ -281,7 +292,8 @@ public final class MarkdownUtil {
     StringBuilder summaryBuilder = new StringBuilder();
     summaryBuilder.append(
         String.format(
-            "%s = use_extension(\"%s\", \"%s\")", extensionName, extensionBzlFile, extensionName));
+            "%s = use_extension(\"%s\", \"%s\")",
+            extensionName, entrypointBzlFile.orElse("..."), extensionName));
     for (ModuleExtensionTagClassInfo tagClass : extensionInfo.getTagClassList()) {
       ImmutableList<String> attributeNames =
           tagClass.getAttributeList().stream()
@@ -307,7 +319,13 @@ public final class MarkdownUtil {
         funcInfo.getParameterList().stream()
             .map(FunctionParamInfo::getName)
             .collect(toImmutableList());
-    return summary(funcInfo.getFunctionName(), paramNames);
+    return maybeLoad(funcInfo.getFunctionName()) + summary(funcInfo.getFunctionName(), paramNames);
+  }
+
+  private String maybeLoad(String name) {
+    return entrypointBzlFile
+        .map(file -> String.format("load(\"%s\", \"%s\")\n", file, name.split("\\.")[0]))
+        .orElse("");
   }
 
   private static String summary(String functionName, ImmutableList<String> paramNames) {

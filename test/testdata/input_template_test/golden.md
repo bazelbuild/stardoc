@@ -7,6 +7,7 @@ Module Docstring: "Input file for input template test"
 ## my_example
 
 <pre>
+load("@stardoc//test:testdata/input_template_test/input.bzl", "my_example")
 my_example(<a href="#my_example-name">name</a>, <a href="#my_example-useless">useless</a>)
 </pre>
 
@@ -38,6 +39,7 @@ Small example of rule using chosen template.
 ## example
 
 <pre>
+load("@stardoc//test:testdata/input_template_test/input.bzl", "example")
 example(<a href="#example-foo">foo</a>, <a href="#example-bar">bar</a>, <a href="#example-baz">baz</a>)
 </pre>
 
@@ -66,6 +68,7 @@ Stores information about an example in chosen template.
 ## my_aspect_impl
 
 <pre>
+load("@stardoc//test:testdata/input_template_test/input.bzl", "my_aspect_impl")
 my_aspect_impl(<a href="#my_aspect_impl-ctx">ctx</a>)
 </pre>
 
@@ -84,6 +87,7 @@ my_aspect_impl(<a href="#my_aspect_impl-ctx">ctx</a>)
 ## template_function
 
 <pre>
+load("@stardoc//test:testdata/input_template_test/input.bzl", "template_function")
 template_function(<a href="#template_function-foo">foo</a>)
 </pre>
 
@@ -109,6 +113,9 @@ Use `bazel build` to run the check.
 ## my_aspect
 
 <pre>
+load("@stardoc//test:testdata/input_template_test/input.bzl", "my_aspect")
+# or on the command line:
+# --aspects=@stardoc//test:testdata/input_template_test/input.bzl%my_aspect
 my_aspect(<a href="#my_aspect-name">name</a>, <a href="#my_aspect-first">first</a>)
 </pre>
 

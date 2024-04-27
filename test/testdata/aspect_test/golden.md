@@ -7,6 +7,7 @@ The input file for the aspect test
 ## my_aspect_impl
 
 <pre>
+load("@stardoc//test:testdata/aspect_test/input.bzl", "my_aspect_impl")
 my_aspect_impl(<a href="#my_aspect_impl-ctx">ctx</a>)
 </pre>
 
@@ -25,6 +26,9 @@ my_aspect_impl(<a href="#my_aspect_impl-ctx">ctx</a>)
 ## my_aspect
 
 <pre>
+load("@stardoc//test:testdata/aspect_test/input.bzl", "my_aspect")
+# or on the command line:
+# --aspects=@stardoc//test:testdata/aspect_test/input.bzl%my_aspect
 my_aspect(<a href="#my_aspect-name">name</a>, <a href="#my_aspect-first">first</a>, <a href="#my_aspect-second">second</a>)
 </pre>
 
@@ -51,11 +55,38 @@ It does stuff.
 | <a id="my_aspect-second"></a>second |  -   | String | required |  |
 
 
+<a id="namespace.namespaced_aspect"></a>
+
+## namespace.namespaced_aspect
+
+<pre>
+load("@stardoc//test:testdata/aspect_test/input.bzl", "namespace")
+namespace.namespaced_aspect(<a href="#namespace.namespaced_aspect-name">name</a>, <a href="#namespace.namespaced_aspect-third">third</a>)
+</pre>
+
+This is another aspect.
+
+**ASPECT ATTRIBUTES**
+
+
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="namespace.namespaced_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="namespace.namespaced_aspect-third"></a>third |  -   | Integer | required |  |
+
+
 <a id="other_aspect"></a>
 
 ## other_aspect
 
 <pre>
+load("@stardoc//test:testdata/aspect_test/input.bzl", "other_aspect")
+# or on the command line:
+# --aspects=@stardoc//test:testdata/aspect_test/input.bzl%other_aspect
 other_aspect(<a href="#other_aspect-name">name</a>, <a href="#other_aspect-third">third</a>)
 </pre>
 

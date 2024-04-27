@@ -36,6 +36,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 /** Produces stardoc output in markdown form. */
 public class MarkdownRenderer {
@@ -53,7 +54,7 @@ public class MarkdownRenderer {
   private final String aspectTemplateFilename;
   private final String repositoryRuleTemplateFilename;
   private final String moduleExtensionTemplateFilename;
-  private final String extensionBzlFile;
+  private final Optional<String> entrypointBzlFile;
   private final String footerTemplateFilename;
   private final Stamping stamping;
 
@@ -66,7 +67,7 @@ public class MarkdownRenderer {
       String aspectTemplate,
       String repositoryRuleTemplate,
       String moduleExtensionTemplate,
-      String extensionBzlFile,
+      Optional<String> entrypointBzlFile,
       String footerTemplate,
       Stamping stamping) {
     this.headerTemplateFilename = headerTemplate;
@@ -77,7 +78,7 @@ public class MarkdownRenderer {
     this.aspectTemplateFilename = aspectTemplate;
     this.repositoryRuleTemplateFilename = repositoryRuleTemplate;
     this.moduleExtensionTemplateFilename = moduleExtensionTemplate;
-    this.extensionBzlFile = extensionBzlFile;
+    this.entrypointBzlFile = entrypointBzlFile;
     this.footerTemplateFilename = footerTemplate;
     this.stamping = stamping;
   }
@@ -90,7 +91,7 @@ public class MarkdownRenderer {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
-            new MarkdownUtil(extensionBzlFile),
+            new MarkdownUtil(entrypointBzlFile),
             "moduleDocstring",
             moduleInfo.getModuleDocstring(),
             "stamping",
@@ -118,7 +119,7 @@ public class MarkdownRenderer {
 
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
-            "util", new MarkdownUtil(extensionBzlFile),
+            "util", new MarkdownUtil(entrypointBzlFile),
             "ruleInfos", ruleInfos,
             "providerInfos", providerInfos,
             "functionInfos", starlarkFunctions,
@@ -141,7 +142,7 @@ public class MarkdownRenderer {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
-            new MarkdownUtil(extensionBzlFile),
+            new MarkdownUtil(entrypointBzlFile),
             "ruleName",
             ruleInfo.getRuleName(),
             "ruleInfo",
@@ -162,7 +163,7 @@ public class MarkdownRenderer {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
-            new MarkdownUtil(extensionBzlFile),
+            new MarkdownUtil(entrypointBzlFile),
             "providerName",
             providerInfo.getProviderName(),
             "providerInfo",
@@ -181,7 +182,7 @@ public class MarkdownRenderer {
    */
   public String render(StarlarkFunctionInfo functionInfo) throws IOException {
     ImmutableMap<String, Object> vars =
-        ImmutableMap.of("util", new MarkdownUtil(extensionBzlFile), "funcInfo", functionInfo);
+        ImmutableMap.of("util", new MarkdownUtil(entrypointBzlFile), "funcInfo", functionInfo);
     Reader reader = readerFromPath(functionTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
@@ -198,7 +199,7 @@ public class MarkdownRenderer {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
-            new MarkdownUtil(extensionBzlFile),
+            new MarkdownUtil(entrypointBzlFile),
             "aspectName",
             aspectInfo.getAspectName(),
             "aspectInfo",
@@ -219,7 +220,7 @@ public class MarkdownRenderer {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
-            new MarkdownUtil(extensionBzlFile),
+            new MarkdownUtil(entrypointBzlFile),
             "ruleName",
             repositoryRuleInfo.getRuleName(),
             "ruleInfo",
@@ -240,7 +241,7 @@ public class MarkdownRenderer {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
-            new MarkdownUtil(extensionBzlFile),
+            new MarkdownUtil(entrypointBzlFile),
             "extensionName",
             moduleExtensionInfo.getExtensionName(),
             "extensionInfo",
@@ -256,7 +257,7 @@ public class MarkdownRenderer {
   /** Returns a markdown header string that should appear at the end of Stardoc's output. */
   public String renderMarkdownFooter(ModuleInfo moduleInfo) throws IOException {
     ImmutableMap<String, Object> vars =
-        ImmutableMap.of("util", new MarkdownUtil(extensionBzlFile), "stamping", stamping);
+        ImmutableMap.of("util", new MarkdownUtil(entrypointBzlFile), "stamping", stamping);
     Reader reader = readerFromPath(footerTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);

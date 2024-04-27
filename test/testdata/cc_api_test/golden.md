@@ -7,6 +7,7 @@ Input file for C++ api test
 ## cpp_related_rule
 
 <pre>
+load("@stardoc//test:testdata/cc_api_test/input.bzl", "cpp_related_rule")
 cpp_related_rule(<a href="#cpp_related_rule-name">name</a>, <a href="#cpp_related_rule-first">first</a>, <a href="#cpp_related_rule-fourth">fourth</a>, <a href="#cpp_related_rule-second">second</a>, <a href="#cpp_related_rule-third">third</a>)
 </pre>
 
@@ -29,6 +30,7 @@ This rule does C++-related things.
 ## exercise_the_api
 
 <pre>
+load("@stardoc//test:testdata/cc_api_test/input.bzl", "exercise_the_api")
 exercise_the_api()
 </pre>
 
@@ -41,6 +43,7 @@ exercise_the_api()
 ## my_rule_impl
 
 <pre>
+load("@stardoc//test:testdata/cc_api_test/input.bzl", "my_rule_impl")
 my_rule_impl(<a href="#my_rule_impl-ctx">ctx</a>)
 </pre>
 

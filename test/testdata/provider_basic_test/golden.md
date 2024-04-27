@@ -7,6 +7,7 @@
 ## MyFooInfo
 
 <pre>
+load("@stardoc//test:testdata/provider_basic_test/input.bzl", "MyFooInfo")
 MyFooInfo(<a href="#MyFooInfo-bar">bar</a>, <a href="#MyFooInfo-baz">baz</a>)
 </pre>
 
@@ -26,6 +27,7 @@ Stores information about a foo.
 ## MyPoorlyDocumentedInfo
 
 <pre>
+load("@stardoc//test:testdata/provider_basic_test/input.bzl", "MyPoorlyDocumentedInfo")
 MyPoorlyDocumentedInfo()
 </pre>
 
@@ -40,6 +42,7 @@ MyPoorlyDocumentedInfo()
 ## MyVeryDocumentedInfo
 
 <pre>
+load("@stardoc//test:testdata/provider_basic_test/input.bzl", "MyVeryDocumentedInfo")
 MyVeryDocumentedInfo(<a href="#MyVeryDocumentedInfo-favorite_food">favorite_food</a>, <a href="#MyVeryDocumentedInfo-favorite_color">favorite_color</a>)
 </pre>
 
