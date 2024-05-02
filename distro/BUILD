@@ -13,6 +13,12 @@ alias(
 )
 
 strip_internal_only(
+    name = "distro_module_bazel",
+    src = "//:MODULE.bazel",
+    out = "MODULE.bazel",
+)
+
+strip_internal_only(
     name = "distro_workspace",
     src = "//:WORKSPACE",
     out = "WORKSPACE",
@@ -27,6 +33,7 @@ strip_internal_only(
 pkg_tar(
     name = "distro_srcs",
     srcs = [
+        "distro_module_bazel",
         "distro_workspace",
         "distro_workspace_bzlmod",
         "//:distro_srcs",
