@@ -48,7 +48,6 @@ filegroup(
         "rules_jvm_external.patch",
         "//src/main/java/com/google/devtools/build/skydoc/renderer:srcs",
         "//src/main/java/com/google/devtools/build/skydoc/rendering:srcs",
-        "//src/test/java/com/google/devtools/build/skydoc/rendering:srcs",
         "//stardoc:distro_srcs",
         "//stardoc/private:distro_srcs",
         "//stardoc/proto:distro_srcs",
