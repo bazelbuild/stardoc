@@ -32,7 +32,6 @@ java_library(
     deps = [
         "//src/main/java/com/google/devtools/build/skydoc/rendering",
         "//stardoc/proto:stardoc_output_java_proto",
-        "@com_google_protobuf//:protobuf_java",
         "@stardoc_maven//:com_beust_jcommander",
         "@stardoc_maven//:com_google_guava_guava",
     ],

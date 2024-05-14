@@ -33,8 +33,6 @@ import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.Prov
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RepositoryRuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RuleInfo;
 import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.StarlarkFunctionInfo;
-import com.google.protobuf.ExtensionRegistry;
-import com.google.protobuf.InvalidProtocolBufferException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -81,9 +79,7 @@ public final class RendererMain {
             write("\n");
           }
         }) {
-      ModuleInfo moduleInfo =
-          ModuleInfo.parseFrom(
-              new FileInputStream(inputPath), ExtensionRegistry.getEmptyRegistry());
+      ModuleInfo moduleInfo = ModuleInfo.parseFrom(new FileInputStream(inputPath));
 
       MarkdownRenderer renderer =
           new MarkdownRenderer(
@@ -161,8 +157,14 @@ public final class RendererMain {
         printWriter.println(renderer.renderMarkdownFooter(moduleInfo));
       }
 
-    } catch (InvalidProtocolBufferException e) {
-      throw new IllegalArgumentException("Input file is not a valid ModuleInfo proto.", e);
+    } catch (IOException e) {
+      // Avoid an explicit dependency on the Java protobuf runtime as it should be injected by the
+      // root module via a proto_lang_toolchain.
+      if (e.getClass().getName().equals("com.google.protobuf.InvalidProtocolBufferException")) {
+        throw new IllegalArgumentException("Input file is not a valid ModuleInfo proto.", e);
+      } else {
+        throw e;
+      }
     }
   }
 
