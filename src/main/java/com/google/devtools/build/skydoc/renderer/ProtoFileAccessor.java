@@ -13,7 +13,7 @@
 // limitations under the License.
 package com.google.devtools.build.skydoc.renderer;
 
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos;
 import java.io.FileOutputStream;
 import java.io.IOException;
 

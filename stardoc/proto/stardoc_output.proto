@@ -13,7 +13,7 @@
 // limitations under the License.
 //
 // Vendored from src/main/protobuf/stardoc_output.proto
-// in the Bazel source tree at commit 18a674ba8f92f2eaa7e4f66650a0f764f88f95adn
+// in the Bazel source tree at commit f4cfc846dbdf5f6c19d0a716fccd2ddcdae0d609n
 //
 // Protos for Stardoc data.
 //
@@ -23,7 +23,7 @@ syntax = "proto3";
 package stardoc_output;
 
 // option java_api_version = 2;
-option java_package = "com.google.devtools.build.skydoc.rendering.proto";
+option java_package = "com.google.devtools.build.lib.starlarkdocextract";
 option java_outer_classname = "StardocOutputProtos";
 
 // The root output proto of Stardoc. An invocation of Stardoc on a single file
