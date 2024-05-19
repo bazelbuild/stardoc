@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.devtools.build.skydoc.rendering;
+package com.google.devtools.build.stardoc.rendering;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -37,7 +37,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-/** Produces skydoc output in markdown form. */
+/** Produces stardoc output in markdown form. */
 public class MarkdownRenderer {
 
   public interface Renderer<T> {

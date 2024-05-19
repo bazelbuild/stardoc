@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.devtools.build.skydoc.renderer;
+package com.google.devtools.build.stardoc.renderer;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -30,9 +30,9 @@ import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.Prov
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.RepositoryRuleInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.RuleInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.StarlarkFunctionInfo;
-import com.google.devtools.build.skydoc.rendering.MarkdownRenderer;
-import com.google.devtools.build.skydoc.rendering.MarkdownRenderer.Renderer;
-import com.google.devtools.build.skydoc.rendering.Stamping;
+import com.google.devtools.build.stardoc.rendering.MarkdownRenderer;
+import com.google.devtools.build.stardoc.rendering.MarkdownRenderer.Renderer;
+import com.google.devtools.build.stardoc.rendering.Stamping;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
