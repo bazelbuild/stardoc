@@ -5,12 +5,10 @@
 <pre>
 ${util.providerSummary($providerName, $providerInfo)}
 </pre>
-#if ($providerInfo.hasInit() && !$providerInfo.init.docString.isEmpty())
-
-${providerInfo.init.docString}
-#end
+#if (!$providerInfo.docString.isEmpty())
 
 ${providerInfo.docString}
+#end
 #if ($providerInfo.hasInit() && !$providerInfo.init.deprecated.docString.isEmpty())
 
 **DEPRECATED**

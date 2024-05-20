@@ -34,8 +34,6 @@ This rule does things.
 MyProviderInfo(<a href="#MyProviderInfo-foo">foo</a>, <a href="#MyProviderInfo-bar">bar</a>)
 </pre>
 
-
-
 **FIELDS**
 
 
@@ -52,8 +50,6 @@ MyProviderInfo(<a href="#MyProviderInfo-foo">foo</a>, <a href="#MyProviderInfo-b
 <pre>
 OtherProviderInfo()
 </pre>
-
-
 
 **FIELDS**
 

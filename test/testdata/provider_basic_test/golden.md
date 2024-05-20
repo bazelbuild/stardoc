@@ -10,8 +10,6 @@
 MyCustomInitInfo(<a href="#MyCustomInitInfo-_init-foo">foo</a>, <a href="#MyCustomInitInfo-_init-bar">bar</a>)
 </pre>
 
-MyCustomInfo constructor.
-
 A provider with a custom constructor.
 
 **CONSTRUCTOR PARAMETERS**
@@ -19,7 +17,7 @@ A provider with a custom constructor.
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 | <a id="MyCustomInitInfo-_init-foo"></a>foo |  Foo data; must be non-negative   |  none |
-| <a id="MyCustomInitInfo-_init-bar"></a>bar |  Bar data   |  `42` |
+| <a id="MyCustomInitInfo-_init-bar"></a>bar |  <p align="center"> - </p>   |  `42` |
 
 **FIELDS**
 
@@ -27,8 +25,34 @@ A provider with a custom constructor.
 | Name  | Description |
 | :------------- | :------------- |
 | <a id="MyCustomInitInfo-foo"></a>foo |  Foo data    |
-| <a id="MyCustomInitInfo-bar"></a>bar |  Bar data    |
-| <a id="MyCustomInitInfo-validated"></a>validated |  Whether the data has been validated    |
+| <a id="MyCustomInitInfo-bar"></a>bar |  Bar data. Note that we didn't document `bar` parameter for the init callback - we want this docstring to be propagated to the constructor param table.    |
+
+
+<a id="MyCustomInitWithExtraFieldInfo"></a>
+
+## MyCustomInitWithExtraFieldInfo
+
+<pre>
+MyCustomInitWithExtraFieldInfo(<a href="#MyCustomInitWithExtraFieldInfo-_init-foo">foo</a>, <a href="#MyCustomInitWithExtraFieldInfo-_init-bar">bar</a>)
+</pre>
+
+A provider with a custom constructor.
+
+**CONSTRUCTOR PARAMETERS**
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="MyCustomInitWithExtraFieldInfo-_init-foo"></a>foo |  Foo data; must be non-negative   |  none |
+| <a id="MyCustomInitWithExtraFieldInfo-_init-bar"></a>bar |  <p align="center"> - </p>   |  `42` |
+
+**FIELDS**
+
+
+| Name  | Description |
+| :------------- | :------------- |
+| <a id="MyCustomInitWithExtraFieldInfo-foo"></a>foo |  Foo data    |
+| <a id="MyCustomInitWithExtraFieldInfo-bar"></a>bar |  Bar data. Note that we didn't document `bar` parameter for the init callback - we want this docstring to be propagated to the constructor param table.    |
+| <a id="MyCustomInitWithExtraFieldInfo-validated"></a>validated |  Whether the data has been validated    |
 
 
 <a id="MyDeprecatedInfo"></a>
@@ -38,8 +62,6 @@ A provider with a custom constructor.
 <pre>
 MyDeprecatedInfo()
 </pre>
-
-MyDeprecatedInfo constructor.
 
 You can read this info.
 
@@ -83,8 +105,6 @@ Stores information about a foo.
 <pre>
 MyPoorlyDocumentedInfo()
 </pre>
-
-
 
 **FIELDS**
 
