@@ -5,8 +5,51 @@
 <pre>
 ${util.providerSummary($providerName, $providerInfo)}
 </pre>
+#if ($providerInfo.hasInit() && !$providerInfo.init.docString.isEmpty())
 
-${util.htmlEscape($providerInfo.docString)}
+${providerInfo.init.docString}
+#end
+
+${providerInfo.docString}
+#if ($providerInfo.hasInit() && !$providerInfo.init.deprecated.docString.isEmpty())
+
+#[[###]]# Deprecated
+
+${providerInfo.init.deprecated.docString}
+#end
+#if ($providerInfo.hasInit() && !$providerInfo.init.parameterList.isEmpty())
+
+#[[###]]# Constructor parameters
+
+<table class="params-table">
+<colgroup>
+<col class="col-param" />
+<col class="col-description" />
+</colgroup>
+<tbody>
+#foreach ($param in $providerInfo.init.parameterList)
+<tr id="${providerName}-_init-${param.name}">
+<td><code>${param.name}</code></td>
+<td>
+
+${util.mandatoryString($param)}.
+#if(!$param.getDefaultValue().isEmpty())
+default is <code>$param.getDefaultValue()</code>
+#end
+
+#if (!$param.docString.isEmpty())
+<p>
+
+${param.docString.trim()}
+
+</p>
+#end
+</td>
+</tr>
+#end
+</tbody>
+</table>
+#end
 
 #if (!$providerInfo.fieldInfoList.isEmpty())
 #[[###]]# Fields
