@@ -51,7 +51,7 @@ stardoc(
 
 alias(
     name = "renderer",
-    actual = "//src/main/java/com/google/devtools/build/skydoc/renderer",
+    actual = "//src/main/java/com/google/devtools/build/stardoc/renderer",
 )
 
 # Sources needed for release tarball.

@@ -11,9 +11,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package com.google.devtools.build.skydoc.renderer;
+package com.google.devtools.build.stardoc.renderer;
 
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos;
 import java.io.FileOutputStream;
 import java.io.IOException;
 

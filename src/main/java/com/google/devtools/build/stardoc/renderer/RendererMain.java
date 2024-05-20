@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.devtools.build.skydoc.renderer;
+package com.google.devtools.build.stardoc.renderer;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -21,18 +21,18 @@ import static java.util.Comparator.comparing;
 import com.beust.jcommander.JCommander;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.devtools.build.skydoc.rendering.MarkdownRenderer;
-import com.google.devtools.build.skydoc.rendering.MarkdownRenderer.Renderer;
-import com.google.devtools.build.skydoc.rendering.Stamping;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AspectInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AttributeInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleExtensionInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleExtensionTagClassInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ProviderInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RepositoryRuleInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RuleInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.StarlarkFunctionInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AspectInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AttributeInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleExtensionInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleExtensionTagClassInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ProviderInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.RepositoryRuleInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.RuleInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.StarlarkFunctionInfo;
+import com.google.devtools.build.stardoc.rendering.MarkdownRenderer;
+import com.google.devtools.build.stardoc.rendering.MarkdownRenderer.Renderer;
+import com.google.devtools.build.stardoc.rendering.Stamping;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
