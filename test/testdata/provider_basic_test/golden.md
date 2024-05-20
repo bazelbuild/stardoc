@@ -2,6 +2,61 @@
 
 
 
+<a id="MyCustomInitInfo"></a>
+
+## MyCustomInitInfo
+
+<pre>
+MyCustomInitInfo(<a href="#MyCustomInitInfo-_init-foo">foo</a>, <a href="#MyCustomInitInfo-_init-bar">bar</a>)
+</pre>
+
+MyCustomInfo constructor.
+
+A provider with a custom constructor.
+
+**CONSTRUCTOR PARAMETERS**
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="MyCustomInitInfo-_init-foo"></a>foo |  Foo data; must be non-negative   |  none |
+| <a id="MyCustomInitInfo-_init-bar"></a>bar |  Bar data   |  `42` |
+
+**FIELDS**
+
+
+| Name  | Description |
+| :------------- | :------------- |
+| <a id="MyCustomInitInfo-foo"></a>foo |  Foo data    |
+| <a id="MyCustomInitInfo-bar"></a>bar |  Bar data    |
+| <a id="MyCustomInitInfo-validated"></a>validated |  Whether the data has been validated    |
+
+
+<a id="MyDeprecatedInfo"></a>
+
+## MyDeprecatedInfo
+
+<pre>
+MyDeprecatedInfo()
+</pre>
+
+MyDeprecatedInfo constructor.
+
+You can read this info.
+
+But should you really construct it?
+
+**DEPRECATED**
+
+Do not construct!
+
+**FIELDS**
+
+
+| Name  | Description |
+| :------------- | :------------- |
+| <a id="MyDeprecatedInfo-foo"></a>foo |  Foo    |
+
+
 <a id="MyFooInfo"></a>
 
 ## MyFooInfo

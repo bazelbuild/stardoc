@@ -37,6 +37,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.UnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -223,15 +224,28 @@ public final class MarkdownUtil {
   /**
    * Return a string representing the summary for the given provider with the given name.
    *
-   * <p>For example: 'MyInfo(foo, bar)'. The summary will contain hyperlinks for each field.
+   * <p>For example: 'MyInfo(foo, bar)'.
+   *
+   * <p>If the provider has an init callback, the summary will contain hyperlinks for each of the
+   * init callback's parameters; if the provider doesn't have an init callback, the summary will
+   * contain hyperlinks for each field.
    */
   @SuppressWarnings("unused") // Used by markdown template.
   public String providerSummary(String providerName, ProviderInfo providerInfo) {
-    ImmutableList<String> fieldNames =
-        providerInfo.getFieldInfoList().stream()
-            .map(field -> field.getName())
-            .collect(toImmutableList());
-    return summary(providerName, fieldNames);
+    if (providerInfo.hasInit()) {
+      ImmutableList<String> paramNames =
+          providerInfo.getInit().getParameterList().stream()
+              .map(FunctionParamInfo::getName)
+              .collect(toImmutableList());
+      return summary(
+          providerName, paramNames, param -> String.format("%s-_init-%s", providerName, param));
+    } else {
+      ImmutableList<String> fieldNames =
+          providerInfo.getFieldInfoList().stream()
+              .map(field -> field.getName())
+              .collect(toImmutableList());
+      return summary(providerName, fieldNames);
+    }
   }
 
   /**
@@ -310,20 +324,34 @@ public final class MarkdownUtil {
     return summary(funcInfo.getFunctionName(), paramNames);
   }
 
-  private static String summary(String functionName, ImmutableList<String> paramNames) {
+  /**
+   * Returns a string representing the summary for a function or other callable.
+   *
+   * @param paramAnchorNamer translates a paremeter's name into the name of its HTML anchor
+   */
+  private static String summary(
+      String functionName,
+      ImmutableList<String> paramNames,
+      UnaryOperator<String> paramAnchorNamer) {
     ImmutableList<ImmutableList<String>> paramLines =
         wrap(functionName, paramNames, MAX_LINE_LENGTH);
     List<String> paramLinksLines = new ArrayList<>();
     for (List<String> params : paramLines) {
       String paramLinksLine =
           params.stream()
-              .map(param -> String.format("<a href=\"#%s-%s\">%s</a>", functionName, param, param))
+              .map(
+                  param ->
+                      String.format("<a href=\"#%s\">%s</a>", paramAnchorNamer.apply(param), param))
               .collect(joining(", "));
       paramLinksLines.add(paramLinksLine);
     }
     String paramList =
         Joiner.on(",\n" + " ".repeat(functionName.length() + 1)).join(paramLinksLines);
     return String.format("%s(%s)", functionName, paramList);
+  }
+
+  private static String summary(String functionName, ImmutableList<String> paramNames) {
+    return summary(functionName, paramNames, param -> String.format("%s-%s", functionName, param));
   }
 
   /**
