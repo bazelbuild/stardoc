@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.devtools.build.skydoc.renderer;
+package com.google.devtools.build.stardoc.renderer;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
@@ -80,9 +80,7 @@ class RendererOptions {
       description = "The template for the documentation of a module extension")
   String moduleExtensionTemplateFilePath;
 
-  @Parameter(
-      names = "--footer_template",
-      description = "The template for the footer string")
+  @Parameter(names = "--footer_template", description = "The template for the footer string")
   String footerTemplateFilePath;
 
   @Parameter(

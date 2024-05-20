@@ -12,18 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.devtools.build.skydoc.rendering;
+package com.google.devtools.build.stardoc.rendering;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.AspectInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleExtensionInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ModuleInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.ProviderInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RepositoryRuleInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.RuleInfo;
-import com.google.devtools.build.skydoc.rendering.proto.StardocOutputProtos.StarlarkFunctionInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AspectInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleExtensionInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ProviderInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.RepositoryRuleInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.RuleInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.StarlarkFunctionInfo;
 import com.google.escapevelocity.EvaluationException;
 import com.google.escapevelocity.ParseException;
 import com.google.escapevelocity.Template;
@@ -37,7 +37,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-/** Produces skydoc output in markdown form. */
+/** Produces stardoc output in markdown form. */
 public class MarkdownRenderer {
 
   public interface Renderer<T> {

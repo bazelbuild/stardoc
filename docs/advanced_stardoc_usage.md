@@ -76,10 +76,11 @@ Stardoc's output templates are defined using
 with utilities and model objects available in the evaluation context.
 
 The full comprehensive list of available utilities top-level objects is available in
-[the source for MarkdownRenderer](https://github.com/bazelbuild/bazel/blob/3fcfbe14ddec34889c5e3fe33415af2cf9124e7c/src/main/java/com/google/devtools/build/skydoc/rendering/MarkdownRenderer.java#L100).
+[the source for MarkdownRenderer](../src/main/java/com/google/devtools/build/stardoc/rendering/MarkdownRenderer.java).
 
 Information available for raw model objects (such rule information) is defined by
-Stardoc's underlying [proto schema](https://github.com/bazelbuild/bazel/blob/5eeccd8a647df10d154d3b86e9732e7f263c96db/src/main/java/com/google/devtools/build/skydoc/rendering/proto/stardoc_output.proto).
+Stardoc's underlying [proto schema](../stardoc/proto/stardoc_output.proto), vendored
+[from the Bazel source tree](https://github.com/bazelbuild/bazel/blob/master/src/main/protobuf/stardoc_output.proto).
 
 This is a particularly advanced feature of Stardoc, so we would recommend using
 one of the existing canonical [templates](../stardoc/templates/markdown_tables) as a
@@ -97,13 +98,8 @@ fully evaluating a Starlark file. If your changes could be incorporated into
 Stardoc, please first consider [contributing](contributing.md) instead.
 
 The proto schema may be found under
-[stardoc/proto/stardoc_output.proto](../stardoc/proto/stardoc_output.proto).
-Only the `.proto` file itself is provided (this prevents a transitive dependency on
-proto rules to support only a very-advanced usecase). We recommend using rules
-defined under
-[bazelbuild/rules_proto](https://github.com/bazelbuild/rules_proto), creating
-your own proto target using this source file, and adding it as a dependency of
-your renderer binary.
+[stardoc/proto/stardoc_output.proto](../stardoc/proto/stardoc_output.proto), vendored
+[from the Bazel source tree](https://github.com/bazelbuild/bazel/blob/master/src/main/protobuf/stardoc_output.proto).
 
 To configure stardoc to output raw proto instead of markdown, use the `format`
 attribute of the [stardoc rule](stardoc_rule.md#stardoc-format). Specify `"proto"`.

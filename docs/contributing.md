@@ -15,16 +15,16 @@ starting a [GitHub Discussion](https://github.com/bazelbuild/bazel/discussions).
 
 ## Stardoc code structure
 
-* The [bazelbuild/stardoc](https://github.com/bazelbuild/stardoc) repository
-  contains Stardoc's Starlark code alongside Stardoc's prebuilt java binaries (jars).
-* The source code for Stardoc's jars can be found under the bazelbuild/bazel source tree
-  [here](https://github.com/bazelbuild/bazel/tree/master/src/main/java/com/google/devtools/build/skydoc).
-  Changes to Stardoc's java binaries will thus require creation of pull requests to the
-  [bazelbuild/bazel](https://github.com/bazelbuild/bazel) repository.
-* Changes to Stardoc's source are pulled in by updating bazelbuild/stardoc's dependency
-  on the bazel source tree and and then rebuilding the binary using bazel. This process
-  is done periodically by Stardoc's [core contributors](#core-contributors) (generally
-  with large changes to Stardoc source, and right before cutting a new Stardoc release).
+* Stardoc internally relies on Bazel's `starlark_doc_extract` rule to extract
+  documentation in [proto format](https://github.com/bazelbuild/bazel/blob/master/src/main/protobuf/stardoc_output.proto)
+  (vendored into Stardoc's repo in [stardoc/proto/stardoc_output.proto](../src/proto/stardoc_output.proto))
+* The [src](../src) directory contains Stardoc's renderer, written in Java, which
+  transforms the proto output into Markdown.
+* The [stardoc](../stardoc) directory contains the Starlark rule and wrapper
+  macro which serves as the entry point for Stardoc users, and the default
+  Velocity templates which configure Markdown output.
+* Java unit tests live in the [src/test](../src/test/) directory, while
+  integration tests are in the [test](../test/) directory.
 
 ## Contributing to Stardoc
 

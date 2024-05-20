@@ -1,12 +1,6 @@
 load("@rules_java//java:defs.bzl", "java_test")
 
-package(
-    default_applicable_licenses = ["//:license"],
-    default_visibility = [
-        "//src:__subpackages__",
-        "//stardoc:__subpackages__",
-    ],
-)
+package(default_applicable_licenses = ["//:license"])
 
 filegroup(
     name = "srcs",
@@ -20,7 +14,7 @@ java_test(
     size = "small",
     srcs = ["MarkdownUtilTest.java"],
     deps = [
-        "//src/main/java/com/google/devtools/build/skydoc/rendering",
+        "//src/main/java/com/google/devtools/build/stardoc/rendering",
         "@stardoc_maven//:com_google_truth_truth",
         "@stardoc_maven//:junit_junit",
     ],

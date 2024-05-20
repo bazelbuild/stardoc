@@ -76,13 +76,6 @@ stardoc_test(
 )
 
 stardoc_test(
-    name = "android_basic_test",
-    golden_file = "testdata/android_basic_test/golden.md",
-    input_file = "testdata/android_basic_test/input.bzl",
-    symbol_names = ["android_related_rule"],
-)
-
-stardoc_test(
     name = "apple_basic_test",
     golden_file = "testdata/apple_basic_test/golden.md",
     input_file = "testdata/apple_basic_test/input.bzl",

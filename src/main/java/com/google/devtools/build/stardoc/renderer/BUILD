@@ -19,7 +19,7 @@ java_binary(
         # ... but only on JDK >= 9
         "-XX:+IgnoreUnrecognizedVMOptions",
     ],
-    main_class = "com.google.devtools.build.skydoc.renderer.RendererMain",
+    main_class = "com.google.devtools.build.stardoc.renderer.RendererMain",
     visibility = ["//visibility:public"],
     runtime_deps = [
         ":renderer_lib",
@@ -30,9 +30,8 @@ java_library(
     name = "renderer_lib",
     srcs = glob(["*.java"]),
     deps = [
-        "//src/main/java/com/google/devtools/build/skydoc/rendering",
+        "//src/main/java/com/google/devtools/build/stardoc/rendering",
         "//stardoc/proto:stardoc_output_java_proto",
-        "@com_google_protobuf//:protobuf_java",
         "@stardoc_maven//:com_beust_jcommander",
         "@stardoc_maven//:com_google_guava_guava",
     ],
