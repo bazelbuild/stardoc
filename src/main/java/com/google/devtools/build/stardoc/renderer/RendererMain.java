@@ -46,6 +46,7 @@ import java.util.List;
  */
 public final class RendererMain {
 
+  @SuppressWarnings("ProtoParseWithRegistry") // See https://github.com/bazelbuild/stardoc/pull/221
   public static void main(String[] args) throws IOException {
 
     RendererOptions rendererOptions = new RendererOptions();
