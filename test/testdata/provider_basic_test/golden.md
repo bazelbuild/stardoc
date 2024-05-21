@@ -7,52 +7,98 @@
 ## MyCustomInitInfo
 
 <pre>
-MyCustomInitInfo(<a href="#MyCustomInitInfo-_init-foo">foo</a>, <a href="#MyCustomInitInfo-_init-bar">bar</a>)
+MyCustomInitInfo(<a href="#MyCustomInitInfo-foo">foo</a>, <a href="#MyCustomInitInfo-bar">bar</a>)
 </pre>
 
 A provider with a custom constructor.
 
-**CONSTRUCTOR PARAMETERS**
-
-| Name  | Description | Default Value |
-| :------------- | :------------- | :------------- |
-| <a id="MyCustomInitInfo-_init-foo"></a>foo |  Foo data; must be non-negative   |  none |
-| <a id="MyCustomInitInfo-_init-bar"></a>bar |  <p align="center"> - </p>   |  `42` |
+Since the custom constructor parameters match the provider's fields,
+we don't need to render a separate table of constructor parameters.
 
 **FIELDS**
 
-
 | Name  | Description |
 | :------------- | :------------- |
-| <a id="MyCustomInitInfo-foo"></a>foo |  Foo data    |
-| <a id="MyCustomInitInfo-bar"></a>bar |  Bar data. Note that we didn't document `bar` parameter for the init callback - we want this docstring to be propagated to the constructor param table.    |
+| <a id="MyCustomInitInfo-foo></a>foo |  Foo data  |
+| <a id="MyCustomInitInfo-bar></a>bar |  Bar data.  |
 
 
-<a id="MyCustomInitWithExtraFieldInfo"></a>
+<a id="MyCustomInitWithDefaultParamValueInfo"></a>
 
-## MyCustomInitWithExtraFieldInfo
+## MyCustomInitWithDefaultParamValueInfo
 
 <pre>
-MyCustomInitWithExtraFieldInfo(<a href="#MyCustomInitWithExtraFieldInfo-_init-foo">foo</a>, <a href="#MyCustomInitWithExtraFieldInfo-_init-bar">bar</a>)
+MyCustomInitWithDefaultParamValueInfo(<a href="#MyCustomInitWithDefaultParamValueInfo-foo">foo</a>, <a href="#MyCustomInitWithDefaultParamValueInfo-bar">bar</a>)
 </pre>
 
-A provider with a custom constructor.
+A provider with a custom constructor with a parameter with a default value.
+
+Since the custom constructor parameters match the provider's fields,
+we don't need to render a separate table of constructor parameters - but
+we do need to render the default value.
+
+**FIELDS**
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- ||
+| <a id="MyCustomInitWithDefaultParamValueInfo-foo></a>foo |  Foo data  |  none  |
+| <a id="MyCustomInitWithDefaultParamValueInfo-bar></a>bar |  Bar data.  |  `42`  |
+
+
+<a id="MyCustomInitWithDocumentedParamInfo"></a>
+
+## MyCustomInitWithDocumentedParamInfo
+
+<pre>
+MyCustomInitWithDocumentedParamInfo(<a href="#MyCustomInitWithDocumentedParamInfo-_init-foo">foo</a>, <a href="#MyCustomInitWithDocumentedParamInfo-_init-bar">bar</a>)
+</pre>
+
+A provider with a custom constructor with documented constructor parameters.
+
+Docs for constructor parameters differ from docs for fields, so we need to render
+constructor parameters as a separate table.
 
 **CONSTRUCTOR PARAMETERS**
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a id="MyCustomInitWithExtraFieldInfo-_init-foo"></a>foo |  Foo data; must be non-negative   |  none |
-| <a id="MyCustomInitWithExtraFieldInfo-_init-bar"></a>bar |  <p align="center"> - </p>   |  `42` |
+| <a id="MyCustomInitWithDocumentedParamInfo-_init-foo"></a>foo |  Foo data; must be non-negative   |  none |
+| <a id="MyCustomInitWithDocumentedParamInfo-_init-bar"></a>bar |  Bar data. Note that we didn't document `bar` parameter for the init callback - we want this docstring to be propagated to the constructor param table.   |  `42` |
 
 **FIELDS**
 
+| Name  | Description |
+| :------------- | :------------- |
+| <a id="MyCustomInitWithDocumentedParamInfo-foo"></a>foo |  Foo data    |
+| <a id="MyCustomInitWithDocumentedParamInfo-bar"></a>bar |  Bar data. Note that we didn't document `bar` parameter for the init callback - we want this docstring to be propagated to the constructor param table.    |
+
+
+<a id="MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo"></a>
+
+## MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo
+
+<pre>
+MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo(<a href="#MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo-_init-foo">foo</a>, <a href="#MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo-_init-bar">bar</a>)
+</pre>
+
+A provider with a custom constructor whose set of constructor parameters does not equal the provider's set of fields.
+
+We have no choice - we need to render constructor parameters as a separate table.
+
+**CONSTRUCTOR PARAMETERS**
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo-_init-foo"></a>foo |  Foo data   |  none |
+| <a id="MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo-_init-bar"></a>bar |  Bar data.   |  none |
+
+**FIELDS**
 
 | Name  | Description |
 | :------------- | :------------- |
-| <a id="MyCustomInitWithExtraFieldInfo-foo"></a>foo |  Foo data    |
-| <a id="MyCustomInitWithExtraFieldInfo-bar"></a>bar |  Bar data. Note that we didn't document `bar` parameter for the init callback - we want this docstring to be propagated to the constructor param table.    |
-| <a id="MyCustomInitWithExtraFieldInfo-validated"></a>validated |  Whether the data has been validated    |
+| <a id="MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo-foo"></a>foo |  Foo data    |
+| <a id="MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo-bar"></a>bar |  Bar data.    |
+| <a id="MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo-validated"></a>validated |  True, hopefully    |
 
 
 <a id="MyDeprecatedInfo"></a>
@@ -73,7 +119,6 @@ Do not construct!
 
 **FIELDS**
 
-
 | Name  | Description |
 | :------------- | :------------- |
 | <a id="MyDeprecatedInfo-foo"></a>foo |  Foo    |
@@ -91,7 +136,6 @@ Stores information about a foo.
 
 **FIELDS**
 
-
 | Name  | Description |
 | :------------- | :------------- |
 | <a id="MyFooInfo-bar"></a>bar |  -    |
@@ -105,9 +149,6 @@ Stores information about a foo.
 <pre>
 MyPoorlyDocumentedInfo()
 </pre>
-
-**FIELDS**
-
 
 
 <a id="MyVeryDocumentedInfo"></a>
@@ -123,7 +164,6 @@ A provider with some really neat documentation.
 Look on my works, ye mighty, and despair!
 
 **FIELDS**
-
 
 | Name  | Description |
 | :------------- | :------------- |

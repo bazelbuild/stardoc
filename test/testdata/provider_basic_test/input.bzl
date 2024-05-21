@@ -24,14 +24,11 @@ MyVeryDocumentedInfo = provider(
     },
 )
 
-def _init_MyCustomInitInfo(foo, bar = 42):
+def _init_MyCustomInitInfo(foo, bar):
     """
     Validate stuff.
 
     Technical details; the user probably doesn't want to see this part.
-
-    Args:
-        foo: Foo data; must be non-negative
     """
     if foo < 0:
         fail("foo must be non-negative")
@@ -39,15 +36,71 @@ def _init_MyCustomInitInfo(foo, bar = 42):
     return {"foo": foo, "bar": bar, "validated": True}
 
 MyCustomInitInfo, _new_MyCustomInitInfo = provider(
-    doc = "A provider with a custom constructor.",
+    doc = """
+    A provider with a custom constructor.
+
+    Since the custom constructor parameters match the provider's fields,
+    we don't need to render a separate table of constructor parameters.
+    """,
     init = _init_MyCustomInitInfo,
     fields = {
         "foo": "Foo data",
-        "bar": "Bar data. Note that we didn't document `bar` parameter for the init callback - we want this docstring to be propagated to the constructor param table.",
+        "bar": "Bar data.",
     },
 )
 
-def _MyCustomInitWithExtraFieldInfo_init(foo, bar = 42):
+def _init_MyCustomInitWithDefaultParamValueInfo(foo, bar = 42):
+    """
+    Validate stuff.
+
+    Technical details; the user probably doesn't want to see this part.
+    """
+    if foo < 0:
+        fail("foo must be non-negative")
+
+    return {"foo": foo, "bar": bar, "validated": True}
+
+MyCustomInitWithDefaultParamValueInfo, _new_MyCustomInitWithDefaultParamValueInfo = provider(
+    doc = """
+    A provider with a custom constructor with a parameter with a default value.
+
+    Since the custom constructor parameters match the provider's fields,
+    we don't need to render a separate table of constructor parameters - but
+    we do need to render the default value.
+    """,
+    init = _init_MyCustomInitWithDefaultParamValueInfo,
+    fields = {
+        "foo": "Foo data",
+        "bar": "Bar data.",
+    },
+)
+
+def _init_MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo(foo, bar):
+    """
+    Validate stuff.
+
+    Technical details; the user probably doesn't want to see this part.
+    """
+    if foo < 0:
+        fail("foo must be non-negative")
+
+    return {"foo": foo, "bar": bar, "validated": True}
+
+MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo, _new_MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo = provider(
+    doc = """
+    A provider with a custom constructor whose set of constructor parameters does not equal the provider's set of fields.
+    
+    We have no choice - we need to render constructor parameters as a separate table.
+    """,
+    init = _init_MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo,
+    fields = {
+        "foo": "Foo data",
+        "bar": "Bar data.",
+        "validated": "True, hopefully",
+    },
+)
+
+def _MyCustomInitWithDocumentedParamInfo_init(foo, bar = 42):
     """
     Validate stuff.
 
@@ -61,13 +114,17 @@ def _MyCustomInitWithExtraFieldInfo_init(foo, bar = 42):
 
     return {"foo": foo, "bar": bar}
 
-MyCustomInitWithExtraFieldInfo, _new_MyCustomInitWithExtraFieldInfo = provider(
-    doc = "A provider with a custom constructor.",
-    init = _MyCustomInitWithExtraFieldInfo_init,
+MyCustomInitWithDocumentedParamInfo, _new_MyCustomInitWithDocumentedParamInfo = provider(
+    doc = """
+    A provider with a custom constructor with documented constructor parameters.
+    
+    Docs for constructor parameters differ from docs for fields, so we need to render
+    constructor parameters as a separate table.
+    """,
+    init = _MyCustomInitWithDocumentedParamInfo_init,
     fields = {
         "foo": "Foo data",
         "bar": "Bar data. Note that we didn't document `bar` parameter for the init callback - we want this docstring to be propagated to the constructor param table.",
-        "validated": "Whether the data has been validated",
     },
 )
 

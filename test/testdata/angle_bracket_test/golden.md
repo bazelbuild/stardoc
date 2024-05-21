@@ -44,7 +44,6 @@ Information with \<brackets>
 
 **FIELDS**
 
-
 | Name  | Description |
 | :------------- | :------------- |
 | <a id="bracketuse-foo"></a>foo |  A string representing \<foo>    |

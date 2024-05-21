@@ -232,20 +232,28 @@ public final class MarkdownUtil {
    */
   @SuppressWarnings("unused") // Used by markdown template.
   public String providerSummary(String providerName, ProviderInfo providerInfo) {
-    if (providerInfo.hasInit()) {
-      ImmutableList<String> paramNames =
-          providerInfo.getInit().getParameterList().stream()
-              .map(FunctionParamInfo::getName)
-              .collect(toImmutableList());
-      return summary(
-          providerName, paramNames, param -> String.format("%s-_init-%s", providerName, param));
-    } else {
-      ImmutableList<String> fieldNames =
-          providerInfo.getFieldInfoList().stream()
-              .map(field -> field.getName())
-              .collect(toImmutableList());
-      return summary(providerName, fieldNames);
-    }
+    return providerSummaryImpl(
+        providerName, providerInfo, param -> String.format("%s-%s", providerName, param));
+  }
+
+  /** Like {@link providerSummary}, but using "$providerName-_init" in HTML anchors. */
+  @SuppressWarnings("unused") // Used by markdown template.
+  public String providerSummaryWithInitAnchor(String providerName, ProviderInfo providerInfo) {
+    return providerSummaryImpl(
+        providerName, providerInfo, param -> String.format("%s-_init-%s", providerName, param));
+  }
+
+  private String providerSummaryImpl(
+      String providerName, ProviderInfo providerInfo, UnaryOperator<String> paramAnchorNamer) {
+    ImmutableList<String> paramNames =
+        providerInfo.hasInit()
+            ? providerInfo.getInit().getParameterList().stream()
+                .map(FunctionParamInfo::getName)
+                .collect(toImmutableList())
+            : providerInfo.getFieldInfoList().stream()
+                .map(field -> field.getName())
+                .collect(toImmutableList());
+    return summary(providerName, paramNames, paramAnchorNamer);
   }
 
   /**

@@ -36,7 +36,6 @@ MyProviderInfo(<a href="#MyProviderInfo-foo">foo</a>, <a href="#MyProviderInfo-b
 
 **FIELDS**
 
-
 | Name  | Description |
 | :------------- | :------------- |
 | <a id="MyProviderInfo-foo"></a>foo |  Something foo-related.    |
@@ -50,9 +49,6 @@ MyProviderInfo(<a href="#MyProviderInfo-foo">foo</a>, <a href="#MyProviderInfo-b
 <pre>
 OtherProviderInfo()
 </pre>
-
-**FIELDS**
-
 
 
 <a id="my_rule_impl"></a>

@@ -35,7 +35,6 @@ MyInfo(<a href="#MyInfo-foo">foo</a>, <a href="#MyInfo-bar">bar</a>)
 
 **FIELDS**
 
-
 | Name  | Description |
 | :------------- | :------------- |
 | <a id="MyInfo-foo"></a>foo |  Something foo-related.    |
