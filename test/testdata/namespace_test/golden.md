@@ -8,6 +8,7 @@ A test that verifies documenting a namespace of functions.
 
 <pre>
 load("@stardoc//test:testdata/namespace_test/input.bzl", "my_namespace")
+
 my_namespace.assert_non_empty(<a href="#my_namespace.assert_non_empty-some_list">some_list</a>, <a href="#my_namespace.assert_non_empty-other_list">other_list</a>)
 </pre>
 
@@ -28,6 +29,7 @@ Asserts the two given lists are not empty.
 
 <pre>
 load("@stardoc//test:testdata/namespace_test/input.bzl", "my_namespace")
+
 my_namespace.join_strings(<a href="#my_namespace.join_strings-strings">strings</a>, <a href="#my_namespace.join_strings-delimiter">delimiter</a>)
 </pre>
 
@@ -52,6 +54,7 @@ The joined string.
 
 <pre>
 load("@stardoc//test:testdata/namespace_test/input.bzl", "my_namespace")
+
 my_namespace.min(<a href="#my_namespace.min-integers">integers</a>)
 </pre>
 

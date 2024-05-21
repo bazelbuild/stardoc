@@ -8,6 +8,7 @@
 
 <pre>
 load("@stardoc//test:testdata/java_basic_test/input.bzl", "java_related_rule")
+
 java_related_rule(<a href="#java_related_rule-name">name</a>, <a href="#java_related_rule-first">first</a>, <a href="#java_related_rule-fourth">fourth</a>, <a href="#java_related_rule-second">second</a>, <a href="#java_related_rule-third">third</a>)
 </pre>
 

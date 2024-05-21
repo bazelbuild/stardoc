@@ -8,6 +8,7 @@ Starlark rule for stardoc: a documentation generator tool written in Java.
 
 <pre>
 load("@stardoc//stardoc:stardoc.bzl", "stardoc")
+
 stardoc(<a href="#stardoc-name">name</a>, <a href="#stardoc-input">input</a>, <a href="#stardoc-out">out</a>, <a href="#stardoc-deps">deps</a>, <a href="#stardoc-format">format</a>, <a href="#stardoc-symbol_names">symbol_names</a>, <a href="#stardoc-renderer">renderer</a>, <a href="#stardoc-aspect_template">aspect_template</a>, <a href="#stardoc-func_template">func_template</a>,
         <a href="#stardoc-header_template">header_template</a>, <a href="#stardoc-table_of_contents_template">table_of_contents_template</a>, <a href="#stardoc-provider_template">provider_template</a>, <a href="#stardoc-rule_template">rule_template</a>,
         <a href="#stardoc-repository_rule_template">repository_rule_template</a>, <a href="#stardoc-module_extension_template">module_extension_template</a>, <a href="#stardoc-footer_template">footer_template</a>, <a href="#stardoc-render_main_repo_name">render_main_repo_name</a>,

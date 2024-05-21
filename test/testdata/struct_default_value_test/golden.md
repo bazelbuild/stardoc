@@ -8,6 +8,7 @@ The input file for struct default values test
 
 <pre>
 load("@stardoc//test:testdata/struct_default_value_test/input.bzl", "check_struct_default_values")
+
 check_struct_default_values(<a href="#check_struct_default_values-struct_no_args">struct_no_args</a>, <a href="#check_struct_default_values-struct_arg">struct_arg</a>, <a href="#check_struct_default_values-struct_args">struct_args</a>, <a href="#check_struct_default_values-struct_int_args">struct_int_args</a>,
                             <a href="#check_struct_default_values-struct_struct_args">struct_struct_args</a>)
 </pre>

@@ -8,6 +8,7 @@ The input file for the providers for attributes test
 
 <pre>
 load("@stardoc//test:testdata/providers_for_attributes_test/input.bzl", "my_rule")
+
 my_rule(<a href="#my_rule-name">name</a>, <a href="#my_rule-fifth">fifth</a>, <a href="#my_rule-first">first</a>, <a href="#my_rule-fourth">fourth</a>, <a href="#my_rule-second">second</a>, <a href="#my_rule-sixth">sixth</a>, <a href="#my_rule-third">third</a>)
 </pre>
 
@@ -33,6 +34,7 @@ This rule does things.
 
 <pre>
 load("@stardoc//test:testdata/providers_for_attributes_test/input.bzl", "MyProviderInfo")
+
 MyProviderInfo(<a href="#MyProviderInfo-foo">foo</a>, <a href="#MyProviderInfo-bar">bar</a>)
 </pre>
 
@@ -53,6 +55,7 @@ MyProviderInfo(<a href="#MyProviderInfo-foo">foo</a>, <a href="#MyProviderInfo-b
 
 <pre>
 load("@stardoc//test:testdata/providers_for_attributes_test/input.bzl", "OtherProviderInfo")
+
 OtherProviderInfo()
 </pre>
 
@@ -68,6 +71,7 @@ OtherProviderInfo()
 
 <pre>
 load("@stardoc//test:testdata/providers_for_attributes_test/input.bzl", "my_rule_impl")
+
 my_rule_impl(<a href="#my_rule_impl-ctx">ctx</a>)
 </pre>
 

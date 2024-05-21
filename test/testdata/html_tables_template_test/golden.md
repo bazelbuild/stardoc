@@ -8,6 +8,7 @@ Input file for markdown template test
 
 <pre>
 load("@stardoc//test:testdata/html_tables_template_test/input.bzl", "example_rule")
+
 example_rule(<a href="#example_rule-name">name</a>, <a href="#example_rule-first">first</a>, <a href="#example_rule-second">second</a>)
 </pre>
 
@@ -65,6 +66,7 @@ String; optional
 
 <pre>
 load("@stardoc//test:testdata/html_tables_template_test/input.bzl", "ExampleProviderInfo")
+
 ExampleProviderInfo(<a href="#ExampleProviderInfo-foo">foo</a>, <a href="#ExampleProviderInfo-bar">bar</a>, <a href="#ExampleProviderInfo-baz">baz</a>)
 </pre>
 
@@ -118,6 +120,7 @@ A string representing baz
 
 <pre>
 load("@stardoc//test:testdata/html_tables_template_test/input.bzl", "example_function")
+
 example_function(<a href="#example_function-foo">foo</a>, <a href="#example_function-bar">bar</a>)
 </pre>
 
@@ -168,8 +171,7 @@ This parameter does bar related things.
 
 <pre>
 load("@stardoc//test:testdata/html_tables_template_test/input.bzl", "example_aspect")
-# or on the command line:
-# --aspects=@stardoc//test:testdata/html_tables_template_test/input.bzl%example_aspect
+
 example_aspect(<a href="#example_aspect-name">name</a>, <a href="#example_aspect-first">first</a>, <a href="#example_aspect-second">second</a>)
 </pre>
 

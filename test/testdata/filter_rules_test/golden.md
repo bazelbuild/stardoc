@@ -8,6 +8,7 @@
 
 <pre>
 load("@stardoc//test:testdata/filter_rules_test/input.bzl", "allowlisted_dep_rule")
+
 allowlisted_dep_rule(<a href="#allowlisted_dep_rule-name">name</a>, <a href="#allowlisted_dep_rule-first">first</a>, <a href="#allowlisted_dep_rule-second">second</a>)
 </pre>
 
@@ -29,6 +30,7 @@ This is the dep rule. It does stuff.
 
 <pre>
 load("@stardoc//test:testdata/filter_rules_test/input.bzl", "my_rule")
+
 my_rule(<a href="#my_rule-name">name</a>, <a href="#my_rule-first">first</a>, <a href="#my_rule-second">second</a>)
 </pre>
 

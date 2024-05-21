@@ -8,6 +8,7 @@ Tests for functions which use *args or **kwargs
 
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_args")
+
 macro_with_args(<a href="#macro_with_args-name">name</a>, <a href="#macro_with_args-args">args</a>)
 </pre>
 
@@ -32,6 +33,7 @@ An empty list.
 
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_both")
+
 macro_with_both(<a href="#macro_with_both-name">name</a>, <a href="#macro_with_both-number">number</a>, <a href="#macro_with_both-args">args</a>, <a href="#macro_with_both-kwargs">kwargs</a>)
 </pre>
 
@@ -61,6 +63,7 @@ An empty list.
 
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_kwargs")
+
 macro_with_kwargs(<a href="#macro_with_kwargs-name">name</a>, <a href="#macro_with_kwargs-config">config</a>, <a href="#macro_with_kwargs-deps">deps</a>, <a href="#macro_with_kwargs-kwargs">kwargs</a>)
 </pre>
 

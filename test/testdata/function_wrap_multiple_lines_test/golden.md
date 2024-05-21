@@ -8,6 +8,7 @@ Rules for ANTLR 3.
 
 <pre>
 load("@stardoc//test:testdata/function_wrap_multiple_lines_test/input.bzl", "antlr")
+
 antlr(<a href="#antlr-name">name</a>, <a href="#antlr-deps">deps</a>, <a href="#antlr-srcs">srcs</a>, <a href="#antlr-Xconversiontimeout">Xconversiontimeout</a>, <a href="#antlr-Xdbgconversion">Xdbgconversion</a>, <a href="#antlr-Xdbgst">Xdbgst</a>, <a href="#antlr-Xdfa">Xdfa</a>, <a href="#antlr-Xdfaverbose">Xdfaverbose</a>, <a href="#antlr-Xgrtree">Xgrtree</a>, <a href="#antlr-Xm">Xm</a>,
       <a href="#antlr-Xmaxdfaedges">Xmaxdfaedges</a>, <a href="#antlr-Xmaxinlinedfastates">Xmaxinlinedfastates</a>, <a href="#antlr-Xminswitchalts">Xminswitchalts</a>, <a href="#antlr-Xmultithreaded">Xmultithreaded</a>, <a href="#antlr-Xnfastates">Xnfastates</a>, <a href="#antlr-Xnocollapse">Xnocollapse</a>,
       <a href="#antlr-Xnomergestopstates">Xnomergestopstates</a>, <a href="#antlr-Xnoprune">Xnoprune</a>, <a href="#antlr-XsaveLexer">XsaveLexer</a>, <a href="#antlr-Xwatchconversion">Xwatchconversion</a>, <a href="#antlr-debug">debug</a>, <a href="#antlr-depend">depend</a>, <a href="#antlr-dfa">dfa</a>, <a href="#antlr-dump">dump</a>, <a href="#antlr-imports">imports</a>,

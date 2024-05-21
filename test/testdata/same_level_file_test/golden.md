@@ -8,6 +8,7 @@
 
 <pre>
 load("@stardoc//test/testdata/same_level_file_test:input.bzl", "my_rule")
+
 my_rule(<a href="#my_rule-name">name</a>, <a href="#my_rule-first">first</a>, <a href="#my_rule-second">second</a>)
 </pre>
 

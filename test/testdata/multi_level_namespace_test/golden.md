@@ -8,6 +8,7 @@ A test that verifies documenting a multi-leveled namespace of functions.
 
 <pre>
 load("@stardoc//test:testdata/multi_level_namespace_test/input.bzl", "my_namespace")
+
 my_namespace.foo.bar.baz()
 </pre>
 
@@ -21,6 +22,7 @@ This function does nothing.
 
 <pre>
 load("@stardoc//test:testdata/multi_level_namespace_test/input.bzl", "my_namespace")
+
 my_namespace.math.min(<a href="#my_namespace.math.min-integers">integers</a>)
 </pre>
 
@@ -44,6 +46,7 @@ The minimum integer in the given list.
 
 <pre>
 load("@stardoc//test:testdata/multi_level_namespace_test/input.bzl", "my_namespace")
+
 my_namespace.min(<a href="#my_namespace.min-integers">integers</a>)
 </pre>
 
@@ -67,6 +70,7 @@ The minimum integer in the given list.
 
 <pre>
 load("@stardoc//test:testdata/multi_level_namespace_test/input.bzl", "my_namespace")
+
 my_namespace.one.three.does_nothing()
 </pre>
 
@@ -80,6 +84,7 @@ This function does nothing.
 
 <pre>
 load("@stardoc//test:testdata/multi_level_namespace_test/input.bzl", "my_namespace")
+
 my_namespace.one.two.min(<a href="#my_namespace.one.two.min-integers">integers</a>)
 </pre>
 

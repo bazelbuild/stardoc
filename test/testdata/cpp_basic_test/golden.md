@@ -8,6 +8,7 @@
 
 <pre>
 load("@stardoc//test:testdata/cpp_basic_test/input.bzl", "cpp_related_rule")
+
 cpp_related_rule(<a href="#cpp_related_rule-name">name</a>, <a href="#cpp_related_rule-first">first</a>, <a href="#cpp_related_rule-fourth">fourth</a>, <a href="#cpp_related_rule-second">second</a>, <a href="#cpp_related_rule-third">third</a>)
 </pre>
 

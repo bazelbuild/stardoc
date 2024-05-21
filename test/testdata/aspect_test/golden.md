@@ -8,6 +8,7 @@ The input file for the aspect test
 
 <pre>
 load("@stardoc//test:testdata/aspect_test/input.bzl", "my_aspect_impl")
+
 my_aspect_impl(<a href="#my_aspect_impl-ctx">ctx</a>)
 </pre>
 
@@ -27,8 +28,7 @@ my_aspect_impl(<a href="#my_aspect_impl-ctx">ctx</a>)
 
 <pre>
 load("@stardoc//test:testdata/aspect_test/input.bzl", "my_aspect")
-# or on the command line:
-# --aspects=@stardoc//test:testdata/aspect_test/input.bzl%my_aspect
+
 my_aspect(<a href="#my_aspect-name">name</a>, <a href="#my_aspect-first">first</a>, <a href="#my_aspect-second">second</a>)
 </pre>
 
@@ -61,6 +61,7 @@ It does stuff.
 
 <pre>
 load("@stardoc//test:testdata/aspect_test/input.bzl", "namespace")
+
 namespace.namespaced_aspect(<a href="#namespace.namespaced_aspect-name">name</a>, <a href="#namespace.namespaced_aspect-third">third</a>)
 </pre>
 
@@ -85,8 +86,7 @@ This is another aspect.
 
 <pre>
 load("@stardoc//test:testdata/aspect_test/input.bzl", "other_aspect")
-# or on the command line:
-# --aspects=@stardoc//test:testdata/aspect_test/input.bzl%other_aspect
+
 other_aspect(<a href="#other_aspect-name">name</a>, <a href="#other_aspect-third">third</a>)
 </pre>
 

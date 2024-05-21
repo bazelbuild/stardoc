@@ -10,6 +10,7 @@ specific symbol in other_namespace to be documented.
 
 <pre>
 load("@stardoc//test:testdata/multi_level_namespace_test_with_allowlist/input.bzl", "my_namespace")
+
 my_namespace.math.min(<a href="#my_namespace.math.min-integers">integers</a>)
 </pre>
 
@@ -29,6 +30,7 @@ Returns the minimum of given elements.
 
 <pre>
 load("@stardoc//test:testdata/multi_level_namespace_test_with_allowlist/input.bzl", "my_namespace")
+
 my_namespace.min(<a href="#my_namespace.min-integers">integers</a>)
 </pre>
 
@@ -48,6 +50,7 @@ Returns the minimum of given elements.
 
 <pre>
 load("@stardoc//test:testdata/multi_level_namespace_test_with_allowlist/input.bzl", "other_namespace")
+
 other_namespace.foo.nothing()
 </pre>
 

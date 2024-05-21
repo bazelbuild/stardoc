@@ -37,6 +37,7 @@ Test rules / providers / etc for the table of contents generation test.
 
 <pre>
 load("@stardoc//test:testdata/table_of_contents_test/input.bzl", "my_rule")
+
 my_rule(<a href="#my_rule-name">name</a>, <a href="#my_rule-first">first</a>, <a href="#my_rule-fourth">fourth</a>, <a href="#my_rule-second">second</a>, <a href="#my_rule-third">third</a>)
 </pre>
 
@@ -60,6 +61,7 @@ This is my rule. It does stuff.
 
 <pre>
 load("@stardoc//test:testdata/table_of_contents_test/input.bzl", "MyFooInfo")
+
 MyFooInfo(<a href="#MyFooInfo-bar">bar</a>, <a href="#MyFooInfo-baz">baz</a>)
 </pre>
 
@@ -80,6 +82,7 @@ Stores information about a foo.
 
 <pre>
 load("@stardoc//test:testdata/table_of_contents_test/input.bzl", "MyVeryDocumentedInfo")
+
 MyVeryDocumentedInfo(<a href="#MyVeryDocumentedInfo-favorite_food">favorite_food</a>, <a href="#MyVeryDocumentedInfo-favorite_color">favorite_color</a>)
 </pre>
 
@@ -102,6 +105,7 @@ Look on my works, ye mighty, and despair!
 
 <pre>
 load("@stardoc//test:testdata/table_of_contents_test/input.bzl", "check_sources")
+
 check_sources(<a href="#check_sources-name">name</a>, <a href="#check_sources-required_param">required_param</a>, <a href="#check_sources-bool_param">bool_param</a>, <a href="#check_sources-srcs">srcs</a>, <a href="#check_sources-string_param">string_param</a>, <a href="#check_sources-int_param">int_param</a>, <a href="#check_sources-dict_param">dict_param</a>,
               <a href="#check_sources-struct_param">struct_param</a>)
 </pre>
@@ -133,6 +137,7 @@ Use `bazel build` to run the check.
 
 <pre>
 load("@stardoc//test:testdata/table_of_contents_test/input.bzl", "returns_a_thing")
+
 returns_a_thing(<a href="#returns_a_thing-name">name</a>)
 </pre>
 
@@ -156,8 +161,7 @@ A suffixed version of the name.
 
 <pre>
 load("@stardoc//test:testdata/table_of_contents_test/input.bzl", "my_aspect")
-# or on the command line:
-# --aspects=@stardoc//test:testdata/table_of_contents_test/input.bzl%my_aspect
+
 my_aspect(<a href="#my_aspect-name">name</a>, <a href="#my_aspect-first">first</a>, <a href="#my_aspect-second">second</a>)
 </pre>
 
@@ -190,8 +194,7 @@ It does stuff.
 
 <pre>
 load("@stardoc//test:testdata/table_of_contents_test/input.bzl", "other_aspect")
-# or on the command line:
-# --aspects=@stardoc//test:testdata/table_of_contents_test/input.bzl%other_aspect
+
 other_aspect(<a href="#other_aspect-name">name</a>, <a href="#other_aspect-third">third</a>)
 </pre>
 
@@ -216,6 +219,7 @@ This is another aspect.
 
 <pre>
 load("@stardoc//test:testdata/table_of_contents_test/input.bzl", "my_repo")
+
 my_repo(<a href="#my_repo-name">name</a>, <a href="#my_repo-repo_mapping">repo_mapping</a>, <a href="#my_repo-useless">useless</a>)
 </pre>
 

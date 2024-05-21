@@ -8,6 +8,7 @@
 
 <pre>
 load("@stardoc//test:testdata/apple_basic_test/input.bzl", "apple_related_rule")
+
 apple_related_rule(<a href="#apple_related_rule-name">name</a>, <a href="#apple_related_rule-first">first</a>, <a href="#apple_related_rule-fourth">fourth</a>, <a href="#apple_related_rule-second">second</a>, <a href="#apple_related_rule-third">third</a>)
 </pre>
 

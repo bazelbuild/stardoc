@@ -3,6 +3,8 @@
 #[[##]]# ${ruleName}
 
 <pre>
+${util.loadStatement($ruleName)}
+
 ${util.repositoryRuleSummary($ruleName, $ruleInfo)}
 </pre>
 #if (!$ruleInfo.docString.isEmpty())

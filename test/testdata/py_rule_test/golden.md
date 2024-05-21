@@ -8,6 +8,7 @@ The input file for the python rule test
 
 <pre>
 load("@stardoc//test:testdata/py_rule_test/input.bzl", "py_related_rule")
+
 py_related_rule(<a href="#py_related_rule-name">name</a>, <a href="#py_related_rule-fifth">fifth</a>, <a href="#py_related_rule-first">first</a>, <a href="#py_related_rule-fourth">fourth</a>, <a href="#py_related_rule-second">second</a>, <a href="#py_related_rule-sixth">sixth</a>, <a href="#py_related_rule-third">third</a>)
 </pre>
 

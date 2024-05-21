@@ -8,6 +8,7 @@
 
 <pre>
 load("@stardoc//test:testdata/repo_rules_test/input.bzl", "my_repo")
+
 my_repo(<a href="#my_repo-name">name</a>, <a href="#my_repo-repo_mapping">repo_mapping</a>, <a href="#my_repo-useless">useless</a>)
 </pre>
 
