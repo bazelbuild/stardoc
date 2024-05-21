@@ -100,6 +100,7 @@ MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo, _new_my_custom_init_w
     },
 )
 
+# buildifier: disable=function-docstring-args
 def _init_my_custom_init_with_documented_param_info(foo, bar = 42):
     """
     Validate stuff.
