@@ -19,8 +19,8 @@ we don't need to render a separate table of constructor parameters.
 
 | Name  | Description |
 | :------------- | :------------- |
-| <a id="MyCustomInitInfo-foo></a>foo |  Foo data  |
-| <a id="MyCustomInitInfo-bar></a>bar |  Bar data.  |
+| <a id="MyCustomInitInfo-foo></a>foo | Foo data |
+| <a id="MyCustomInitInfo-bar></a>bar | Bar data. |
 
 
 <a id="MyCustomInitWithDefaultParamValueInfo"></a>
@@ -41,8 +41,8 @@ we do need to render the default value.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- ||
-| <a id="MyCustomInitWithDefaultParamValueInfo-foo></a>foo |  Foo data  |  none  |
-| <a id="MyCustomInitWithDefaultParamValueInfo-bar></a>bar |  Bar data.  |  `42`  |
+| <a id="MyCustomInitWithDefaultParamValueInfo-foo></a>foo | Foo data | none |
+| <a id="MyCustomInitWithDefaultParamValueInfo-bar></a>bar | Bar data. | `42` |
 
 
 <a id="MyCustomInitWithDocumentedParamInfo"></a>
@@ -62,8 +62,8 @@ constructor parameters as a separate table.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a id="MyCustomInitWithDocumentedParamInfo-_init-foo"></a>foo |  Foo data; must be non-negative   |  none |
-| <a id="MyCustomInitWithDocumentedParamInfo-_init-bar"></a>bar |  Bar data. Note that we didn't document `bar` parameter for the init callback - we want this docstring to be propagated to the constructor param table.   |  `42` |
+| <a id="MyCustomInitWithDocumentedParamInfo-_init-foo"></a>foo | Foo data; must be non-negative | none |
+| <a id="MyCustomInitWithDocumentedParamInfo-_init-bar"></a>bar | Bar data. Note that we didn't document `bar` parameter for the init callback - we want this docstring to be propagated to the constructor param table. | `42` |
 
 **FIELDS**
 
@@ -89,8 +89,8 @@ We have no choice - we need to render constructor parameters as a separate table
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a id="MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo-_init-foo"></a>foo |  Foo data   |  none |
-| <a id="MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo-_init-bar"></a>bar |  Bar data.   |  none |
+| <a id="MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo-_init-foo"></a>foo | Foo data | none |
+| <a id="MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo-_init-bar"></a>bar | Bar data. | none |
 
 **FIELDS**
 
