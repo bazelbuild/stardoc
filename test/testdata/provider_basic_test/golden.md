@@ -19,8 +19,8 @@ we don't need to render a separate table of constructor parameters.
 
 | Name  | Description |
 | :------------- | :------------- |
-| <a id="MyCustomInitInfo-foo></a>foo | Foo data |
-| <a id="MyCustomInitInfo-bar></a>bar | Bar data. |
+| <a id="MyCustomInitInfo-foo"></a>foo | Foo data |
+| <a id="MyCustomInitInfo-bar"></a>bar | Bar data. |
 
 
 <a id="MyCustomInitWithDefaultParamValueInfo"></a>
@@ -41,8 +41,8 @@ we do need to render the default value.
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- ||
-| <a id="MyCustomInitWithDefaultParamValueInfo-foo></a>foo | Foo data | none |
-| <a id="MyCustomInitWithDefaultParamValueInfo-bar></a>bar | Bar data. | `42` |
+| <a id="MyCustomInitWithDefaultParamValueInfo-foo"></a>foo | Foo data | none |
+| <a id="MyCustomInitWithDefaultParamValueInfo-bar"></a>bar | Bar data. | `42` |
 
 
 <a id="MyCustomInitWithDocumentedParamInfo"></a>
