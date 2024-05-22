@@ -52,7 +52,7 @@ none ##
 
 #if ($mergeParamsAndFields)
 | Name  | Description #if ($initParamsHaveDefaultValues)| Default Value #end|
-| :------------- | :------------- #if ($initParamsHaveDefaultValues)| :------------- |#end|
+| :------------- | :------------- #if ($initParamsHaveDefaultValues)| :------------- #end|
 #foreach ($param in $initParamsWithInferredDocs)
 | <a id="${providerName}-${param.name}"></a>$param.name | ##
 #if (!$param.docString.isEmpty())

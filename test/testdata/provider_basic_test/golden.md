@@ -40,7 +40,7 @@ we do need to render the default value.
 **FIELDS**
 
 | Name  | Description | Default Value |
-| :------------- | :------------- | :------------- ||
+| :------------- | :------------- | :------------- |
 | <a id="MyCustomInitWithDefaultParamValueInfo-foo"></a>foo | Foo data | none |
 | <a id="MyCustomInitWithDefaultParamValueInfo-bar"></a>bar | Bar data. | `42` |
 
