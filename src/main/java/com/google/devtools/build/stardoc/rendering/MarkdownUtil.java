@@ -348,8 +348,15 @@ public final class MarkdownUtil {
       String paramLinksLine =
           params.stream()
               .map(
-                  param ->
-                      String.format("<a href=\"#%s\">%s</a>", paramAnchorNamer.apply(param), param))
+                  param -> {
+                    if (name.equals("*")) {
+                      // Pseudo-parameter dividing positional and keyword-only params.
+                      return "*";
+                    } else {
+                      return String.format(
+                          "<a href=\"#%s\">%s</a>", paramAnchorNamer.apply(unstar(param)), param);
+                    }
+                  })
               .collect(joining(", "));
       paramLinksLines.add(paramLinksLine);
     }
@@ -360,6 +367,17 @@ public final class MarkdownUtil {
 
   private static String summary(String functionName, ImmutableList<String> paramNames) {
     return summary(functionName, paramNames, param -> String.format("%s-%s", functionName, param));
+  }
+
+  /** Removes leading '*' from "**args" and "**kwargs" parameters. */
+  public static String unstar(String paramName) {
+    if (paramName.startsWith("**")) {
+      return paramName.substring(2);
+    } else if (paramName.startsWith("*")) {
+      return paramName.substring(1);
+    } else {
+      return paramName;
+    }
   }
 
   /**

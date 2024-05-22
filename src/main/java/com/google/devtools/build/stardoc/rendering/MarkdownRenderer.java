@@ -201,6 +201,7 @@ public class MarkdownRenderer {
         providerInfo.hasInit()
             && providerInfo.getInit().getParameterList().stream()
                 .map(FunctionParamInfo::getName)
+                .filter(name -> !name.equals("*"))
                 .collect(toImmutableSet())
                 .equals(
                     providerInfo.getFieldInfoList().stream()

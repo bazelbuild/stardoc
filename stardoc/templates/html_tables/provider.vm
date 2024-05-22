@@ -35,7 +35,7 @@ ${providerInfo.init.deprecated.docString}
 </colgroup>
 <tbody>
 #foreach ($param in $initParamsWithInferredDocs)
-<tr id="${providerName}-_init-${param.name}">
+<tr id="${providerName}-_init-${util.unstar(param.name)}">
 <td><code>${param.name}</code></td>
 <td>
 

@@ -18,7 +18,7 @@ ${util.htmlEscape($funcInfo.docString)}
 </colgroup>
 <tbody>
 #foreach ($param in $funcInfo.getParameterList())
-<tr id="${funcInfo.functionName}-${param.name}">
+<tr id="${funcInfo.functionName}-${util.unstar(param.name)}">
 <td><code>${param.name}</code></td>
 <td>
 

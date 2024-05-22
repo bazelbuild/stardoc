@@ -31,7 +31,7 @@ ${providerInfo.init.deprecated.docString}
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
 #foreach ($param in $initParamsWithInferredDocs)
-| <a id="${providerName}-_init-${param.name}"></a>$param.name | ##
+| <a id="${providerName}-_init-${util.unstar(param.name)}"></a>$param.name | ##
 #if (!$param.docString.isEmpty())
 ${util.markdownCellFormat($param.docString)} ##
 #else
