@@ -192,6 +192,7 @@ public class MarkdownRenderer {
     if (providerInfo.hasInit()) {
       initParamsWithInferredDocs =
           providerInfo.getInit().getParameterList().stream()
+              .filter(param -> !param.getName().equals("*"))
               .map(param -> withInferredDoc(param, fieldDocs))
               .collect(toImmutableList());
     } else {
