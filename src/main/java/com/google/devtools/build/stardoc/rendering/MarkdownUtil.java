@@ -349,8 +349,8 @@ public final class MarkdownUtil {
           params.stream()
               .map(
                   param -> {
-                    if (name.equals("*")) {
-                      // Pseudo-parameter dividing positional and keyword-only params.
+                    if (param.equals("*")) {
+                      // Pseudo-parameter dividing positional and keyword-only params - no link needed.
                       return "*";
                     } else {
                       return String.format(
