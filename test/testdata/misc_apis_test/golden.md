@@ -33,10 +33,7 @@ This rule exercises some of the build API.
 MyInfo(<a href="#MyInfo-foo">foo</a>, <a href="#MyInfo-bar">bar</a>)
 </pre>
 
-
-
 **FIELDS**
-
 
 | Name  | Description |
 | :------------- | :------------- |

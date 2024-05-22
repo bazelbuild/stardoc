@@ -1,20 +1,80 @@
 <a id="${providerName}"></a>
+#if ($providerInfo.hasInit() && $initParamNamesEqualFieldNames && !$initParamsHaveDistinctDocs && !$initParamsWithInferredDocs.isEmpty())
+#set ($mergeParamsAndFields = true)
+#else
+#set ($mergeParamsAndFields = false)
+#end
 
 #[[##]]# ${providerName}
 
 <pre>
+#if ($providerInfo.hasInit() && !$mergeParamsAndFields)
+${util.providerSummaryWithInitAnchor($providerName, $providerInfo)}
+#else
 ${util.providerSummary($providerName, $providerInfo)}
+#end
 </pre>
+#if (!$providerInfo.docString.isEmpty())
 
 ${providerInfo.docString}
+#end
+#if ($providerInfo.hasInit() && !$providerInfo.init.deprecated.docString.isEmpty())
+
+**DEPRECATED**
+
+${providerInfo.init.deprecated.docString}
+#end
+#if ($providerInfo.hasInit() && !$providerInfo.init.parameterList.isEmpty() && !$mergeParamsAndFields)
+
+**CONSTRUCTOR PARAMETERS**
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+#foreach ($param in $initParamsWithInferredDocs)
+| <a id="${providerName}-_init-${param.name}"></a>$param.name | ##
+#if (!$param.docString.isEmpty())
+${util.markdownCellFormat($param.docString)} ##
+#else
+<p align="center">-</p> ##
+#end
+| ##
+#if (!$param.getDefaultValue().isEmpty())
+${util.markdownCodeSpan($param.defaultValue)} ##
+#else
+none ##
+#end
+|
+#end
+#end
+#if (!$providerInfo.fieldInfoList.isEmpty())
 
 **FIELDS**
 
-#if (!$providerInfo.fieldInfoList.isEmpty())
-
+#if ($mergeParamsAndFields)
+| Name  | Description #if ($initParamsHaveDefaultValues)| Default Value #end|
+| :------------- | :------------- #if ($initParamsHaveDefaultValues)| :------------- #end|
+#foreach ($param in $initParamsWithInferredDocs)
+| <a id="${providerName}-${param.name}"></a>$param.name | ##
+#if (!$param.docString.isEmpty())
+${util.markdownCellFormat($param.docString)} ##
+#else
+<p align="center"> - </p> ##
+#end
+#if($initParamsHaveDefaultValues)
+| ##
+#if (!$param.getDefaultValue().isEmpty())
+${util.markdownCodeSpan($param.defaultValue)} ##
+#else
+none ##
+#end
+#end
+|
+#end
+#else
 | Name  | Description |
 | :------------- | :------------- |
 #foreach ($field in $providerInfo.fieldInfoList)
 | <a id="${providerName}-${field.name}"></a>$field.name | #if(!$field.docString.isEmpty()) ${util.markdownCellFormat($field.docString)} #else - #end   |
+#end
 #end
 #end

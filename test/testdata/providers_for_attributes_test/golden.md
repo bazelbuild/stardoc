@@ -34,10 +34,7 @@ This rule does things.
 MyProviderInfo(<a href="#MyProviderInfo-foo">foo</a>, <a href="#MyProviderInfo-bar">bar</a>)
 </pre>
 
-
-
 **FIELDS**
-
 
 | Name  | Description |
 | :------------- | :------------- |
@@ -52,11 +49,6 @@ MyProviderInfo(<a href="#MyProviderInfo-foo">foo</a>, <a href="#MyProviderInfo-b
 <pre>
 OtherProviderInfo()
 </pre>
-
-
-
-**FIELDS**
-
 
 
 <a id="my_rule_impl"></a>

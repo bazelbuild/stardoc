@@ -34,7 +34,6 @@ Small example of provider using a markdown template.
 
 **FIELDS**
 
-
 | Name  | Description |
 | :------------- | :------------- |
 | <a id="ExampleProviderInfo-foo"></a>foo |  A string representing foo    |
