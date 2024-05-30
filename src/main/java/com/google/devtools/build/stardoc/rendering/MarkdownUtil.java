@@ -27,6 +27,7 @@ import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.Attr
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.FunctionParamInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleExtensionInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleExtensionTagClassInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ProviderFieldInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ProviderInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ProviderNameGroup;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.RepositoryRuleInfo;
@@ -37,7 +38,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.UnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -216,9 +216,11 @@ public final class MarkdownUtil {
    */
   @SuppressWarnings("unused") // Used by markdown template.
   public String ruleSummary(String ruleName, RuleInfo ruleInfo) {
-    ImmutableList<String> attributeNames =
-        ruleInfo.getAttributeList().stream().map(AttributeInfo::getName).collect(toImmutableList());
-    return summary(ruleName, attributeNames);
+    ImmutableList<Param> params =
+        ruleInfo.getAttributeList().stream()
+            .map(attributeInfo -> new Param(attributeInfo, ruleName))
+            .collect(toImmutableList());
+    return summary(ruleName, params);
   }
 
   /**
@@ -232,28 +234,26 @@ public final class MarkdownUtil {
    */
   @SuppressWarnings("unused") // Used by markdown template.
   public String providerSummary(String providerName, ProviderInfo providerInfo) {
-    return providerSummaryImpl(
-        providerName, providerInfo, param -> String.format("%s-%s", providerName, param));
+    return providerSummaryImpl(providerName, providerInfo, providerName);
   }
 
   /** Like {@link providerSummary}, but using "$providerName-_init" in HTML anchors. */
   @SuppressWarnings("unused") // Used by markdown template.
   public String providerSummaryWithInitAnchor(String providerName, ProviderInfo providerInfo) {
-    return providerSummaryImpl(
-        providerName, providerInfo, param -> String.format("%s-_init-%s", providerName, param));
+    return providerSummaryImpl(providerName, providerInfo, providerName + "-_init");
   }
 
   private String providerSummaryImpl(
-      String providerName, ProviderInfo providerInfo, UnaryOperator<String> paramAnchorNamer) {
-    ImmutableList<String> paramNames =
+      String providerName, ProviderInfo providerInfo, String paramAnchorPrefix) {
+    ImmutableList<Param> params =
         providerInfo.hasInit()
             ? providerInfo.getInit().getParameterList().stream()
-                .map(FunctionParamInfo::getName)
+                .map(paramInfo -> new Param(paramInfo, paramAnchorPrefix))
                 .collect(toImmutableList())
             : providerInfo.getFieldInfoList().stream()
-                .map(field -> field.getName())
+                .map(fieldInfo -> new Param(fieldInfo, paramAnchorPrefix))
                 .collect(toImmutableList());
-    return summary(providerName, paramNames, paramAnchorNamer);
+    return summary(providerName, params);
   }
 
   /**
@@ -263,11 +263,11 @@ public final class MarkdownUtil {
    */
   @SuppressWarnings("unused") // Used by markdown template.
   public String aspectSummary(String aspectName, AspectInfo aspectInfo) {
-    ImmutableList<String> attributeNames =
+    ImmutableList<Param> params =
         aspectInfo.getAttributeList().stream()
-            .map(AttributeInfo::getName)
+            .map(attributeInfo -> new Param(attributeInfo, aspectName))
             .collect(toImmutableList());
-    return summary(aspectName, attributeNames);
+    return summary(aspectName, params);
   }
 
   /**
@@ -279,9 +279,11 @@ public final class MarkdownUtil {
    */
   @SuppressWarnings("unused") // Used by markdown template.
   public String repositoryRuleSummary(String ruleName, RepositoryRuleInfo ruleInfo) {
-    ImmutableList<String> attributeNames =
-        ruleInfo.getAttributeList().stream().map(AttributeInfo::getName).collect(toImmutableList());
-    return summary(ruleName, attributeNames);
+    ImmutableList<Param> params =
+        ruleInfo.getAttributeList().stream()
+            .map(attributeInfo -> new Param(attributeInfo, ruleName))
+            .collect(toImmutableList());
+    return summary(ruleName, params);
   }
 
   /**
@@ -305,15 +307,12 @@ public final class MarkdownUtil {
         String.format(
             "%s = use_extension(\"%s\", \"%s\")", extensionName, extensionBzlFile, extensionName));
     for (ModuleExtensionTagClassInfo tagClass : extensionInfo.getTagClassList()) {
-      ImmutableList<String> attributeNames =
+      String callableName = String.format("%s.%s", extensionName, tagClass.getTagName());
+      ImmutableList<Param> params =
           tagClass.getAttributeList().stream()
-              .map(AttributeInfo::getName)
+              .map(attributeInfo -> new Param(attributeInfo, callableName))
               .collect(toImmutableList());
-      summaryBuilder
-          .append("\n")
-          .append(
-              summary(
-                  String.format("%s.%s", extensionName, tagClass.getTagName()), attributeNames));
+      summaryBuilder.append("\n").append(summary(callableName, params));
     }
     return summaryBuilder.toString();
   }
@@ -325,11 +324,11 @@ public final class MarkdownUtil {
    */
   @SuppressWarnings("unused") // Used by markdown template.
   public String funcSummary(StarlarkFunctionInfo funcInfo) {
-    ImmutableList<String> paramNames =
+    ImmutableList<Param> params =
         funcInfo.getParameterList().stream()
-            .map(FunctionParamInfo::getName)
+            .map(paramInfo -> new Param(paramInfo, funcInfo.getFunctionName()))
             .collect(toImmutableList());
-    return summary(funcInfo.getFunctionName(), paramNames);
+    return summary(funcInfo.getFunctionName(), params);
   }
 
   /**
@@ -337,29 +336,53 @@ public final class MarkdownUtil {
    *
    * @param paramAnchorNamer translates a paremeter's name into the name of its HTML anchor
    */
-  private static String summary(
-      String functionName,
-      ImmutableList<String> paramNames,
-      UnaryOperator<String> paramAnchorNamer) {
-    ImmutableList<ImmutableList<String>> paramLines =
-        wrap(functionName, paramNames, MAX_LINE_LENGTH);
+  private static String summary(String functionName, ImmutableList<Param> params) {
+    ImmutableList<ImmutableList<Param>> paramLines = wrap(functionName, params, MAX_LINE_LENGTH);
     List<String> paramLinksLines = new ArrayList<>();
-    for (List<String> params : paramLines) {
-      String paramLinksLine =
-          params.stream()
-              .map(
-                  param ->
-                      String.format("<a href=\"#%s\">%s</a>", paramAnchorNamer.apply(param), param))
-              .collect(joining(", "));
+    for (ImmutableList<Param> paramLine : paramLines) {
+      String paramLinksLine = paramLine.stream().map(Param::renderHtml).collect(joining(", "));
       paramLinksLines.add(paramLinksLine);
     }
-    String paramList =
+    String renderedParams =
         Joiner.on(",\n" + " ".repeat(functionName.length() + 1)).join(paramLinksLines);
-    return String.format("%s(%s)", functionName, paramList);
+    return String.format("%s(%s)", functionName, renderedParams);
   }
 
-  private static String summary(String functionName, ImmutableList<String> paramNames) {
-    return summary(functionName, paramNames, param -> String.format("%s-%s", functionName, param));
+  /** Representation of a callable's parameter in a summary line. */
+  private static final class Param {
+    // Parameter name for use in summary line
+    final String name;
+    // HTML anchor for the parameter's detailed documentation elsewhere on the page
+    final String anchorName;
+
+    Param(FunctionParamInfo paramInfo, String anchorPrefix) {
+      // TODO(https://github.com/bazelbuild/stardoc/issues/225): prepend "*" or "**" to this.name
+      // for residual params.
+      this.name = paramInfo.getName();
+      this.anchorName = formatAnchorName(paramInfo.getName(), anchorPrefix);
+    }
+
+    Param(AttributeInfo atrributeInfo, String anchorPrefix) {
+      this.name = atrributeInfo.getName();
+      this.anchorName = formatAnchorName(atrributeInfo.getName(), anchorPrefix);
+    }
+
+    Param(ProviderFieldInfo fieldInfo, String anchorPrefix) {
+      this.name = fieldInfo.getName();
+      this.anchorName = formatAnchorName(fieldInfo.getName(), anchorPrefix);
+    }
+
+    private static String formatAnchorName(String name, String anchorPrefix) {
+      return String.format("%s-%s", anchorPrefix, name);
+    }
+
+    String getName() {
+      return this.name;
+    }
+
+    String renderHtml() {
+      return String.format("<a href=\"#%s\">%s</a>", anchorName, name);
+    }
   }
 
   /**
@@ -367,25 +390,25 @@ public final class MarkdownUtil {
    * within the provided line length limit.
    *
    * @param functionName the function name.
-   * @param paramNames the function parameter names.
+   * @param params the function parameter names.
    * @param maxLineLength the maximal line length.
    * @return the lines with the wrapped parameter names.
    */
-  private static ImmutableList<ImmutableList<String>> wrap(
-      String functionName, ImmutableList<String> paramNames, int maxLineLength) {
-    ImmutableList.Builder<ImmutableList<String>> paramLines = ImmutableList.builder();
-    ImmutableList.Builder<String> linesBuilder = new ImmutableList.Builder<>();
+  private static ImmutableList<ImmutableList<Param>> wrap(
+      String functionName, ImmutableList<Param> params, int maxLineLength) {
+    ImmutableList.Builder<ImmutableList<Param>> paramLines = ImmutableList.builder();
+    ImmutableList.Builder<Param> linesBuilder = new ImmutableList.Builder<>();
     int leading = functionName.length();
     int length = leading;
     int punctuation = 2; // cater for left parenthesis/space before and comma after parameter
-    for (String paramName : paramNames) {
-      length += paramName.length() + punctuation;
+    for (Param param : params) {
+      length += param.getName().length() + punctuation;
       if (length > maxLineLength) {
         paramLines.add(linesBuilder.build());
-        length = leading + paramName.length();
+        length = leading + param.getName().length();
         linesBuilder = new ImmutableList.Builder<>();
       }
-      linesBuilder.add(paramName);
+      linesBuilder.add(param);
     }
     paramLines.add(linesBuilder.build());
     return paramLines.build();
