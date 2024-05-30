@@ -93,7 +93,7 @@ tasks:
   bazel_7_1_tests:
     name: Stardoc golden tests requiring Bazel 7.1
     platform: ubuntu2004
-    bazel: 7.1.x
+    bazel: 7.1.2
     build_flags: *common_flags
     test_flags: *common_flags
     test_targets:
