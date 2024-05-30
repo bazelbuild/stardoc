@@ -40,7 +40,10 @@ stardoc_test(
     golden_file = "testdata/proto_format_test/golden.binaryproto",
     input_file = "testdata/proto_format_test/input.bzl",
     # Golden output was generated with Bazel 7.1 and may differ in other versions
-    tags = ["manual", "bazel_7_1"],
+    tags = [
+        "bazel_7_1",
+        "manual",
+    ],
 )
 
 stardoc_test(
