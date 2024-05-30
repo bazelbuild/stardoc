@@ -97,6 +97,6 @@ tasks:
     build_flags: *common_flags
     test_flags: *common_flags
     test_targets:
-    - "//test:proto_format_test"
+    - "//test:proto_format_test_e2e_test"
 
 buildifier: latest
