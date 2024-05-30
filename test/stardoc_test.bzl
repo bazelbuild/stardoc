@@ -82,6 +82,7 @@ def _create_test_targets(
             actual_generated_doc,
             golden_file,
         ],
+        tags = kwargs.get("tags", []),
     )
 
     if test == "default":

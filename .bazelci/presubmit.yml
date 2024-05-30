@@ -90,4 +90,13 @@ tasks:
     platform: windows
     working_directory: test/bzlmod
 
+  bazel_7_1_tests:
+    name: Stardoc golden tests requiring Bazel 7.1
+    platform: ubuntu2004
+    bazel: 7.1.x
+    build_flags: *common_flags
+    test_flags: *common_flags
+    test_targets:
+    - "//test:proto_format_test"
+
 buildifier: latest

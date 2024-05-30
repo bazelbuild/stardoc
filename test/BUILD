@@ -2,7 +2,10 @@ load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
 load(":stardoc_test.bzl", "self_gen_test", "stardoc_test")
 
-package(default_applicable_licenses = ["//:license"])
+package(
+    default_applicable_licenses = ["//:license"],
+    default_testonly = True,
+)
 
 licenses(["notice"])  # Apache 2.0
 
@@ -36,6 +39,8 @@ stardoc_test(
     format = "proto",
     golden_file = "testdata/proto_format_test/golden.binaryproto",
     input_file = "testdata/proto_format_test/input.bzl",
+    # Golden output was generated with Bazel 7.1 and may differ in other versions
+    tags = ["manual", "bazel_7_1"],
 )
 
 stardoc_test(
