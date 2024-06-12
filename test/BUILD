@@ -13,6 +13,11 @@ self_gen_test(
     name = "stardoc_self_gen_test",
     golden_file = "//stardoc:stardoc_doc.md",
     stardoc_doc = "//:stardoc_rule_doc",
+    # stardoc_doc.md output was generated with Bazel HEAD on 2024-06-12 and may differ in other versions
+    tags = [
+        "bazel_8",
+        "manual",
+    ],
 )
 
 exports_files(["testdata/fakedeps/dep.bzl"])
@@ -214,7 +219,7 @@ stardoc_test(
     name = "macro_kwargs_test",
     golden_file = "testdata/macro_kwargs_test/golden.md",
     input_file = "testdata/macro_kwargs_test/input.bzl",
-    # Golden output was generated with Bazel HEAD on 2024-05-30 and may differ in other versions
+    # Golden output was generated with Bazel HEAD on 2024-06-12 and may differ in other versions
     tags = [
         "bazel_8",
         "manual",
