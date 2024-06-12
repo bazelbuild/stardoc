@@ -200,9 +200,19 @@ stardoc_test(
 )
 
 stardoc_test(
+    name = "macro_kwargs_legacy_test",
+    golden_file = "testdata/macro_kwargs_test/legacy_golden.md",
+    input_file = "testdata/macro_kwargs_test/input.bzl",
+    # Golden output was generated with Bazel 7.1 and may differ in other versions
+    tags = ["manual", "bazel_7_1"],
+)
+
+stardoc_test(
     name = "macro_kwargs_test",
     golden_file = "testdata/macro_kwargs_test/golden.md",
     input_file = "testdata/macro_kwargs_test/input.bzl",
+    # Golden output was generated with Bazel HEAD on 2024-05-30 and may differ in other versions
+    tags = ["manual", "bazel_8"],
 )
 
 stardoc_test(

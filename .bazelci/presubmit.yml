@@ -98,5 +98,15 @@ tasks:
     test_flags: *common_flags
     test_targets:
     - "//test:proto_format_test_e2e_test"
+    - "//test:macro_kwargs_legacy_test_e2e_test"
+
+  bazel_8_tests:
+    name: Stardoc golden tests requiring Bazel HEAD
+    platform: ubuntu2004
+    bazel: last_green
+    build_flags: *common_flags
+    test_flags: *common_flags
+    test_targets:
+    - "//test:macro_kwargs_test_e2e_test"
 
 buildifier: latest

@@ -37,7 +37,7 @@ function run_buildozer () {
 
 # Some tests cannot be automatically regenerated using this script, as they don't fall under the normal
 # golden test pattern or require a specific Bazel version
-EXCLUDED_TESTS="namespace_test_with_allowlist|multi_level_namespace_test_with_allowlist|local_repository_test|stamping_with_stamping_off"
+EXCLUDED_TESTS="namespace_test_with_allowlist|multi_level_namespace_test_with_allowlist|local_repository_test|stamping_with_stamping_off|macro_kwargs"
 echo "** Querying for tests..."
 regen_targets=$(${BAZEL} query //test:all | grep regenerate_ | grep -vE "_golden\.extract|$EXCLUDED_TESTS")
 
