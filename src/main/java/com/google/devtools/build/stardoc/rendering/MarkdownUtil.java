@@ -16,6 +16,9 @@ package com.google.devtools.build.stardoc.rendering;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.ImmutableList.toImmutableList;
+import static com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.FunctionParamRole.PARAM_ROLE_KEYWORD_ONLY;
+import static com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.FunctionParamRole.PARAM_ROLE_KWARGS;
+import static com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.FunctionParamRole.PARAM_ROLE_VARARGS;
 import static java.util.Comparator.naturalOrder;
 import static java.util.stream.Collectors.joining;
 
@@ -38,6 +41,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -247,9 +251,7 @@ public final class MarkdownUtil {
       String providerName, ProviderInfo providerInfo, String paramAnchorPrefix) {
     ImmutableList<Param> params =
         providerInfo.hasInit()
-            ? providerInfo.getInit().getParameterList().stream()
-                .map(paramInfo -> new Param(paramInfo, paramAnchorPrefix))
-                .collect(toImmutableList())
+            ? getFunctionParamsInDeclarationOrder(providerInfo.getInit(), paramAnchorPrefix)
             : providerInfo.getFieldInfoList().stream()
                 .map(fieldInfo -> new Param(fieldInfo, paramAnchorPrefix))
                 .collect(toImmutableList());
@@ -324,11 +326,9 @@ public final class MarkdownUtil {
    */
   @SuppressWarnings("unused") // Used by markdown template.
   public String funcSummary(StarlarkFunctionInfo funcInfo) {
-    ImmutableList<Param> params =
-        funcInfo.getParameterList().stream()
-            .map(paramInfo -> new Param(paramInfo, funcInfo.getFunctionName()))
-            .collect(toImmutableList());
-    return summary(funcInfo.getFunctionName(), params);
+    return summary(
+        funcInfo.getFunctionName(),
+        getFunctionParamsInDeclarationOrder(funcInfo, funcInfo.getFunctionName()));
   }
 
   /**
@@ -350,15 +350,30 @@ public final class MarkdownUtil {
 
   /** Representation of a callable's parameter in a summary line. */
   private static final class Param {
-    // Parameter name for use in summary line
+    // User-visible name, including the leading "*" or "**" for residuals
     final String name;
     // HTML anchor for the parameter's detailed documentation elsewhere on the page
-    final String anchorName;
+    final Optional<String> anchorName;
+
+    public static final Param STAR_SEPARATOR = new Param("*", Optional.empty());
+
+    private Param(String name, Optional<String> anchorName) {
+      this.name = name;
+      this.anchorName = anchorName;
+    }
 
     Param(FunctionParamInfo paramInfo, String anchorPrefix) {
-      // TODO(https://github.com/bazelbuild/stardoc/issues/225): prepend "*" or "**" to this.name
-      // for residual params.
-      this.name = paramInfo.getName();
+      switch (paramInfo.getRole()) {
+        case PARAM_ROLE_VARARGS:
+          this.name = "*" + paramInfo.getName();
+          break;
+        case PARAM_ROLE_KWARGS:
+          this.name = "**" + paramInfo.getName();
+          break;
+        default:
+          this.name = paramInfo.getName();
+          break;
+      }
       this.anchorName = formatAnchorName(paramInfo.getName(), anchorPrefix);
     }
 
@@ -372,8 +387,8 @@ public final class MarkdownUtil {
       this.anchorName = formatAnchorName(fieldInfo.getName(), anchorPrefix);
     }
 
-    private static String formatAnchorName(String name, String anchorPrefix) {
-      return String.format("%s-%s", anchorPrefix, name);
+    private static Optional<String> formatAnchorName(String name, String anchorPrefix) {
+      return Optional.of(String.format("%s-%s", anchorPrefix, name));
     }
 
     String getName() {
@@ -381,8 +396,56 @@ public final class MarkdownUtil {
     }
 
     String renderHtml() {
-      return String.format("<a href=\"#%s\">%s</a>", anchorName, name);
+      if (anchorName.isPresent()) {
+        return String.format("<a href=\"#%s\">%s</a>", anchorName.get(), name);
+      } else {
+        return name;
+      }
     }
+  }
+
+  private static ImmutableList<Param> getFunctionParamsInDeclarationOrder(
+      StarlarkFunctionInfo funcInfo, String anchorPrefix) {
+    List<FunctionParamInfo> paramInfos = funcInfo.getParameterList();
+    int nparams = paramInfos.size();
+    Optional<Param> kwargs;
+    if (nparams > 0 && paramInfos.get(nparams - 1).getRole() == PARAM_ROLE_KWARGS) {
+      kwargs = Optional.of(new Param(paramInfos.get(nparams - 1), anchorPrefix));
+      nparams--;
+    } else {
+      kwargs = Optional.empty();
+    }
+    Optional<Param> varargs;
+    if (nparams > 0 && paramInfos.get(nparams - 1).getRole() == PARAM_ROLE_VARARGS) {
+      varargs = Optional.of(new Param(paramInfos.get(nparams - 1), anchorPrefix));
+      nparams--;
+    } else {
+      varargs = Optional.empty();
+    }
+    // Invariant: nparams is now the number of non-residual parameters.
+
+    ImmutableList.Builder<Param> paramsBuilder = new ImmutableList.Builder();
+    int numKwonly = 0;
+    // Add ordinary or positional-only params
+    for (int i = 0; i < nparams; i++) {
+      FunctionParamInfo paramInfo = paramInfos.get(i);
+      if (paramInfo.getRole() == PARAM_ROLE_KEYWORD_ONLY) {
+        numKwonly = nparams - i;
+        break;
+      }
+      paramsBuilder.add(new Param(paramInfo, anchorPrefix));
+    }
+    // Add *args or (if needed) the "*" separator
+    if (varargs.isPresent() || numKwonly > 0) {
+      paramsBuilder.add(varargs.orElse(Param.STAR_SEPARATOR));
+    }
+    // Add kwonly params (if any)
+    for (int i = nparams - numKwonly; i < nparams; i++) {
+      paramsBuilder.add(new Param(paramInfos.get(i), anchorPrefix));
+    }
+    // Add **kwargs
+    kwargs.ifPresent(paramsBuilder::add);
+    return paramsBuilder.build();
   }
 
   /**
