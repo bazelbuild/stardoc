@@ -46,12 +46,8 @@ in your `MODULE.bazel` file.
 
 **Contributors**
 
-Alex Humesky
-Alexandre Rostovtsev
-Fabian Meumertzheim
-Grzegorz Lukasik
-Xùdōng Yáng
-Yun Peng
+Alex Humesky, Alexandre Rostovtsev, Fabian Meumertzheim, Grzegorz Lukasik,
+Xùdōng Yáng, Yun Peng
 
 
 ## Release 0.6.2
