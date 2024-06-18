@@ -29,11 +29,12 @@ def stardoc_test(
     Each invocation creates multiple targets:
 
     1. A `stardoc` target which will generate a new golden file given an input
-       file. This target should be used to regenerate the golden file when
-       updating Stardoc, named "regenerate_{name}_golden".
+       file, named "{name}_stardoc".
     2. An `sh_test` target which verifies that the output of the `stardoc`
        target above matches a golden file.
-    3. A bzl_library target for convenient wrapping of input bzl files, named "{name}_lib".
+    3. A shell script which can be executed via `bazel run` to update the golden
+       file from the `stardoc` target's output, named "{name}_regenerate"
+    4. A bzl_library target for convenient wrapping of input bzl files, named "{name}_lib".
 
     Args:
       name: A unique name to qualify the created targets.
@@ -52,8 +53,9 @@ def stardoc_test(
     )
 
     _create_test_targets(
-        test_name = "%s_e2e_test" % name,
-        genrule_name = "regenerate_%s_golden" % name,
+        test_name = name,
+        stardoc_name = "%s_stardoc" % name,
+        regenerate_name = "%s_regenerate" % name,
         lib_name = "%s_lib" % name,
         input_file = input_file,
         golden_file = golden_file,
@@ -63,13 +65,15 @@ def stardoc_test(
 
 def _create_test_targets(
         test_name,
-        genrule_name,
+        stardoc_name,
+        regenerate_name,
         lib_name,
         input_file,
         golden_file,
         test,
         **kwargs):
-    actual_generated_doc = "%s.out" % genrule_name
+    actual_generated_doc = "%s.md" % stardoc_name
+    tags = kwargs.get("tags", [])
 
     native.sh_test(
         name = test_name,
@@ -82,12 +86,32 @@ def _create_test_targets(
             actual_generated_doc,
             golden_file,
         ],
-        tags = kwargs.get("tags", []),
+        tags = tags,
+    )
+
+    regenerate_sh = "%s.sh" % regenerate_name
+    native.genrule(
+        name = "%s_sh" % regenerate_name,
+        cmd = """cat > $(location %s) <<EOF
+#!/usr/bin/env bash
+cd \\$${BUILD_WORKSPACE_DIRECTORY}
+cp -fv $(location %s) $(location %s)
+EOF""" % (regenerate_sh, actual_generated_doc, golden_file),
+        outs = [regenerate_sh],
+        srcs = [actual_generated_doc, golden_file],
+        tags = tags,
+    )
+
+    native.sh_binary(
+        name = regenerate_name,
+        srcs = [regenerate_sh],
+        data = [actual_generated_doc],
+        tags = tags,
     )
 
     if test == "default":
         stardoc(
-            name = genrule_name,
+            name = stardoc_name,
             out = actual_generated_doc,
             input = input_file,
             deps = [lib_name],
@@ -95,7 +119,7 @@ def _create_test_targets(
         )
     elif test == "html_tables":
         html_tables_stardoc(
-            name = genrule_name,
+            name = stardoc_name,
             out = actual_generated_doc,
             input = input_file,
             deps = [lib_name],
