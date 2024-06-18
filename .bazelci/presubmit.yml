@@ -90,10 +90,10 @@ tasks:
     platform: windows
     working_directory: test/bzlmod
 
-  bazel_7_1_tests:
-    name: Stardoc golden tests requiring Bazel 7.1
+  bazel_7_2_tests:
+    name: Stardoc golden tests requiring Bazel 7.2
     platform: ubuntu2004
-    bazel: 7.1.2
+    bazel: 7.2.0
     build_flags: *common_flags
     test_flags: *common_flags
     test_targets:
