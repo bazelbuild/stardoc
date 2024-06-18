@@ -37,13 +37,13 @@ matrix:
   test_targets:
   # Some tests are expected to fail in legacy WORKSPACE mode due to repo name change
     - "//test/..."
-    - "-//test:attribute_defaults_test_e2e_test"
-    - "-//test:function_wrap_multiple_lines_test_e2e_test"
-    - "-//test:misc_apis_test_e2e_test"
-    - "-//test:module_extension_test_e2e_test"
-    - "-//test:proto_format_test_e2e_test"
+    - "-//test:attribute_defaults_test"
+    - "-//test:function_wrap_multiple_lines_test"
+    - "-//test:misc_apis_test"
+    - "-//test:module_extension_test"
+    - "-//test:proto_format_test"
     - "-//test:stardoc_self_gen_test"
-    - "-//test:table_of_contents_test_e2e_test"
+    - "-//test:table_of_contents_test"
 
 .windows_task_config: &windows_task_config
   <<: *common_task_config
@@ -97,8 +97,8 @@ tasks:
     build_flags: *common_flags
     test_flags: *common_flags
     test_targets:
-    - "//test:proto_format_test_e2e_test"
-    - "//test:macro_kwargs_legacy_test_e2e_test"
+    - "//test:proto_format_test"
+    - "//test:macro_kwargs_legacy_test"
 
   bazel_8_tests:
     name: Stardoc golden tests requiring Bazel HEAD
@@ -107,6 +107,6 @@ tasks:
     build_flags: *common_flags
     test_flags: *common_flags
     test_targets:
-    - "//test:macro_kwargs_test_e2e_test"
+    - "//test:macro_kwargs_test"
 
 buildifier: latest
