@@ -7,7 +7,7 @@ A simple macro used to test stardoc.
 ## write_host_constraints
 
 <pre>
-load("@//:def.bzl", "write_host_constraints")
+load("@test_module//:def.bzl", "write_host_constraints")
 
 write_host_constraints(<a href="#write_host_constraints-name">name</a>)
 </pre>
