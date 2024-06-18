@@ -22,7 +22,7 @@ stamp_detector(
         "stamp_enabled": True,
         "//conditions:default": False,
     }),
-    visibility = ["//visibility:public"],
+    visibility = ["//visibility:private"],
 )
 
 # Sources needed for release tarball.
