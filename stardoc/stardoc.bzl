@@ -66,11 +66,7 @@ def stardoc(
       stamp: Whether to provide stamping information to templates, where it can be accessed via
         `$util.formatBuildTimestamp()` and`$stamping`. Example:
         ```vm
-        #if ($stamping)
         Built on `$util.formatBuildTimestamp($stamping.volatile.BUILD_TIMESTAMP, "UTC", "yyyy-MM-dd HH:mm")`
-        #else
-        Build timestamp not available
-        #end
         ```
         Possible values:
         <ul>
