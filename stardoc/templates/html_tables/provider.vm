@@ -8,14 +8,11 @@
 #[[##]]# ${providerName}
 
 <pre>
-<<<<<<< HEAD
 ${util.loadStatement($providerName)}
 
-=======
 #if ($providerInfo.hasInit() && !$mergeParamsAndFields)
 ${util.providerSummaryWithInitAnchor($providerName, $providerInfo)}
 #else
->>>>>>> origin/master
 ${util.providerSummary($providerName, $providerInfo)}
 #end
 </pre>

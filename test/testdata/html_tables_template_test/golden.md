@@ -65,11 +65,8 @@ String; optional
 ## ExampleProviderInfo
 
 <pre>
-<<<<<<< HEAD
 load("@stardoc//test:testdata/html_tables_template_test/input.bzl", "ExampleProviderInfo")
 
-=======
->>>>>>> origin/master
 ExampleProviderInfo(<a href="#ExampleProviderInfo-foo">foo</a>, <a href="#ExampleProviderInfo-bar">bar</a>, <a href="#ExampleProviderInfo-baz">baz</a>)
 </pre>
 
