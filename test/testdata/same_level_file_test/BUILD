@@ -9,6 +9,7 @@ exports_files(
     [
         "dep.bzl",
         "golden.md",
+        "noenable_bzlmod_golden.md",
         "input.bzl",
     ],
 )

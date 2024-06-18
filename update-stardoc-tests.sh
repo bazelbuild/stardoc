@@ -39,19 +39,20 @@ function update_non_manual_tests () {
 
 function update_manual_tests_with_tag () {
   local manual_tag="$1"; shift
-  echo "** Querying for tests tagged \"${manual_tag}\", \"manual\" using 'USE_BAZEL_VERSION=${USE_BAZEL_VERSION} ${BAZEL}' ..."
-  regenerate $(${BAZEL} query "attr(tags, ${manual_tag}, attr(tags, manual, kind(sh_binary, //test:all)))" | grep _regenerate)
+  echo "** Querying for tests tagged \"${manual_tag}\", \"manual\" using 'USE_BAZEL_VERSION=${USE_BAZEL_VERSION:-} ${BAZEL}' $@ ..."
+  BUILD_FLAGS="$@" regenerate $(${BAZEL} query "attr(tags, ${manual_tag}, attr(tags, manual, kind(sh_binary, //test:all)))" | grep _regenerate)
 }
 
 function regenerate () {
   echo "** Regenerating and copying goldens..."
+  local run_cmd="run ${BUILD_FLAGS:-}"
   for regen_target in $@; do
-    if [[ -z ${USE_BAZEL_VERSION+x} ]]; then
-      echo "** Running '${BAZEL} run ${regen_target}' ..."
+    if [[ -z ${USE_BAZEL_VERSION:-} ]]; then
+      echo "** Running '${BAZEL} ${run_cmd} ${regen_target}' ..."
     else
-      echo "** Running 'USE_BAZEL_VERSION=${USE_BAZEL_VERSION} ${BAZEL} run ${regen_target}' ..."
+      echo "** Running 'USE_BAZEL_VERSION=${USE_BAZEL_VERSION} ${BAZEL} ${run_cmd} ${regen_target}' BAZEL_BUILD_FLAGS ..."
     fi
-    ${BAZEL} run "${regen_target}"
+    ${BAZEL} ${run_cmd} "${regen_target}"
   done
 }
 
@@ -59,6 +60,7 @@ function regenerate () {
 : "${BAZEL:=bazelisk}"
 
 update_non_manual_tests
+update_manual_tests_with_tag "noenable_bzlmod" --noenable_bzlmod
 USE_BAZEL_VERSION="7.2.0" update_manual_tests_with_tag "bazel_7_2"
 USE_BAZEL_VERSION="8.0.0-pre.20240603.2" update_manual_tests_with_tag "bazel_8"
 

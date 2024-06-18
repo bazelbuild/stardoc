@@ -35,15 +35,11 @@ matrix:
     - "//test/..."
   test_flags: *noenable_bzlmod_flags
   test_targets:
-  # Some tests are expected to fail in legacy WORKSPACE mode due to repo name change
-    - "//test/..."
-    - "-//test:attribute_defaults_test"
-    - "-//test:function_wrap_multiple_lines_test"
-    - "-//test:misc_apis_test"
-    - "-//test:module_extension_test"
-    - "-//test:proto_format_test"
-    - "-//test:stardoc_self_gen_test"
-    - "-//test:table_of_contents_test"
+  # Most tests will not pass in legacy WORKSPACE mode due to repo name change
+    - "//test:multiple_files_noenable_bzlmod_test"
+    - "//test:same_level_file_noenable_bzlmod_test"
+    - "//test:table_of_contents_noenable_bzlmod_test"
+    - "//test:local_repository_test"
 
 .windows_task_config: &windows_task_config
   <<: *common_task_config
@@ -61,7 +57,7 @@ tasks:
     name: Build and test - Windows
     platform: windows
 
-  legacy_workspace:
+  noenable_bzlmod:
     <<: *noenable_bzlmod_task_config
     name: Build and test - legacy WORKSPACE setup
     platform: ${{ platform }}

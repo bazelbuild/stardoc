@@ -7,6 +7,8 @@
 ## int_setting
 
 <pre>
+load("@stardoc//test:testdata/config_apis_test/input.bzl", "int_setting")
+
 int_setting(<a href="#int_setting-name">name</a>)
 </pre>
 
@@ -25,6 +27,8 @@ An integer flag.
 ## string_flag
 
 <pre>
+load("@stardoc//test:testdata/config_apis_test/input.bzl", "string_flag")
+
 string_flag(<a href="#string_flag-name">name</a>)
 </pre>
 
@@ -43,6 +47,8 @@ A string flag.
 ## exercise_the_api
 
 <pre>
+load("@stardoc//test:testdata/config_apis_test/input.bzl", "exercise_the_api")
+
 exercise_the_api()
 </pre>
 
@@ -55,6 +61,8 @@ exercise_the_api()
 ## transition_func
 
 <pre>
+load("@stardoc//test:testdata/config_apis_test/input.bzl", "transition_func")
+
 transition_func(<a href="#transition_func-settings">settings</a>)
 </pre>
 

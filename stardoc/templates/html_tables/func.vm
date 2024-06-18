@@ -3,6 +3,8 @@
 #[[##]]# ${funcInfo.functionName}
 
 <pre>
+${util.loadStatement($funcInfo.functionName)}
+
 ${util.funcSummary($funcInfo)}
 </pre>
 

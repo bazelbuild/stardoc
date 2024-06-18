@@ -8,6 +8,8 @@
 #[[##]]# ${providerName}
 
 <pre>
+${util.loadStatement($providerName)}
+
 #if ($providerInfo.hasInit() && !$mergeParamsAndFields)
 ${util.providerSummaryWithInitAnchor($providerName, $providerInfo)}
 #else

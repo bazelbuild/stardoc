@@ -7,6 +7,8 @@ A test that verifies documenting functions in an input file under a local_reposi
 ## min
 
 <pre>
+load("@local_repository_test//:input.bzl", "min")
+
 min(<a href="#min-integers">integers</a>)
 </pre>
 

@@ -3,6 +3,8 @@
 #[[##]]# ${aspectName}
 
 <pre>
+${util.loadStatement($aspectName)}
+
 ${util.aspectSummary($aspectName, $aspectInfo)}
 </pre>
 

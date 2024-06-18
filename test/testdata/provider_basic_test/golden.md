@@ -7,6 +7,8 @@
 ## MyCustomInitInfo
 
 <pre>
+load("@stardoc//test:testdata/provider_basic_test/input.bzl", "MyCustomInitInfo")
+
 MyCustomInitInfo(<a href="#MyCustomInitInfo-foo">foo</a>, <a href="#MyCustomInitInfo-bar">bar</a>)
 </pre>
 
@@ -28,6 +30,8 @@ we don't need to render a separate table of constructor parameters.
 ## MyCustomInitWithDefaultParamValueInfo
 
 <pre>
+load("@stardoc//test:testdata/provider_basic_test/input.bzl", "MyCustomInitWithDefaultParamValueInfo")
+
 MyCustomInitWithDefaultParamValueInfo(<a href="#MyCustomInitWithDefaultParamValueInfo-foo">foo</a>, <a href="#MyCustomInitWithDefaultParamValueInfo-bar">bar</a>)
 </pre>
 
@@ -50,6 +54,8 @@ we do need to render the default value.
 ## MyCustomInitWithDocumentedParamInfo
 
 <pre>
+load("@stardoc//test:testdata/provider_basic_test/input.bzl", "MyCustomInitWithDocumentedParamInfo")
+
 MyCustomInitWithDocumentedParamInfo(<a href="#MyCustomInitWithDocumentedParamInfo-_init-foo">foo</a>, <a href="#MyCustomInitWithDocumentedParamInfo-_init-bar">bar</a>)
 </pre>
 
@@ -78,6 +84,8 @@ constructor parameters as a separate table.
 ## MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo
 
 <pre>
+load("@stardoc//test:testdata/provider_basic_test/input.bzl", "MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo")
+
 MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo(<a href="#MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo-_init-foo">foo</a>, <a href="#MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo-_init-bar">bar</a>)
 </pre>
 
@@ -106,6 +114,8 @@ We have no choice - we need to render constructor parameters as a separate table
 ## MyDeprecatedInfo
 
 <pre>
+load("@stardoc//test:testdata/provider_basic_test/input.bzl", "MyDeprecatedInfo")
+
 MyDeprecatedInfo()
 </pre>
 
@@ -129,6 +139,8 @@ Do not construct!
 ## MyFooInfo
 
 <pre>
+load("@stardoc//test:testdata/provider_basic_test/input.bzl", "MyFooInfo")
+
 MyFooInfo(<a href="#MyFooInfo-bar">bar</a>, <a href="#MyFooInfo-baz">baz</a>)
 </pre>
 
@@ -147,6 +159,8 @@ Stores information about a foo.
 ## MyPoorlyDocumentedInfo
 
 <pre>
+load("@stardoc//test:testdata/provider_basic_test/input.bzl", "MyPoorlyDocumentedInfo")
+
 MyPoorlyDocumentedInfo()
 </pre>
 
@@ -156,6 +170,8 @@ MyPoorlyDocumentedInfo()
 ## MyVeryDocumentedInfo
 
 <pre>
+load("@stardoc//test:testdata/provider_basic_test/input.bzl", "MyVeryDocumentedInfo")
+
 MyVeryDocumentedInfo(<a href="#MyVeryDocumentedInfo-favorite_food">favorite_food</a>, <a href="#MyVeryDocumentedInfo-favorite_color">favorite_color</a>)
 </pre>
 

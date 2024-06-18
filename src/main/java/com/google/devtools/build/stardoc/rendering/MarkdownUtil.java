@@ -47,12 +47,12 @@ import java.util.regex.Pattern;
 
 /** Contains a number of utility methods for markdown rendering. */
 public final class MarkdownUtil {
-  private final String extensionBzlFile;
+  private final Optional<String> entrypointBzlFile;
 
   private static final int MAX_LINE_LENGTH = 100;
 
-  public MarkdownUtil(String extensionBzlFile) {
-    this.extensionBzlFile = extensionBzlFile;
+  public MarkdownUtil(Optional<String> entrypointBzlFile) {
+    this.entrypointBzlFile = entrypointBzlFile;
   }
 
   /**
@@ -307,7 +307,8 @@ public final class MarkdownUtil {
     StringBuilder summaryBuilder = new StringBuilder();
     summaryBuilder.append(
         String.format(
-            "%s = use_extension(\"%s\", \"%s\")", extensionName, extensionBzlFile, extensionName));
+            "%s = use_extension(\"%s\", \"%s\")",
+            extensionName, entrypointBzlFile.orElse("..."), extensionName));
     for (ModuleExtensionTagClassInfo tagClass : extensionInfo.getTagClassList()) {
       String callableName = String.format("%s.%s", extensionName, tagClass.getTagName());
       ImmutableList<Param> params =
@@ -329,6 +330,13 @@ public final class MarkdownUtil {
     return summary(
         funcInfo.getFunctionName(),
         getFunctionParamsInDeclarationOrder(funcInfo, funcInfo.getFunctionName()));
+  }
+
+  @SuppressWarnings("unused") // Used by markdown template.
+  public String loadStatement(String name) {
+    return entrypointBzlFile
+        .map(file -> String.format("load(\"%s\", \"%s\")", file, name.split("\\.")[0]))
+        .orElse("");
   }
 
   /**
