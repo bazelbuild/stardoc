@@ -124,8 +124,8 @@ stardoc_test(
     golden_file = "testdata/multiple_files_test/noenable_bzlmod_golden.md",
     input_file = "testdata/multiple_files_test/input.bzl",
     tags = [
-        "noenable_bzlmod",
         "manual",
+        "noenable_bzlmod",
     ],
     deps = [
         "testdata/multiple_files_test/dep.bzl",
@@ -149,8 +149,8 @@ stardoc_test(
     input_file = "//test/testdata/same_level_file_test:input.bzl",
     symbol_names = ["my_rule"],
     tags = [
-        "noenable_bzlmod",
         "manual",
+        "noenable_bzlmod",
     ],
     deps = [
         "//test/testdata/same_level_file_test:dep.bzl",
@@ -340,8 +340,8 @@ stardoc_test(
     input_file = "testdata/table_of_contents_test/input.bzl",
     table_of_contents_template = "//stardoc:templates/markdown_tables/table_of_contents.vm",
     tags = [
-        "noenable_bzlmod",
         "manual",
+        "noenable_bzlmod",
     ],
     deps = [":table_of_contents_test_deps"],
 )
