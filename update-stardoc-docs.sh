@@ -18,10 +18,11 @@
 set -eu
 
 # Allow users to override the bazel command with e.g. bazelisk.
-: "${BAZEL:=bazel}"
+: "${USE_BAZEL_VERSION:=8.0.0-pre.20240603.2}"
+: "${BAZEL:=bazelisk}"
 
 echo "** Generating Stardoc documentation..."
-${BAZEL} build //stardoc:stardoc_doc.md
+USE_BAZEL_VERSION="${USE_BAZEL_VERSION}" ${BAZEL} build //stardoc:stardoc_doc.md
 
 echo "** Copying result to docs/stardoc_rule.md ..."
 cp bazel-bin/stardoc/stardoc_doc.md docs/stardoc_rule.md

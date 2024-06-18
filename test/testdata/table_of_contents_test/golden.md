@@ -69,7 +69,6 @@ Stores information about a foo.
 
 **FIELDS**
 
-
 | Name  | Description |
 | :------------- | :------------- |
 | <a id="MyFooInfo-bar"></a>bar |  -    |
@@ -91,7 +90,6 @@ A provider with some really neat documentation.
 Look on my works, ye mighty, and despair!
 
 **FIELDS**
-
 
 | Name  | Description |
 | :------------- | :------------- |

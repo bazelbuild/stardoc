@@ -32,32 +32,35 @@ function run_buildozer () {
   fi
 }
 
+function update_non_manual_tests () {
+  echo "** Querying for non-manual tests..."
+  regenerate $(${BAZEL} query "kind(sh_binary, //test:all) - attr(tags, manual, //test:all)" | grep _regenerate)
+}
+
+function update_manual_tests_with_tag () {
+  local manual_tag="$1"; shift
+  echo "** Querying for tests tagged \"${manual_tag}\", \"manual\" using 'USE_BAZEL_VERSION=${USE_BAZEL_VERSION} ${BAZEL}' ..."
+  regenerate $(${BAZEL} query "attr(tags, ${manual_tag}, attr(tags, manual, kind(sh_binary, //test:all)))" | grep _regenerate)
+}
+
+function regenerate () {
+  echo "** Regenerating and copying goldens..."
+  for regen_target in $@; do
+    if [[ -z ${USE_BAZEL_VERSION+x} ]]; then
+      echo "** Running '${BAZEL} run ${regen_target}' ..."
+    else
+      echo "** Running 'USE_BAZEL_VERSION=${USE_BAZEL_VERSION} ${BAZEL} run ${regen_target}' ..."
+    fi
+    ${BAZEL} run "${regen_target}"
+  done
+}
+
 # Allow users to override the bazel command with e.g. bazelisk.
-: "${BAZEL:=bazel}"
+: "${BAZEL:=bazelisk}"
 
-# Some tests cannot be automatically regenerated using this script, as they don't fall under the normal
-# golden test pattern
-EXCLUDED_TESTS="namespace_test_with_allowlist|multi_level_namespace_test_with_allowlist|local_repository_test|stamping_with_stamping_off"
-echo "** Querying for tests..."
-regen_targets=$(${BAZEL} query //test:all | grep regenerate_ | grep -vE "_golden\.extract|$EXCLUDED_TESTS")
-
-echo "** Building goldens..."
-${BAZEL} build $regen_targets
-
-echo "** Copying goldens..."
-for regen_target in $regen_targets; do
-  base_target_name=$(echo $regen_target | sed 's/\/\/test://g')
-  testdata_pkg_name=$(echo $base_target_name | sed 's/regenerate_//g' | sed 's/_golden//g')
-  out_file="bazel-bin/test/${base_target_name}.out"
-  if [[ $regen_target == *"proto_format"* ]]; then
-    ext="binaryproto"
-  else
-    ext="md"
-  fi
-  golden="test/testdata/${testdata_pkg_name}/golden.${ext}"
-  cp "${out_file}" "${golden}"
-  chmod 644 "${golden}"
-done
+update_non_manual_tests
+USE_BAZEL_VERSION="7.2.0" update_manual_tests_with_tag "bazel_7_2"
+USE_BAZEL_VERSION="8.0.0-pre.20240603.2" update_manual_tests_with_tag "bazel_8"
 
 echo "** Files copied."
 echo "Please note that not all golden files are correctly copied by this script."

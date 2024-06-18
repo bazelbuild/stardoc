@@ -38,10 +38,7 @@ load("@stardoc//test:testdata/providers_for_attributes_test/input.bzl", "MyProvi
 MyProviderInfo(<a href="#MyProviderInfo-foo">foo</a>, <a href="#MyProviderInfo-bar">bar</a>)
 </pre>
 
-
-
 **FIELDS**
-
 
 | Name  | Description |
 | :------------- | :------------- |
@@ -58,11 +55,6 @@ load("@stardoc//test:testdata/providers_for_attributes_test/input.bzl", "OtherPr
 
 OtherProviderInfo()
 </pre>
-
-
-
-**FIELDS**
-
 
 
 <a id="my_rule_impl"></a>

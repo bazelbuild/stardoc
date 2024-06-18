@@ -37,10 +37,7 @@ load("@stardoc//test:testdata/misc_apis_test/input.bzl", "MyInfo")
 MyInfo(<a href="#MyInfo-foo">foo</a>, <a href="#MyInfo-bar">bar</a>)
 </pre>
 
-
-
 **FIELDS**
-
 
 | Name  | Description |
 | :------------- | :------------- |
