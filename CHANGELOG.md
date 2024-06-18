@@ -1,3 +1,59 @@
+## Release 0.7.0
+
+This release requires Bazel 7 or newer.
+
+By default - when using Bzlmod for dependency management - Stardoc now uses
+`@stardoc` as its repo name.
+
+For compatibility with the legacy WORKSPACE-based setup (which used
+`@io_bazel_stardoc` as the repo name) and ease of migration, you may load
+Stardoc via
+```bzl
+bazel_dep(name = "stardoc", repo_name = "io_bazel_stardoc", ...)
+```
+in your `MODULE.bazel` file.
+
+**New Features**
+
+- Add support for a table of contents template (#203). This is disabled by
+  default, but Stardoc comes with an example template that you can use. To
+  enable, set `table_of_contents_template`, for example:
+  ```bzl
+  stardoc(
+      ...,
+      table_of_contents_template = "@stardoc//stardoc:templates/markdown_tables/table_of_contents.vm",
+  )
+  ```
+- Add support for a footer template (#206). This is disabled by default; to
+  enable, set `footer_template` to a .vm file, which you will need to provide.
+- Add support for providing stamping to Stardoc templates (#205). To use,
+  use `$util.formatBuildTimestamp` and `$stamping` in a template file
+  (`footer_template` - see above - is recommended for this); for example:
+  ```vm
+  Built on `$util.formatBuildTimestamp($stamping.volatile.BUILD_TIMESTAMP, "UTC", "yyyy-MM-dd HH:mm")`
+  ```
+- Render documentation for provider `init` callbacks (#224)
+- Properly render `*args`, `*`, and `**kwargs` in summaries (#231)
+- Include `load` statement in summaries (#216)
+
+**Incompatible Changes**
+
+- The legacy extractor has been removed (#212). Stardoc always uses the
+  `starlark_doc_extract`-based extractor. The `stardoc`, `semantic_flags`, and
+  `use_starlark_doc_extract` arguments to `stardoc()` macro have been removed.
+- Stardoc uses Bzlmod by default for dependency management (#213). This means
+  that by default, Stardoc now uses `@stardoc` as its repo name.
+
+**Contributors**
+
+Alex Humesky
+Alexandre Rostovtsev
+Fabian Meumertzheim
+Grzegorz Lukasik
+Xùdōng Yáng
+Yun Peng
+
+
 ## Release 0.6.2
 
 Bugfix release: bumps `rules_jvm_external` dependency to support building with
