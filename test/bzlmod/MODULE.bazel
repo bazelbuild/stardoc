@@ -1,4 +1,5 @@
 module(name = "test_module")
+
 bazel_dep(name = "stardoc", version = "")
 local_path_override(
     module_name = "stardoc",
