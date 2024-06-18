@@ -120,10 +120,38 @@ stardoc_test(
 )
 
 stardoc_test(
+    name = "multiple_files_noenable_bzlmod_test",
+    golden_file = "testdata/multiple_files_test/noenable_bzlmod_golden.md",
+    input_file = "testdata/multiple_files_test/input.bzl",
+    tags = [
+        "noenable_bzlmod",
+        "manual",
+    ],
+    deps = [
+        "testdata/multiple_files_test/dep.bzl",
+        "testdata/multiple_files_test/inner_dep.bzl",
+    ],
+)
+
+stardoc_test(
     name = "same_level_file_test",
     golden_file = "//test/testdata/same_level_file_test:golden.md",
     input_file = "//test/testdata/same_level_file_test:input.bzl",
     symbol_names = ["my_rule"],
+    deps = [
+        "//test/testdata/same_level_file_test:dep.bzl",
+    ],
+)
+
+stardoc_test(
+    name = "same_level_file_noenable_bzlmod_test",
+    golden_file = "//test/testdata/same_level_file_test:noenable_bzlmod_golden.md",
+    input_file = "//test/testdata/same_level_file_test:input.bzl",
+    symbol_names = ["my_rule"],
+    tags = [
+        "noenable_bzlmod",
+        "manual",
+    ],
     deps = [
         "//test/testdata/same_level_file_test:dep.bzl",
     ],
@@ -307,6 +335,18 @@ stardoc_test(
 )
 
 stardoc_test(
+    name = "table_of_contents_noenable_bzlmod_test",
+    golden_file = "testdata/table_of_contents_test/noenable_bzlmod_golden.md",
+    input_file = "testdata/table_of_contents_test/input.bzl",
+    table_of_contents_template = "//stardoc:templates/markdown_tables/table_of_contents.vm",
+    tags = [
+        "noenable_bzlmod",
+        "manual",
+    ],
+    deps = [":table_of_contents_test_deps"],
+)
+
+stardoc_test(
     name = "stamping_test",
     golden_file = "testdata/stamping_test/golden.md",
     header_template = "testdata/stamping_test/stamping_header.vm",
@@ -323,7 +363,7 @@ stardoc_test(
 )
 
 sh_test(
-    name = "local_repository_test_e2e_test",
+    name = "local_repository_test",
     srcs = ["diff_test_runner.sh"],
     args = [
         "$(location @local_repository_test//:output.md)",
