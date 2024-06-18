@@ -351,7 +351,7 @@ stardoc_test(
     golden_file = "testdata/stamping_test/golden.md",
     header_template = "testdata/stamping_test/stamping_header.vm",
     input_file = "testdata/stamping_test/input.bzl",
-    stamp = True,
+    stamp = 1,
 )
 
 stardoc_test(
@@ -359,7 +359,7 @@ stardoc_test(
     golden_file = "testdata/stamping_test/golden_stamping_off.md",
     header_template = "testdata/stamping_test/stamping_header_stamping_off.vm",
     input_file = "testdata/stamping_test/input.bzl",
-    stamp = False,
+    stamp = 0,
 )
 
 sh_test(

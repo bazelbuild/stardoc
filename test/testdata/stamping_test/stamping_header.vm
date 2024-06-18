@@ -3,7 +3,11 @@
 This Stardoc was built in the `$util.formatBuildTimestamp($stamping.volatile.BUILD_TIMESTAMP, "UTC", "G")` era.
 
 ## Should test a stable value, but stable contains quasi sensitive info, so don't print that in the test output
-Host empty: `$stamping.stable.BUILD_HOST.isEmpty()`.
+#if ($stamping.stable.BUILD_HOST)
+Host is a non-empty string.
+#else
+Host is empty or null.
+#end
 
 ## Sometimes Stardoc is built without --workspace_status_command (e.g. in build tests), luckily "$!foo" will tell
 ## Velocity to ignore null values:
