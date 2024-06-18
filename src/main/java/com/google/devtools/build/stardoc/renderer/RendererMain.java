@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Main entry point for Renderer binary.
@@ -46,6 +47,7 @@ import java.util.List;
  */
 public final class RendererMain {
 
+  @SuppressWarnings("ProtoParseWithRegistry") // See https://github.com/bazelbuild/stardoc/pull/221
   public static void main(String[] args) throws IOException {
 
     RendererOptions rendererOptions = new RendererOptions();
@@ -91,7 +93,9 @@ public final class RendererMain {
               rendererOptions.aspectTemplateFilePath,
               rendererOptions.repositoryRuleTemplateFilePath,
               rendererOptions.moduleExtensionTemplateFilePath,
-              !moduleInfo.getFile().isEmpty() ? moduleInfo.getFile() : "...",
+              !moduleInfo.getFile().isEmpty()
+                  ? Optional.of(moduleInfo.getFile())
+                  : Optional.empty(),
               rendererOptions.footerTemplateFilePath,
               stamping);
 

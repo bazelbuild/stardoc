@@ -2,7 +2,10 @@ load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
 load(":stardoc_test.bzl", "self_gen_test", "stardoc_test")
 
-package(default_applicable_licenses = ["//:license"])
+package(
+    default_applicable_licenses = ["//:license"],
+    default_testonly = True,
+)
 
 licenses(["notice"])  # Apache 2.0
 
@@ -10,6 +13,11 @@ self_gen_test(
     name = "stardoc_self_gen_test",
     golden_file = "//stardoc:stardoc_doc.md",
     stardoc_doc = "//:stardoc_rule_doc",
+    # stardoc_doc.md output was generated with Bazel HEAD on 2024-06-12 and may differ in other versions
+    tags = [
+        "bazel_8",
+        "manual",
+    ],
 )
 
 exports_files(["testdata/fakedeps/dep.bzl"])
@@ -36,6 +44,11 @@ stardoc_test(
     format = "proto",
     golden_file = "testdata/proto_format_test/golden.binaryproto",
     input_file = "testdata/proto_format_test/input.bzl",
+    # Golden output was generated with Bazel 7.2 and may differ in other versions
+    tags = [
+        "bazel_7_2",
+        "manual",
+    ],
 )
 
 stardoc_test(
@@ -107,10 +120,38 @@ stardoc_test(
 )
 
 stardoc_test(
+    name = "multiple_files_noenable_bzlmod_test",
+    golden_file = "testdata/multiple_files_test/noenable_bzlmod_golden.md",
+    input_file = "testdata/multiple_files_test/input.bzl",
+    tags = [
+        "manual",
+        "noenable_bzlmod",
+    ],
+    deps = [
+        "testdata/multiple_files_test/dep.bzl",
+        "testdata/multiple_files_test/inner_dep.bzl",
+    ],
+)
+
+stardoc_test(
     name = "same_level_file_test",
     golden_file = "//test/testdata/same_level_file_test:golden.md",
     input_file = "//test/testdata/same_level_file_test:input.bzl",
     symbol_names = ["my_rule"],
+    deps = [
+        "//test/testdata/same_level_file_test:dep.bzl",
+    ],
+)
+
+stardoc_test(
+    name = "same_level_file_noenable_bzlmod_test",
+    golden_file = "//test/testdata/same_level_file_test:noenable_bzlmod_golden.md",
+    input_file = "//test/testdata/same_level_file_test:input.bzl",
+    symbol_names = ["my_rule"],
+    tags = [
+        "manual",
+        "noenable_bzlmod",
+    ],
     deps = [
         "//test/testdata/same_level_file_test:dep.bzl",
     ],
@@ -192,9 +233,25 @@ stardoc_test(
 )
 
 stardoc_test(
+    name = "macro_kwargs_legacy_test",
+    golden_file = "testdata/macro_kwargs_test/legacy_golden.md",
+    input_file = "testdata/macro_kwargs_test/input.bzl",
+    # Golden output was generated with Bazel 7.2 and may differ in other versions
+    tags = [
+        "bazel_7_2",
+        "manual",
+    ],
+)
+
+stardoc_test(
     name = "macro_kwargs_test",
     golden_file = "testdata/macro_kwargs_test/golden.md",
     input_file = "testdata/macro_kwargs_test/input.bzl",
+    # Golden output was generated with Bazel HEAD on 2024-06-12 and may differ in other versions
+    tags = [
+        "bazel_8",
+        "manual",
+    ],
 )
 
 stardoc_test(
@@ -278,6 +335,18 @@ stardoc_test(
 )
 
 stardoc_test(
+    name = "table_of_contents_noenable_bzlmod_test",
+    golden_file = "testdata/table_of_contents_test/noenable_bzlmod_golden.md",
+    input_file = "testdata/table_of_contents_test/input.bzl",
+    table_of_contents_template = "//stardoc:templates/markdown_tables/table_of_contents.vm",
+    tags = [
+        "manual",
+        "noenable_bzlmod",
+    ],
+    deps = [":table_of_contents_test_deps"],
+)
+
+stardoc_test(
     name = "stamping_test",
     golden_file = "testdata/stamping_test/golden.md",
     header_template = "testdata/stamping_test/stamping_header.vm",
@@ -294,7 +363,7 @@ stardoc_test(
 )
 
 sh_test(
-    name = "local_repository_test_e2e_test",
+    name = "local_repository_test",
     srcs = ["diff_test_runner.sh"],
     args = [
         "$(location @local_repository_test//:output.md)",

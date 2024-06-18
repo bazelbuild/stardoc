@@ -28,3 +28,7 @@ other_aspect = aspect(
         "third": attr.int(mandatory = True),
     },
 )
+
+namespace = struct(
+    namespaced_aspect = other_aspect,
+)

@@ -14,12 +14,17 @@
 
 package com.google.devtools.build.stardoc.rendering;
 
+import static com.google.common.collect.ImmutableList.toImmutableList;
+import static com.google.common.collect.ImmutableSet.toImmutableSet;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AspectInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.FunctionParamInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleExtensionInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ProviderFieldInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ProviderInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.RepositoryRuleInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.RuleInfo;
@@ -36,6 +41,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 /** Produces stardoc output in markdown form. */
 public class MarkdownRenderer {
@@ -53,7 +59,7 @@ public class MarkdownRenderer {
   private final String aspectTemplateFilename;
   private final String repositoryRuleTemplateFilename;
   private final String moduleExtensionTemplateFilename;
-  private final String extensionBzlFile;
+  private final Optional<String> entrypointBzlFile;
   private final String footerTemplateFilename;
   private final Stamping stamping;
 
@@ -66,7 +72,7 @@ public class MarkdownRenderer {
       String aspectTemplate,
       String repositoryRuleTemplate,
       String moduleExtensionTemplate,
-      String extensionBzlFile,
+      Optional<String> entrypointBzlFile,
       String footerTemplate,
       Stamping stamping) {
     this.headerTemplateFilename = headerTemplate;
@@ -77,7 +83,7 @@ public class MarkdownRenderer {
     this.aspectTemplateFilename = aspectTemplate;
     this.repositoryRuleTemplateFilename = repositoryRuleTemplate;
     this.moduleExtensionTemplateFilename = moduleExtensionTemplate;
-    this.extensionBzlFile = extensionBzlFile;
+    this.entrypointBzlFile = entrypointBzlFile;
     this.footerTemplateFilename = footerTemplate;
     this.stamping = stamping;
   }
@@ -90,7 +96,7 @@ public class MarkdownRenderer {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
-            new MarkdownUtil(extensionBzlFile),
+            new MarkdownUtil(entrypointBzlFile),
             "moduleDocstring",
             moduleInfo.getModuleDocstring(),
             "stamping",
@@ -118,7 +124,7 @@ public class MarkdownRenderer {
 
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
-            "util", new MarkdownUtil(extensionBzlFile),
+            "util", new MarkdownUtil(entrypointBzlFile),
             "ruleInfos", ruleInfos,
             "providerInfos", providerInfos,
             "functionInfos", starlarkFunctions,
@@ -141,7 +147,7 @@ public class MarkdownRenderer {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
-            new MarkdownUtil(extensionBzlFile),
+            new MarkdownUtil(entrypointBzlFile),
             "ruleName",
             ruleInfo.getRuleName(),
             "ruleInfo",
@@ -157,21 +163,98 @@ public class MarkdownRenderer {
   /**
    * Returns a markdown rendering of provider documentation for the given provider information
    * object with the given name.
+   *
+   * <p>For evaluating the provider template, populates the the following constants:
+   *
+   * <ul>
+   *   <li>util - a {@link MarkdownUtil} object
+   *   <li>providerName - the provider's name
+   *   <li>providerInfo - the {@link ProviderInfo} proto
+   *   <li>initParamsWithInferredDocs - the list of the init callback's {@link FunctionParamInfo}
+   *       protos, with any undocumented parameters inheriting the doc string of the provider's
+   *       field with the same name; or an empty list of the provider doesn't have an init callback
+   *   <li>initParamNamesEqualFieldNames - true iff the provider has an init callback and the set of
+   *       names of the init callback's parameters equals the set of names of the provider's fields
+   *   <li>initParamsHaveDefaultValues - true iff the provider has an init callback and at least one
+   *       of the init callback's parameters has a default value specified
+   *   <li>initParamsHaveDistinctDocs - true iff the provider has an init callback and at least one
+   *       of the init callback's parameters has a docstring which is non-empty and not equal to the
+   *       corresponding field's docstring.
+   * </ul>
    */
   public String render(ProviderInfo providerInfo) throws IOException {
+    ImmutableMap.Builder<String, String> fieldDocsBuilder = ImmutableMap.builder();
+    for (ProviderFieldInfo fieldInfo : providerInfo.getFieldInfoList()) {
+      fieldDocsBuilder.put(fieldInfo.getName(), fieldInfo.getDocString());
+    }
+    ImmutableMap<String, String> fieldDocs = fieldDocsBuilder.buildOrThrow();
+
+    ImmutableList<FunctionParamInfo> initParamsWithInferredDocs;
+    if (providerInfo.hasInit()) {
+      initParamsWithInferredDocs =
+          providerInfo.getInit().getParameterList().stream()
+              .map(param -> withInferredDoc(param, fieldDocs))
+              .collect(toImmutableList());
+    } else {
+      initParamsWithInferredDocs = ImmutableList.of();
+    }
+    boolean initParamNamesEqualFieldNames =
+        providerInfo.hasInit()
+            && providerInfo.getInit().getParameterList().stream()
+                .map(FunctionParamInfo::getName)
+                .collect(toImmutableSet())
+                .equals(
+                    providerInfo.getFieldInfoList().stream()
+                        .map(ProviderFieldInfo::getName)
+                        .collect(toImmutableSet()));
+    boolean initParamsHaveDefaultValues =
+        providerInfo.hasInit()
+            && providerInfo.getInit().getParameterList().stream()
+                .filter(param -> !param.getDefaultValue().isEmpty())
+                .findFirst()
+                .isPresent();
+    boolean initParamsHaveDistinctDocs =
+        providerInfo.hasInit()
+            && providerInfo.getInit().getParameterList().stream()
+                .filter(
+                    param ->
+                        !param.getDocString().isEmpty()
+                            && !param.getDocString().equals(fieldDocs.get(param.getName())))
+                .findFirst()
+                .isPresent();
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
-            new MarkdownUtil(extensionBzlFile),
+            new MarkdownUtil(entrypointBzlFile),
             "providerName",
             providerInfo.getProviderName(),
             "providerInfo",
-            providerInfo);
+            providerInfo,
+            "initParamsWithInferredDocs",
+            initParamsWithInferredDocs,
+            "initParamNamesEqualFieldNames",
+            initParamNamesEqualFieldNames,
+            "initParamsHaveDefaultValues",
+            initParamsHaveDefaultValues,
+            "initParamsHaveDistinctDocs",
+            initParamsHaveDistinctDocs);
     Reader reader = readerFromPath(providerTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
     } catch (ParseException | EvaluationException e) {
       throw new IOException(e);
+    }
+  }
+
+  private static FunctionParamInfo withInferredDoc(
+      FunctionParamInfo paramInfo, ImmutableMap<String, String> fallbackDocs) {
+    if (paramInfo.getDocString().isEmpty() && fallbackDocs.containsKey(paramInfo.getName())) {
+      return paramInfo.toBuilder()
+          .clearDocString()
+          .setDocString(fallbackDocs.get(paramInfo.getName()))
+          .build();
+    } else {
+      return paramInfo;
     }
   }
 
@@ -181,7 +264,7 @@ public class MarkdownRenderer {
    */
   public String render(StarlarkFunctionInfo functionInfo) throws IOException {
     ImmutableMap<String, Object> vars =
-        ImmutableMap.of("util", new MarkdownUtil(extensionBzlFile), "funcInfo", functionInfo);
+        ImmutableMap.of("util", new MarkdownUtil(entrypointBzlFile), "funcInfo", functionInfo);
     Reader reader = readerFromPath(functionTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
@@ -198,7 +281,7 @@ public class MarkdownRenderer {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
-            new MarkdownUtil(extensionBzlFile),
+            new MarkdownUtil(entrypointBzlFile),
             "aspectName",
             aspectInfo.getAspectName(),
             "aspectInfo",
@@ -219,7 +302,7 @@ public class MarkdownRenderer {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
-            new MarkdownUtil(extensionBzlFile),
+            new MarkdownUtil(entrypointBzlFile),
             "ruleName",
             repositoryRuleInfo.getRuleName(),
             "ruleInfo",
@@ -240,7 +323,7 @@ public class MarkdownRenderer {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of(
             "util",
-            new MarkdownUtil(extensionBzlFile),
+            new MarkdownUtil(entrypointBzlFile),
             "extensionName",
             moduleExtensionInfo.getExtensionName(),
             "extensionInfo",
@@ -256,7 +339,7 @@ public class MarkdownRenderer {
   /** Returns a markdown header string that should appear at the end of Stardoc's output. */
   public String renderMarkdownFooter(ModuleInfo moduleInfo) throws IOException {
     ImmutableMap<String, Object> vars =
-        ImmutableMap.of("util", new MarkdownUtil(extensionBzlFile), "stamping", stamping);
+        ImmutableMap.of("util", new MarkdownUtil(entrypointBzlFile), "stamping", stamping);
     Reader reader = readerFromPath(footerTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);

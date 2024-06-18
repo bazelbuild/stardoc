@@ -9,7 +9,7 @@ Tests for functions which use *args or **kwargs
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_args")
 
-macro_with_args(<a href="#macro_with_args-name">name</a>, <a href="#macro_with_args-args">*args</a>)
+macro_with_args(<a href="#macro_with_args-name">name</a>, <a href="#macro_with_args-args">args</a>)
 </pre>
 
 My args macro is OK.
@@ -34,7 +34,7 @@ An empty list.
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_args_and_kwonly")
 
-macro_with_args_and_kwonly(<a href="#macro_with_args_and_kwonly-args">*args</a>, <a href="#macro_with_args_and_kwonly-name">name</a>)
+macro_with_args_and_kwonly(<a href="#macro_with_args_and_kwonly-name">name</a>, <a href="#macro_with_args_and_kwonly-args">args</a>)
 </pre>
 
 *args and a keyword-only param
@@ -55,7 +55,7 @@ macro_with_args_and_kwonly(<a href="#macro_with_args_and_kwonly-args">*args</a>,
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_args_and_kwonlys")
 
-macro_with_args_and_kwonlys(<a href="#macro_with_args_and_kwonlys-args">*args</a>, <a href="#macro_with_args_and_kwonlys-name">name</a>, <a href="#macro_with_args_and_kwonlys-number">number</a>)
+macro_with_args_and_kwonlys(<a href="#macro_with_args_and_kwonlys-name">name</a>, <a href="#macro_with_args_and_kwonlys-number">number</a>, <a href="#macro_with_args_and_kwonlys-args">args</a>)
 </pre>
 
 *args and several keyword-only params
@@ -77,7 +77,7 @@ macro_with_args_and_kwonlys(<a href="#macro_with_args_and_kwonlys-args">*args</a
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_args_kwonly_and_kwargs")
 
-macro_with_args_kwonly_and_kwargs(<a href="#macro_with_args_kwonly_and_kwargs-args">*args</a>, <a href="#macro_with_args_kwonly_and_kwargs-name">name</a>, <a href="#macro_with_args_kwonly_and_kwargs-kwargs">**kwargs</a>)
+macro_with_args_kwonly_and_kwargs(<a href="#macro_with_args_kwonly_and_kwargs-name">name</a>, <a href="#macro_with_args_kwonly_and_kwargs-args">args</a>, <a href="#macro_with_args_kwonly_and_kwargs-kwargs">kwargs</a>)
 </pre>
 
 *args, a keyword-only param, and **kwargs
@@ -99,7 +99,7 @@ macro_with_args_kwonly_and_kwargs(<a href="#macro_with_args_kwonly_and_kwargs-ar
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_args_kwonlys_and_kwargs")
 
-macro_with_args_kwonlys_and_kwargs(<a href="#macro_with_args_kwonlys_and_kwargs-args">*args</a>, <a href="#macro_with_args_kwonlys_and_kwargs-name">name</a>, <a href="#macro_with_args_kwonlys_and_kwargs-number">number</a>, <a href="#macro_with_args_kwonlys_and_kwargs-kwargs">**kwargs</a>)
+macro_with_args_kwonlys_and_kwargs(<a href="#macro_with_args_kwonlys_and_kwargs-name">name</a>, <a href="#macro_with_args_kwonlys_and_kwargs-number">number</a>, <a href="#macro_with_args_kwonlys_and_kwargs-args">args</a>, <a href="#macro_with_args_kwonlys_and_kwargs-kwargs">kwargs</a>)
 </pre>
 
 *args, several keyword-only params, and **kwargs
@@ -122,7 +122,7 @@ macro_with_args_kwonlys_and_kwargs(<a href="#macro_with_args_kwonlys_and_kwargs-
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_both")
 
-macro_with_both(<a href="#macro_with_both-name">name</a>, <a href="#macro_with_both-number">number</a>, <a href="#macro_with_both-args">*args</a>, <a href="#macro_with_both-kwargs">**kwargs</a>)
+macro_with_both(<a href="#macro_with_both-name">name</a>, <a href="#macro_with_both-number">number</a>, <a href="#macro_with_both-args">args</a>, <a href="#macro_with_both-kwargs">kwargs</a>)
 </pre>
 
 Oh wow this macro has both.
@@ -152,7 +152,7 @@ An empty list.
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_kwargs")
 
-macro_with_kwargs(<a href="#macro_with_kwargs-name">name</a>, <a href="#macro_with_kwargs-config">config</a>, <a href="#macro_with_kwargs-deps">deps</a>, <a href="#macro_with_kwargs-kwargs">**kwargs</a>)
+macro_with_kwargs(<a href="#macro_with_kwargs-name">name</a>, <a href="#macro_with_kwargs-config">config</a>, <a href="#macro_with_kwargs-deps">deps</a>, <a href="#macro_with_kwargs-kwargs">kwargs</a>)
 </pre>
 
 My kwargs macro is the best.
@@ -186,7 +186,7 @@ An empty list.
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_kwonly")
 
-macro_with_kwonly(*, <a href="#macro_with_kwonly-name">name</a>)
+macro_with_kwonly(<a href="#macro_with_kwonly-name">name</a>)
 </pre>
 
 One keyword-only param
@@ -206,7 +206,7 @@ One keyword-only param
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_kwonly_and_kwargs")
 
-macro_with_kwonly_and_kwargs(*, <a href="#macro_with_kwonly_and_kwargs-name">name</a>, <a href="#macro_with_kwonly_and_kwargs-kwargs">**kwargs</a>)
+macro_with_kwonly_and_kwargs(<a href="#macro_with_kwonly_and_kwargs-name">name</a>, <a href="#macro_with_kwonly_and_kwargs-kwargs">kwargs</a>)
 </pre>
 
 One keyword-only param and **kwargs
@@ -227,7 +227,7 @@ One keyword-only param and **kwargs
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_kwonlys")
 
-macro_with_kwonlys(*, <a href="#macro_with_kwonlys-name">name</a>, <a href="#macro_with_kwonlys-number">number</a>)
+macro_with_kwonlys(<a href="#macro_with_kwonlys-name">name</a>, <a href="#macro_with_kwonlys-number">number</a>)
 </pre>
 
 Several keyword-only params
@@ -248,7 +248,7 @@ Several keyword-only params
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_kwonlys_and_kwargs")
 
-macro_with_kwonlys_and_kwargs(*, <a href="#macro_with_kwonlys_and_kwargs-name">name</a>, <a href="#macro_with_kwonlys_and_kwargs-number">number</a>, <a href="#macro_with_kwonlys_and_kwargs-kwargs">**kwargs</a>)
+macro_with_kwonlys_and_kwargs(<a href="#macro_with_kwonlys_and_kwargs-name">name</a>, <a href="#macro_with_kwonlys_and_kwargs-number">number</a>, <a href="#macro_with_kwonlys_and_kwargs-kwargs">kwargs</a>)
 </pre>
 
 Several keyword-only params and **kwargs
@@ -270,7 +270,7 @@ Several keyword-only params and **kwargs
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_only_args")
 
-macro_with_only_args(<a href="#macro_with_only_args-args">*args</a>)
+macro_with_only_args(<a href="#macro_with_only_args-args">args</a>)
 </pre>
 
 Macro only taking *args
@@ -290,7 +290,7 @@ Macro only taking *args
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_only_args_and_kwargs")
 
-macro_with_only_args_and_kwargs(<a href="#macro_with_only_args_and_kwargs-args">*args</a>, <a href="#macro_with_only_args_and_kwargs-kwargs">**kwargs</a>)
+macro_with_only_args_and_kwargs(<a href="#macro_with_only_args_and_kwargs-args">args</a>, <a href="#macro_with_only_args_and_kwargs-kwargs">kwargs</a>)
 </pre>
 
 Macro only taking *args and **kwargs
@@ -311,7 +311,7 @@ Macro only taking *args and **kwargs
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_only_kwargs")
 
-macro_with_only_kwargs(<a href="#macro_with_only_kwargs-kwargs">**kwargs</a>)
+macro_with_only_kwargs(<a href="#macro_with_only_kwargs-kwargs">kwargs</a>)
 </pre>
 
 Macro only taking **kwargs
@@ -331,7 +331,7 @@ Macro only taking **kwargs
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_ordinary_param_and_kwonlys")
 
-macro_with_ordinary_param_and_kwonlys(<a href="#macro_with_ordinary_param_and_kwonlys-name">name</a>, *, <a href="#macro_with_ordinary_param_and_kwonlys-number">number</a>, <a href="#macro_with_ordinary_param_and_kwonlys-config">config</a>)
+macro_with_ordinary_param_and_kwonlys(<a href="#macro_with_ordinary_param_and_kwonlys-name">name</a>, <a href="#macro_with_ordinary_param_and_kwonlys-number">number</a>, <a href="#macro_with_ordinary_param_and_kwonlys-config">config</a>)
 </pre>
 
 One ordinary param and several keyword-only params
@@ -353,7 +353,7 @@ One ordinary param and several keyword-only params
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_ordinary_param_args_and_kwonlys")
 
-macro_with_ordinary_param_args_and_kwonlys(<a href="#macro_with_ordinary_param_args_and_kwonlys-name">name</a>, <a href="#macro_with_ordinary_param_args_and_kwonlys-args">*args</a>, <a href="#macro_with_ordinary_param_args_and_kwonlys-number">number</a>, <a href="#macro_with_ordinary_param_args_and_kwonlys-config">config</a>)
+macro_with_ordinary_param_args_and_kwonlys(<a href="#macro_with_ordinary_param_args_and_kwonlys-name">name</a>, <a href="#macro_with_ordinary_param_args_and_kwonlys-number">number</a>, <a href="#macro_with_ordinary_param_args_and_kwonlys-config">config</a>, <a href="#macro_with_ordinary_param_args_and_kwonlys-args">args</a>)
 </pre>
 
 One ordinary param, *args, and several keyword-only params
@@ -376,7 +376,7 @@ One ordinary param, *args, and several keyword-only params
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_ordinary_param_args_kwonlys_and_kwargs")
 
-macro_with_ordinary_param_args_kwonlys_and_kwargs(<a href="#macro_with_ordinary_param_args_kwonlys_and_kwargs-name">name</a>, <a href="#macro_with_ordinary_param_args_kwonlys_and_kwargs-args">*args</a>, <a href="#macro_with_ordinary_param_args_kwonlys_and_kwargs-number">number</a>, <a href="#macro_with_ordinary_param_args_kwonlys_and_kwargs-config">config</a>, <a href="#macro_with_ordinary_param_args_kwonlys_and_kwargs-kwargs">**kwargs</a>)
+macro_with_ordinary_param_args_kwonlys_and_kwargs(<a href="#macro_with_ordinary_param_args_kwonlys_and_kwargs-name">name</a>, <a href="#macro_with_ordinary_param_args_kwonlys_and_kwargs-number">number</a>, <a href="#macro_with_ordinary_param_args_kwonlys_and_kwargs-config">config</a>, <a href="#macro_with_ordinary_param_args_kwonlys_and_kwargs-args">args</a>, <a href="#macro_with_ordinary_param_args_kwonlys_and_kwargs-kwargs">kwargs</a>)
 </pre>
 
 One ordinary param, *args, several keyword-only params, and **kwargs
@@ -400,7 +400,7 @@ One ordinary param, *args, several keyword-only params, and **kwargs
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_ordinary_param_kwonlys_and_kwargs")
 
-macro_with_ordinary_param_kwonlys_and_kwargs(<a href="#macro_with_ordinary_param_kwonlys_and_kwargs-name">name</a>, *, <a href="#macro_with_ordinary_param_kwonlys_and_kwargs-number">number</a>, <a href="#macro_with_ordinary_param_kwonlys_and_kwargs-config">config</a>, <a href="#macro_with_ordinary_param_kwonlys_and_kwargs-kwargs">**kwargs</a>)
+macro_with_ordinary_param_kwonlys_and_kwargs(<a href="#macro_with_ordinary_param_kwonlys_and_kwargs-name">name</a>, <a href="#macro_with_ordinary_param_kwonlys_and_kwargs-number">number</a>, <a href="#macro_with_ordinary_param_kwonlys_and_kwargs-config">config</a>, <a href="#macro_with_ordinary_param_kwonlys_and_kwargs-kwargs">kwargs</a>)
 </pre>
 
 One ordinary param, several keyword-only params, and **kwargs
@@ -423,7 +423,7 @@ One ordinary param, several keyword-only params, and **kwargs
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_ordinary_params_and_kwonly")
 
-macro_with_ordinary_params_and_kwonly(<a href="#macro_with_ordinary_params_and_kwonly-name">name</a>, <a href="#macro_with_ordinary_params_and_kwonly-number">number</a>, *, <a href="#macro_with_ordinary_params_and_kwonly-config">config</a>)
+macro_with_ordinary_params_and_kwonly(<a href="#macro_with_ordinary_params_and_kwonly-name">name</a>, <a href="#macro_with_ordinary_params_and_kwonly-number">number</a>, <a href="#macro_with_ordinary_params_and_kwonly-config">config</a>)
 </pre>
 
 Several ordinary params and a keyword-only param
@@ -445,7 +445,7 @@ Several ordinary params and a keyword-only param
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_ordinary_params_args_and_kwonly")
 
-macro_with_ordinary_params_args_and_kwonly(<a href="#macro_with_ordinary_params_args_and_kwonly-name">name</a>, <a href="#macro_with_ordinary_params_args_and_kwonly-number">number</a>, <a href="#macro_with_ordinary_params_args_and_kwonly-args">*args</a>, <a href="#macro_with_ordinary_params_args_and_kwonly-config">config</a>)
+macro_with_ordinary_params_args_and_kwonly(<a href="#macro_with_ordinary_params_args_and_kwonly-name">name</a>, <a href="#macro_with_ordinary_params_args_and_kwonly-number">number</a>, <a href="#macro_with_ordinary_params_args_and_kwonly-config">config</a>, <a href="#macro_with_ordinary_params_args_and_kwonly-args">args</a>)
 </pre>
 
 Several ordinary params, *args, and a keyword-only param
@@ -468,7 +468,7 @@ Several ordinary params, *args, and a keyword-only param
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_ordinary_params_args_kwonly_and_kwargs")
 
-macro_with_ordinary_params_args_kwonly_and_kwargs(<a href="#macro_with_ordinary_params_args_kwonly_and_kwargs-name">name</a>, <a href="#macro_with_ordinary_params_args_kwonly_and_kwargs-number">number</a>, <a href="#macro_with_ordinary_params_args_kwonly_and_kwargs-args">*args</a>, <a href="#macro_with_ordinary_params_args_kwonly_and_kwargs-config">config</a>, <a href="#macro_with_ordinary_params_args_kwonly_and_kwargs-kwargs">**kwargs</a>)
+macro_with_ordinary_params_args_kwonly_and_kwargs(<a href="#macro_with_ordinary_params_args_kwonly_and_kwargs-name">name</a>, <a href="#macro_with_ordinary_params_args_kwonly_and_kwargs-number">number</a>, <a href="#macro_with_ordinary_params_args_kwonly_and_kwargs-config">config</a>, <a href="#macro_with_ordinary_params_args_kwonly_and_kwargs-args">args</a>, <a href="#macro_with_ordinary_params_args_kwonly_and_kwargs-kwargs">kwargs</a>)
 </pre>
 
 Several ordinary params, *args, one keyword-only param, and **kwargs
@@ -492,7 +492,7 @@ Several ordinary params, *args, one keyword-only param, and **kwargs
 <pre>
 load("@stardoc//test:testdata/macro_kwargs_test/input.bzl", "macro_with_ordinary_params_kwonly_and_kwargs")
 
-macro_with_ordinary_params_kwonly_and_kwargs(<a href="#macro_with_ordinary_params_kwonly_and_kwargs-name">name</a>, <a href="#macro_with_ordinary_params_kwonly_and_kwargs-number">number</a>, *, <a href="#macro_with_ordinary_params_kwonly_and_kwargs-config">config</a>, <a href="#macro_with_ordinary_params_kwonly_and_kwargs-kwargs">**kwargs</a>)
+macro_with_ordinary_params_kwonly_and_kwargs(<a href="#macro_with_ordinary_params_kwonly_and_kwargs-name">name</a>, <a href="#macro_with_ordinary_params_kwonly_and_kwargs-number">number</a>, <a href="#macro_with_ordinary_params_kwonly_and_kwargs-config">config</a>, <a href="#macro_with_ordinary_params_kwonly_and_kwargs-kwargs">kwargs</a>)
 </pre>
 
 Several ordinary params, a keyword-only param, and **kwargs

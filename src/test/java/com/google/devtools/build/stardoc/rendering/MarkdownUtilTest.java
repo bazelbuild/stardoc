@@ -16,6 +16,7 @@ package com.google.devtools.build.stardoc.rendering;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -24,7 +25,7 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class MarkdownUtilTest {
 
-  MarkdownUtil util = new MarkdownUtil("//:test.bzl");
+  MarkdownUtil util = new MarkdownUtil(Optional.of("//:test.bzl"));
 
   @Test
   public void markdownCodeSpan() {

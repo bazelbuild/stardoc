@@ -1,12 +1,64 @@
 <a id="${providerName}"></a>
+#if ($providerInfo.hasInit() && $initParamNamesEqualFieldNames && !$initParamsHaveDistinctDocs && !$initParamsWithInferredDocs.isEmpty())
+#set ($mergeParamsAndFields = true)
+#else
+#set ($mergeParamsAndFields = false)
+#end
 
 #[[##]]# ${providerName}
 
 <pre>
-${util.providerSummary($providerName, $providerInfo)}
-</pre>
+${util.loadStatement($providerName)}
 
-${util.htmlEscape($providerInfo.docString)}
+#if ($providerInfo.hasInit() && !$mergeParamsAndFields)
+${util.providerSummaryWithInitAnchor($providerName, $providerInfo)}
+#else
+${util.providerSummary($providerName, $providerInfo)}
+#end
+</pre>
+#if (!$providerInfo.docString.isEmpty())
+
+${providerInfo.docString}
+#end
+#if ($providerInfo.hasInit() && !$providerInfo.init.deprecated.docString.isEmpty())
+
+#[[###]]# Deprecated
+
+${providerInfo.init.deprecated.docString}
+#end
+#if ($providerInfo.hasInit() && !$providerInfo.init.parameterList.isEmpty() && !$mergeParamsAndFields)
+
+#[[###]]# Constructor parameters
+
+<table class="params-table">
+<colgroup>
+<col class="col-param" />
+<col class="col-description" />
+</colgroup>
+<tbody>
+#foreach ($param in $initParamsWithInferredDocs)
+<tr id="${providerName}-_init-${param.name}">
+<td><code>${param.name}</code></td>
+<td>
+
+${util.mandatoryString($param)}.
+#if(!$param.getDefaultValue().isEmpty())
+default is <code>$param.getDefaultValue()</code>
+#end
+
+#if (!$param.docString.isEmpty())
+<p>
+
+${param.docString.trim()}
+
+</p>
+#end
+</td>
+</tr>
+#end
+</tbody>
+</table>
+#end
 
 #if (!$providerInfo.fieldInfoList.isEmpty())
 #[[###]]# Fields
@@ -17,6 +69,28 @@ ${util.htmlEscape($providerInfo.docString)}
 <col class="col-description" />
 </colgroup>
 <tbody>
+#if ($mergeParamsAndFields)
+#foreach ($param in $initParamsWithInferredDocs)
+<tr id="${providerName}-_init-${param.name}">
+<td><code>${param.name}</code></td>
+<td>
+
+${util.mandatoryString($param)}.
+#if(!$param.getDefaultValue().isEmpty())
+default is <code>$param.getDefaultValue()</code>
+#end
+
+#if (!$param.docString.isEmpty())
+<p>
+
+${param.docString.trim()}
+
+</p>
+#end
+</td>
+</tr>
+#end
+#else
 #foreach ($field in $providerInfo.fieldInfoList)
 <tr id="${providerName}-${field.name}">
 <td><code>${field.name}</code></td>
@@ -28,6 +102,7 @@ ${field.docString}
 </p>
 </td>
 </tr>
+#end
 #end
 </tbody>
 </table>

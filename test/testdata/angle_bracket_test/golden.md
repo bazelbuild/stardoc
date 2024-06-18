@@ -17,6 +17,8 @@ Angle brackets are also preserved in inline code blocks (`#include <vector>`).
 ## my_anglebrac
 
 <pre>
+load("@stardoc//test:testdata/angle_bracket_test/input.bzl", "my_anglebrac")
+
 my_anglebrac(<a href="#my_anglebrac-name">name</a>, <a href="#my_anglebrac-also_useless">also_useless</a>, <a href="#my_anglebrac-useless">useless</a>)
 </pre>
 
@@ -37,13 +39,14 @@ Rule with \<brackets>
 ## bracketuse
 
 <pre>
+load("@stardoc//test:testdata/angle_bracket_test/input.bzl", "bracketuse")
+
 bracketuse(<a href="#bracketuse-foo">foo</a>, <a href="#bracketuse-bar">bar</a>, <a href="#bracketuse-baz">baz</a>)
 </pre>
 
 Information with \<brackets>
 
 **FIELDS**
-
 
 | Name  | Description |
 | :------------- | :------------- |
@@ -57,6 +60,8 @@ Information with \<brackets>
 ## bracket_function
 
 <pre>
+load("@stardoc//test:testdata/angle_bracket_test/input.bzl", "bracket_function")
+
 bracket_function(<a href="#bracket_function-param">param</a>, <a href="#bracket_function-md_string">md_string</a>)
 </pre>
 
@@ -94,6 +99,8 @@ deprecated for \<reasons> as well as `<reasons>`.
 ## bracket_aspect
 
 <pre>
+load("@stardoc//test:testdata/angle_bracket_test/input.bzl", "bracket_aspect")
+
 bracket_aspect(<a href="#bracket_aspect-name">name</a>, <a href="#bracket_aspect-brackets">brackets</a>)
 </pre>
 
