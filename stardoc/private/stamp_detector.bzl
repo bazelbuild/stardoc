@@ -18,7 +18,7 @@ StampDetectorInfo = provider(
     doc = "Result of detecting the --stamp flag",
     fields = {
         "enabled": "True if --stamp is enabled",
-    }
+    },
 )
 
 def _stamp_detector_impl(ctx):
@@ -28,6 +28,6 @@ stamp_detector = rule(
     _stamp_detector_impl,
     doc = """Detects if the --stamp flag is enabled""",
     attrs = {
-        "enabled": attr.bool(mandatory = True, doc = "True if --stamp flag is enabled")
+        "enabled": attr.bool(mandatory = True, doc = "True if --stamp flag is enabled"),
     },
 )
