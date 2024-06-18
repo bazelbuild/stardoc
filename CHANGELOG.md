@@ -33,7 +33,8 @@ in your `MODULE.bazel` file.
   Built on `$util.formatBuildTimestamp($stamping.volatile.BUILD_TIMESTAMP, "UTC", "yyyy-MM-dd HH:mm")`
   ```
 - Render documentation for provider `init` callbacks (#224)
-- Properly render `*args`, `*`, and `**kwargs` in summaries (#231)
+- Properly render `*args`, `*`, and `**kwargs` in summaries (#231). This requires
+  Bazel 8 (prerelease 20240603 or newer).
 - Include `load` statement in summaries (#216)
 
 **Incompatible Changes**
