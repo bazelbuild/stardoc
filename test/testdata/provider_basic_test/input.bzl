@@ -89,7 +89,7 @@ def _init_my_custom_init_with_mismatching_constructor_params_and_fields_info(foo
 MyCustomInitWithMismatchingConstructorParamsAndFieldsInfo, _new_my_custom_init_with_mismatching_constructor_params_and_fields_info = provider(
     doc = """
     A provider with a custom constructor whose set of constructor parameters does not equal the provider's set of fields.
-    
+
     We have no choice - we need to render constructor parameters as a separate table.
     """,
     init = _init_my_custom_init_with_mismatching_constructor_params_and_fields_info,
@@ -118,7 +118,7 @@ def _init_my_custom_init_with_documented_param_info(foo, bar = 42):
 MyCustomInitWithDocumentedParamInfo, _new_my_custom_init_with_documented_param_info = provider(
     doc = """
     A provider with a custom constructor with documented constructor parameters.
-    
+
     Docs for constructor parameters differ from docs for fields, so we need to render
     constructor parameters as a separate table.
     """,
