@@ -36,7 +36,7 @@ def stardoc(
         module_extension_template = Label("//stardoc:templates/markdown_tables/module_extension.vm"),
         footer_template = None,
         render_main_repo_name = True,
-        stamp = False,
+        stamp = -1,
         **kwargs):
     """Generates documentation for exported starlark rule definitions in a target starlark file.
 
@@ -63,7 +63,22 @@ def stardoc(
       footer_template: The input file template for generating the footer of the output documentation. Optional.
       render_main_repo_name: Render labels in the main repository with a repo component (either
         the module name or workspace name).
-      stamp: Whether to provide stamping information to templates.
+      stamp: Whether to provide stamping information to templates, where it can be accessed via
+        `$util.formatBuildTimestamp()` and`$stamping`. Example:
+        ```vm
+        Built on `$util.formatBuildTimestamp($stamping.volatile.BUILD_TIMESTAMP, "UTC", "yyyy-MM-dd HH:mm")`
+        ```
+        Possible values:
+        <ul>
+        <li>`stamp = 1`: Always provide stamping information, even in
+            [--nostamp](https://bazel.build/docs/user-manual#flag--stamp) builds.
+            This setting should be avoided, since it potentially kills remote caching for the target
+            and any downstream actions that depend on it.</li>
+        <li>`stamp = 0`: Do not provide stamping information.</li>
+        <li>`stamp = -1`: Provide stamping information only if the
+             [--stamp](https://bazel.build/docs/user-manual#flag--stamp) flag is set.</li>
+        </ul>
+        Stamped targets are not rebuilt unless their dependencies change.
       **kwargs: Further arguments to pass to stardoc.
     """
 
