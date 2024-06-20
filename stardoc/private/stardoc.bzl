@@ -14,8 +14,21 @@
 
 """Starlark rule for stardoc: a documentation generator tool written in Java."""
 
+load("//stardoc/private:stamp_detector.bzl", "StampDetectorInfo")
+
+def _is_stamp_enabled(ctx):
+    if ctx.attr.stamp == 1:
+        return True
+    elif ctx.attr.stamp == 0:
+        return False
+    elif ctx.attr.stamp == -1:
+        return ctx.attr._stamp_detector[StampDetectorInfo].enabled
+    else:
+        fail("`stamp` is expected to be one of [-1, 0, 1]")
+
 def _renderer_action_run(ctx, out_file, proto_file):
     """Helper for declaring the markdown renderer action"""
+    stamp_enabled = _is_stamp_enabled(ctx)
     renderer_args = ctx.actions.args()
     renderer_args.add("--input=" + str(proto_file.path))
     renderer_args.add("--output=" + str(ctx.outputs.out.path))
@@ -30,7 +43,7 @@ def _renderer_action_run(ctx, out_file, proto_file):
     renderer_args.add("--module_extension_template=" + str(ctx.file.module_extension_template.path))
     if ctx.file.footer_template:
         renderer_args.add("--footer_template=" + str(ctx.file.footer_template.path))
-    if ctx.attr.stamp:
+    if stamp_enabled:
         renderer_args.add("--stamping_stable_status_file=" + str(ctx.info_file.path))
         renderer_args.add("--stamping_volatile_status_file=" + str(ctx.version_file.path))
 
@@ -48,7 +61,7 @@ def _renderer_action_run(ctx, out_file, proto_file):
         inputs.append(ctx.file.table_of_contents_template)
     if ctx.file.footer_template:
         inputs.append(ctx.file.footer_template)
-    if ctx.attr.stamp:
+    if stamp_enabled:
         inputs.append(ctx.info_file)
         inputs.append(ctx.version_file)
 
@@ -122,9 +135,30 @@ _common_renderer_attrs = {
         doc = "The input file template for generating the footer of the output documentation. Optional.",
         allow_single_file = [".vm"],
     ),
-    "stamp": attr.bool(
-        doc = "Whether to provide stamping information to templates",
-        default = False,
+    "stamp": attr.int(
+        doc = """
+        Whether to provide stamping information to templates, where it can be accessed via
+        `$util.formatBuildTimestamp()` and`$stamping`. Example:
+        ```vm
+        Built on `$util.formatBuildTimestamp($stamping.volatile.BUILD_TIMESTAMP, "UTC", "yyyy-MM-dd HH:mm")`
+        ```
+
+        Possible values:
+        * `stamp = 1`: Always provide stamping information, even in
+          [--nostamp](https://bazel.build/docs/user-manual#flag--stamp) builds.
+          This setting should be avoided, since it potentially kills remote caching for the target
+          and any downstream actions that depend on it.
+        * `stamp = 0`: Do not provide stamping information.
+        * `stamp = -1`: Provide stamping information only if the
+           [--stamp](https://bazel.build/docs/user-manual#flag--stamp) flag is set.
+
+        Stamped targets are not rebuilt unless their dependencies change.
+        """,
+        default = -1,
+    ),
+    "_stamp_detector": attr.label(
+        default = "//stardoc/private:stamp_detector",
+        providers = [StampDetectorInfo],
     ),
 }
 
@@ -138,16 +172,13 @@ def _stardoc_markdown_renderer_impl(ctx):
     outputs = [out_file]
     return [DefaultInfo(files = depset(outputs), runfiles = ctx.runfiles(files = outputs))]
 
-# TODO(arostovtsev): replace with ... attrs = { ... } | _common_renderer_attrs
-# in rule definition below after we drop support for Bazel 5.
 _stardoc_markdown_renderer_attrs = {
     "src": attr.label(
         doc = "The .binaryproto file from which to generate documentation.",
         allow_single_file = [".binaryproto"],
         mandatory = True,
     ),
-}
-_stardoc_markdown_renderer_attrs.update(_common_renderer_attrs.items())
+} | _common_renderer_attrs
 
 stardoc_markdown_renderer = rule(
     _stardoc_markdown_renderer_impl,
