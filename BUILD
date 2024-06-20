@@ -43,7 +43,6 @@ filegroup(
         "CHANGELOG.md",
         "CONTRIBUTORS",
         "LICENSE",
-        "MODULE.bazel",
         "maven_install.json",
         "rules_jvm_external.patch",
         "//src/main/java/com/google/devtools/build/stardoc/renderer:srcs",
