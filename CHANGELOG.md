@@ -1,3 +1,12 @@
+## Release 0.7.1
+
+Bugfix release: support `--incompatible_enable_proto_toolchain_resolution` (#236).
+
+**Contributors**
+
+Alexandre Rostovtsev, Lukács Berki
+
+
 ## Release 0.7.0
 
 This release requires Bazel 7 or newer.
