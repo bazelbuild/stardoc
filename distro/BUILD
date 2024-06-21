@@ -33,13 +33,13 @@ strip_internal_only(
 # Build the artifact to put on the github release page.
 pkg_tar(
     name = "stardoc-%s" % version,
-    extension = "tar.gz",
     srcs = [
         "distro_module_bazel",
         "distro_workspace",
         "distro_workspace_bzlmod",
         "//:distro_srcs",
     ],
+    extension = "tar.gz",
     mode = "0644",
     # Make it owned by root so it does not have the uid of the CI robot.
     owner = "0.0",
