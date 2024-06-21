@@ -30,8 +30,10 @@ strip_internal_only(
     out = "WORKSPACE.bzlmod",
 )
 
+# Build the artifact to put on the github release page.
 pkg_tar(
-    name = "distro_srcs",
+    name = "stardoc-%s" % version,
+    extension = "tar.gz",
     srcs = [
         "distro_module_bazel",
         "distro_workspace",
@@ -43,27 +45,4 @@ pkg_tar(
     owner = "0.0",
     package_dir = "",
     strip_prefix = ".",
-)
-
-pkg_tar(
-    name = "distro_bins",
-    srcs = ["//:distro_bins"],
-    mode = "0755",
-    # Make it owned by root so it does not have the uid of the CI robot.
-    owner = "0.0",
-    package_dir = "",
-    strip_prefix = ".",
-)
-
-# Build the artifact to put on the github release page.
-pkg_tar(
-    name = "stardoc-%s" % version,
-    extension = "tar.gz",
-    # Make it owned by root so it does not have the uid of the CI robot.
-    owner = "0.0",
-    strip_prefix = ".",
-    deps = [
-        ":distro_bins.tar",
-        ":distro_srcs.tar",
-    ],
 )

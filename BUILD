@@ -52,12 +52,3 @@ filegroup(
     ] + glob(["*.bzl"]),
     visibility = ["//:__subpackages__"],
 )
-
-# Binaries needed for release tarball.
-filegroup(
-    name = "distro_bins",
-    srcs = [
-        "//stardoc:distro_bins",
-    ],
-    visibility = ["//:__subpackages__"],
-)
