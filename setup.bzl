@@ -50,13 +50,11 @@ def stardoc_repositories():
         sha256 = "f8ae9ed3887df02f40de9f4f7ac3873e6dd7a471f9cddf63952538b94b59aeb3",
     )
 
-    RULES_JVM_EXTERNAL_TAG = "5.2"
-    RULES_JVM_EXTERNAL_SHA = "f86fd42a809e1871ca0aabe89db0d440451219c3ce46c58da240c7dcdc00125f"
+    RULES_JVM_EXTERNAL_TAG = "6.1"
+    RULES_JVM_EXTERNAL_SHA = "08ea921df02ffe9924123b0686dc04fd0ff875710bfadb7ad42badb931b0fd50"
     maybe(
         http_archive,
         name = "rules_jvm_external",
-        patch_args = ["-p1"],
-        patches = ["@io_bazel_stardoc//:rules_jvm_external.patch"],
         strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
         sha256 = RULES_JVM_EXTERNAL_SHA,
         url = "https://github.com/bazelbuild/rules_jvm_external/releases/download/%s/rules_jvm_external-%s.tar.gz" % (RULES_JVM_EXTERNAL_TAG, RULES_JVM_EXTERNAL_TAG),
@@ -72,16 +70,22 @@ def stardoc_repositories():
         sha256 = "4531deccb913639c30e5c7512a054d5d875698daeb75d8cf90f284375fe7c360",
     )
 
+    maybe(
+        http_archive,
+        name = "toolchains_protoc",
+        sha256 = "3898f8e621ca5b3c7b94300c5ae19075d5bb28349d6e6f407490a466ba1e2544",
+        strip_prefix = "toolchains_protoc-0.3.1",
+        url = "https://github.com/aspect-build/toolchains_protoc/releases/download/v0.3.1/toolchains_protoc-v0.3.1.tar.gz",
+    )
+
     # Transitive dep of com_google_protobuf. Unfortunately, protobuf_deps()
     # pulls in a dep that's too old.
     maybe(
         http_archive,
         name = "rules_proto",
-        sha256 = "dc3fb206a2cb3441b485eb1e423165b231235a1ea9b031b4433cf7bc1fa460dd",
-        strip_prefix = "rules_proto-5.3.0-21.7",
-        urls = [
-            "https://github.com/bazelbuild/rules_proto/archive/refs/tags/5.3.0-21.7.tar.gz",
-        ],
+        sha256 = "6fb6767d1bef535310547e03247f7518b03487740c11b6c6adb7952033fe1295",
+        strip_prefix = "rules_proto-6.0.2",
+        url = "https://github.com/bazelbuild/rules_proto/releases/download/6.0.2/rules_proto-6.0.2.tar.gz",
     )
 
     # Transitive dep of com_google_protobuf. Unfortunately, protobuf_deps()
