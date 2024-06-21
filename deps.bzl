@@ -24,6 +24,7 @@ STARDOC_MAVEN_ARTIFACTS = [
     "com.google.guava:guava:31.1-jre",
     "com.google.truth:truth:1.1.3",
     "junit:junit:4.13.2",
+    "com.google.protobuf:protobuf-java:4.27.1",
 ]
 
 def stardoc_external_deps():
