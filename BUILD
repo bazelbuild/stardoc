@@ -44,21 +44,11 @@ filegroup(
         "CONTRIBUTORS",
         "LICENSE",
         "maven_install.json",
-        "rules_jvm_external.patch",
         "//src/main/java/com/google/devtools/build/stardoc/renderer:srcs",
         "//src/main/java/com/google/devtools/build/stardoc/rendering:srcs",
         "//stardoc:distro_srcs",
         "//stardoc/private:distro_srcs",
         "//stardoc/proto:distro_srcs",
     ] + glob(["*.bzl"]),
-    visibility = ["//:__subpackages__"],
-)
-
-# Binaries needed for release tarball.
-filegroup(
-    name = "distro_bins",
-    srcs = [
-        "//stardoc:distro_bins",
-    ],
     visibility = ["//:__subpackages__"],
 )
