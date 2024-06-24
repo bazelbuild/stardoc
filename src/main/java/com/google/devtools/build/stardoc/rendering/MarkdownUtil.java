@@ -23,6 +23,7 @@ import static java.util.Comparator.naturalOrder;
 import static java.util.stream.Collectors.joining;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AspectInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AttributeInfo;
@@ -335,15 +336,14 @@ public final class MarkdownUtil {
   @SuppressWarnings("unused") // Used by markdown template.
   public String loadStatement(String name) {
     return entrypointBzlFile
-        .map(file -> String.format("load(\"%s\", \"%s\")", file, name.split("\\.")[0]))
+        .map(
+            file ->
+                String.format(
+                    "load(\"%s\", \"%s\")", file, Splitter.on('.').split(name).iterator().next()))
         .orElse("");
   }
 
-  /**
-   * Returns a string representing the summary for a function or other callable.
-   *
-   * @param paramAnchorNamer translates a paremeter's name into the name of its HTML anchor
-   */
+  /** Returns a string representing the summary for a function or other callable. */
   private static String summary(String functionName, ImmutableList<Param> params) {
     ImmutableList<ImmutableList<Param>> paramLines = wrap(functionName, params, MAX_LINE_LENGTH);
     List<String> paramLinksLines = new ArrayList<>();
@@ -432,7 +432,7 @@ public final class MarkdownUtil {
     }
     // Invariant: nparams is now the number of non-residual parameters.
 
-    ImmutableList.Builder<Param> paramsBuilder = new ImmutableList.Builder();
+    ImmutableList.Builder<Param> paramsBuilder = new ImmutableList.Builder<>();
     int numKwonly = 0;
     // Add ordinary or positional-only params
     for (int i = 0; i < nparams; i++) {
