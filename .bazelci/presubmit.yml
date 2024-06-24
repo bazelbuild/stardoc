@@ -5,25 +5,30 @@ matrix:
     - ubuntu2004
     - macos
 
-.common_flags: &common_flags
-  ? "--incompatible_disable_starlark_host_transitions"
+.incompatible_flags: &incompatible_flags
+  ? "--config=incompatible"
 
 .noenable_bzlmod_flags: &noenable_bzlmod_flags
-  <<: *common_flags
+  ? "--noenable_bzlmod"
+
+.incompatible_noenable_bzlmod_flags: &incompatible_noenable_bzlmod_flags
+  ? "--config=incompatible"
   ? "--noenable_bzlmod"
 
 .windows_flags: &windows_flags
-  <<: *common_flags
   # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012
   ? "--noexperimental_repository_cache_hardlinks"
 
 .common_task_config: &common_task_config
-  build_flags: *common_flags
   build_targets:
     - "//..."
-  test_flags: *common_flags
   test_targets:
     - "//..."
+
+.incompatible_task_config: &incompatible_task_config
+  <<: *common_task_config
+  build_flags: *incompatible_flags
+  test_flags: *incompatible_flags
 
 .noenable_bzlmod_task_config: &noenable_bzlmod_task_config
   build_flags: *noenable_bzlmod_flags
@@ -41,6 +46,11 @@ matrix:
     - "//test:table_of_contents_noenable_bzlmod_test"
     - "//test:local_repository_test"
 
+.incompatible_noenable_bzlmod_task_config: &incompatible_noenable_bzlmod_task_config
+  <<: *noenable_bzlmod_task_config
+  build_flags: *incompatible_noenable_bzlmod_flags
+  test_flags: *incompatible_noenable_bzlmod_flags
+
 .windows_task_config: &windows_task_config
   <<: *common_task_config
   build_flags: *windows_flags
@@ -52,6 +62,11 @@ tasks:
     name: Build and test
     platform: ${{ platform }}
 
+  build_and_test_incompatible:
+    <<: *incompatible_task_config
+    name: Build and test - incompatible flags
+    platform: ${{ platform }}
+
   build_and_test_windows:
     <<: *windows_task_config
     name: Build and test - Windows
@@ -60,6 +75,11 @@ tasks:
   noenable_bzlmod:
     <<: *noenable_bzlmod_task_config
     name: Build and test - legacy WORKSPACE setup
+    platform: ${{ platform }}
+
+  incompatible_noenable_bzlmod:
+    <<: *incompatible_noenable_bzlmod_task_config
+    name: Build and test - legacy WORKSPACE setup with incompatible flags
     platform: ${{ platform }}
 
   build_and_test_last_green:
@@ -80,6 +100,12 @@ tasks:
     platform: ${{ platform }}
     working_directory: test/bzlmod
 
+  bzlmod_usage_incompatible:
+    <<: *incompatible_task_config
+    name: Stardoc Bzlmod module usage test - incompatible flags
+    platform: ${{ platform }}
+    working_directory: test/bzlmod
+
   bzlmod_usage_windows:
     <<: *windows_task_config
     name: Stardoc Bzlmod module usage test - Windows
@@ -90,8 +116,6 @@ tasks:
     name: Stardoc golden tests requiring Bazel 7.2
     platform: ubuntu2004
     bazel: 7.2.0
-    build_flags: *common_flags
-    test_flags: *common_flags
     test_targets:
     - "//test:proto_format_test"
     - "//test:macro_kwargs_legacy_test"
@@ -100,8 +124,6 @@ tasks:
     name: Stardoc golden tests requiring Bazel HEAD
     platform: ubuntu2004
     bazel: last_green
-    build_flags: *common_flags
-    test_flags: *common_flags
     test_targets:
     - "//test:macro_kwargs_test"
 
