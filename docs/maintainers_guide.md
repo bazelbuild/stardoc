@@ -15,8 +15,6 @@ tree, run `BAZEL_BRANCH=$BRANCH_OR_SHA ./update-release-binary.sh`
 
 1.  Verify tests. Verify that dependencies are consistent between `setup.bzl` +
     `WORKSPACE` and `MODULE.bazel`.
-
-    Run `./distro-manual-test.sh` to verify that the distro tarball is usable.
 2.  Update `CHANGELOG.md` at the top. You may want to use the following \
     template:
 
@@ -43,7 +41,7 @@ Name 1, Name 2, Name 3 (alphabetically)
 3.  Bump `version` in `version.bzl` *and* `MODULE.bazel` to the new version.
 4.  Ensure that the commits for steps 1-3 have been merged. All further steps
     must be performed on a single, known-good git commit.
-5.  `bazel build //distro`
+5.  `git archive HEAD --format=tar.gz -o stardoc-${VERSION}.tar.gz`
 6.  Copy the `stardoc-$VERSION.tar.gz` tarball to the mirror (you'll need Bazel
     developer gcloud credentials; assuming you are a Bazel developer, you can
     obtain them via `gcloud init`):

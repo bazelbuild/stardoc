@@ -24,14 +24,3 @@ stamp_detector(
     }),
     visibility = ["//visibility:private"],
 )
-
-# Sources needed for release tarball.
-filegroup(
-    name = "distro_srcs",
-    srcs = [
-        "BUILD",
-    ] + glob([
-        "*.bzl",
-    ]),
-    visibility = ["//:__pkg__"],
-)

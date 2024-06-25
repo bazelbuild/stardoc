@@ -14,10 +14,3 @@ toolchain(
     toolchain = ":protoc_java_toolchain",
     toolchain_type = "@rules_java//java/proto:toolchain_type",
 )
-
-# Sources needed for release tarball.
-filegroup(
-    name = "distro_srcs",
-    srcs = ["BUILD.bazel"],
-    visibility = ["//:__pkg__"],
-)

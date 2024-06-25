@@ -33,23 +33,3 @@ filegroup(
     srcs = ["docs/stardoc_rule.md"],
     visibility = ["//test:__pkg__"],
 )
-
-# Sources needed for release tarball.
-filegroup(
-    name = "distro_srcs",
-    srcs = [
-        "AUTHORS",
-        "BUILD",
-        "CHANGELOG.md",
-        "CONTRIBUTORS",
-        "LICENSE",
-        "maven_install.json",
-        "//src/main/java/com/google/devtools/build/stardoc/renderer:srcs",
-        "//src/main/java/com/google/devtools/build/stardoc/rendering:srcs",
-        "//stardoc:distro_srcs",
-        "//stardoc/private:distro_srcs",
-        "//stardoc/proto:distro_srcs",
-        "//toolchains:distro_srcs",
-    ] + glob(["*.bzl"]),
-    visibility = ["//:__subpackages__"],
-)
