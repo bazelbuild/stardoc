@@ -15,6 +15,8 @@ tree, run `BAZEL_BRANCH=$BRANCH_OR_SHA ./update-release-binary.sh`
 
 1.  Verify tests. Verify that dependencies are consistent between `setup.bzl` +
     `WORKSPACE` and `MODULE.bazel`.
+
+    Run `./distro-manual-test.sh` to verify that the distro tarball is usable.
 2.  Update `CHANGELOG.md` at the top. You may want to use the following \
     template:
 

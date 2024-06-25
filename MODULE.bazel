@@ -35,9 +35,12 @@ maven.install(
 )
 use_repo(maven, "stardoc_maven")
 
+register_toolchains("//toolchains:all")
+
 ### INTERNAL ONLY - lines after this are not included in the release packaging.
 #
 # Dev-only and test-only dependencies
-bazel_dep(name = "rules_pkg", version = "0.10.1", dev_dependency = True)
 
-register_toolchains("//toolchains:all")
+# rules_pkg pulls in rules_python-0.24.0, which is broken on macOS
+bazel_dep(name = "rules_python", version = "0.33.2", dev_dependency = True)
+bazel_dep(name = "rules_pkg", version = "0.10.1", dev_dependency = True)

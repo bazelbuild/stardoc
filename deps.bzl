@@ -16,6 +16,10 @@
 
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 load("@rules_jvm_external//:defs.bzl", "maven_install")
+load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies")
+load("@rules_proto//proto:setup.bzl", "rules_proto_setup")
+load("@rules_proto//proto:toolchains.bzl", "rules_proto_toolchains")
+load("@toolchains_protoc//protoc:toolchain.bzl", "protoc_toolchains")
 
 # Maven artifacts required by Stardoc; keep consistent with MODULE.bazel
 STARDOC_MAVEN_ARTIFACTS = [
@@ -27,9 +31,10 @@ STARDOC_MAVEN_ARTIFACTS = [
     "com.google.protobuf:protobuf-java:4.27.1",
 ]
 
-def stardoc_external_deps():
+# buildifier: disable=unnamed-macro
+def stardoc_external_deps(*, register_toolchains = True):
     """
-    Sets up Stardoc's workspace dependencies.
+    Sets up Stardoc's workspace dependencies and (optionally) protoc toolchains.
 
     Requires stardoc_repositories() to be called first.
 
@@ -40,9 +45,11 @@ def stardoc_external_deps():
 
         stardoc_pinned_maven_install()
     ```
-    """
-    protobuf_deps()
 
+    Args:
+      register_toolchains: automatically register Stardoc's protoc toolchains; this is
+        required if the --incompatible_enable_proto_toolchain_resolution flag is set
+    """
     maven_install(
         name = "stardoc_maven",
         artifacts = STARDOC_MAVEN_ARTIFACTS,
@@ -53,3 +60,20 @@ def stardoc_external_deps():
         ],
         strict_visibility = True,
     )
+
+    protobuf_deps()
+
+    rules_proto_dependencies()
+
+    # Note rules_proto_setup() requires @bazel_features - we define it in stardoc_repositories()
+    rules_proto_setup()
+
+    if register_toolchains:
+        rules_proto_toolchains()
+
+        protoc_toolchains(
+            name = "stardoc_protoc_toolchains",
+            version = "v27.1",
+        )
+
+        native.register_toolchains("//toolchains:all")

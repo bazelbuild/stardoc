@@ -49,6 +49,7 @@ filegroup(
         "//stardoc:distro_srcs",
         "//stardoc/private:distro_srcs",
         "//stardoc/proto:distro_srcs",
+        "//toolchains:distro_srcs",
     ] + glob(["*.bzl"]),
     visibility = ["//:__subpackages__"],
 )

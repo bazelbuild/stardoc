@@ -78,8 +78,6 @@ def stardoc_repositories():
         url = "https://github.com/aspect-build/toolchains_protoc/releases/download/v0.3.1/toolchains_protoc-v0.3.1.tar.gz",
     )
 
-    # Transitive dep of com_google_protobuf. Unfortunately, protobuf_deps()
-    # pulls in a dep that's too old.
     maybe(
         http_archive,
         name = "rules_proto",
@@ -88,12 +86,23 @@ def stardoc_repositories():
         url = "https://github.com/bazelbuild/rules_proto/releases/download/6.0.2/rules_proto-6.0.2.tar.gz",
     )
 
+    # Transitive dep of rules_proto and toolchains_protoc. Pull in explicitly to allow calling
+    # both rules_proto_dependencies() and rules_proto_setup() in stardoc_external_deps() without
+    # forcing users to add yet another intermediate load() in their WORKSPACE files
+    maybe(
+        http_archive,
+        name = "bazel_features",
+        sha256 = "0f23d75c7623d6dba1fd30513a94860447de87c8824570521fcc966eda3151c2",
+        strip_prefix = "bazel_features-1.4.1",
+        url = "https://github.com/bazel-contrib/bazel_features/releases/download/v1.4.1/bazel_features-v1.4.1.tar.gz",
+    )
+
     # Transitive dep of com_google_protobuf. Unfortunately, protobuf_deps()
     # pulls in a dep that's too old.
     maybe(
         http_archive,
         name = "rules_python",
-        sha256 = "a644da969b6824cc87f8fe7b18101a8a6c57da5db39caa6566ec6109f37d2141",
-        strip_prefix = "rules_python-0.20.0",
-        url = "https://github.com/bazelbuild/rules_python/releases/download/0.20.0/rules_python-0.20.0.tar.gz",
+        sha256 = "0a8003b044294d7840ac7d9d73eef05d6ceb682d7516781a4ec62eeb34702578",
+        strip_prefix = "rules_python-0.24.0",
+        url = "https://github.com/bazelbuild/rules_python/releases/download/0.24.0/rules_python-0.24.0.tar.gz",
     )
