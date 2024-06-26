@@ -1,6 +1,5 @@
 workspace(name = "io_bazel_stardoc")
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load(":setup.bzl", "stardoc_repositories")
 
 stardoc_repositories()
