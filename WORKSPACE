@@ -12,13 +12,15 @@ load("@rules_jvm_external//:setup.bzl", "rules_jvm_external_setup")
 
 rules_jvm_external_setup()
 
-load(":deps.bzl", "stardoc_external_deps")
+load("@io_bazel_stardoc//:deps.bzl", "stardoc_external_deps", "stardoc_register_proto_toolchains")
 
 stardoc_external_deps()
 
 load("@stardoc_maven//:defs.bzl", stardoc_pinned_maven_install = "pinned_maven_install")
 
 stardoc_pinned_maven_install()
+
+stardoc_register_proto_toolchains()
 
 # Needed only for testing stardoc across local-repository bounds.
 local_repository(

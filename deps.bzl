@@ -31,8 +31,7 @@ STARDOC_MAVEN_ARTIFACTS = [
     "com.google.protobuf:protobuf-java:4.27.1",
 ]
 
-# buildifier: disable=unnamed-macro
-def stardoc_external_deps(*, register_toolchains = True):
+def stardoc_external_deps():
     """
     Sets up Stardoc's workspace dependencies and (optionally) protoc toolchains.
 
@@ -45,10 +44,6 @@ def stardoc_external_deps(*, register_toolchains = True):
 
         stardoc_pinned_maven_install()
     ```
-
-    Args:
-      register_toolchains: automatically register Stardoc's protoc toolchains; this is
-        required if the --incompatible_enable_proto_toolchain_resolution flag is set
     """
     maven_install(
         name = "stardoc_maven",
@@ -68,12 +63,19 @@ def stardoc_external_deps(*, register_toolchains = True):
     # Note rules_proto_setup() requires @bazel_features - we define it in stardoc_repositories()
     rules_proto_setup()
 
-    if register_toolchains:
-        rules_proto_toolchains()
+# buildifier: disable=unnamed-macro
+def stardoc_register_proto_toolchains():
+    """
+    Registers Stardoc's Java proto toolchains.
 
-        protoc_toolchains(
-            name = "stardoc_protoc_toolchains",
-            version = "v27.1",
-        )
+    When building with --incompatible_enable_proto_toolchain_resolution,
+    Stardoc needs a Java proto toolchain to be explicitly registered.
+    """
+    rules_proto_toolchains()
 
-        native.register_toolchains("//toolchains:all")
+    protoc_toolchains(
+        name = "stardoc_protoc_toolchains",
+        version = "v27.1",
+    )
+
+    native.register_toolchains("//toolchains:all")
