@@ -33,7 +33,7 @@ STARDOC_MAVEN_ARTIFACTS = [
 
 def stardoc_external_deps():
     """
-    Sets up Stardoc's workspace dependencies and (optionally) protoc toolchains.
+    Sets up Stardoc's workspace dependencies.
 
     Requires stardoc_repositories() to be called first.
 
