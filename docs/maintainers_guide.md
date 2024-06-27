@@ -41,7 +41,7 @@ Name 1, Name 2, Name 3 (alphabetically)
 3.  Bump `version` in `version.bzl` *and* `MODULE.bazel` to the new version.
 4.  Ensure that the commits for steps 1-3 have been merged. All further steps
     must be performed on a single, known-good git commit.
-5.  `bazel build //distro`
+5.  `git archive HEAD --format=tar.gz -o stardoc-${VERSION}.tar.gz`
 6.  Copy the `stardoc-$VERSION.tar.gz` tarball to the mirror (you'll need Bazel
     developer gcloud credentials; assuming you are a Bazel developer, you can
     obtain them via `gcloud init`):
@@ -103,13 +103,15 @@ load("@rules_jvm_external//:setup.bzl", "rules_jvm_external_setup")
 
 rules_jvm_external_setup()
 
-load("@io_bazel_stardoc//:deps.bzl", "stardoc_external_deps")
+load("@io_bazel_stardoc//:deps.bzl", "stardoc_external_deps", "stardoc_register_proto_toolchains")
 
 stardoc_external_deps()
 
 load("@stardoc_maven//:defs.bzl", stardoc_pinned_maven_install = "pinned_maven_install")
 
 stardoc_pinned_maven_install()
+
+stardoc_register_proto_toolchains()
 ```
 
 The sequence of function calls and load statements after the `io_bazel_stardoc`

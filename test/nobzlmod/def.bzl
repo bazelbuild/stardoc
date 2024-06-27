@@ -12,21 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Macros related to distro tarball packaging"""
+"""A simple macro used to test stardoc."""
 
-def strip_internal_only(name, src, out):
-    """Strip an internal-only block from a file
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("@platforms//host:constraints.bzl", "HOST_CONSTRAINTS")
 
-    Removes everything starting with `### INTERNAL ONLY` and ending with `### END INTERNAL ONLY` (or up to the end of the file).
+def write_host_constraints(name):
+    """Emits the constraints of the host platform to a file.
 
     Args:
-        name: Target name
-        src: Input file
-        out: Output file
+      name: The name of the target. The output file will be named
+        `<name>.txt`.
     """
-    native.genrule(
+    write_file(
         name = name,
-        srcs = [src],
-        outs = [out],
-        cmd = "sed -e '/### INTERNAL ONLY/,/### END INTERNAL ONLY/d' $(location %s) >$@" % src,
+        content = HOST_CONSTRAINTS,
+        out = name + ".txt",
     )

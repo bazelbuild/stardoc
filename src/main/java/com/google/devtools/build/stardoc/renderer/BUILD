@@ -2,12 +2,6 @@ load("@rules_java//java:defs.bzl", "java_binary", "java_library")
 
 package(default_applicable_licenses = ["//:license"])
 
-filegroup(
-    name = "srcs",
-    srcs = glob(["**"]),
-    visibility = ["//:__pkg__"],
-)
-
 java_binary(
     name = "renderer",
     jvm_flags = [

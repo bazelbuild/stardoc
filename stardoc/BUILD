@@ -53,15 +53,3 @@ alias(
     name = "renderer",
     actual = "//src/main/java/com/google/devtools/build/stardoc/renderer",
 )
-
-# Sources needed for release tarball.
-filegroup(
-    name = "distro_srcs",
-    srcs = [
-        "BUILD",
-    ] + glob([
-        "*.bzl",
-        "templates/**",
-    ]),
-    visibility = ["//:__pkg__"],
-)

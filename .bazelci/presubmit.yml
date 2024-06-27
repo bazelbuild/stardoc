@@ -112,6 +112,24 @@ tasks:
     platform: windows
     working_directory: test/bzlmod
 
+  noenable_bzlmod_usage:
+    <<: *common_task_config
+    name: Stardoc legacy workspace usage test
+    platform: ${{ platform }}
+    working_directory: test/nobzlmod
+
+  noenable_bzlmod_usage_incompatible:
+    <<: *incompatible_task_config
+    name: Stardoc Blegacy workspace usage test - incompatible flags
+    platform: ${{ platform }}
+    working_directory: test/nobzlmod
+
+  noenable_bzlmod_usage_windows:
+    <<: *windows_task_config
+    name: Stardoc legacy workspace usage test - Windows
+    platform: windows
+    working_directory: test/nobzlmod
+
   bazel_7_2_tests:
     name: Stardoc golden tests requiring Bazel 7.2
     platform: ubuntu2004

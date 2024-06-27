@@ -5,12 +5,6 @@ package(
     default_visibility = ["//src:__subpackages__"],
 )
 
-filegroup(
-    name = "srcs",
-    srcs = glob(["**"]),
-    visibility = ["//:__pkg__"],
-)
-
 java_library(
     name = "rendering",
     srcs = glob(
