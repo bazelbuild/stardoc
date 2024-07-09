@@ -5,14 +5,7 @@ matrix:
     - ubuntu2004
     - macos
 
-.incompatible_flags: &incompatible_flags
-  ? "--config=incompatible"
-
 .noenable_bzlmod_flags: &noenable_bzlmod_flags
-  ? "--noenable_bzlmod"
-
-.incompatible_noenable_bzlmod_flags: &incompatible_noenable_bzlmod_flags
-  ? "--config=incompatible"
   ? "--noenable_bzlmod"
 
 .windows_flags: &windows_flags
@@ -24,11 +17,6 @@ matrix:
     - "//..."
   test_targets:
     - "//..."
-
-.incompatible_task_config: &incompatible_task_config
-  <<: *common_task_config
-  build_flags: *incompatible_flags
-  test_flags: *incompatible_flags
 
 .noenable_bzlmod_task_config: &noenable_bzlmod_task_config
   build_flags: *noenable_bzlmod_flags
@@ -46,11 +34,6 @@ matrix:
     - "//test:table_of_contents_noenable_bzlmod_test"
     - "//test:local_repository_test"
 
-.incompatible_noenable_bzlmod_task_config: &incompatible_noenable_bzlmod_task_config
-  <<: *noenable_bzlmod_task_config
-  build_flags: *incompatible_noenable_bzlmod_flags
-  test_flags: *incompatible_noenable_bzlmod_flags
-
 .windows_task_config: &windows_task_config
   <<: *common_task_config
   build_flags: *windows_flags
@@ -62,11 +45,6 @@ tasks:
     name: Build and test
     platform: ${{ platform }}
 
-  build_and_test_incompatible:
-    <<: *incompatible_task_config
-    name: Build and test - incompatible flags
-    platform: ${{ platform }}
-
   build_and_test_windows:
     <<: *windows_task_config
     name: Build and test - Windows
@@ -75,11 +53,6 @@ tasks:
   noenable_bzlmod:
     <<: *noenable_bzlmod_task_config
     name: Build and test - legacy WORKSPACE setup
-    platform: ${{ platform }}
-
-  incompatible_noenable_bzlmod:
-    <<: *incompatible_noenable_bzlmod_task_config
-    name: Build and test - legacy WORKSPACE setup with incompatible flags
     platform: ${{ platform }}
 
   build_and_test_last_green:
@@ -97,12 +70,6 @@ tasks:
   bzlmod_usage:
     <<: *common_task_config
     name: Stardoc Bzlmod module usage test
-    platform: ${{ platform }}
-    working_directory: test/bzlmod
-
-  bzlmod_usage_incompatible:
-    <<: *incompatible_task_config
-    name: Stardoc Bzlmod module usage test - incompatible flags
     platform: ${{ platform }}
     working_directory: test/bzlmod
 

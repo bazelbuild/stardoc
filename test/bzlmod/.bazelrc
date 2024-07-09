@@ -6,5 +6,3 @@ build --tool_java_language_version=11
 build --incompatible_disable_starlark_host_transitions
 build --incompatible_disallow_empty_glob
 
-# Incompatible flags to test in a dedicated CI pipeline.
-build:incompatible --incompatible_enable_proto_toolchain_resolution
