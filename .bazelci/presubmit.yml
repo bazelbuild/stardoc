@@ -119,6 +119,7 @@ tasks:
     test_targets:
     - "//test:proto_format_test"
     - "//test:macro_kwargs_legacy_test"
+    skip_in_bazel_downstream_pipeline: Manual tests requiring an older Bazel version
 
   bazel_8_tests:
     name: Stardoc golden tests requiring Bazel HEAD
