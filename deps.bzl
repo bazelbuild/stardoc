@@ -16,6 +16,8 @@
 
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 load("@rules_jvm_external//:defs.bzl", "maven_install")
+load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies")
+load("@rules_proto//proto:setup.bzl", "rules_proto_setup")
 
 # Maven artifacts required by Stardoc; keep consistent with MODULE.bazel
 STARDOC_MAVEN_ARTIFACTS = [
@@ -24,7 +26,6 @@ STARDOC_MAVEN_ARTIFACTS = [
     "com.google.guava:guava:31.1-jre",
     "com.google.truth:truth:1.1.3",
     "junit:junit:4.13.2",
-    "com.google.protobuf:protobuf-java:4.27.1",
 ]
 
 def stardoc_external_deps():
@@ -41,8 +42,6 @@ def stardoc_external_deps():
         stardoc_pinned_maven_install()
     ```
     """
-    protobuf_deps()
-
     maven_install(
         name = "stardoc_maven",
         artifacts = STARDOC_MAVEN_ARTIFACTS,
@@ -53,3 +52,10 @@ def stardoc_external_deps():
         ],
         strict_visibility = True,
     )
+
+    protobuf_deps()
+
+    rules_proto_dependencies()
+
+    # Note rules_proto_setup() requires @bazel_features - we define it in stardoc_repositories()
+    rules_proto_setup()
