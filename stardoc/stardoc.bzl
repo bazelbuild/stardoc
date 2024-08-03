@@ -94,7 +94,7 @@ def stardoc(
 
     if "tags" in kwargs:
         # Merge the user-provided tags with the default tags
-        auxiliary_target_kwargs["tags"] += kwargs["tags"]    
+        auxiliary_target_kwargs["tags"] += kwargs["tags"]
 
     if format == "proto" and Label(name + ".binaryproto") == Label(out):
         extractor_is_main_target = True
