@@ -93,11 +93,10 @@ def stardoc(
         auxiliary_target_kwargs["testonly"] = kwargs["testonly"]
 
     if "tags" in kwargs:
-        # Merge the user-provided tags with the default tags, avoiding duplicates
-        user_tags = kwargs["tags"]
-        for tag in user_tags:
-            if tag not in auxiliary_target_kwargs["tags"]:
-                auxiliary_target_kwargs["tags"].append(tag)
+        # we use a set to merge the tags and avoid duplicates
+        user_tags = set(kwargs["tags"])
+        auxiliary_target_kwargs["tags"].update(user_tags)
+        auxiliary_target_kwargs["tags"] = list(auxiliary_target_kwargs["tags"])
 
     if format == "proto" and Label(name + ".binaryproto") == Label(out):
         extractor_is_main_target = True
