@@ -7,35 +7,32 @@ written in [Starlark](https://bazel.build/docs/skylark/index.html).
 
 Stardoc provides a Starlark rule (`stardoc`, see [documentation](docs/stardoc_rule.md)) that can
 be used to build documentation for Starlark rules in Markdown. Stardoc generates one documentation
-page per `.bzl`file.
+page per `.bzl` file.
 
 ## Get Started
 
 * How to [set up Stardoc for your project](docs/getting_started_stardoc.md)
 * Writing [docstrings](docs/writing_stardoc.md)
-* How to [integrate Stardoc with your build](docs/generating_stardoc.md).
-* See also [Advanced Topics](docs/advanced_stardoc_usage.md).
+* How to [integrate Stardoc with your build](docs/generating_stardoc.md)
+* See also [Advanced Topics](docs/advanced_stardoc_usage.md)
 
 ## About Stardoc
 
-* Stardoc [rule reference](docs/stardoc_rule.md).
+* Stardoc [rule reference](docs/stardoc_rule.md)
 * How to [contribute to Stardoc](docs/contributing.md)
 
 ## Project Status
 
-### Skydoc deprecation
+### Skydoc Deprecation
 
 Stardoc is a replacement for the **deprecated** "Skydoc" documentation generator.
 
-See [Skydoc Deprecation](docs/skydoc_deprecation.md) for
-details on the deprecation and migration details.
+See [Skydoc Deprecation](docs/skydoc_deprecation.md) for details on the deprecation and migration details.
 
-### Future plans
+### Future Plans
 
-See our [future plans](docs/future_plans.md) for refactoring Stardoc to be more consistent with how Bazel evaluates .bzl files, and what it means for maintenance of this project.
+See our [future plans](docs/future_plans.md) for refactoring Stardoc to be more consistent with how Bazel evaluates `.bzl` files, and what it means for maintenance of this project.
 
-### Maintainer's guide
+### Maintainer's Guide
 
-See the [maintaner's guide](docs/maintainers_guide.md) for instructions for
-cutting a new release.
-
+See the [Maintainer's guide](docs/maintainers_guide.md) for instructions on cutting a new release.
