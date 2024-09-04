@@ -7,6 +7,7 @@ matrix:
 
 .noenable_bzlmod_flags: &noenable_bzlmod_flags
   ? "--noenable_bzlmod"
+  ? "--enable_workspace"
 
 .windows_flags: &windows_flags
   # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012

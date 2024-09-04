@@ -373,6 +373,10 @@ sh_test(
         "@local_repository_test//:golden.md",
         "@local_repository_test//:output.md",
     ],
+    tags = [
+        "manual",
+        "noenable_bzlmod",
+    ],
 )
 
 # Consistency tests for WORKSPACE-related .bzl files vs. MODULE.bazel
