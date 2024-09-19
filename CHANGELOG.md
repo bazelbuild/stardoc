@@ -1,3 +1,16 @@
+## Release 0.7.1
+
+**Notable Changes**
+
+- Really fix building with `--incompatible_disallow_empty_glob` (#238).
+- Auxiliary rule targets created by `stardoc()` macro now include provided
+  `tags` (#247)
+
+**Contributors**
+
+Alexandre Rostovtsev, Lukács Berki, yashathwani
+
+
 ## Release 0.7.0
 
 This release requires Bazel 7 or newer.

@@ -558,6 +558,8 @@ public final class MarkdownUtil {
         return "Boolean";
       case LABEL_STRING_DICT:
         return "Dictionary: Label -> String";
+      case LABEL_DICT_UNARY:
+        return "Dictionary: String -> Label";
       case STRING_DICT:
         return "Dictionary: String -> String";
       case STRING_LIST_DICT:
