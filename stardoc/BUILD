@@ -85,6 +85,9 @@ filegroup(
 # Binaries needed for release tarball.
 filegroup(
     name = "distro_bins",
-    srcs = glob(["*.jar"]),
+    srcs = glob(
+        ["*.jar"],
+        allow_empty = True,
+    ),
     visibility = ["//:__pkg__"],
 )
