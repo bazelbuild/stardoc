@@ -36,10 +36,10 @@ my_rule = rule(
         ),
         "fourth": attr.label(
             # buildifier: disable=native-proto
-            providers = [ProtoInfo, DefaultInfo, JavaInfo],
+            providers = [ProtoInfo, DefaultInfo],
         ),
         "fifth": attr.label(
-            providers = [["LegacyProvider", "ObjectProvider"], [DefaultInfo, JavaInfo]],
+            providers = [["LegacyProvider", "ObjectProvider"], [DefaultInfo]],
         ),
         "sixth": attr.label(
             providers = ["LegacyProvider"],
