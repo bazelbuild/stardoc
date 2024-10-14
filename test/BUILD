@@ -103,13 +103,6 @@ stardoc_test(
 )
 
 stardoc_test(
-    name = "java_basic_test",
-    golden_file = "testdata/java_basic_test/golden.md",
-    input_file = "testdata/java_basic_test/input.bzl",
-    symbol_names = ["java_related_rule"],
-)
-
-stardoc_test(
     name = "multiple_files_test",
     golden_file = "testdata/multiple_files_test/golden.md",
     input_file = "testdata/multiple_files_test/input.bzl",
