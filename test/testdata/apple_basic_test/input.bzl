@@ -2,7 +2,7 @@
 # buildifier: disable=function-docstring
 def exercise_the_api():
     var1 = apple_common.platform_type  # @unused
-    var2 = apple_common.AppleDynamicFramework  # @unused
+    var2 = apple_common.XcodeVersionConfig  # @unused
 
 exercise_the_api()
 
