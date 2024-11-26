@@ -15,10 +15,10 @@
 """WORKSPACE dependency definitions for Stardoc."""
 
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-load("@rules_java//java:rules_java_deps.bzl", "rules_java_dependencies")
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies")
 load("@rules_proto//proto:setup.bzl", "rules_proto_setup")
+load("@rules_python//python:repositories.bzl", "py_repositories")
 
 # Maven artifacts required by Stardoc; keep consistent with MODULE.bazel
 STARDOC_MAVEN_ARTIFACTS = [
@@ -53,6 +53,8 @@ def stardoc_external_deps():
         ],
         strict_visibility = True,
     )
+
+    py_repositories()
 
     rules_proto_dependencies()
 
