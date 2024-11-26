@@ -1,7 +1,6 @@
 ---
 matrix:
   platform:
-    - ubuntu1804
     - ubuntu2004
     - macos
 
