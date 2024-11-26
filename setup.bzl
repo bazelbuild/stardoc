@@ -22,12 +22,21 @@ def stardoc_repositories():
     maybe(
         http_archive,
         name = "bazel_skylib",
-        sha256 = "9f38886a40548c6e96c106b752f242130ee11aaa068a56ba7e56f4511f33e4f2",
+        sha256 = "bc283cdfcd526a52c3201279cda4bc298652efa898b10b4db0837dc51652756f",
         urls = [
-            "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.6.1/bazel-skylib-1.6.1.tar.gz",
-            "https://github.com/bazelbuild/bazel-skylib/releases/download/1.6.1/bazel-skylib-1.6.1.tar.gz",
+            "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.7.1/bazel-skylib-1.7.1.tar.gz",
+            "https://github.com/bazelbuild/bazel-skylib/releases/download/1.7.1/bazel-skylib-1.7.1.tar.gz",
         ],
     )
+    ##maybe(
+    ##    http_archive,
+    ##    name = "bazel_skylib",
+    ##    sha256 = "9f38886a40548c6e96c106b752f242130ee11aaa068a56ba7e56f4511f33e4f2",
+    ##    urls = [
+    ##        "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.6.1/bazel-skylib-1.6.1.tar.gz",
+    ##        "https://github.com/bazelbuild/bazel-skylib/releases/download/1.6.1/bazel-skylib-1.6.1.tar.gz",
+    ##    ],
+    ##)
 
     ##maybe(
     ##    http_archive,
@@ -117,6 +126,7 @@ def stardoc_repositories():
         url = "https://github.com/bazelbuild/rules_python/releases/download/0.20.0/rules_python-0.20.0.tar.gz",
     )
 
+    ## Fail: rules_cc defs.bzl doesn't have cc_proto_library via
     ##maybe(
     ##    http_archive,
     ##    name = "rules_cc",
@@ -124,6 +134,7 @@ def stardoc_repositories():
     ##    strip_prefix = "rules_cc-0.1.0",
     ##    urls = ["https://github.com/bazelbuild/rules_cc/releases/download/0.1.0/rules_cc-0.1.0.tar.gz"],
     ##)
+
     maybe(
         http_archive,
         name = "rules_cc",
@@ -131,3 +142,12 @@ def stardoc_repositories():
         sha256 = "abc605dd850f813bb37004b77db20106a19311a96b2da1c92b789da529d28fe1",
         strip_prefix = "rules_cc-0.0.17",
     )
+
+    ## Not tried
+    ##maybe(
+    ##    http_archive,
+    ##    name = "rules_cc",
+    ##    urls = ["https://github.com/bazelbuild/rules_cc/releases/download/0.0.16/rules_cc-0.0.16.tar.gz"],
+    ##    sha256 = "bbf1ae2f83305b7053b11e4467d317a7ba3517a12cef608543c1b1c5bf48a4df",
+    ##    strip_prefix = "rules_cc-0.0.16",
+    ##)
