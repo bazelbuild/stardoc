@@ -61,9 +61,9 @@ def stardoc_repositories():
         http_archive,
         name = "rules_java",
         urls = [
-            "https://github.com/bazelbuild/rules_java/releases/download/8.0.0-rc1/rules_java-8.0.0-rc1.tar.gz",
+            "https://github.com/bazelbuild/rules_java/releases/download/7.12.1/rules_java-7.12.1.tar.gz",
         ],
-        sha256 = "b2441c2afdc3b79fba75721c5c5ccbca947f15cc7f107c033efa18845933f975",
+        sha256 = "dfbadbb37a79eb9e1cc1e156ecb8f817edf3899b28bc02410a6c1eb88b1a6862",
     )
 
     RULES_JVM_EXTERNAL_TAG = "6.1"
