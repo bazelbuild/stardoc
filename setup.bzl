@@ -48,14 +48,22 @@ def stardoc_repositories():
         strip_prefix = "protobuf-29.0-rc2",
     )
 
+    ##maybe(
+    ##    http_archive,
+    ##    name = "rules_java",
+    ##    urls = [
+    ##        "https://mirror.bazel.build/github.com/bazelbuild/rules_java/releases/download/7.6.1/rules_java-7.6.1.tar.gz",
+    ##        "https://github.com/bazelbuild/rules_java/releases/download/7.6.1/rules_java-7.6.1.tar.gz",
+    ##    ],
+    ##    sha256 = "f8ae9ed3887df02f40de9f4f7ac3873e6dd7a471f9cddf63952538b94b59aeb3",
+    ##)
     maybe(
         http_archive,
         name = "rules_java",
         urls = [
-            "https://mirror.bazel.build/github.com/bazelbuild/rules_java/releases/download/7.6.1/rules_java-7.6.1.tar.gz",
-            "https://github.com/bazelbuild/rules_java/releases/download/7.6.1/rules_java-7.6.1.tar.gz",
+            "https://github.com/bazelbuild/rules_java/releases/download/8.0.0-rc1/rules_java-8.0.0-rc1.tar.gz",
         ],
-        sha256 = "f8ae9ed3887df02f40de9f4f7ac3873e6dd7a471f9cddf63952538b94b59aeb3",
+        sha256 = "b2441c2afdc3b79fba75721c5c5ccbca947f15cc7f107c033efa18845933f975",
     )
 
     RULES_JVM_EXTERNAL_TAG = "6.1"
