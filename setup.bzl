@@ -29,15 +29,23 @@ def stardoc_repositories():
         ],
     )
 
+    ##maybe(
+    ##    http_archive,
+    ##    name = "com_google_protobuf",
+    ##    sha256 = "75be42bd736f4df6d702a0e4e4d30de9ee40eac024c4b845d17ae4cc831fe4ae",
+    ##    strip_prefix = "protobuf-21.7",
+    ##    urls = [
+    ##        "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/archive/v21.7.tar.gz",
+    ##        "https://github.com/protocolbuffers/protobuf/archive/v21.7.tar.gz",
+    ##    ],
+    ##)
+
     maybe(
         http_archive,
         name = "com_google_protobuf",
-        sha256 = "75be42bd736f4df6d702a0e4e4d30de9ee40eac024c4b845d17ae4cc831fe4ae",
-        strip_prefix = "protobuf-21.7",
-        urls = [
-            "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/archive/v21.7.tar.gz",
-            "https://github.com/protocolbuffers/protobuf/archive/v21.7.tar.gz",
-        ],
+        sha256 = "23082dca1ca73a1e9c6cbe40097b41e81f71f3b4d6201e36c134acc30a1b3660",
+        url = "https://github.com/protocolbuffers/protobuf/releases/download/v29.0-rc2/protobuf-29.0-rc2.zip",
+        strip_prefix = "protobuf-29.0-rc2",
     )
 
     maybe(

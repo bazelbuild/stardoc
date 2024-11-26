@@ -5,6 +5,7 @@ module(
     compatibility_level = 1,
 )
 
+bazel_dep(name = "protobuf", version = "29.0-rc2", repo_name = "com_google_protobuf")
 bazel_dep(name = "bazel_skylib", version = "1.6.1")
 bazel_dep(name = "rules_java", version = "7.6.1")
 bazel_dep(name = "rules_jvm_external", version = "6.1")
