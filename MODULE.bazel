@@ -5,11 +5,11 @@ module(
     compatibility_level = 1,
 )
 
-bazel_dep(name = "protobuf", version = "29.0-rc2", repo_name = "com_google_protobuf")
-bazel_dep(name = "bazel_skylib", version = "1.6.1")
-bazel_dep(name = "rules_java", version = "7.6.1")
-bazel_dep(name = "rules_jvm_external", version = "6.1")
-bazel_dep(name = "rules_license", version = "0.0.7")
+bazel_dep(name = "protobuf", version = "29.0-rc3", repo_name = "com_google_protobuf")
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "rules_java", version = "8.5.1")
+bazel_dep(name = "rules_jvm_external", version = "6.3")
+bazel_dep(name = "rules_license", version = "1.0.0")
 
 # Maven artifacts required by Stardoc; keep consistent with deps.bzl
 STARDOC_MAVEN_ARTIFACTS = [
@@ -36,4 +36,4 @@ use_repo(maven, "stardoc_maven")
 ### INTERNAL ONLY - lines after this are not included in the release packaging.
 #
 # Dev-only and test-only dependencies
-bazel_dep(name = "rules_pkg", version = "0.10.1", dev_dependency = True)
+bazel_dep(name = "rules_pkg", version = "1.0.1", dev_dependency = True)
