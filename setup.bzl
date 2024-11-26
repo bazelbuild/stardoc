@@ -116,3 +116,11 @@ def stardoc_repositories():
         strip_prefix = "rules_python-0.20.0",
         url = "https://github.com/bazelbuild/rules_python/releases/download/0.20.0/rules_python-0.20.0.tar.gz",
     )
+
+    maybe(
+        http_archive,
+        name = "rules_cc",
+        sha256 = "4b12149a041ddfb8306a8fd0e904e39d673552ce82e4296e96fac9cbf0780e59",
+        strip_prefix = "rules_cc-0.1.0",
+        urls = ["https://github.com/bazelbuild/rules_cc/releases/download/0.1.0/rules_cc-0.1.0.tar.gz"],
+    )
