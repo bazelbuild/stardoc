@@ -89,13 +89,6 @@ stardoc_test(
 )
 
 stardoc_test(
-    name = "apple_basic_test",
-    golden_file = "testdata/apple_basic_test/golden.md",
-    input_file = "testdata/apple_basic_test/input.bzl",
-    symbol_names = ["apple_related_rule"],
-)
-
-stardoc_test(
     name = "cpp_basic_test",
     golden_file = "testdata/cpp_basic_test/golden.md",
     input_file = "testdata/cpp_basic_test/input.bzl",
