@@ -1,3 +1,16 @@
+## Release 0.7.2
+
+Bugfix release: fixes compatibility issues with Bazel 7.4 and 8.0.
+
+Note that this release breaks compatibility with g++ 7.5 (the default
+compiler in the Ubuntu 18.04 image) - a new transitive dep requires a
+newer c++ compiler version.
+
+**Contributors**
+
+Alexandre Rostovtsev, Hemanshu Vadehra, Philip Zembrod, Richard Levasseur
+
+
 ## Release 0.7.1
 
 **Notable Changes**
