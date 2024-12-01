@@ -29,6 +29,7 @@ import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.Aspe
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AttributeInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AttributeType;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.FunctionParamInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.MacroInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleExtensionInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleExtensionTagClassInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ProviderFieldInfo;
@@ -333,6 +334,23 @@ public final class MarkdownUtil {
         getFunctionParamsInDeclarationOrder(funcInfo, funcInfo.getFunctionName()));
   }
 
+  /**
+   * Return a string representing the summary for the given symbolic macro.
+   *
+   * <p>For example: 'my_macro(*, name, visibility, foo, bar)'. The summary will contain hyperlinks
+   * for each parameter.
+   */
+  @SuppressWarnings("unused") // Used by markdown template.
+  public String macroSummary(String macroName, MacroInfo macroInfo) {
+    ImmutableList.Builder<Param> paramsBuilder = new ImmutableList.Builder<>();
+    // All arguments to a symbolic macro are keyword-only
+    paramsBuilder.add(Param.STAR_SEPARATOR);
+    for (AttributeInfo attributeInfo : macroInfo.getAttributeList()) {
+      paramsBuilder.add(new Param(attributeInfo, macroName));
+    }
+    return summary(macroName, paramsBuilder.build());
+  }
+
   @SuppressWarnings("unused") // Used by markdown template.
   public String loadStatement(String name) {
     return entrypointBzlFile
@@ -486,8 +504,9 @@ public final class MarkdownUtil {
   }
 
   /**
-   * Returns a string describing the given attribute's type. The description consists of a hyperlink
-   * if there is a relevant hyperlink to Bazel documentation available.
+   * Returns a string describing the given attribute's type and whether it is non-configurable. The
+   * description contains a hyperlink if there is a relevant hyperlink to Bazel documentation
+   * available.
    */
   public String attributeTypeString(AttributeInfo attrInfo) {
     String typeLink;
@@ -509,12 +528,19 @@ public final class MarkdownUtil {
         typeLink = null;
         break;
     }
+    String typeString;
     if (typeLink == null) {
-      return attributeTypeDescription(attrInfo.getType());
+      typeString = attributeTypeDescription(attrInfo.getType());
     } else {
-      return String.format(
-          "<a href=\"%s\">%s</a>", typeLink, attributeTypeDescription(attrInfo.getType()));
+      typeString =
+          String.format(
+              "<a href=\"%s\">%s</a>", typeLink, attributeTypeDescription(attrInfo.getType()));
     }
+    if (attrInfo.getNonconfigurable()) {
+      typeString +=
+          "; <a href=\"https://bazel.build/reference/be/common-definitions#configurable-attributes\">nonconfigurable</a>";
+    }
+    return typeString;
   }
 
   public String mandatoryString(AttributeInfo attrInfo) {
@@ -527,6 +553,10 @@ public final class MarkdownUtil {
    */
   public String mandatoryString(FunctionParamInfo paramInfo) {
     return paramInfo.getMandatory() ? "required" : "optional";
+  }
+
+  public String configurableString(AttributeInfo attrInfo) {
+    return attrInfo.getNonconfigurable() ? "non-configurable" : "configurable";
   }
 
   /**

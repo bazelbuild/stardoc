@@ -63,6 +63,12 @@ class RendererOptions {
   String funcTemplateFilePath;
 
   @Parameter(
+      names = "--macro_template",
+      required = true,
+      description = "The template for the documentation of a symbolic macro")
+  String macroTemplateFilePath;
+
+  @Parameter(
       names = "--aspect_template",
       required = true,
       description = "The template for the documentation of an aspect")
