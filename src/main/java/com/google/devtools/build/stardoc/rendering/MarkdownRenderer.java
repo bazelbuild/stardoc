@@ -22,6 +22,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AspectInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.FunctionParamInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.MacroInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleExtensionInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ProviderFieldInfo;
@@ -56,6 +57,7 @@ public class MarkdownRenderer {
   private final String ruleTemplateFilename;
   private final String providerTemplateFilename;
   private final String functionTemplateFilename;
+  private final String macroTemplateFilename;
   private final String aspectTemplateFilename;
   private final String repositoryRuleTemplateFilename;
   private final String moduleExtensionTemplateFilename;
@@ -69,6 +71,7 @@ public class MarkdownRenderer {
       String ruleTemplate,
       String providerTemplate,
       String functionTemplate,
+      String macroTemplate,
       String aspectTemplate,
       String repositoryRuleTemplate,
       String moduleExtensionTemplate,
@@ -80,6 +83,7 @@ public class MarkdownRenderer {
     this.ruleTemplateFilename = ruleTemplate;
     this.providerTemplateFilename = providerTemplate;
     this.functionTemplateFilename = functionTemplate;
+    this.macroTemplateFilename = macroTemplate;
     this.aspectTemplateFilename = aspectTemplate;
     this.repositoryRuleTemplateFilename = repositoryRuleTemplate;
     this.moduleExtensionTemplateFilename = moduleExtensionTemplate;
@@ -266,6 +270,24 @@ public class MarkdownRenderer {
     ImmutableMap<String, Object> vars =
         ImmutableMap.of("util", new MarkdownUtil(entrypointBzlFile), "funcInfo", functionInfo);
     Reader reader = readerFromPath(functionTemplateFilename);
+    try {
+      return Template.parseFrom(reader).evaluate(vars);
+    } catch (ParseException | EvaluationException e) {
+      throw new IOException(e);
+    }
+  }
+
+  /** Returns a markdown rendering of a symbolic macro's documentation for the macro info object. */
+  public String render(MacroInfo macroInfo) throws IOException {
+    ImmutableMap<String, Object> vars =
+        ImmutableMap.of(
+            "util",
+            new MarkdownUtil(entrypointBzlFile),
+            "macroName",
+            macroInfo.getMacroName(),
+            "macroInfo",
+            macroInfo);
+    Reader reader = readerFromPath(macroTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
     } catch (ParseException | EvaluationException e) {
