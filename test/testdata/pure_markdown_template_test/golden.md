@@ -73,7 +73,7 @@ Small example of function using a markdown template.
 <pre>
 load("@stardoc//test:testdata/pure_markdown_template_test/input.bzl", "example_aspect")
 
-example_aspect(<a href="#example_aspect-name">name</a>, <a href="#example_aspect-first">first</a>, <a href="#example_aspect-second">second</a>)
+example_aspect(<a href="#example_aspect-first">first</a>, <a href="#example_aspect-second">second</a>)
 </pre>
 
 Small example of aspect using a markdown template.
@@ -92,7 +92,6 @@ Small example of aspect using a markdown template.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="example_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="example_aspect-first"></a>first |  -   | String | required |  |
 | <a id="example_aspect-second"></a>second |  This is the second attribute.   | String | optional |  `""`  |
 
