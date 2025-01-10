@@ -79,19 +79,19 @@ tasks:
     platform: windows
     working_directory: test/bzlmod
 
-  bazel_7_2_tests:
-    name: Stardoc golden tests requiring Bazel 7.2
+  bazel_7_tests:
+    name: Stardoc golden tests requiring Bazel 7
     platform: ubuntu2004
-    bazel: 7.2.0
+    bazel: 7.4.1
     test_targets:
     - "//test:proto_format_test"
     - "//test:macro_kwargs_legacy_test"
     skip_in_bazel_downstream_pipeline: Manual tests requiring an older Bazel version
 
   bazel_8_tests:
-    name: Stardoc golden tests requiring Bazel HEAD
+    name: Stardoc golden tests requiring Bazel 8
     platform: ubuntu2004
-    bazel: last_green
+    bazel: 8.0.0
     test_targets:
     - "//test:macro_kwargs_test"
 

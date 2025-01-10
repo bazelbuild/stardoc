@@ -13,7 +13,7 @@ self_gen_test(
     name = "stardoc_self_gen_test",
     golden_file = "//stardoc:stardoc_doc.md",
     stardoc_doc = "//:stardoc_rule_doc",
-    # stardoc_doc.md output was generated with Bazel HEAD on 2024-06-12 and may differ in other versions
+    # stardoc_doc.md output was generated with Bazel 8.0.0 and may differ in other versions
     tags = [
         "bazel_8",
         "manual",
@@ -44,9 +44,9 @@ stardoc_test(
     format = "proto",
     golden_file = "testdata/proto_format_test/golden.binaryproto",
     input_file = "testdata/proto_format_test/input.bzl",
-    # Golden output was generated with Bazel 7.2 and may differ in other versions
+    # Golden output was generated with Bazel 7.4.1 and may differ in other versions
     tags = [
-        "bazel_7_2",
+        "bazel_7",
         "manual",
     ],
 )
@@ -222,9 +222,9 @@ stardoc_test(
     name = "macro_kwargs_legacy_test",
     golden_file = "testdata/macro_kwargs_test/legacy_golden.md",
     input_file = "testdata/macro_kwargs_test/input.bzl",
-    # Golden output was generated with Bazel 7.2 and may differ in other versions
+    # Golden output was generated with Bazel 7.4.1 and may differ in other versions
     tags = [
-        "bazel_7_2",
+        "bazel_7",
         "manual",
     ],
 )
@@ -233,7 +233,7 @@ stardoc_test(
     name = "macro_kwargs_test",
     golden_file = "testdata/macro_kwargs_test/golden.md",
     input_file = "testdata/macro_kwargs_test/input.bzl",
-    # Golden output was generated with Bazel HEAD on 2024-06-12 and may differ in other versions
+    # Golden output was generated with Bazel 8.0.0 and may differ in other versions
     tags = [
         "bazel_8",
         "manual",
