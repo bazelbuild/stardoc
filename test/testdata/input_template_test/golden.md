@@ -109,7 +109,7 @@ Use `bazel build` to run the check.
 ## my_aspect
 
 <pre>
-my_aspect(<a href="#my_aspect-name">name</a>, <a href="#my_aspect-first">first</a>)
+my_aspect(<a href="#my_aspect-first">first</a>)
 </pre>
 
 This is my aspect. It does stuff.
@@ -123,13 +123,6 @@ This is my aspect. It does stuff.
 
 ### Attributes
 
-<b>
-      <code>name</code>
-        <a href="https://bazel.build/concepts/labels#target-names">Name</a>; required
-</b>
-        <p>
-          A unique name for this target.
-        </p>
 <b>
       <code>first</code>
         String; required

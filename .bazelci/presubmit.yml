@@ -95,4 +95,17 @@ tasks:
     test_targets:
     - "//test:macro_kwargs_test"
 
+  # TODO: enable these by default once Bazel 8.0.1 is released
+  bazel_8_0_1_tests:
+    name: Stardoc golden tests requiring Bazel 8.0.1 or newer
+    platform: ubuntu2004
+    bazel: last_green  # until 8.0.1 is released
+    test_targets:
+    - "//test:angle_bracket_test"
+    - "//test:aspect_test"
+    - "//test:attribute_defaults_test"
+    - "//test:html_tables_template_test"
+    - "//test:pure_markdown_template_test"
+    - "//test:table_of_contents_test"
+
 buildifier: latest

@@ -172,7 +172,7 @@ This parameter does bar related things.
 <pre>
 load("@stardoc//test:testdata/html_tables_template_test/input.bzl", "example_aspect")
 
-example_aspect(<a href="#example_aspect-name">name</a>, <a href="#example_aspect-first">first</a>, <a href="#example_aspect-second">second</a>)
+example_aspect(<a href="#example_aspect-first">first</a>, <a href="#example_aspect-second">second</a>)
 </pre>
 
 Small example of aspect using a markdown template.
@@ -208,19 +208,6 @@ String; required.
 <col class="col-description" />
 </colgroup>
 <tbody>
-<tr id="example_aspect-name">
-<td><code>name</code></td>
-<td>
-
-<a href="https://bazel.build/concepts/labels#target-names">Name</a>; required
-
-<p>
-
-A unique name for this target.
-
-</p>
-</td>
-</tr>
 <tr id="example_aspect-first">
 <td><code>first</code></td>
 <td>
