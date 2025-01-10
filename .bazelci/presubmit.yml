@@ -88,13 +88,6 @@ tasks:
     - "//test:macro_kwargs_legacy_test"
     skip_in_bazel_downstream_pipeline: Manual tests requiring an older Bazel version
 
-  bazel_8_tests:
-    name: Stardoc golden tests requiring Bazel 8
-    platform: ubuntu2004
-    bazel: 8.0.0
-    test_targets:
-    - "//test:macro_kwargs_test"
-
   # TODO: enable these by default once Bazel 8.0.1 is released
   bazel_8_0_1_tests:
     name: Stardoc golden tests requiring Bazel 8.0.1 or newer

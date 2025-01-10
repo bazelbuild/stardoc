@@ -243,11 +243,6 @@ stardoc_test(
     name = "macro_kwargs_test",
     golden_file = "testdata/macro_kwargs_test/golden.md",
     input_file = "testdata/macro_kwargs_test/input.bzl",
-    # Golden output was generated with Bazel 8.0.0 and may differ in other versions
-    tags = [
-        "bazel_8",
-        "manual",
-    ],
 )
 
 stardoc_test(
