@@ -47,8 +47,8 @@ def stardoc_repositories():
         url = "https://github.com/bazelbuild/rules_java/releases/download/8.5.1/rules_java-8.5.1.tar.gz",
     )
 
-    RULES_JVM_EXTERNAL_TAG = "6.3"
-    RULES_JVM_EXTERNAL_SHA = "c18a69d784bcd851be95897ca0eca0b57dc86bb02e62402f15736df44160eb02"
+    RULES_JVM_EXTERNAL_TAG = "6.6"
+    RULES_JVM_EXTERNAL_SHA = "3afe5195069bd379373528899c03a3072f568d33bd96fe037bd43b1f590535e7"
     maybe(
         http_archive,
         name = "rules_jvm_external",
