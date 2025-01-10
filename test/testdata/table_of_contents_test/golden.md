@@ -160,7 +160,7 @@ A suffixed version of the name.
 <pre>
 load("@stardoc//test:testdata/table_of_contents_test/input.bzl", "my_aspect")
 
-my_aspect(<a href="#my_aspect-name">name</a>, <a href="#my_aspect-first">first</a>, <a href="#my_aspect-second">second</a>)
+my_aspect(<a href="#my_aspect-first">first</a>, <a href="#my_aspect-second">second</a>)
 </pre>
 
 This is my aspect.
@@ -181,7 +181,6 @@ It does stuff.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="my_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="my_aspect-first"></a>first |  -   | Boolean | required |  |
 | <a id="my_aspect-second"></a>second |  -   | String | required |  |
 
@@ -193,7 +192,7 @@ It does stuff.
 <pre>
 load("@stardoc//test:testdata/table_of_contents_test/input.bzl", "other_aspect")
 
-other_aspect(<a href="#other_aspect-name">name</a>, <a href="#other_aspect-third">third</a>)
+other_aspect(<a href="#other_aspect-third">third</a>)
 </pre>
 
 This is another aspect.
@@ -207,7 +206,6 @@ This is another aspect.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="other_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="other_aspect-third"></a>third |  -   | Integer | required |  |
 
 
