@@ -13,11 +13,6 @@ self_gen_test(
     name = "stardoc_self_gen_test",
     golden_file = "//stardoc:stardoc_doc.md",
     stardoc_doc = "//:stardoc_rule_doc",
-    # stardoc_doc.md output was generated with Bazel 8.0.0 and may differ in other versions
-    tags = [
-        "bazel_8",
-        "manual",
-    ],
 )
 
 exports_files(["testdata/fakedeps/dep.bzl"])
