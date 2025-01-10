@@ -13,8 +13,7 @@
 // limitations under the License.
 //
 // Vendored from src/main/protobuf/stardoc_output.proto
-// in the Bazel source tree at commit 1ce4ab15fab18063d8291132ea84e71fa02d27c4n
-
+// in the Bazel source tree at commit 59e99b67533ebc5375cca98bc95ec0b74c4d4a69n
 //
 // Protos for Stardoc data.
 //
@@ -79,8 +78,12 @@ enum AttributeType {
 
 // Representation of a Starlark rule definition.
 message RuleInfo {
-  // The name under which the rule is made accessible to a user of this module,
-  // including any structs it is nested in, for example "foo.foo_library".
+  // In Stardoc and starlark_doc_extract output, this is the name under which
+  // the rule is made accessible to a user of this module, including any structs
+  // it is nested in, for example "foo.foo_library".
+  //
+  // In query output, this is the name under which the rule was defined (which
+  // might be a private symbol prefixed with "_").
   string rule_name = 1;
 
   // The documentation string of the rule.
@@ -126,6 +129,9 @@ message MacroInfo {
   // The module where and the name under which the macro was originally
   // declared.
   OriginKey origin_key = 4;
+
+  // True if this macro is a rule finalizer.
+  bool finalizer = 5;
 }
 
 // Representation of a Starlark rule, repository rule, or module extension tag
@@ -161,6 +167,9 @@ message AttributeInfo {
 
   // If true, the attribute is non-configurable.
   bool nonconfigurable = 7;
+
+  // If true, the attribute is defined in Bazel's native code, not in Starlark.
+  bool natively_defined = 8;
 }
 
 // Representation of a set of providers.

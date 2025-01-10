@@ -378,6 +378,36 @@ stardoc_test(
     stamp = 0,
 )
 
+stardoc_test(
+    name = "symbolic_macro_test",
+    golden_file = "testdata/symbolic_macro_test/golden.md",
+    input_file = "testdata/symbolic_macro_test/input.bzl",
+    tags = [
+        "bazel_8",
+        "manual",
+    ],
+)
+
+stardoc_test(
+    name = "symbolic_macro_finalizer_test",
+    golden_file = "testdata/symbolic_macro_finalizer_test/golden.md",
+    input_file = "testdata/symbolic_macro_finalizer_test/input.bzl",
+    # Requires Bazel > 8.0
+    tags = [
+        "manual",
+    ],
+)
+
+stardoc_test(
+    name = "symbolic_macro_inherit_attrs_test",
+    golden_file = "testdata/symbolic_macro_inherit_attrs_test/golden.md",
+    input_file = "testdata/symbolic_macro_inherit_attrs_test/input.bzl",
+    # Requires Bazel > 8.0
+    tags = [
+        "manual",
+    ],
+)
+
 sh_test(
     name = "local_repository_test",
     srcs = ["diff_test_runner.sh"],

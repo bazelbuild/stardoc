@@ -14,15 +14,20 @@
 
 package com.google.devtools.build.stardoc.renderer;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.ImmutableList.toImmutableList;
+import static com.google.common.collect.ImmutableSet.toImmutableSet;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Comparator.comparing;
 
 import com.beust.jcommander.JCommander;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AspectInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AttributeInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AttributeType;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.MacroInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleExtensionInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleExtensionTagClassInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleInfo;
@@ -36,6 +41,7 @@ import com.google.devtools.build.stardoc.rendering.Stamping;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -90,6 +96,7 @@ public final class RendererMain {
               rendererOptions.ruleTemplateFilePath,
               rendererOptions.providerTemplateFilePath,
               rendererOptions.funcTemplateFilePath,
+              rendererOptions.macroTemplateFilePath,
               rendererOptions.aspectTemplateFilePath,
               rendererOptions.repositoryRuleTemplateFilePath,
               rendererOptions.moduleExtensionTemplateFilePath,
@@ -116,6 +123,15 @@ public final class RendererMain {
       ImmutableList<StarlarkFunctionInfo> sortedStarlarkFunctions =
           ImmutableList.sortedCopyOf(
               comparing(StarlarkFunctionInfo::getFunctionName), moduleInfo.getFuncInfoList());
+
+      // symbolic macros are printed sorted by their qualified name, and their attributes are sorted
+      // by name, with ATTRIBUTE_ORDERING specifying a fixed sort order for some standard
+      // attributes.
+      ImmutableList<MacroInfo> sortedMacroInfos =
+          moduleInfo.getMacroInfoList().stream()
+              .map(RendererMain::withSortedMacroAttributes)
+              .sorted(comparing(MacroInfo::getMacroName))
+              .collect(toImmutableList());
 
       // aspects are printed sorted by their qualified name.
       ImmutableList<AspectInfo> sortedAspectInfos =
@@ -154,13 +170,13 @@ public final class RendererMain {
       print(printWriter, renderer::render, sortedRuleInfos);
       print(printWriter, renderer::render, sortedProviderInfos);
       print(printWriter, renderer::render, sortedStarlarkFunctions);
+      print(printWriter, renderer::render, sortedMacroInfos);
       print(printWriter, renderer::render, sortedAspectInfos);
       print(printWriter, renderer::render, sortedRepositoryRuleInfos);
       print(printWriter, renderer::render, sortedModuleExtensionInfos);
       if (rendererOptions.footerTemplateFilePath != null) {
         printWriter.println(renderer.renderMarkdownFooter(moduleInfo));
       }
-
     } catch (IOException e) {
       // Avoid an explicit dependency on the Java protobuf runtime as it should be injected by the
       // root module via a proto_lang_toolchain.
@@ -228,6 +244,103 @@ public final class RendererMain {
                 comparing(AttributeInfo::getName, ATTRIBUTE_NAME_COMPARATOR),
                 repositoryRuleInfo.getAttributeList()))
         .build();
+  }
+
+  private static MacroInfo withSortedMacroAttributes(MacroInfo macroInfo) {
+    boolean inheritsFromTest = inheritsFromTestRule(macroInfo);
+    ArrayList<AttributeInfo> attributes = new ArrayList<>(macroInfo.getAttributeList().size() + 1);
+    for (AttributeInfo attributeInfo : macroInfo.getAttributeList()) {
+      if (attributeInfo.getName().equals("visibility")) {
+        // injected below
+        continue;
+      } else if (attributeInfo.getNativelyDefined()
+          && isNullOrEmpty(attributeInfo.getDocString())) {
+        // inject doc string for undocumented inherited native attributes
+        String docString = "Inherited rule attribute";
+        if (COMMON_BASE_ATTR_NAMES.contains(attributeInfo.getName())) {
+          docString =
+              String.format(
+                  "<a href=\"https://bazel.build/reference/be/common-definitions#common.%s\">%s</a>",
+                  attributeInfo.getName(), docString);
+        } else if (inheritsFromTest && COMMON_TEST_ATTR_NAMES.contains(attributeInfo.getName())) {
+          docString =
+              String.format(
+                  "<a href=\"https://bazel.build/reference/be/common-definitions#test.%s\">%s</a>",
+                  attributeInfo.getName(), docString);
+        } else if (COMMON_BINARY_ATTR_NAMES.contains(attributeInfo.getName())) {
+          docString =
+              String.format(
+                  "<a href=\"https://bazel.build/reference/be/common-definitions#binary.%s\">%s</a>",
+                  attributeInfo.getName(), docString);
+        }
+        attributes.add(attributeInfo.toBuilder().setDocString(docString).build());
+      } else {
+        attributes.add(attributeInfo);
+      }
+    }
+    // TODO(https://github.com/bazelbuild/stardoc/issues/266): stop injecting
+    // IMPLICIT_MACRO_VISIBILITY_ATTRIBUTE once we have a stable Bazel release with the correct
+    // macro visibility attribute in starlark_doc_extract proto output.
+    attributes.add(IMPLICIT_MACRO_VISIBILITY_ATTRIBUTE);
+    return macroInfo.toBuilder()
+        .clearAttribute()
+        .addAllAttribute(
+            ImmutableList.sortedCopyOf(
+                comparing(AttributeInfo::getName, ATTRIBUTE_NAME_COMPARATOR), attributes))
+        .build();
+  }
+
+  private static final AttributeInfo IMPLICIT_MACRO_VISIBILITY_ATTRIBUTE =
+      AttributeInfo.newBuilder()
+          .setName("visibility")
+          .setType(AttributeType.LABEL_LIST)
+          .setMandatory(false)
+          .setNonconfigurable(true)
+          .setNativelyDefined(true)
+          .setDocString(
+              "The visibility to be passed to this macro's exported targets. It always implicitly"
+                  + " includes the location where this macro is instantiated, so this attribute"
+                  + " only needs to be explicitly set if you want the macro's targets to be"
+                  + " additionally visible somewhere else.")
+          .build();
+
+  private static final ImmutableSet<String> COMMON_BASE_ATTR_NAMES =
+      ImmutableSet.of(
+          "compatible_with",
+          "deprecation",
+          "distribs",
+          "exec_compatible_with",
+          "exec_properties",
+          "features",
+          "restricted_to",
+          "tags",
+          "target_compatible_with",
+          "testonly",
+          "toolchains",
+          "visibility");
+  private static final ImmutableSet<String> COMMON_TEST_ATTR_NAMES =
+      ImmutableSet.of(
+          "args", "env", "env_inherit", "size", "timeout", "flaky", "shard_count", "local");
+  private static final ImmutableSet<String> COMMON_BINARY_ATTR_NAMES =
+      ImmutableSet.of("args", "env", "output_licenses");
+
+  /**
+   * Heuristically guesses whehter the given macro inherits attributes from a test rule (as opposed
+   * to, for example, a binary rule).
+   */
+  private static boolean inheritsFromTestRule(MacroInfo macroInfo) {
+    ImmutableSet<String> inheritedAttrs =
+        macroInfo.getAttributeList().stream()
+            .filter(AttributeInfo::getNativelyDefined)
+            .map(AttributeInfo::getName)
+            .collect(toImmutableSet());
+    for (String testAttrName : COMMON_TEST_ATTR_NAMES) {
+      if (!COMMON_BINARY_ATTR_NAMES.contains(testAttrName)
+          && inheritedAttrs.contains(testAttrName)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private static ModuleExtensionTagClassInfo withSortedTagAttributes(
