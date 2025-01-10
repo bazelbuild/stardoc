@@ -288,12 +288,12 @@ stardoc_test(
     name = "html_tables_template_test",
     golden_file = "testdata/html_tables_template_test/golden.md",
     input_file = "testdata/html_tables_template_test/input.bzl",
-    test = "html_tables",
     # Remove tags and enable by default once Bazel 8.0.1 is released
     tags = [
         "bazel_8_0_1",
         "manual",
     ],
+    test = "html_tables",
 )
 
 stardoc_test(
