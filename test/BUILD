@@ -383,7 +383,7 @@ stardoc_test(
     golden_file = "testdata/symbolic_macro_test/golden.md",
     input_file = "testdata/symbolic_macro_test/input.bzl",
     tags = [
-        "bazel_8",
+        "bazel_8_0_1",
         "manual",
     ],
 )
@@ -392,8 +392,8 @@ stardoc_test(
     name = "symbolic_macro_finalizer_test",
     golden_file = "testdata/symbolic_macro_finalizer_test/golden.md",
     input_file = "testdata/symbolic_macro_finalizer_test/input.bzl",
-    # Requires Bazel > 8.0
     tags = [
+        "bazel_8_0_1",
         "manual",
     ],
 )
@@ -402,8 +402,8 @@ stardoc_test(
     name = "symbolic_macro_inherit_attrs_test",
     golden_file = "testdata/symbolic_macro_inherit_attrs_test/golden.md",
     input_file = "testdata/symbolic_macro_inherit_attrs_test/input.bzl",
-    # Requires Bazel > 8.0
     tags = [
+        "bazel_8_0_1",
         "manual",
     ],
 )
