@@ -161,6 +161,7 @@ public final class RendererMain {
             renderer.renderTableOfContents(
                 sortedRuleInfos,
                 sortedProviderInfos,
+                sortedMacroInfos,
                 sortedStarlarkFunctions,
                 sortedAspectInfos,
                 sortedRepositoryRuleInfos,

@@ -53,7 +53,8 @@ tasks:
   noenable_bzlmod:
     <<: *noenable_bzlmod_task_config
     name: Build and test - legacy WORKSPACE setup
-    platform: ${{ platform }}
+    platform: ubuntu2004
+    bazel: 8.0.1rc1  # until 8.0.1 is released
 
   build_and_test_last_green:
     <<: *common_task_config

@@ -329,6 +329,7 @@ bzl_library(
         "testdata/provider_basic_test/input.bzl",
         "testdata/repo_rules_test/input.bzl",
         "testdata/simple_test/input.bzl",
+        "testdata/symbolic_macro_test/input.bzl",
     ],
     # Remove tags and enable by default once Bazel 8.0.1 is released
     tags = [

@@ -6,6 +6,7 @@ load("//test:testdata/module_extension_test/input.bzl", _my_ext = "my_ext")
 load("//test:testdata/provider_basic_test/input.bzl", _MyFooInfo = "MyFooInfo", _MyVeryDocumentedInfo = "MyVeryDocumentedInfo")
 load("//test:testdata/repo_rules_test/input.bzl", _my_repo = "my_repo")
 load("//test:testdata/simple_test/input.bzl", _my_rule = "my_rule")
+load("//test:testdata/symbolic_macro_test/input.bzl", _basic_macro = "basic_macro")
 
 my_rule = _my_rule
 
@@ -24,3 +25,5 @@ other_aspect = _other_aspect
 my_repo = _my_repo
 
 my_ext = _my_ext
+
+basic_macro = _basic_macro

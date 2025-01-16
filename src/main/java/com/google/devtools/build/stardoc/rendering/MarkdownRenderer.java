@@ -120,6 +120,7 @@ public class MarkdownRenderer {
   public String renderTableOfContents(
       List<RuleInfo> ruleInfos,
       List<ProviderInfo> providerInfos,
+      List<MacroInfo> macroInfos,
       List<StarlarkFunctionInfo> starlarkFunctions,
       List<AspectInfo> aspectInfos,
       List<RepositoryRuleInfo> repositoryRuleInfos,
@@ -131,6 +132,7 @@ public class MarkdownRenderer {
             "util", new MarkdownUtil(entrypointBzlFile),
             "ruleInfos", ruleInfos,
             "providerInfos", providerInfos,
+            "macroInfos", macroInfos,
             "functionInfos", starlarkFunctions,
             "aspectInfos", aspectInfos,
             "repositoryRuleInfos", repositoryRuleInfos,
