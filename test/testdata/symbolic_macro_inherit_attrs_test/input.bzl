@@ -1,5 +1,6 @@
 """Symbolic macro attribute inheritance tests"""
 
+# buildifier: disable=unused-variable
 def _impl(name, visibility, **kwargs):
     pass
 
@@ -16,6 +17,7 @@ _inherit_src_macro = macro(
     implementation = _impl,
 )
 
+# buildifier: disable=unused-variable
 def _rule_impl(ctx):
     pass
 

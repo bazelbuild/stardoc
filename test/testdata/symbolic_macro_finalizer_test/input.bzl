@@ -1,5 +1,6 @@
 """Finalizer tests"""
 
+# buildifier: disable=unused-variable
 def _impl(name, visibility, **kwargs):
     pass
 
