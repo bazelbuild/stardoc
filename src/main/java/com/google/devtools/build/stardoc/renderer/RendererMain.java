@@ -26,7 +26,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AspectInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AttributeInfo;
-import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AttributeType;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.MacroInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleExtensionInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleExtensionTagClassInfo;
@@ -250,14 +249,12 @@ public final class RendererMain {
     boolean inheritsFromTest = inheritsFromTestRule(macroInfo);
     ArrayList<AttributeInfo> attributes = new ArrayList<>(macroInfo.getAttributeList().size() + 1);
     for (AttributeInfo attributeInfo : macroInfo.getAttributeList()) {
-      if (attributeInfo.getName().equals("visibility")) {
-        // injected below
-        continue;
-      } else if (attributeInfo.getNativelyDefined()
-          && isNullOrEmpty(attributeInfo.getDocString())) {
+      if (attributeInfo.getNativelyDefined() && isNullOrEmpty(attributeInfo.getDocString())) {
         // inject doc string for undocumented inherited native attributes
         String docString = "Inherited rule attribute";
-        if (COMMON_BASE_ATTR_NAMES.contains(attributeInfo.getName())) {
+        if (COMMON_UNDOCUMENTED_ATTR_NAMES.contains(attributeInfo.getName())) {
+          continue;
+        } else if (COMMON_BASE_ATTR_NAMES.contains(attributeInfo.getName())) {
           docString =
               String.format(
                   "<a href=\"https://bazel.build/reference/be/common-definitions#common.%s\">%s</a>",
@@ -278,10 +275,6 @@ public final class RendererMain {
         attributes.add(attributeInfo);
       }
     }
-    // TODO(https://github.com/bazelbuild/stardoc/issues/266): stop injecting
-    // IMPLICIT_MACRO_VISIBILITY_ATTRIBUTE once we have a stable Bazel release with the correct
-    // macro visibility attribute in starlark_doc_extract proto output.
-    attributes.add(IMPLICIT_MACRO_VISIBILITY_ATTRIBUTE);
     return macroInfo.toBuilder()
         .clearAttribute()
         .addAllAttribute(
@@ -289,20 +282,6 @@ public final class RendererMain {
                 comparing(AttributeInfo::getName, ATTRIBUTE_NAME_COMPARATOR), attributes))
         .build();
   }
-
-  private static final AttributeInfo IMPLICIT_MACRO_VISIBILITY_ATTRIBUTE =
-      AttributeInfo.newBuilder()
-          .setName("visibility")
-          .setType(AttributeType.LABEL_LIST)
-          .setMandatory(false)
-          .setNonconfigurable(true)
-          .setNativelyDefined(true)
-          .setDocString(
-              "The visibility to be passed to this macro's exported targets. It always implicitly"
-                  + " includes the location where this macro is instantiated, so this attribute"
-                  + " only needs to be explicitly set if you want the macro's targets to be"
-                  + " additionally visible somewhere else.")
-          .build();
 
   private static final ImmutableSet<String> COMMON_BASE_ATTR_NAMES =
       ImmutableSet.of(
@@ -312,6 +291,7 @@ public final class RendererMain {
           "exec_compatible_with",
           "exec_properties",
           "features",
+          "package_metadata",
           "restricted_to",
           "tags",
           "target_compatible_with",
@@ -323,6 +303,10 @@ public final class RendererMain {
           "args", "env", "env_inherit", "size", "timeout", "flaky", "shard_count", "local");
   private static final ImmutableSet<String> COMMON_BINARY_ATTR_NAMES =
       ImmutableSet.of("args", "env", "output_licenses");
+  // TODO(https://github.com/bazelbuild/bazel/issues/24948): Bazel should explicitly mark these as
+  // undocumented, so we wouldn't need to filter them out.
+  private static final ImmutableSet<String> COMMON_UNDOCUMENTED_ATTR_NAMES =
+      ImmutableSet.of("expect_failure", "transitive_configs");
 
   /**
    * Heuristically guesses whehter the given macro inherits attributes from a test rule (as opposed
