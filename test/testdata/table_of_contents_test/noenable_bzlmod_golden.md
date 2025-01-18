@@ -12,6 +12,10 @@ Test rules / providers / etc for the table of contents generation test.
 - [MyFooInfo](#MyFooInfo)
 - [MyVeryDocumentedInfo](#MyVeryDocumentedInfo)
 
+## Macros
+
+- [basic_macro](#basic_macro)
+
 ## Functions
 
 - [check_sources](#check_sources)
@@ -52,7 +56,7 @@ This is my rule. It does stuff.
 | <a id="my_rule-first"></a>first |  first doc string   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
 | <a id="my_rule-fourth"></a>fourth |  fourth doc string   | Boolean | optional |  `False`  |
 | <a id="my_rule-second"></a>second |  -   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> String</a> | required |  |
-| <a id="my_rule-third"></a>third |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
+| <a id="my_rule-third"></a>third |  -   | <a href="https://bazel.build/concepts/labels">Label</a>; <a href="https://bazel.build/reference/be/common-definitions#configurable-attributes">nonconfigurable</a> | required |  |
 
 
 <a id="MyFooInfo"></a>
@@ -153,6 +157,29 @@ Returns a suffixed name.
 A suffixed version of the name.
 
 
+<a id="basic_macro"></a>
+
+## basic_macro
+
+<pre>
+load("@io_bazel_stardoc//test:testdata/table_of_contents_test/input.bzl", "basic_macro")
+
+basic_macro(*, <a href="#basic_macro-name">name</a>, <a href="#basic_macro-srcs">srcs</a>, <a href="#basic_macro-operation">operation</a>, <a href="#basic_macro-visibility">visibility</a>)
+</pre>
+
+Initializes some targets.
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="basic_macro-name"></a>name |  A unique name for this macro instance. Normally, this is also the name for the macro's main or only target. The names of any other targets that this macro might create will be this name with a string suffix.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="basic_macro-srcs"></a>srcs |  Source files   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional |  `[]`  |
+| <a id="basic_macro-operation"></a>operation |  Operation to perform   | String; <a href="https://bazel.build/reference/be/common-definitions#configurable-attributes">nonconfigurable</a> | optional |  `"FROBNICATE"`  |
+| <a id="basic_macro-visibility"></a>visibility |  The visibility to be passed to this macro's exported targets. It always implicitly includes the location where this macro is instantiated, so this attribute only needs to be explicitly set if you want the macro's targets to be additionally visible somewhere else.   | <a href="https://bazel.build/concepts/labels">List of labels</a>; <a href="https://bazel.build/reference/be/common-definitions#configurable-attributes">nonconfigurable</a> | optional |  |
+
+
 <a id="my_aspect"></a>
 
 ## my_aspect
@@ -160,7 +187,7 @@ A suffixed version of the name.
 <pre>
 load("@io_bazel_stardoc//test:testdata/table_of_contents_test/input.bzl", "my_aspect")
 
-my_aspect(<a href="#my_aspect-name">name</a>, <a href="#my_aspect-first">first</a>, <a href="#my_aspect-second">second</a>)
+my_aspect(<a href="#my_aspect-first">first</a>, <a href="#my_aspect-second">second</a>)
 </pre>
 
 This is my aspect.
@@ -181,7 +208,6 @@ It does stuff.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="my_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="my_aspect-first"></a>first |  -   | Boolean | required |  |
 | <a id="my_aspect-second"></a>second |  -   | String | required |  |
 
@@ -193,7 +219,7 @@ It does stuff.
 <pre>
 load("@io_bazel_stardoc//test:testdata/table_of_contents_test/input.bzl", "other_aspect")
 
-other_aspect(<a href="#other_aspect-name">name</a>, <a href="#other_aspect-third">third</a>)
+other_aspect(<a href="#other_aspect-third">third</a>)
 </pre>
 
 This is another aspect.
@@ -207,7 +233,6 @@ This is another aspect.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="other_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="other_aspect-third"></a>third |  -   | Integer | required |  |
 
 

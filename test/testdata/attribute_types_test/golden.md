@@ -28,8 +28,8 @@ It does stuff.
 | <a id="my_rule-d"></a>d |  Some label   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
 | <a id="my_rule-e"></a>e |  Some label_keyed_string_dict   | <a href="https://bazel.build/rules/lib/dict">Dictionary: Label -> String</a> | required |  |
 | <a id="my_rule-f"></a>f |  Some label_list   | <a href="https://bazel.build/concepts/labels">List of labels</a> | required |  |
-| <a id="my_rule-g"></a>g |  Some output   | <a href="https://bazel.build/concepts/labels">Label</a> | optional |  `None`  |
-| <a id="my_rule-h"></a>h |  Some output_list   | List of labels | optional |  `[]`  |
+| <a id="my_rule-g"></a>g |  Some output   | <a href="https://bazel.build/concepts/labels">Label</a>; <a href="https://bazel.build/reference/be/common-definitions#configurable-attributes">nonconfigurable</a> | optional |  `None`  |
+| <a id="my_rule-h"></a>h |  Some output_list   | List of labels; <a href="https://bazel.build/reference/be/common-definitions#configurable-attributes">nonconfigurable</a> | optional |  `[]`  |
 | <a id="my_rule-i"></a>i |  Some string   | String | required |  |
 | <a id="my_rule-j"></a>j |  Some string_dict   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> String</a> | required |  |
 | <a id="my_rule-k"></a>k |  Some string_list   | List of strings | required |  |

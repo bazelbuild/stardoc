@@ -329,6 +329,7 @@ bzl_library(
         "testdata/provider_basic_test/input.bzl",
         "testdata/repo_rules_test/input.bzl",
         "testdata/simple_test/input.bzl",
+        "testdata/symbolic_macro_test/input.bzl",
     ],
     # Remove tags and enable by default once Bazel 8.0.1 is released
     tags = [
@@ -376,6 +377,36 @@ stardoc_test(
     header_template = "testdata/stamping_test/stamping_header_stamping_off.vm",
     input_file = "testdata/stamping_test/input.bzl",
     stamp = 0,
+)
+
+stardoc_test(
+    name = "symbolic_macro_test",
+    golden_file = "testdata/symbolic_macro_test/golden.md",
+    input_file = "testdata/symbolic_macro_test/input.bzl",
+    tags = [
+        "bazel_8_0_1",
+        "manual",
+    ],
+)
+
+stardoc_test(
+    name = "symbolic_macro_finalizer_test",
+    golden_file = "testdata/symbolic_macro_finalizer_test/golden.md",
+    input_file = "testdata/symbolic_macro_finalizer_test/input.bzl",
+    tags = [
+        "bazel_8_0_1",
+        "manual",
+    ],
+)
+
+stardoc_test(
+    name = "symbolic_macro_inherit_attrs_test",
+    golden_file = "testdata/symbolic_macro_inherit_attrs_test/golden.md",
+    input_file = "testdata/symbolic_macro_inherit_attrs_test/input.bzl",
+    tags = [
+        "bazel_8_0_1",
+        "manual",
+    ],
 )
 
 sh_test(
