@@ -32,23 +32,23 @@ def stardoc_repositories():
     maybe(
         http_archive,
         name = "com_google_protobuf",
-        sha256 = "537d1c4edb6cbfa96d98a021650e3c455fffcf80dbdcea7fe46cb356e6e9732d",
-        strip_prefix = "protobuf-29.0-rc3",
+        sha256 = "2e442d21839ec9dbafda4cc9083239aa04e78fc9c27dfa59b5374e968050cd22",
+        strip_prefix = "protobuf-29.0",
         urls = [
-            "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/releases/download/v29.0-rc3/protobuf-29.0-rc3.zip",
-            "https://github.com/protocolbuffers/protobuf/releases/download/v29.0-rc3/protobuf-29.0-rc3.zip",
+            "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/releases/download/v29.0/protobuf-29.0.zip",
+            "https://github.com/protocolbuffers/protobuf/releases/download/v29.0/protobuf-29.0.zip",
         ],
     )
 
     maybe(
         http_archive,
         name = "rules_java",
-        sha256 = "1389206b2208c5f33a05dd96e51715b0855c480c082b7bb4889a8e07fcff536c",
-        url = "https://github.com/bazelbuild/rules_java/releases/download/8.5.1/rules_java-8.5.1.tar.gz",
+        sha256 = "c5bc17e17bb62290b1fd8fdd847a2396d3459f337a7e07da7769b869b488ec26",
+        url = "https://github.com/bazelbuild/rules_java/releases/download/8.6.1/rules_java-8.6.1.tar.gz",
     )
 
-    RULES_JVM_EXTERNAL_TAG = "6.3"
-    RULES_JVM_EXTERNAL_SHA = "c18a69d784bcd851be95897ca0eca0b57dc86bb02e62402f15736df44160eb02"
+    RULES_JVM_EXTERNAL_TAG = "6.6"
+    RULES_JVM_EXTERNAL_SHA = "3afe5195069bd379373528899c03a3072f568d33bd96fe037bd43b1f590535e7"
     maybe(
         http_archive,
         name = "rules_jvm_external",

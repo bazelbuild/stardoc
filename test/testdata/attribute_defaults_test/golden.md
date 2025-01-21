@@ -52,7 +52,7 @@ This is my rule. It does stuff.
 <pre>
 load("@stardoc//test:testdata/attribute_defaults_test/input.bzl", "my_aspect")
 
-my_aspect(<a href="#my_aspect-name">name</a>, <a href="#my_aspect-y">y</a>, <a href="#my_aspect-z">z</a>)
+my_aspect(<a href="#my_aspect-y">y</a>, <a href="#my_aspect-z">z</a>)
 </pre>
 
 This is my aspect. It does stuff.
@@ -71,7 +71,6 @@ This is my aspect. It does stuff.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="my_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="my_aspect-y"></a>y |  some string   | String | optional |  `"why"`  |
 | <a id="my_aspect-z"></a>z |  -   | String | required |  |
 

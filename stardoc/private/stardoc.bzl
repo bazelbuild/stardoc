@@ -37,6 +37,7 @@ def _renderer_action_run(ctx, out_file, proto_file):
     if ctx.attr.table_of_contents_template:
         renderer_args.add("--table_of_contents_template=" + str(ctx.file.table_of_contents_template.path))
     renderer_args.add("--func_template=" + str(ctx.file.func_template.path))
+    renderer_args.add("--macro_template=" + str(ctx.file.macro_template.path))
     renderer_args.add("--provider_template=" + str(ctx.file.provider_template.path))
     renderer_args.add("--rule_template=" + str(ctx.file.rule_template.path))
     renderer_args.add("--repository_rule_template=" + str(ctx.file.repository_rule_template.path))
@@ -52,6 +53,7 @@ def _renderer_action_run(ctx, out_file, proto_file):
         ctx.file.aspect_template,
         ctx.file.header_template,
         ctx.file.func_template,
+        ctx.file.macro_template,
         ctx.file.provider_template,
         ctx.file.rule_template,
         ctx.file.repository_rule_template,
@@ -107,7 +109,12 @@ _common_renderer_attrs = {
         mandatory = False,  # Not mandatory for backwards compatibility.
     ),
     "func_template": attr.label(
-        doc = "The input file template for generating documentation of functions.",
+        doc = "The input file template for generating documentation of functions, including legacy macros.",
+        allow_single_file = [".vm"],
+        mandatory = True,
+    ),
+    "macro_template": attr.label(
+        doc = "The input file template for generating documentation of symbolic macros.",
         allow_single_file = [".vm"],
         mandatory = True,
     ),

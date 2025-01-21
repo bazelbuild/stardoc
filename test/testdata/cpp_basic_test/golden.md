@@ -23,6 +23,6 @@ This rule does cpp-related things.
 | <a id="cpp_related_rule-first"></a>first |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
 | <a id="cpp_related_rule-fourth"></a>fourth |  -   | Boolean | optional |  `False`  |
 | <a id="cpp_related_rule-second"></a>second |  -   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> String</a> | required |  |
-| <a id="cpp_related_rule-third"></a>third |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
+| <a id="cpp_related_rule-third"></a>third |  -   | <a href="https://bazel.build/concepts/labels">Label</a>; <a href="https://bazel.build/reference/be/common-definitions#configurable-attributes">nonconfigurable</a> | required |  |
 
 

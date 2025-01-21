@@ -101,7 +101,7 @@ deprecated for \<reasons> as well as `<reasons>`.
 <pre>
 load("@stardoc//test:testdata/angle_bracket_test/input.bzl", "bracket_aspect")
 
-bracket_aspect(<a href="#bracket_aspect-name">name</a>, <a href="#bracket_aspect-brackets">brackets</a>)
+bracket_aspect(<a href="#bracket_aspect-brackets">brackets</a>)
 </pre>
 
 Aspect.
@@ -125,7 +125,6 @@ which includes angle brackets.
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="bracket_aspect-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="bracket_aspect-brackets"></a>brackets |  Attribute with \<brackets>   | String | optional |  `"<default>"`  |
 
 

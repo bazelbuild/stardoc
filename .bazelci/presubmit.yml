@@ -53,7 +53,8 @@ tasks:
   noenable_bzlmod:
     <<: *noenable_bzlmod_task_config
     name: Build and test - legacy WORKSPACE setup
-    platform: ${{ platform }}
+    platform: ubuntu2004
+    bazel: 8.0.1rc1  # until 8.0.1 is released
 
   build_and_test_last_green:
     <<: *common_task_config
@@ -79,20 +80,29 @@ tasks:
     platform: windows
     working_directory: test/bzlmod
 
-  bazel_7_2_tests:
-    name: Stardoc golden tests requiring Bazel 7.2
+  bazel_7_tests:
+    name: Stardoc golden tests requiring Bazel 7
     platform: ubuntu2004
-    bazel: 7.2.0
+    bazel: 7.4.1
     test_targets:
     - "//test:proto_format_test"
     - "//test:macro_kwargs_legacy_test"
     skip_in_bazel_downstream_pipeline: Manual tests requiring an older Bazel version
 
-  bazel_8_tests:
-    name: Stardoc golden tests requiring Bazel HEAD
+  # TODO: enable these by default once Bazel 8.0.1 is released
+  bazel_8_0_1_tests:
+    name: Stardoc golden tests requiring Bazel 8.0.1 or newer
     platform: ubuntu2004
-    bazel: last_green
+    bazel: 8.0.1rc1  # until 8.0.1 is released
     test_targets:
-    - "//test:macro_kwargs_test"
+    - "//test:angle_bracket_test"
+    - "//test:aspect_test"
+    - "//test:attribute_defaults_test"
+    - "//test:html_tables_template_test"
+    - "//test:pure_markdown_template_test"
+    - "//test:symbolic_macro_test"
+    - "//test:symbolic_macro_finalizer_test"
+    - "//test:symbolic_macro_inherit_attrs_test"
+    - "//test:table_of_contents_test"
 
 buildifier: latest

@@ -13,11 +13,6 @@ self_gen_test(
     name = "stardoc_self_gen_test",
     golden_file = "//stardoc:stardoc_doc.md",
     stardoc_doc = "//:stardoc_rule_doc",
-    # stardoc_doc.md output was generated with Bazel HEAD on 2024-06-12 and may differ in other versions
-    tags = [
-        "bazel_8",
-        "manual",
-    ],
 )
 
 exports_files(["testdata/fakedeps/dep.bzl"])
@@ -31,12 +26,22 @@ stardoc_test(
     input_file = "testdata/input_template_test/input.bzl",
     provider_template = "testdata/input_template_test/provider.vm",
     rule_template = "testdata/input_template_test/rule.vm",
+    # Remove tags and enable by default once Bazel 8.0.1 is released
+    tags = [
+        "bazel_8_0_1",
+        "manual",
+    ],
 )
 
 stardoc_test(
     name = "angle_bracket_test",
     golden_file = "testdata/angle_bracket_test/golden.md",
     input_file = "testdata/angle_bracket_test/input.bzl",
+    # Remove tags and enable by default once Bazel 8.0.1 is released
+    tags = [
+        "bazel_8_0_1",
+        "manual",
+    ],
 )
 
 stardoc_test(
@@ -44,9 +49,9 @@ stardoc_test(
     format = "proto",
     golden_file = "testdata/proto_format_test/golden.binaryproto",
     input_file = "testdata/proto_format_test/input.bzl",
-    # Golden output was generated with Bazel 7.2 and may differ in other versions
+    # Golden output was generated with Bazel 7.4.1 and may differ in other versions
     tags = [
-        "bazel_7_2",
+        "bazel_7",
         "manual",
     ],
 )
@@ -222,9 +227,9 @@ stardoc_test(
     name = "macro_kwargs_legacy_test",
     golden_file = "testdata/macro_kwargs_test/legacy_golden.md",
     input_file = "testdata/macro_kwargs_test/input.bzl",
-    # Golden output was generated with Bazel 7.2 and may differ in other versions
+    # Golden output was generated with Bazel 7.4.1 and may differ in other versions
     tags = [
-        "bazel_7_2",
+        "bazel_7",
         "manual",
     ],
 )
@@ -233,17 +238,17 @@ stardoc_test(
     name = "macro_kwargs_test",
     golden_file = "testdata/macro_kwargs_test/golden.md",
     input_file = "testdata/macro_kwargs_test/input.bzl",
-    # Golden output was generated with Bazel HEAD on 2024-06-12 and may differ in other versions
-    tags = [
-        "bazel_8",
-        "manual",
-    ],
 )
 
 stardoc_test(
     name = "pure_markdown_template_test",
     golden_file = "testdata/pure_markdown_template_test/golden.md",
     input_file = "testdata/pure_markdown_template_test/input.bzl",
+    # Remove tags and enable by default once Bazel 8.0.1 is released
+    tags = [
+        "bazel_8_0_1",
+        "manual",
+    ],
 )
 
 stardoc_test(
@@ -263,6 +268,11 @@ stardoc_test(
     name = "aspect_test",
     golden_file = "testdata/aspect_test/golden.md",
     input_file = "testdata/aspect_test/input.bzl",
+    # Remove tags and enable by default once Bazel 8.0.1 is released
+    tags = [
+        "bazel_8_0_1",
+        "manual",
+    ],
 )
 
 stardoc_test(
@@ -278,6 +288,11 @@ stardoc_test(
     name = "html_tables_template_test",
     golden_file = "testdata/html_tables_template_test/golden.md",
     input_file = "testdata/html_tables_template_test/input.bzl",
+    # Remove tags and enable by default once Bazel 8.0.1 is released
+    tags = [
+        "bazel_8_0_1",
+        "manual",
+    ],
     test = "html_tables",
 )
 
@@ -285,6 +300,11 @@ stardoc_test(
     name = "attribute_defaults_test",
     golden_file = "testdata/attribute_defaults_test/golden.md",
     input_file = "testdata/attribute_defaults_test/input.bzl",
+    # Remove tags and enable by default once Bazel 8.0.1 is released
+    tags = [
+        "bazel_8_0_1",
+        "manual",
+    ],
 )
 
 stardoc_test(
@@ -309,6 +329,12 @@ bzl_library(
         "testdata/provider_basic_test/input.bzl",
         "testdata/repo_rules_test/input.bzl",
         "testdata/simple_test/input.bzl",
+        "testdata/symbolic_macro_test/input.bzl",
+    ],
+    # Remove tags and enable by default once Bazel 8.0.1 is released
+    tags = [
+        "bazel_8_0_1",
+        "manual",
     ],
 )
 
@@ -317,6 +343,11 @@ stardoc_test(
     golden_file = "testdata/table_of_contents_test/golden.md",
     input_file = "testdata/table_of_contents_test/input.bzl",
     table_of_contents_template = "//stardoc:templates/markdown_tables/table_of_contents.vm",
+    # Remove tags and enable by default once Bazel 8.0.1 is released
+    tags = [
+        "bazel_8_0_1",
+        "manual",
+    ],
     deps = [":table_of_contents_test_deps"],
 )
 
@@ -346,6 +377,36 @@ stardoc_test(
     header_template = "testdata/stamping_test/stamping_header_stamping_off.vm",
     input_file = "testdata/stamping_test/input.bzl",
     stamp = 0,
+)
+
+stardoc_test(
+    name = "symbolic_macro_test",
+    golden_file = "testdata/symbolic_macro_test/golden.md",
+    input_file = "testdata/symbolic_macro_test/input.bzl",
+    tags = [
+        "bazel_8_0_1",
+        "manual",
+    ],
+)
+
+stardoc_test(
+    name = "symbolic_macro_finalizer_test",
+    golden_file = "testdata/symbolic_macro_finalizer_test/golden.md",
+    input_file = "testdata/symbolic_macro_finalizer_test/input.bzl",
+    tags = [
+        "bazel_8_0_1",
+        "manual",
+    ],
+)
+
+stardoc_test(
+    name = "symbolic_macro_inherit_attrs_test",
+    golden_file = "testdata/symbolic_macro_inherit_attrs_test/golden.md",
+    input_file = "testdata/symbolic_macro_inherit_attrs_test/input.bzl",
+    tags = [
+        "bazel_8_0_1",
+        "manual",
+    ],
 )
 
 sh_test(

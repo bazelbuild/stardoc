@@ -15,6 +15,14 @@
 #end
 
 #end
+#if (!$macroInfos.isEmpty())
+#[[##]]# Macros
+
+#foreach ($macroInfo in $macroInfos)
+- [$macroInfo.macroName](#$macroInfo.macroName)
+#end
+
+#end
 #if (!$functionInfos.isEmpty())
 #[[##]]# Functions
 

@@ -22,7 +22,7 @@ This rule exercises some of the build API.
 | <a id="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="my_rule-deps"></a>deps |  A list of dependencies.   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional |  `[]`  |
 | <a id="my_rule-src"></a>src |  The source file.   | <a href="https://bazel.build/concepts/labels">Label</a> | optional |  `None`  |
-| <a id="my_rule-out"></a>out |  The output file.   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
+| <a id="my_rule-out"></a>out |  The output file.   | <a href="https://bazel.build/concepts/labels">Label</a>; <a href="https://bazel.build/reference/be/common-definitions#configurable-attributes">nonconfigurable</a> | required |  |
 | <a id="my_rule-extra_arguments"></a>extra_arguments |  -   | List of strings | optional |  `[]`  |
 | <a id="my_rule-tool"></a>tool |  The location of the tool to use.   | <a href="https://bazel.build/concepts/labels">Label</a> | optional |  `"@stardoc//foo/bar/baz:target"`  |
 
