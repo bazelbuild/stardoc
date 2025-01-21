@@ -18,8 +18,6 @@ set -o errexit -o nounset -o pipefail
 # Set by GH actions, see
 # https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
 TAG=${GITHUB_REF_NAME}
-# A prefix is added to better match the GitHub generated archives.
-PREFIX="stardoc-${TAG}"
 ARCHIVE="stardoc-$TAG.tar.gz"
 
 bazel build //distro:distro
@@ -53,7 +51,6 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(
     name = "io_bazel_stardoc",
     sha256 = "${SHA}",
-    strip_prefix = "${PREFIX}",
     url = "https://github.com/bazelbuild/stardoc/releases/download/${TAG}/stardoc-${TAG}.tar.gz",
 )
 
