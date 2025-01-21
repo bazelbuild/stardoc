@@ -1,3 +1,16 @@
+## Release 0.8.0
+
+**New Features**
+
+- Adds support for documenting symbolic macros when using Bazel 8.0.1
+  or newer. (Note that the original Bazel 8.0.0 release had a bug causing
+  macro documentation emitted by Stardoc to be be incomplete.) (#267)
+
+**Contributors**
+
+Alexandre Rostovtsev, Keith Smiley, Richard Levasseur
+
+
 ## Release 0.7.2
 
 Bugfix release: fixes compatibility issues with Bazel 7.4 and 8.0.
