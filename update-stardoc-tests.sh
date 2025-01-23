@@ -60,9 +60,8 @@ function regenerate () {
 : "${BAZEL:=bazelisk}"
 
 update_non_manual_tests
-USE_BAZEL_VERSION="8.0.1rc1" update_manual_tests_with_tag "noenable_bzlmod" --noenable_bzlmod --enable_workspace
+update_manual_tests_with_tag "noenable_bzlmod" --noenable_bzlmod --enable_workspace
 USE_BAZEL_VERSION="7.4.1" update_manual_tests_with_tag "bazel_7"
-USE_BAZEL_VERSION="8.0.1rc1" update_manual_tests_with_tag "bazel_8_0_1"
 
 echo "** Files copied."
 echo "Please note that not all golden files are correctly copied by this script."
