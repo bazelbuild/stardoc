@@ -54,6 +54,7 @@ tasks:
     <<: *noenable_bzlmod_task_config
     name: Build and test - legacy WORKSPACE setup
     platform: ubuntu2004
+    skip_in_bazel_downstream_pipeline: "Bazel@HEAD no longer supports WORKSPACE"
 
   build_and_test_last_green:
     <<: *common_task_config
