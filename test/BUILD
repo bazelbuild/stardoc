@@ -343,6 +343,22 @@ stardoc_test(
     name = "symbolic_macro_inherit_attrs_test",
     golden_file = "testdata/symbolic_macro_inherit_attrs_test/golden.md",
     input_file = "testdata/symbolic_macro_inherit_attrs_test/input.bzl",
+    # Inherited default rule attributes vary depending on Bazel version
+    tags = [
+        "bazel_9",
+        "manual",
+    ],
+)
+
+stardoc_test(
+    name = "symbolic_macro_inherit_attrs_bazel_8_test",
+    golden_file = "testdata/symbolic_macro_inherit_attrs_test/bazel_8_golden.md",
+    input_file = "testdata/symbolic_macro_inherit_attrs_test/input.bzl",
+    # Inherited default rule attributes vary depending on Bazel version
+    tags = [
+        "bazel_8",
+        "manual",
+    ],
 )
 
 sh_test(
