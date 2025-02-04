@@ -14,7 +14,8 @@
 """Convenience macro for stardoc e2e tests."""
 
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-load("@rules_shell//shell:sh_test.bzl", "sh_binary", "sh_test")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
 load("//stardoc:html_tables_stardoc.bzl", "html_tables_stardoc")
 load("//stardoc:stardoc.bzl", "stardoc")
 
