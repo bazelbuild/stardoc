@@ -65,8 +65,8 @@ tasks:
     bazel: last_green
     test_targets:
     # Non-manual tests + manual tests requiring Bazel at HEAD
-      - "//..."
-      - "//test:symbolic_macro_inherit_attrs_test"
+    - "//..."
+    - "//test:symbolic_macro_inherit_attrs_test"
 
   build_and_test_last_green_windows:
     <<: *windows_task_config
@@ -75,20 +75,24 @@ tasks:
     bazel: last_green
     test_targets:
     # Non-manual tests + manual tests requiring Bazel at HEAD
-      - "//..."
-      - "//test:symbolic_macro_inherit_attrs_test"
+    - "//..."
+    - "//test:symbolic_macro_inherit_attrs_test"
 
   bzlmod_usage:
     <<: *common_task_config
     name: Stardoc Bzlmod module usage test
     platform: ${{ platform }}
     working_directory: test/bzlmod
+    test_targets:
+    - "//..."
 
   bzlmod_usage_windows:
     <<: *windows_task_config
     name: Stardoc Bzlmod module usage test - Windows
     platform: windows
     working_directory: test/bzlmod
+    test_targets:
+    - "//..."
 
   bazel_7_tests:
     name: Stardoc golden tests requiring Bazel 7
