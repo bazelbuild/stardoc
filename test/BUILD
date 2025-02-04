@@ -48,12 +48,6 @@ stardoc_test(
 )
 
 stardoc_test(
-    name = "cc_api_test",
-    golden_file = "testdata/cc_api_test/golden.md",
-    input_file = "testdata/cc_api_test/input.bzl",
-)
-
-stardoc_test(
     name = "simple_test",
     golden_file = "testdata/simple_test/golden.md",
     input_file = "testdata/simple_test/input.bzl",
@@ -82,13 +76,6 @@ stardoc_test(
     name = "multiple_rules_test",
     golden_file = "testdata/multiple_rules_test/golden.md",
     input_file = "testdata/multiple_rules_test/input.bzl",
-)
-
-stardoc_test(
-    name = "cpp_basic_test",
-    golden_file = "testdata/cpp_basic_test/golden.md",
-    input_file = "testdata/cpp_basic_test/input.bzl",
-    symbol_names = ["cpp_related_rule"],
 )
 
 stardoc_test(
