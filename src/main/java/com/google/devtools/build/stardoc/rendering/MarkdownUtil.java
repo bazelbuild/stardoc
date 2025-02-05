@@ -594,6 +594,8 @@ public final class MarkdownUtil {
         return "Dictionary: String -> String";
       case STRING_LIST_DICT:
         return "Dictionary: String -> List of strings";
+      case LABEL_LIST_DICT:
+        return "Dictionary: String -> List of labels";
       case LABEL:
       case OUTPUT:
         return "Label";

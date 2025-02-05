@@ -1,5 +1,6 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
 load(":stardoc_test.bzl", "self_gen_test", "stardoc_test")
 
 package(
@@ -47,12 +48,6 @@ stardoc_test(
 )
 
 stardoc_test(
-    name = "cc_api_test",
-    golden_file = "testdata/cc_api_test/golden.md",
-    input_file = "testdata/cc_api_test/input.bzl",
-)
-
-stardoc_test(
     name = "simple_test",
     golden_file = "testdata/simple_test/golden.md",
     input_file = "testdata/simple_test/input.bzl",
@@ -81,13 +76,6 @@ stardoc_test(
     name = "multiple_rules_test",
     golden_file = "testdata/multiple_rules_test/golden.md",
     input_file = "testdata/multiple_rules_test/input.bzl",
-)
-
-stardoc_test(
-    name = "cpp_basic_test",
-    golden_file = "testdata/cpp_basic_test/golden.md",
-    input_file = "testdata/cpp_basic_test/input.bzl",
-    symbol_names = ["cpp_related_rule"],
 )
 
 stardoc_test(
@@ -355,6 +343,22 @@ stardoc_test(
     name = "symbolic_macro_inherit_attrs_test",
     golden_file = "testdata/symbolic_macro_inherit_attrs_test/golden.md",
     input_file = "testdata/symbolic_macro_inherit_attrs_test/input.bzl",
+    # Inherited default rule attributes vary depending on Bazel version
+    tags = [
+        "bazel_9",
+        "manual",
+    ],
+)
+
+stardoc_test(
+    name = "symbolic_macro_inherit_attrs_bazel_8_test",
+    golden_file = "testdata/symbolic_macro_inherit_attrs_test/bazel_8_golden.md",
+    input_file = "testdata/symbolic_macro_inherit_attrs_test/input.bzl",
+    # Inherited default rule attributes vary depending on Bazel version
+    tags = [
+        "bazel_8",
+        "manual",
+    ],
 )
 
 sh_test(

@@ -13,7 +13,7 @@
 // limitations under the License.
 //
 // Vendored from src/main/protobuf/stardoc_output.proto
-// in the Bazel source tree at commit 59e99b67533ebc5375cca98bc95ec0b74c4d4a69n
+// in the Bazel source tree at commit f99a46f150fb90ff2d5183130c3bd56f0a1b814b
 //
 // Protos for Stardoc data.
 //
@@ -74,6 +74,7 @@ enum AttributeType {
   OUTPUT = 12;
   OUTPUT_LIST = 13;
   LABEL_DICT_UNARY = 14;
+  LABEL_LIST_DICT = 15;
 }
 
 // Representation of a Starlark rule definition.
