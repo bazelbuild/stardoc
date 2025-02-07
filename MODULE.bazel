@@ -37,3 +37,4 @@ use_repo(maven, "stardoc_maven")
 #
 # Dev-only and test-only dependencies
 bazel_dep(name = "rules_pkg", version = "1.0.1", dev_dependency = True)
+bazel_dep(name = "rules_shell", version = "0.4.0", dev_dependency = True)

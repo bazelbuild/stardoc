@@ -16,7 +16,9 @@ matrix:
   build_targets:
     - "//..."
   test_targets:
+  # Non-manual tests + manual tests requiring stable Bazel
     - "//..."
+    - "//test:symbolic_macro_inherit_attrs_bazel_8_test"
 
 .noenable_bzlmod_task_config: &noenable_bzlmod_task_config
   build_flags: *noenable_bzlmod_flags
@@ -54,30 +56,43 @@ tasks:
     <<: *noenable_bzlmod_task_config
     name: Build and test - legacy WORKSPACE setup
     platform: ubuntu2004
+    skip_in_bazel_downstream_pipeline: "Bazel@HEAD no longer supports WORKSPACE"
 
   build_and_test_last_green:
     <<: *common_task_config
     name: Build and test - Bazel last green
     platform: ${{ platform }}
     bazel: last_green
+    test_targets:
+    # Non-manual tests + manual tests requiring Bazel at HEAD
+    - "//..."
+    - "//test:symbolic_macro_inherit_attrs_test"
 
   build_and_test_last_green_windows:
     <<: *windows_task_config
     name: Build and test - Bazel last green - Windows
     platform: windows
     bazel: last_green
+    test_targets:
+    # Non-manual tests + manual tests requiring Bazel at HEAD
+    - "//..."
+    - "//test:symbolic_macro_inherit_attrs_test"
 
   bzlmod_usage:
     <<: *common_task_config
     name: Stardoc Bzlmod module usage test
     platform: ${{ platform }}
     working_directory: test/bzlmod
+    test_targets:
+    - "//..."
 
   bzlmod_usage_windows:
     <<: *windows_task_config
     name: Stardoc Bzlmod module usage test - Windows
     platform: windows
     working_directory: test/bzlmod
+    test_targets:
+    - "//..."
 
   bazel_7_tests:
     name: Stardoc golden tests requiring Bazel 7

@@ -25,11 +25,11 @@ my_rule = rule(
     doc = "This rule does things.",
     attrs = {
         "first": attr.label_keyed_string_dict(
-            providers = [MyProviderInfo, cc_common.CcToolchainInfo],
+            providers = [MyProviderInfo, DefaultInfo],
             doc = "this is the first attribute.",
         ),
         "second": attr.label_list(
-            providers = [[CcInfo], [OtherProviderInfo, DepProviderInfo]],
+            providers = [[DefaultInfo], [OtherProviderInfo, DepProviderInfo]],
         ),
         "third": attr.label(
             providers = [OtherProviderInfo],

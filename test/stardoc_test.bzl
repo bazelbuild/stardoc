@@ -14,6 +14,8 @@
 """Convenience macro for stardoc e2e tests."""
 
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
 load("//stardoc:html_tables_stardoc.bzl", "html_tables_stardoc")
 load("//stardoc:stardoc.bzl", "stardoc")
 
@@ -75,7 +77,7 @@ def _create_test_targets(
     actual_generated_doc = "%s.md" % stardoc_name
     tags = kwargs.get("tags", [])
 
-    native.sh_test(
+    sh_test(
         name = test_name,
         srcs = ["diff_test_runner.sh"],
         args = [
@@ -102,7 +104,7 @@ EOF""" % (regenerate_sh, actual_generated_doc, golden_file),
         tags = tags,
     )
 
-    native.sh_binary(
+    sh_binary(
         name = regenerate_name,
         srcs = [regenerate_sh],
         data = [actual_generated_doc],
@@ -142,7 +144,7 @@ def self_gen_test(
       golden_file: Expected Stardoc output.
       **kwargs: Additional arguments for the test.
     """
-    native.sh_test(
+    sh_test(
         name = name,
         srcs = ["diff_test_runner.sh"],
         args = [

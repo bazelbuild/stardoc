@@ -290,6 +290,7 @@ public final class RendererMain {
           "deprecation",
           "distribs",
           "exec_compatible_with",
+          "exec_group_compatible_with",
           "exec_properties",
           "features",
           "package_metadata",
