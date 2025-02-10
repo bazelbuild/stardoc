@@ -16,9 +16,7 @@ matrix:
   build_targets:
     - "//..."
   test_targets:
-  # Non-manual tests + manual tests requiring stable Bazel
     - "//..."
-    - "//test:symbolic_macro_inherit_attrs_bazel_8_test"
 
 .noenable_bzlmod_task_config: &noenable_bzlmod_task_config
   build_flags: *noenable_bzlmod_flags
@@ -46,11 +44,21 @@ tasks:
     <<: *common_task_config
     name: Build and test
     platform: ${{ platform }}
+    test_targets:
+    # Non-manual tests + manual tests requiring stable Bazel
+      - "//..."
+      - "//test:symbolic_macro_inherit_attrs_bazel_8_test"
+    skip_in_bazel_downstream_pipeline: "Includes manual golden tests requiring stable Bazel"
 
   build_and_test_windows:
     <<: *windows_task_config
     name: Build and test - Windows
     platform: windows
+    test_targets:
+    # Non-manual tests + manual tests requiring stable Bazel
+      - "//..."
+      - "//test:symbolic_macro_inherit_attrs_bazel_8_test"
+    skip_in_bazel_downstream_pipeline: "Includes manual golden tests requiring stable Bazel"
 
   noenable_bzlmod:
     <<: *noenable_bzlmod_task_config
@@ -83,16 +91,12 @@ tasks:
     name: Stardoc Bzlmod module usage test
     platform: ${{ platform }}
     working_directory: test/bzlmod
-    test_targets:
-    - "//..."
 
   bzlmod_usage_windows:
     <<: *windows_task_config
     name: Stardoc Bzlmod module usage test - Windows
     platform: windows
     working_directory: test/bzlmod
-    test_targets:
-    - "//..."
 
   bazel_7_tests:
     name: Stardoc golden tests requiring Bazel 7
