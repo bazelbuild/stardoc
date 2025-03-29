@@ -14,6 +14,7 @@ _inherit_src_macro = macro(
             doc = "Dependencies",
         ),
     },
+    doc = """Src Macro docs""",
     implementation = _impl,
 )
 
@@ -31,11 +32,12 @@ _inherit_src_rule = rule(
             doc = "Dependencies",
         ),
     },
+    doc = """Src Rule docs""",
     implementation = _rule_impl,
 )
 
 inherit_from_common = macro(
-    doc = """Initializes some targets.""",
+    doc = """InheritFromCommon: Initializes some targets.""",
     attrs = {
         "srcs": attr.label_list(
             doc = "Source files",
@@ -47,7 +49,19 @@ inherit_from_common = macro(
 )
 
 inherit_from_macro = macro(
-    doc = """Initializes some targets.""",
+    doc = """InheritFromMacro: Initializes some targets.""",
+    attrs = {
+        "srcs": attr.label_list(
+            doc = "Source files",
+            allow_files = True,
+        ),
+    },
+    inherit_attrs = _inherit_src_macro,
+    implementation = _impl,
+)
+
+inherit_from_macro_no_doc = macro(
+    # No `doc` value passed.
     attrs = {
         "srcs": attr.label_list(
             doc = "Source files",
@@ -59,7 +73,38 @@ inherit_from_macro = macro(
 )
 
 inherit_from_rule = macro(
-    doc = """Initializes some targets.""",
+    doc = """InheritFromRule: Initializes some targets.""",
+    attrs = {
+        "srcs": attr.label_list(
+            doc = "Source files",
+            allow_files = True,
+        ),
+    },
+    inherit_attrs = _inherit_src_rule,
+    implementation = _impl,
+)
+
+inherit_from_rule_with_overrides = macro(
+    doc = """InheritFromRuleWithOverrides: Initializes some targets.""",
+    attrs = {
+        "srcs": attr.label_list(
+            doc = "Source files",
+            allow_files = True,
+        ),
+        # Should get custom documentation
+        "args": attr.string_list(
+            doc = "Override docs for Arguments",
+            mandatory = True,
+        ),
+        # Should cause it to be hidden.
+        "deps": None,
+    },
+    inherit_attrs = _inherit_src_rule,
+    implementation = _impl,
+)
+
+inherit_from_rule_no_doc = macro(
+    # No `doc` value passed.
     attrs = {
         "srcs": attr.label_list(
             doc = "Source files",
