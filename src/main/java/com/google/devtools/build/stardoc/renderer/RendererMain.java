@@ -14,7 +14,6 @@
 
 package com.google.devtools.build.stardoc.renderer;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -250,7 +249,7 @@ public final class RendererMain {
     boolean inheritsFromTest = inheritsFromTestRule(macroInfo);
     ArrayList<AttributeInfo> attributes = new ArrayList<>(macroInfo.getAttributeList().size() + 1);
     for (AttributeInfo attributeInfo : macroInfo.getAttributeList()) {
-      if (attributeInfo.getNativelyDefined() && isNullOrEmpty(attributeInfo.getDocString())) {
+      if (attributeInfo.getNativelyDefined() && attributeInfo.getDocString().isEmpty()) {
         // inject doc string for undocumented inherited native attributes
         String docString = "Inherited rule attribute";
         if (COMMON_UNDOCUMENTED_ATTR_NAMES.contains(attributeInfo.getName())) {
@@ -311,7 +310,7 @@ public final class RendererMain {
       ImmutableSet.of("expect_failure", "transitive_configs");
 
   /**
-   * Heuristically guesses whehter the given macro inherits attributes from a test rule (as opposed
+   * Heuristically guesses whether the given macro inherits attributes from a test rule (as opposed
    * to, for example, a binary rule).
    */
   private static boolean inheritsFromTestRule(MacroInfo macroInfo) {
