@@ -73,12 +73,12 @@ def stardoc(
         Possible values:
         <ul>
         <li>`stamp = 1`: Always provide stamping information, even in
-            [--nostamp](https://bazel.build/docs/user-manual#flag--stamp) builds.
+            [--nostamp](https://bazel.build/docs/user-manual#stamp) builds.
             This setting should be avoided, since it potentially kills remote caching for the target
             and any downstream actions that depend on it.</li>
         <li>`stamp = 0`: Do not provide stamping information.</li>
         <li>`stamp = -1`: Provide stamping information only if the
-             [--stamp](https://bazel.build/docs/user-manual#flag--stamp) flag is set.</li>
+             [--stamp](https://bazel.build/docs/user-manual#stamp) flag is set.</li>
         </ul>
         Stamped targets are not rebuilt unless their dependencies change.
       **kwargs: Further arguments to pass to stardoc.

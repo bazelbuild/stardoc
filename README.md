@@ -3,7 +3,7 @@
 [![Build status](https://badge.buildkite.com/d8594eb71e4869c792cce22428b08e03b345f9c65dc603d70b.svg?branch=master)](https://buildkite.com/bazel/stardoc)
 
 Stardoc is a documentation generator for [Bazel](https://bazel.build) build rules
-written in [Starlark](https://bazel.build/docs/skylark/index.html).
+written in [Starlark](https://bazel.build/rules/language).
 
 Stardoc provides a Starlark rule (`stardoc`, see [documentation](docs/stardoc_rule.md)) that can
 be used to build documentation for Starlark rules in Markdown. Stardoc generates one documentation

@@ -21,7 +21,7 @@ This rule does things.
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="my_rule-fifth"></a>fifth |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional |  `None`  |
-| <a id="my_rule-first"></a>first |  this is the first attribute.   | <a href="https://bazel.build/rules/lib/dict">Dictionary: Label -> String</a> | optional |  `{}`  |
+| <a id="my_rule-first"></a>first |  this is the first attribute.   | <a href="https://bazel.build/rules/lib/core/dict">Dictionary: Label -> String</a> | optional |  `{}`  |
 | <a id="my_rule-fourth"></a>fourth |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional |  `None`  |
 | <a id="my_rule-second"></a>second |  -   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional |  `[]`  |
 | <a id="my_rule-sixth"></a>sixth |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional |  `None`  |
