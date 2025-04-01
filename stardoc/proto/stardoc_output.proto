@@ -13,7 +13,8 @@
 // limitations under the License.
 //
 // Vendored from src/main/protobuf/stardoc_output.proto
-// in the Bazel source tree at commit f99a46f150fb90ff2d5183130c3bd56f0a1b814b
+// in the Bazel source tree at commit 106903d38f6d41b5eb1f100698f257184bea47a3
+
 //
 // Protos for Stardoc data.
 //
