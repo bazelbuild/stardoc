@@ -47,7 +47,9 @@ tasks:
     test_targets:
     # Non-manual tests + manual tests requiring stable Bazel
       - "//..."
+      - "//test:repo_rules_bazel_8_test"
       - "//test:symbolic_macro_inherit_attrs_bazel_8_test"
+      - "//test:table_of_contents_bazel_8_test"
     skip_in_bazel_downstream_pipeline: "Includes manual golden tests requiring stable Bazel"
 
   build_and_test_windows:
@@ -57,7 +59,9 @@ tasks:
     test_targets:
     # Non-manual tests + manual tests requiring stable Bazel
       - "//..."
+      - "//test:repo_rules_bazel_8_test"
       - "//test:symbolic_macro_inherit_attrs_bazel_8_test"
+      - "//test:table_of_contents_bazel_8_test"
     skip_in_bazel_downstream_pipeline: "Includes manual golden tests requiring stable Bazel"
 
   noenable_bzlmod:
@@ -74,7 +78,9 @@ tasks:
     test_targets:
     # Non-manual tests + manual tests requiring Bazel at HEAD
     - "//..."
+    - "//test:repo_rules_test"
     - "//test:symbolic_macro_inherit_attrs_test"
+    - "//test:table_of_contents_test"
 
   build_and_test_last_green_windows:
     <<: *windows_task_config
@@ -84,7 +90,9 @@ tasks:
     test_targets:
     # Non-manual tests + manual tests requiring Bazel at HEAD
     - "//..."
+    - "//test:repo_rules_test"
     - "//test:symbolic_macro_inherit_attrs_test"
+    - "//test:table_of_contents_test"
 
   bzlmod_usage:
     <<: *common_task_config
@@ -101,7 +109,7 @@ tasks:
   bazel_7_tests:
     name: Stardoc golden tests requiring Bazel 7
     platform: ubuntu2004
-    bazel: 7.4.1
+    bazel: 7.6.1
     test_targets:
     - "//test:proto_format_test"
     - "//test:macro_kwargs_legacy_test"

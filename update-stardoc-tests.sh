@@ -61,10 +61,10 @@ function regenerate () {
 
 update_non_manual_tests
 update_manual_tests_with_tag "noenable_bzlmod" --noenable_bzlmod --enable_workspace
-USE_BAZEL_VERSION="7.4.1" update_manual_tests_with_tag "bazel_7"
-USE_BAZEL_VERSION="8.0.1" update_manual_tests_with_tag "bazel_8"
-# last_green on 2025-02-04
-USE_BAZEL_VERSION="1cbed995fcd310f58ad06f9f046650301bc54584" update_manual_tests_with_tag "bazel_9"
+USE_BAZEL_VERSION="7.6.1" update_manual_tests_with_tag "bazel_7"
+USE_BAZEL_VERSION="8.1.1" update_manual_tests_with_tag "bazel_8"
+# last_green on 2025-04-01
+USE_BAZEL_VERSION="2845a0ca7428bdfe862137f5d9b468e9a2c389ad" update_manual_tests_with_tag "bazel_9"
 
 echo "** Files copied."
 echo "Please note that not all golden files are correctly copied by this script."
