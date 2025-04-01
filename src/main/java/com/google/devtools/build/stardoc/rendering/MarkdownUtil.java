@@ -522,7 +522,7 @@ public final class MarkdownUtil {
       case STRING_DICT:
       case STRING_LIST_DICT:
       case LABEL_STRING_DICT:
-        typeLink = "https://bazel.build/rules/lib/dict";
+        typeLink = "https://bazel.build/rules/lib/core/dict";
         break;
       default:
         typeLink = null;
