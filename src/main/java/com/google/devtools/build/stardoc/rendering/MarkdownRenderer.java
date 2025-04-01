@@ -252,18 +252,6 @@ public class MarkdownRenderer {
     }
   }
 
-  private static FunctionParamInfo withInferredDoc(
-      FunctionParamInfo paramInfo, ImmutableMap<String, String> fallbackDocs) {
-    if (paramInfo.getDocString().isEmpty() && fallbackDocs.containsKey(paramInfo.getName())) {
-      return paramInfo.toBuilder()
-          .clearDocString()
-          .setDocString(fallbackDocs.get(paramInfo.getName()))
-          .build();
-    } else {
-      return paramInfo;
-    }
-  }
-
   /**
    * Returns a markdown rendering of a user-defined function's documentation for the function info
    * object.
@@ -369,6 +357,18 @@ public class MarkdownRenderer {
       return Template.parseFrom(reader).evaluate(vars);
     } catch (ParseException | EvaluationException e) {
       throw new IOException(e);
+    }
+  }
+
+  private static FunctionParamInfo withInferredDoc(
+      FunctionParamInfo paramInfo, ImmutableMap<String, String> fallbackDocs) {
+    if (paramInfo.getDocString().isEmpty() && fallbackDocs.containsKey(paramInfo.getName())) {
+      return paramInfo.toBuilder()
+          .clearDocString()
+          .setDocString(fallbackDocs.get(paramInfo.getName()))
+          .build();
+    } else {
+      return paramInfo;
     }
   }
 
