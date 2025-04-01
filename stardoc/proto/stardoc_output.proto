@@ -13,7 +13,8 @@
 // limitations under the License.
 //
 // Vendored from src/main/protobuf/stardoc_output.proto
-// in the Bazel source tree at commit f99a46f150fb90ff2d5183130c3bd56f0a1b814b
+// in the Bazel source tree at commit 106903d38f6d41b5eb1f100698f257184bea47a3
+
 //
 // Protos for Stardoc data.
 //
@@ -55,7 +56,7 @@ message ModuleInfo {
 
 // Representation of a Starlark rule attribute type. These generally
 // have a one-to-one correspondence with functions defined at
-// https://bazel.build/rules/lib/attr.
+// https://bazel.build/rules/lib/toplevel/attr.
 enum AttributeType {
   UNKNOWN = 0;
   // A special case of STRING; all rules have exactly one implicit
@@ -138,7 +139,7 @@ message MacroInfo {
 // Representation of a Starlark rule, repository rule, or module extension tag
 // attribute definition, comprised of an attribute name, and a schema defined by
 // a call to one of the 'attr' module methods enumerated at
-// https://bazel.build/rules/lib/attr
+// https://bazel.build/rules/lib/toplevel/attr.
 message AttributeInfo {
   // The name of the attribute.
   string name = 1;

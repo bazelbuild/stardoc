@@ -24,7 +24,7 @@ types for rule attributes.
 Private rule attributes (attributes with names that begin with `_`) will not
 appear in generated documentation.
 
-[Starlark Rules](https://bazel.build/docs/skylark/rules.html) are declared using
+[Starlark Rules](https://bazel.build/rules/rules-tutorial) are declared using
 the `rule()` function as global variables.
 
 General rule documentation should be supplied in the `doc` parameter of the
@@ -84,7 +84,7 @@ Contains information about some of my favorite things.
 <a name="macro-documentation"></a>
 ## Macro / Function Documentation
 
-Functions and [Starlark Macros](https://bazel.build/docs/skylark/macros.html) are documented
+Functions and [Starlark Macros](https://bazel.build/extending/legacy-macros) are documented
 using docstrings similar to Python docstring format:
 
 ```python

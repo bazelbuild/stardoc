@@ -1,5 +1,5 @@
 Stardoc is a documentation generator for [Bazel](https://bazel.build) build rules
-written in [Starlark](https://bazel.build/docs/skylark/index.html).
+written in [Starlark](https://bazel.build/rules/language).
 
 Stardoc provides a Starlark rule (`stardoc`)
 that can be used to build Markdown documentation for Starlark rules, providers,

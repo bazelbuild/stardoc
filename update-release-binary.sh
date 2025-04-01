@@ -32,6 +32,6 @@ curl -s -L "https://raw.githubusercontent.com/bazelbuild/bazel/${PROTO_SRC_SHA}/
     | sed '/^\/\/ limitations under the License./ a \
 //\
 // Vendored from '"${PROTO_SRC}"'\
-// in the Bazel source tree at commit '"${PROTO_SRC_SHA}n"'\
+// in the Bazel source tree at commit '"${PROTO_SRC_SHA}"'\
 ' > stardoc/proto/stardoc_output.proto
 echo "** stardoc_output.proto copied."

@@ -22,7 +22,7 @@ This is my rule. It does stuff.
 | <a id="my_rule-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="my_rule-first"></a>first |  first doc string   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
 | <a id="my_rule-fourth"></a>fourth |  fourth doc string   | Boolean | optional |  `False`  |
-| <a id="my_rule-second"></a>second |  -   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> String</a> | required |  |
+| <a id="my_rule-second"></a>second |  -   | <a href="https://bazel.build/rules/lib/core/dict">Dictionary: String -> String</a> | required |  |
 | <a id="my_rule-third"></a>third |  -   | <a href="https://bazel.build/concepts/labels">Label</a>; <a href="https://bazel.build/reference/be/common-definitions#configurable-attributes">nonconfigurable</a> | required |  |
 
 
