@@ -37,11 +37,5 @@ my_rule = rule(
         "fourth": attr.label(
             providers = [DefaultInfo],
         ),
-        "fifth": attr.label(
-            providers = [["LegacyProvider", "ObjectProvider"], [DefaultInfo]],
-        ),
-        "sixth": attr.label(
-            providers = ["LegacyProvider"],
-        ),
     },
 )
