@@ -1,6 +1,6 @@
 """The input file for the python rule test"""
 
-PyRuntimeInfo = provider("PyRuntimeInfo")
+PyRuntimeInfo = provider("PyRuntimeInfo", fields = [])
 
 def exercise_the_api():
     var1 = PyRuntimeInfo  # @unused
