@@ -239,13 +239,6 @@ stardoc_test(
 )
 
 stardoc_test(
-    name = "py_rule_test",
-    golden_file = "testdata/py_rule_test/golden.md",
-    input_file = "testdata/py_rule_test/input.bzl",
-    symbol_names = ["py_related_rule"],
-)
-
-stardoc_test(
     name = "struct_default_value_test",
     golden_file = "testdata/struct_default_value_test/golden.md",
     input_file = "testdata/struct_default_value_test/input.bzl",
