@@ -1,0 +1,12 @@
+"""A test that verifies support for .scl files."""
+
+def my_function(x, y, z="foo", **kwargs):
+    """
+    Dummy function
+
+    Adds three values.
+
+    Returns:
+        x + y + z
+    """
+    return x + y + z

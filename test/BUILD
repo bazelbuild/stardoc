@@ -141,6 +141,12 @@ stardoc_test(
 )
 
 stardoc_test(
+    name = "scl_test",
+    golden_file = "testdata/scl_test/golden.md",
+    input_file = "testdata/scl_test/input.scl",
+)
+
+stardoc_test(
     name = "misc_apis_test",
     golden_file = "testdata/misc_apis_test/golden.md",
     input_file = "testdata/misc_apis_test/input.bzl",
