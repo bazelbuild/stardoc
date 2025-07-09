@@ -1,6 +1,6 @@
 """A test that verifies support for .scl files."""
 
-def my_function(x, y, z="foo", **kwargs):
+def my_function(x, y, z = "foo", **kwargs):
     """
     Dummy function
 
