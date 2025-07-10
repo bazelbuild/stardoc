@@ -47,6 +47,18 @@ def stardoc_repositories():
         url = "https://github.com/bazelbuild/rules_java/releases/download/8.6.1/rules_java-8.6.1.tar.gz",
     )
 
+    # Transitive dep of rules_java, needs to be manually specified when not using bzlmod
+    # See https://github.com/bazelbuild/bazel/issues/21877
+    maybe(
+        http_archive,
+        name = "platforms",
+        urls = [
+            "https://mirror.bazel.build/github.com/bazelbuild/platforms/releases/download/1.0.0/platforms-1.0.0.tar.gz",
+            "https://github.com/bazelbuild/platforms/releases/download/1.0.0/platforms-1.0.0.tar.gz",
+        ],
+        sha256 = "3384eb1c30762704fbe38e440204e114154086c8fc8a8c2e3e28441028c019a8",
+    )
+
     RULES_JVM_EXTERNAL_TAG = "6.6"
     RULES_JVM_EXTERNAL_SHA = "3afe5195069bd379373528899c03a3072f568d33bd96fe037bd43b1f590535e7"
     maybe(
