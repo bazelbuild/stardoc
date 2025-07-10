@@ -285,6 +285,7 @@ public final class RendererMain {
 
   private static final ImmutableSet<String> COMMON_BASE_ATTR_NAMES =
       ImmutableSet.of(
+          "aspect_hints",
           "compatible_with",
           "deprecation",
           "distribs",
