@@ -11,6 +11,9 @@ bazel_dep(name = "rules_java", version = "8.6.1")
 bazel_dep(name = "rules_jvm_external", version = "6.6")
 bazel_dep(name = "rules_license", version = "1.0.0")
 
+# Indirect dep needed to avoid "Protobuf only supports C++17 and newer" in Bazel 9 on Windows
+bazel_dep(name = "rules_cc", version = "0.1.2")
+
 # Maven artifacts required by Stardoc; keep consistent with deps.bzl
 STARDOC_MAVEN_ARTIFACTS = [
     "com.beust:jcommander:1.82",
