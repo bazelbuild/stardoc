@@ -2,12 +2,20 @@
 
 [![Build status](https://badge.buildkite.com/d8594eb71e4869c792cce22428b08e03b345f9c65dc603d70b.svg?branch=master)](https://buildkite.com/bazel/stardoc)
 
-Stardoc is a documentation generator for [Bazel](https://bazel.build) build rules
+Stardoc is a documentation generator for [Bazel](https://bazel.build) APIs such as custom rules
 written in [Starlark](https://bazel.build/rules/language).
 
-Stardoc provides a Starlark rule (`stardoc`, see [documentation](docs/stardoc_rule.md)) that can
-be used to build documentation for Starlark rules in Markdown. Stardoc generates one documentation
-page per `.bzl`file.
+Stardoc provides a Bazel rule (`stardoc`, see [documentation](docs/stardoc_rule.md)) that can
+be used to generate Markdown documentation for Starlark rules.
+Stardoc generates one documentation page per `.bzl` file.
+
+## Design and Alternatives
+
+Stardoc runs a [Velocity template](https://velocity.apache.org/engine/1.7/user-guide.html) on the output of the [native.starlark_doc_extract](https://bazel.build/reference/be/general#starlark_doc_extract) rule.
+
+Modules published to the Bazel Central Registry do not need to use Stardoc.
+They can simply publish the `starlark_doc_extract` outputs as a release artifact.
+See https://github.com/bazelbuild/bazel-central-registry/blob/main/docs/stardoc.md.
 
 ## Get Started
 
