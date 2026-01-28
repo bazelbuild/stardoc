@@ -27,7 +27,6 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AspectInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AttributeInfo;
-import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.AttributeType;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.FunctionParamInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.MacroInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.ModuleExtensionInfo;
@@ -530,11 +529,10 @@ public final class MarkdownUtil {
     }
     String typeString;
     if (typeLink == null) {
-      typeString = attributeTypeDescription(attrInfo.getType());
+      typeString = attributeTypeDescription(attrInfo);
     } else {
       typeString =
-          String.format(
-              "<a href=\"%s\">%s</a>", typeLink, attributeTypeDescription(attrInfo.getType()));
+          String.format("<a href=\"%s\">%s</a>", typeLink, attributeTypeDescription(attrInfo));
     }
     if (attrInfo.getNonconfigurable()) {
       typeString +=
@@ -572,8 +570,8 @@ public final class MarkdownUtil {
     return Joiner.on("; or ").join(finalProviderNames);
   }
 
-  private static String attributeTypeDescription(AttributeType attributeType) {
-    switch (attributeType) {
+  private static String attributeTypeDescription(AttributeInfo attrInfo) {
+    switch (attrInfo.getType()) {
       case NAME:
         return "Name";
       case INT:
@@ -604,9 +602,14 @@ public final class MarkdownUtil {
         return "List of labels";
       case UNKNOWN:
       case UNRECOGNIZED:
-        throw new IllegalArgumentException("Unhandled type " + attributeType);
+        // fall through
     }
-    throw new IllegalArgumentException("Unhandled type " + attributeType);
+    // We throw here rather than in the switch statement to support building against an external
+    // .proto definition.
+    throw new IllegalArgumentException(
+        String.format(
+            "Attribute '%s' has unsupported attribute type %d (%s)",
+            attrInfo.getName(), attrInfo.getTypeValue(), attrInfo.getType()));
   }
 
   /**
