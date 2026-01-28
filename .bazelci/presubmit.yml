@@ -99,9 +99,9 @@ tasks:
     working_directory: test/bzlmod
 
   bazel_8_tests:
-    name: Stardoc golden tests requiring Bazel 9
+    name: Stardoc golden tests requiring Bazel 8
     platform: ubuntu2004
-    bazel: 9.0.0
+    bazel: 8.5.1
     test_targets:
       - "//test:repo_rules_bazel_8_test"
       - "//test:symbolic_macro_inherit_attrs_bazel_8_test"
