@@ -47,9 +47,7 @@ tasks:
     test_targets:
     # Non-manual tests + manual tests requiring stable Bazel
       - "//..."
-      - "//test:repo_rules_bazel_8_test"
-      - "//test:symbolic_macro_inherit_attrs_bazel_8_test"
-      - "//test:table_of_contents_bazel_8_test"
+      - "//test:symbolic_macro_inherit_attrs_bazel_9_test"
     skip_in_bazel_downstream_pipeline: "Includes manual golden tests requiring stable Bazel"
 
   build_and_test_windows:
@@ -99,6 +97,16 @@ tasks:
     name: Stardoc Bzlmod module usage test - Windows
     platform: windows
     working_directory: test/bzlmod
+
+  bazel_8_tests:
+    name: Stardoc golden tests requiring Bazel 9
+    platform: ubuntu2004
+    bazel: 9.0.0
+    test_targets:
+      - "//test:repo_rules_bazel_8_test"
+      - "//test:symbolic_macro_inherit_attrs_bazel_8_test"
+      - "//test:table_of_contents_bazel_8_test"
+    skip_in_bazel_downstream_pipeline: Manual tests requiring an older Bazel version
 
   bazel_8_noenable_bzlmod:
     <<: *noenable_bzlmod_task_config
