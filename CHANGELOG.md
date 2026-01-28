@@ -1,3 +1,18 @@
+## Release 0.8.1
+
+Bugfix release: fixes compatibility issues with Bazel 9.0.
+
+**New features**
+
+- Adds support for `LABEL_LIST_DICT` attribute type and
+  `exec_group_compatible_with` common attribute (#279)
+
+**Contributors**
+
+Alex Eagle, Alexandre Rostovtsev, Fabian Meumertzheim, Ivo List, Jon Brandvein,
+Nevena Kotlaja, Philipp Stephani, Thomas Van Lenten, Xùdōng Yáng, Yun Peng
+
+
 ## Release 0.8.0
 
 **New Features**
