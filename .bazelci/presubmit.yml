@@ -47,7 +47,7 @@ tasks:
     test_targets:
     # Non-manual tests + manual tests requiring stable Bazel
       - "//..."
-      - "//test:symbolic_macro_inherit_attrs_bazel_9_test"
+      - "//test:symbolic_macro_inherit_attrs_test"
     skip_in_bazel_downstream_pipeline: "Includes manual golden tests requiring stable Bazel"
 
   build_and_test_windows:
@@ -70,9 +70,6 @@ tasks:
     test_targets:
     # Non-manual tests + manual tests requiring Bazel at HEAD
     - "//..."
-    - "//test:repo_rules_test"
-    - "//test:symbolic_macro_inherit_attrs_test"
-    - "//test:table_of_contents_test"
 
   build_and_test_last_green_windows:
     <<: *windows_task_config
@@ -82,9 +79,6 @@ tasks:
     test_targets:
     # Non-manual tests + manual tests requiring Bazel at HEAD
     - "//..."
-    - "//test:repo_rules_test"
-    - "//test:symbolic_macro_inherit_attrs_test"
-    - "//test:table_of_contents_test"
 
   bzlmod_usage:
     <<: *common_task_config
