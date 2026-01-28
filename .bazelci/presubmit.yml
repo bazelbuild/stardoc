@@ -47,9 +47,7 @@ tasks:
     test_targets:
     # Non-manual tests + manual tests requiring stable Bazel
       - "//..."
-      - "//test:repo_rules_bazel_8_test"
-      - "//test:symbolic_macro_inherit_attrs_bazel_8_test"
-      - "//test:table_of_contents_bazel_8_test"
+      - "//test:symbolic_macro_inherit_attrs_test"
     skip_in_bazel_downstream_pipeline: "Includes manual golden tests requiring stable Bazel"
 
   build_and_test_windows:
@@ -64,12 +62,6 @@ tasks:
       - "//test:table_of_contents_bazel_8_test"
     skip_in_bazel_downstream_pipeline: "Includes manual golden tests requiring stable Bazel"
 
-  noenable_bzlmod:
-    <<: *noenable_bzlmod_task_config
-    name: Build and test - legacy WORKSPACE setup
-    platform: ubuntu2004
-    skip_in_bazel_downstream_pipeline: "Bazel@HEAD no longer supports WORKSPACE"
-
   build_and_test_last_green:
     <<: *common_task_config
     name: Build and test - Bazel last green
@@ -78,9 +70,6 @@ tasks:
     test_targets:
     # Non-manual tests + manual tests requiring Bazel at HEAD
     - "//..."
-    - "//test:repo_rules_test"
-    - "//test:symbolic_macro_inherit_attrs_test"
-    - "//test:table_of_contents_test"
 
   build_and_test_last_green_windows:
     <<: *windows_task_config
@@ -90,9 +79,6 @@ tasks:
     test_targets:
     # Non-manual tests + manual tests requiring Bazel at HEAD
     - "//..."
-    - "//test:repo_rules_test"
-    - "//test:symbolic_macro_inherit_attrs_test"
-    - "//test:table_of_contents_test"
 
   bzlmod_usage:
     <<: *common_task_config
@@ -106,10 +92,27 @@ tasks:
     platform: windows
     working_directory: test/bzlmod
 
+  bazel_8_tests:
+    name: Stardoc golden tests requiring Bazel 8
+    platform: ubuntu2004
+    bazel: 8.5.1
+    test_targets:
+      - "//test:repo_rules_bazel_8_test"
+      - "//test:symbolic_macro_inherit_attrs_bazel_8_test"
+      - "//test:table_of_contents_bazel_8_test"
+    skip_in_bazel_downstream_pipeline: Manual tests requiring an older Bazel version
+
+  bazel_8_noenable_bzlmod:
+    <<: *noenable_bzlmod_task_config
+    name: Build and test - legacy WORKSPACE setup
+    platform: ubuntu2004
+    bazel: 8.5.1
+    skip_in_bazel_downstream_pipeline: WORKSPACE tests requiring an older Bazel version
+
   bazel_7_tests:
     name: Stardoc golden tests requiring Bazel 7
     platform: ubuntu2004
-    bazel: 7.6.1
+    bazel: 7.7.1
     test_targets:
     - "//test:proto_format_test"
     - "//test:macro_kwargs_legacy_test"

@@ -58,10 +58,6 @@ stardoc_test(
     name = "repo_rules_test",
     golden_file = "testdata/repo_rules_test/golden.md",
     input_file = "testdata/repo_rules_test/input.bzl",
-    tags = [
-        "bazel_9",
-        "manual",
-    ],
 )
 
 stardoc_test(
@@ -309,10 +305,6 @@ stardoc_test(
     golden_file = "testdata/table_of_contents_test/golden.md",
     input_file = "testdata/table_of_contents_test/input.bzl",
     table_of_contents_template = "//stardoc:templates/markdown_tables/table_of_contents.vm",
-    tags = [
-        "bazel_9",
-        "manual",
-    ],
     deps = [":table_of_contents_test_deps"],
 )
 
