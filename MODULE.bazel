@@ -10,6 +10,7 @@ bazel_dep(name = "bazel_skylib", version = "1.7.1")
 bazel_dep(name = "rules_java", version = "8.6.1")
 bazel_dep(name = "rules_jvm_external", version = "6.6")
 bazel_dep(name = "rules_license", version = "1.0.0")
+bazel_dep(name = "rules_shell", version = "0.4.0")
 
 # Maven artifacts required by Stardoc; keep consistent with deps.bzl
 STARDOC_MAVEN_ARTIFACTS = [
@@ -37,4 +38,3 @@ use_repo(maven, "stardoc_maven")
 #
 # Dev-only and test-only dependencies
 bazel_dep(name = "rules_pkg", version = "1.0.1", dev_dependency = True)
-bazel_dep(name = "rules_shell", version = "0.4.0", dev_dependency = True)

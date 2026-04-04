@@ -38,7 +38,6 @@ def stardoc_with_diff_test(
         # Output from stardoc rule above
         file2 = out_file.replace(".md", "-docgen.md"),
     )
-    )
 
 def update_docs(
         name = "update",
