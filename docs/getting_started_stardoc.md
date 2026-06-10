@@ -24,6 +24,12 @@ load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 
 to your `BUILD` or .bzl file to start using the `stardoc` rule.
 
+> [!TIP]
+> Building Stardoc's renderer from source compiles `protoc`, so generating docs
+> **normally needs a C/C++ toolchain** (a common surprise on Windows or other
+> machines without one). See [Rendering documentation without a C++
+> toolchain](rendering_without_cc_toolchain.md) for a setup that avoids it.
+
 ## Legacy WORKSPACE setup
 
 Edit your `WORKSPACE` file as shown in the `WORKSPACE` setup section for

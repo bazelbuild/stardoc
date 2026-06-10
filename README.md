@@ -23,6 +23,7 @@ See https://github.com/bazelbuild/bazel-central-registry/blob/main/docs/stardoc.
 * Writing [docstrings](docs/writing_stardoc.md)
 * How to [integrate Stardoc with your build](docs/generating_stardoc.md).
 * See also [Advanced Topics](docs/advanced_stardoc_usage.md).
+* Rendering documentation [without a C++ toolchain](docs/rendering_without_cc_toolchain.md).
 
 ## About Stardoc
 

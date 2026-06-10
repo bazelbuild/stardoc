@@ -1,0 +1,25 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
+load("@stardoc//stardoc:stardoc.bzl", "stardoc")
+
+# Renders Stardoc's own rule documentation (the same content as
+# docs/stardoc_rule.md in the Stardoc repo). The renderer is built from
+# source, but with NO CC toolchain: see MODULE.bazel (the protobuf >= 33.4
+# pin) and .bazelrc (--@protobuf//bazel/toolchains:prefer_prebuilt_protoc +
+# --incompatible_enable_proto_toolchain_resolution +
+# BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN). See README.md.
+stardoc(
+    name = "stardoc_doc",
+    out = "stardoc_doc.md",
+    input = "@stardoc//stardoc:stardoc.bzl",
+    symbol_names = ["stardoc"],
+    deps = ["@stardoc//stardoc:stardoc_lib"],
+)
+
+# Keeps the checked-in stardoc_rule.md in sync with the generated doc:
+# `bazel test //...` fails when it is stale, `bazel run //:update`
+# re-renders it into the source tree.
+write_source_file(
+    name = "update",
+    in_file = ":stardoc_doc",
+    out_file = "stardoc_rule.md",
+)
