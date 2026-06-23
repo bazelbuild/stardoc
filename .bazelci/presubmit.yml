@@ -2,7 +2,7 @@
 matrix:
   platform:
     - ubuntu2004
-    - macos
+    - macos_arm64
 
 .noenable_bzlmod_flags: &noenable_bzlmod_flags
   ? "--noenable_bzlmod"
