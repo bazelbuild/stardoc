@@ -12,11 +12,6 @@ matrix:
   # Workaround for https://github.com/bazelbuild/continuous-integration/issues/1012
   ? "--noexperimental_repository_cache_hardlinks"
 
-.common_environment: &common_environment
-  environment:
-      ANDROID_HOME: ""
-      ANDROID_NDK_HOME: ""
-
 .common_task_config: &common_task_config
   build_targets:
     - "//..."
@@ -47,7 +42,6 @@ matrix:
 tasks:
   build_and_test:
     <<: *common_task_config
-    <<: *common_environment
     name: Build and test
     platform: ${{ platform }}
     test_targets:
@@ -70,7 +64,6 @@ tasks:
 
   build_and_test_last_green:
     <<: *common_task_config
-    <<: *common_environment
     name: Build and test - Bazel last green
     platform: ${{ platform }}
     bazel: last_green
@@ -89,7 +82,6 @@ tasks:
 
   bzlmod_usage:
     <<: *common_task_config
-    <<: *common_environment
     name: Stardoc Bzlmod module usage test
     platform: ${{ platform }}
     working_directory: test/bzlmod
