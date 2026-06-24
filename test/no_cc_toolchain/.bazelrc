@@ -1,0 +1,43 @@
+# Force remote java
+common --java_runtime_version=remotejdk_21
+common --tool_java_runtime_version=remotejdk_21
+
+# Use the *precompiled* protoc that protobuf ships (protobuf >= 33.4) instead
+# of building protoc from C++ source. This is what lets the from-source
+# stardoc renderer build with NO CC toolchain.
+#
+# prefer_prebuilt_protoc selects protobuf's bundled prebuilt protoc;
+# --incompatible_enable_proto_toolchain_resolution routes proto codegen
+# through toolchain resolution to reach it. The latter is required through
+# Bazel 8 and is the default from Bazel 9.
+common --incompatible_enable_proto_toolchain_resolution
+common --@protobuf//bazel/toolchains:prefer_prebuilt_protoc
+
+# Never Compile protoc Again
+# Poison pill: if anything ever tries to compile protobuf's C++ (i.e. build
+# protoc from source), fail loudly instead of silently pulling in a compiler.
+common --per_file_copt=external/.*protobuf.*@--PROTOBUF_WAS_NOT_SUPPOSED_TO_BE_BUILT
+common --host_per_file_copt=external/.*protobuf.*@--PROTOBUF_WAS_NOT_SUPPOSED_TO_BE_BUILT
+
+# Don't even autodetect a local C++ toolchain: local_config_cc becomes an
+# empty stub, so the build works on machines with no C compiler installed.
+# (java_binary targets like Stardoc's renderer depend on the CC toolchain for
+# their optional native launcher; the stub satisfies analysis and nothing ever
+# compiles C++.)
+common --repo_env=BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1
+
+# -- Hermeticity baseline (regular Bazel sandboxing) --------------------------
+
+common --enable_platform_specific_config
+
+# Don't leak the client environment into actions: actions see a fixed PATH
+# instead of whatever happens to be in the invoking shell.
+build --incompatible_strict_action_env
+
+# Run every action inside Bazel's sandbox -- no persistent workers or local
+# fallback running outside it -- and with no network access. (Bazel has no
+# action sandbox on Windows.)
+build:linux --spawn_strategy=sandboxed
+build:linux --sandbox_default_allow_network=false
+build:macos --spawn_strategy=sandboxed
+build:macos --sandbox_default_allow_network=false

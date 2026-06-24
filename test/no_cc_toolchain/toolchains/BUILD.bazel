@@ -1,0 +1,44 @@
+# An *empty* CC toolchain, registered in MODULE.bazel.
+#
+# With BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1 (see .bazelrc) Bazel registers no
+# CC toolchain at all, but java_binary targets (e.g. Stardoc's renderer)
+# depend on @bazel_tools//tools/cpp:current_cc_toolchain for their *optional*
+# native launcher, and toolchain resolution must find *something*. This stub
+# satisfies analysis with no compiler behind it: anything that actually tries
+# to compile or link C++ fails loudly.
+#
+# It mirrors what Bazel itself generates for local_config_cc when
+# BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1 (tools/cpp/BUILD.empty.tpl), plus the
+# toolchain() registration needed for platform-based toolchain resolution.
+
+load("@rules_cc//cc:defs.bzl", "cc_toolchain")
+load(":empty_cc_toolchain_config.bzl", "cc_toolchain_config")
+
+filegroup(
+    name = "empty",
+    srcs = [],
+)
+
+cc_toolchain_config(
+    name = "empty_cc_toolchain_config",
+)
+
+cc_toolchain(
+    name = "empty_cc_toolchain",
+    all_files = ":empty",
+    ar_files = ":empty",
+    as_files = ":empty",
+    compiler_files = ":empty",
+    dwp_files = ":empty",
+    linker_files = ":empty",
+    objcopy_files = ":empty",
+    strip_files = ":empty",
+    toolchain_config = ":empty_cc_toolchain_config",
+    toolchain_identifier = "empty",
+)
+
+toolchain(
+    name = "empty_cc",
+    toolchain = ":empty_cc_toolchain",
+    toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
+)

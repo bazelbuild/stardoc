@@ -18,3 +18,5 @@
 /production
 /.sass-cache
 /test/bzlmod/bazel-*
+/test/no_cc_toolchain/bazel-*
+/test/no_cc_toolchain/MODULE.bazel.lock

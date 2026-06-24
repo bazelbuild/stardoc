@@ -1,0 +1,47 @@
+module(
+    name = "no_cc_toolchain_test",
+    bazel_compatibility = [">=7.1.0"],
+)
+
+bazel_dep(name = "stardoc", version = "")
+local_path_override(
+    module_name = "stardoc",
+    path = "../..",
+)
+
+# aspect_bazel_lib's write_source_file keeps the rendered Markdown checked in
+# and in sync: `bazel test //...` fails when it is stale and
+# `bazel run //:update` re-renders it. It is a convenience, not part of the
+# no-CC-toolchain setup itself.
+bazel_dep(name = "aspect_bazel_lib", version = "2.16.0")
+bazel_dep(name = "rules_java", version = "8.14.0")
+
+# Only for the *empty* CC toolchain stub in toolchains/BUILD.bazel (which
+# loads cc_toolchain from @rules_cc); nothing here compiles C/C++.
+bazel_dep(name = "rules_cc", version = "0.1.1")
+
+# Render docs by building Stardoc's renderer from source, but with NO CC
+# toolchain.
+#
+# Stardoc's renderer pulls java_proto_library -> proto_library -> protoc, and
+# protoc is normally compiled from C++ (which forces a CC toolchain; see
+# https://github.com/bazelbuild/stardoc/issues/305). protobuf >= 33.4 ships a
+# *precompiled* protoc plus the proto-toolchain wiring to use it instead of
+# building protoc from source; the .bazelrc flags
+# --@protobuf//bazel/toolchains:prefer_prebuilt_protoc and
+# --incompatible_enable_proto_toolchain_resolution turn that on.
+#
+# 33.4 is a hard floor: it is the first release whose proto toolchain
+# resolution keeps protoc (and its upb C sources) out of the build graph for
+# this from-source renderer. On 33.0-33.2, protoc is still compiled from
+# source (verified), and aspect's now-archived toolchains_protoc does not
+# avoid that either; protobuf's own bundled prebuilt protoc and the
+# prefer_prebuilt_protoc flag only arrived in 33.4, which is exactly why
+# toolchains_protoc is unnecessary here.
+bazel_dep(name = "protobuf", version = "33.4")
+
+# An empty CC toolchain: BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1 (see .bazelrc)
+# disables CC toolchain autodetection, but java_binary targets still need CC
+# toolchain *resolution* to succeed for their optional native launcher. See
+# toolchains/BUILD.bazel.
+register_toolchains("//toolchains:empty_cc")

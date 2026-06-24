@@ -1,1 +1,2 @@
 test/bzlmod
+test/no_cc_toolchain

@@ -92,6 +92,20 @@ tasks:
     platform: windows
     working_directory: test/bzlmod
 
+  no_cc_toolchain_usage:
+    name: Stardoc no-CC-toolchain module usage test
+    platform: ${{ platform }}
+    # Keep in sync with test/no_cc_toolchain/.bazelversion: the checked-in
+    # golden is rendered with a pinned stable Bazel (deliberately an older one,
+    # to show the setup doesn't depend on the very latest versions).
+    bazel: 7.1.0
+    working_directory: test/no_cc_toolchain
+    build_targets:
+      - "//..."
+    test_targets:
+      - "//..."
+    skip_in_bazel_downstream_pipeline: Golden test rendered with a pinned stable Bazel
+
   bazel_8_tests:
     name: Stardoc golden tests requiring Bazel 8
     platform: ubuntu2004
