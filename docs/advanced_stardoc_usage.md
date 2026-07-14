@@ -34,6 +34,21 @@ def my_function(foo, bar):
 Markdown formatting constructs are handled appropriately by Stardoc's default
 output format ("markdown_tables"), even as part of a table.
 
+### Documenting global symbols
+
+With Bazel 9 or newer, global values without a built-in documentation mechanism,
+such as strings, lists, dictionaries, and structs, can be documented with `#:`
+comments:
+
+```starlark
+#: The default timeout used by this module.
+DEFAULT_TIMEOUT = 60
+```
+
+The extracted documentation includes the symbol's name, documentation, and
+Starlark type. Bazel does not currently include the symbol's value in the
+Stardoc output proto.
+
 
 <a name="custom-output"></a>
 ## Custom Output

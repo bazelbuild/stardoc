@@ -55,3 +55,11 @@
 #end
 
 #end
+#if (!$starlarkOtherSymbolInfos.isEmpty())
+#[[##]]# Globals
+
+#foreach ($symbolInfo in $starlarkOtherSymbolInfos)
+- [$symbolInfo.name](#$symbolInfo.name)
+#end
+
+#end

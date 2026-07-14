@@ -86,6 +86,12 @@ class RendererOptions {
       description = "The template for the documentation of a module extension")
   String moduleExtensionTemplateFilePath;
 
+  @Parameter(
+      names = "--starlark_other_symbol_template",
+      required = true,
+      description = "The template for the documentation of a Starlark global symbol")
+  String starlarkOtherSymbolTemplateFilePath;
+
   @Parameter(names = "--footer_template", description = "The template for the footer string")
   String footerTemplateFilePath;
 

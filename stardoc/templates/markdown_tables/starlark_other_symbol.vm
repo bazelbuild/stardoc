@@ -1,0 +1,9 @@
+<a id="${symbolInfo.name}"></a>
+
+#[[##]]# ${symbolInfo.name} (`${symbolInfo.typeName}`)
+
+<pre>
+${util.loadStatement($symbolInfo.name)}
+</pre>
+
+${symbolInfo.doc}

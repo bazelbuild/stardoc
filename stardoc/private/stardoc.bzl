@@ -42,6 +42,7 @@ def _renderer_action_run(ctx, out_file, proto_file):
     renderer_args.add("--rule_template=" + str(ctx.file.rule_template.path))
     renderer_args.add("--repository_rule_template=" + str(ctx.file.repository_rule_template.path))
     renderer_args.add("--module_extension_template=" + str(ctx.file.module_extension_template.path))
+    renderer_args.add("--starlark_other_symbol_template=" + str(ctx.file.starlark_other_symbol_template.path))
     if ctx.file.footer_template:
         renderer_args.add("--footer_template=" + str(ctx.file.footer_template.path))
     if stamp_enabled:
@@ -58,6 +59,7 @@ def _renderer_action_run(ctx, out_file, proto_file):
         ctx.file.rule_template,
         ctx.file.repository_rule_template,
         ctx.file.module_extension_template,
+        ctx.file.starlark_other_symbol_template,
     ]
     if ctx.attr.table_of_contents_template:
         inputs.append(ctx.file.table_of_contents_template)
@@ -138,6 +140,11 @@ _common_renderer_attrs = {
         allow_single_file = [".vm"],
         mandatory = True,
     ),
+    "starlark_other_symbol_template": attr.label(
+        doc = "The input file template for generating documentation of Starlark global symbols.",
+        allow_single_file = [".vm"],
+        mandatory = True,
+    ),
     "footer_template": attr.label(
         doc = "The input file template for generating the footer of the output documentation. Optional.",
         allow_single_file = [".vm"],
@@ -190,7 +197,7 @@ _stardoc_markdown_renderer_attrs = {
 stardoc_markdown_renderer = rule(
     _stardoc_markdown_renderer_impl,
     doc = """
-Generates markdown documentation for starlark rule definitions from the corresponding binary proto.
+Generates Markdown documentation for Starlark symbols from the corresponding binary proto.
 """,
     attrs = _stardoc_markdown_renderer_attrs,
 )

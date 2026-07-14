@@ -35,11 +35,12 @@ def stardoc(
         rule_template = Label("//stardoc:templates/markdown_tables/rule.vm"),
         repository_rule_template = Label("//stardoc:templates/markdown_tables/repository_rule.vm"),
         module_extension_template = Label("//stardoc:templates/markdown_tables/module_extension.vm"),
+        starlark_other_symbol_template = Label("//stardoc:templates/markdown_tables/starlark_other_symbol.vm"),
         footer_template = None,
         render_main_repo_name = True,
         stamp = -1,
         **kwargs):
-    """Generates documentation for exported starlark rule definitions in a target starlark file.
+    """Generates documentation for exported symbols in a target Starlark file.
 
     Args:
       name: The name of the stardoc target.
@@ -47,9 +48,8 @@ def stardoc(
       out: The file to which documentation will be output (mandatory).
       deps: A list of bzl_library dependencies which the input depends on.
       format: The format of the output file. Valid values: 'markdown' or 'proto'.
-      symbol_names: A list of symbol names to generate documentation for. These should correspond to the names of rule
-        definitions in the input file. If this list is empty, then documentation for all exported rule definitions will
-        be generated.
+      symbol_names: A list of exported symbol names to generate documentation for. If this list is
+        empty, documentation for all exported symbols will be generated.
       renderer: The location of the renderer tool.
       aspect_template: The input file template for generating documentation of aspects
       header_template: The input file template for the header of the output documentation.
@@ -62,6 +62,8 @@ def stardoc(
       rule_template: The input file template for generating documentation of rules.
       repository_rule_template: The input file template for generating documentation of repository rules.
       module_extension_template: The input file template for generating documentation of module extensions.
+      starlark_other_symbol_template: The input file template for generating documentation of
+        Starlark global symbols, such as constants, which use `#:` doc comments.
       footer_template: The input file template for generating the footer of the output documentation. Optional.
       render_main_repo_name: Render labels in the main repository with a repo component (either
         the module name or workspace name).
@@ -132,6 +134,7 @@ def stardoc(
             rule_template = rule_template,
             repository_rule_template = repository_rule_template,
             module_extension_template = module_extension_template,
+            starlark_other_symbol_template = starlark_other_symbol_template,
             macro_template = macro_template,
             footer_template = footer_template,
             stamp = stamp,
