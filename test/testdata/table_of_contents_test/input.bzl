@@ -27,3 +27,6 @@ my_repo = _my_repo
 my_ext = _my_ext
 
 basic_macro = _basic_macro
+
+#: A documented global string.
+MY_GLOBAL = "my global"

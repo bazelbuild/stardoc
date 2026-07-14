@@ -55,6 +55,27 @@ stardoc_test(
 )
 
 stardoc_test(
+    name = "starlark_other_symbols_test",
+    golden_file = "testdata/starlark_other_symbols_test/golden.md",
+    input_file = "testdata/starlark_other_symbols_test/input.bzl",
+    tags = [
+        "bazel_9",
+        "manual",
+    ],
+)
+
+stardoc_test(
+    name = "starlark_other_symbols_html_tables_test",
+    golden_file = "testdata/starlark_other_symbols_test/html_tables_golden.md",
+    input_file = "testdata/starlark_other_symbols_test/input.bzl",
+    tags = [
+        "bazel_9",
+        "manual",
+    ],
+    test = "html_tables",
+)
+
+stardoc_test(
     name = "repo_rules_test",
     golden_file = "testdata/repo_rules_test/golden.md",
     input_file = "testdata/repo_rules_test/input.bzl",

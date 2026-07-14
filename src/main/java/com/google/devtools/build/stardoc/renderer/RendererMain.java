@@ -33,6 +33,7 @@ import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.Prov
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.RepositoryRuleInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.RuleInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.StarlarkFunctionInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.StarlarkOtherSymbolInfo;
 import com.google.devtools.build.stardoc.rendering.MarkdownRenderer;
 import com.google.devtools.build.stardoc.rendering.MarkdownRenderer.Renderer;
 import com.google.devtools.build.stardoc.rendering.Stamping;
@@ -98,6 +99,7 @@ public final class RendererMain {
               rendererOptions.aspectTemplateFilePath,
               rendererOptions.repositoryRuleTemplateFilePath,
               rendererOptions.moduleExtensionTemplateFilePath,
+              rendererOptions.starlarkOtherSymbolTemplateFilePath,
               !moduleInfo.getFile().isEmpty()
                   ? Optional.of(moduleInfo.getFile())
                   : Optional.empty(),
@@ -154,6 +156,12 @@ public final class RendererMain {
               .sorted(comparing(ModuleExtensionInfo::getExtensionName))
               .collect(toImmutableList());
 
+      // Other documented Starlark symbols are printed sorted by their qualified name.
+      ImmutableList<StarlarkOtherSymbolInfo> sortedStarlarkOtherSymbolInfos =
+          ImmutableList.sortedCopyOf(
+              comparing(StarlarkOtherSymbolInfo::getName),
+              moduleInfo.getStarlarkOtherSymbolInfoList());
+
       printWriter.println(renderer.renderMarkdownHeader(moduleInfo));
       if (rendererOptions.tableOfContentsTemplateFilePath != null) {
         printWriter.println(
@@ -164,7 +172,8 @@ public final class RendererMain {
                 sortedStarlarkFunctions,
                 sortedAspectInfos,
                 sortedRepositoryRuleInfos,
-                sortedModuleExtensionInfos));
+                sortedModuleExtensionInfos,
+                sortedStarlarkOtherSymbolInfos));
       }
       print(printWriter, renderer::render, sortedRuleInfos);
       print(printWriter, renderer::render, sortedProviderInfos);
@@ -173,6 +182,7 @@ public final class RendererMain {
       print(printWriter, renderer::render, sortedAspectInfos);
       print(printWriter, renderer::render, sortedRepositoryRuleInfos);
       print(printWriter, renderer::render, sortedModuleExtensionInfos);
+      print(printWriter, renderer::render, sortedStarlarkOtherSymbolInfos);
       if (rendererOptions.footerTemplateFilePath != null) {
         printWriter.println(renderer.renderMarkdownFooter(moduleInfo));
       }

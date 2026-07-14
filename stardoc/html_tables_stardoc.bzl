@@ -35,5 +35,6 @@ def html_tables_stardoc(name, **kwargs):
         rule_template = Label("//stardoc:templates/html_tables/rule.vm"),
         repository_rule_template = Label("//stardoc:templates/html_tables/repository_rule.vm"),
         module_extension_template = Label("//stardoc:templates/html_tables/module_extension.vm"),
+        starlark_other_symbol_template = Label("//stardoc:templates/html_tables/starlark_other_symbol.vm"),
         **kwargs
     )

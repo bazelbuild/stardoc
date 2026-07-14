@@ -34,6 +34,10 @@ Test rules / providers / etc for the table of contents generation test.
 
 - [my_ext](#my_ext)
 
+## Globals
+
+- [MY_GLOBAL](#MY_GLOBAL)
+
 
 <a id="my_rule"></a>
 
@@ -303,5 +307,16 @@ Artifact tag
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="my_ext.artifact-artifact"></a>artifact |  Artifact   | String | required |  |
 | <a id="my_ext.artifact-group"></a>group |  Group name   | String | optional |  `"my_group"`  |
+
+
+<a id="MY_GLOBAL"></a>
+
+## MY_GLOBAL (`string`)
+
+<pre>
+load("@stardoc//test:testdata/table_of_contents_test/input.bzl", "MY_GLOBAL")
+</pre>
+
+A documented global string.
 
 

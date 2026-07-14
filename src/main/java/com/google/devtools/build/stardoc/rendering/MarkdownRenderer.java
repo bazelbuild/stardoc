@@ -30,6 +30,7 @@ import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.Prov
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.RepositoryRuleInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.RuleInfo;
 import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.StarlarkFunctionInfo;
+import com.google.devtools.build.lib.starlarkdocextract.StardocOutputProtos.StarlarkOtherSymbolInfo;
 import com.google.escapevelocity.EvaluationException;
 import com.google.escapevelocity.ParseException;
 import com.google.escapevelocity.Template;
@@ -61,6 +62,7 @@ public class MarkdownRenderer {
   private final String aspectTemplateFilename;
   private final String repositoryRuleTemplateFilename;
   private final String moduleExtensionTemplateFilename;
+  private final String starlarkOtherSymbolTemplateFilename;
   private final Optional<String> entrypointBzlFile;
   private final String footerTemplateFilename;
   private final Stamping stamping;
@@ -75,6 +77,7 @@ public class MarkdownRenderer {
       String aspectTemplate,
       String repositoryRuleTemplate,
       String moduleExtensionTemplate,
+      String starlarkOtherSymbolTemplate,
       Optional<String> entrypointBzlFile,
       String footerTemplate,
       Stamping stamping) {
@@ -87,6 +90,7 @@ public class MarkdownRenderer {
     this.aspectTemplateFilename = aspectTemplate;
     this.repositoryRuleTemplateFilename = repositoryRuleTemplate;
     this.moduleExtensionTemplateFilename = moduleExtensionTemplate;
+    this.starlarkOtherSymbolTemplateFilename = starlarkOtherSymbolTemplate;
     this.entrypointBzlFile = entrypointBzlFile;
     this.footerTemplateFilename = footerTemplate;
     this.stamping = stamping;
@@ -124,7 +128,8 @@ public class MarkdownRenderer {
       List<StarlarkFunctionInfo> starlarkFunctions,
       List<AspectInfo> aspectInfos,
       List<RepositoryRuleInfo> repositoryRuleInfos,
-      List<ModuleExtensionInfo> moduleExtensionInfos)
+      List<ModuleExtensionInfo> moduleExtensionInfos,
+      List<StarlarkOtherSymbolInfo> starlarkOtherSymbolInfos)
       throws IOException {
 
     ImmutableMap<String, Object> vars =
@@ -136,7 +141,8 @@ public class MarkdownRenderer {
             "functionInfos", starlarkFunctions,
             "aspectInfos", aspectInfos,
             "repositoryRuleInfos", repositoryRuleInfos,
-            "moduleExtensionInfos", moduleExtensionInfos);
+            "moduleExtensionInfos", moduleExtensionInfos,
+            "starlarkOtherSymbolInfos", starlarkOtherSymbolInfos);
     Reader reader = readerFromPath(tableOfContentsTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
@@ -341,6 +347,22 @@ public class MarkdownRenderer {
             "extensionInfo",
             moduleExtensionInfo);
     Reader reader = readerFromPath(moduleExtensionTemplateFilename);
+    try {
+      return Template.parseFrom(reader).evaluate(vars);
+    } catch (ParseException | EvaluationException e) {
+      throw new IOException(e);
+    }
+  }
+
+  /** Returns a markdown rendering of a documented Starlark global symbol. */
+  public String render(StarlarkOtherSymbolInfo starlarkOtherSymbolInfo) throws IOException {
+    ImmutableMap<String, Object> vars =
+        ImmutableMap.of(
+            "util",
+            new MarkdownUtil(entrypointBzlFile),
+            "symbolInfo",
+            starlarkOtherSymbolInfo);
+    Reader reader = readerFromPath(starlarkOtherSymbolTemplateFilename);
     try {
       return Template.parseFrom(reader).evaluate(vars);
     } catch (ParseException | EvaluationException e) {
