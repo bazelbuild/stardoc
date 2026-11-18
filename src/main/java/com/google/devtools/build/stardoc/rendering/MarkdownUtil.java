@@ -65,12 +65,13 @@ public final class MarkdownUtil {
    *   <li>Escapes pipe characters ({@code |}) as {@code \|}.
    *   <li>Transforms Markdown code blocks ({@code ```}) into HTML preformatted code blocks, and
    *       transforms newlines within those code blocks into character entities
+   *   <li>Transforms Markdown lists (items starting with {@code -}, {@code +}, {@code *},
+   *       {@code 1.} or {@code 1)}) into HTML lists. The content of each item is formatted
+   *       recursively, so items may contain code blocks and nested lists.
    *   <li>Transforms remaining 'new paragraph' patterns (two or more sequential newline characters)
    *       into line break HTML tags.
    *   <li>Turns remaining newlines into spaces (as they generally indicate intended line wrap).
    * </ul>
-   *
-   * TODO(https://github.com/bazelbuild/stardoc/issues/118): also format Markdown lists as HTML.
    */
   public static String markdownCellFormat(String docString) {
     return new MarkdownCellFormatter(docString).format();
@@ -88,8 +89,22 @@ public final class MarkdownUtil {
     private static final Pattern CODE_BLOCK_OPENING_FENCE =
         Pattern.compile("^ {0,3}(?<fence>```+|~~~+) *(?<lang>\\w*)[^`~]*$");
 
+    // See https://github.github.com/gfm/#list-items
+    private static final Pattern LIST_ITEM_START =
+        Pattern.compile(
+            "^(?<indent> {0,3})(?<marker>[-+*]|(?<number>[0-9]{1,9})[.)])(?<spaces> +)\\S.*$");
+
+    // See https://github.github.com/gfm/#thematic-breaks
+    private static final Pattern THEMATIC_BREAK =
+        Pattern.compile("^ {0,3}(?:(?:\\* *){3,}|(?:- *){3,}|(?:_ *){3,})$");
+
     MarkdownCellFormatter(String docString) {
-      lines = docString.trim().replace("|", "\\|").lines().collect(toImmutableList());
+      this(docString.trim().replace("|", "\\|").lines().collect(toImmutableList()));
+    }
+
+    /** Formats lines that have already been trimmed and had their pipe characters escaped. */
+    private MarkdownCellFormatter(ImmutableList<String> lines) {
+      this.lines = lines;
       currentLine = 0;
       result = new StringBuilder();
     }
@@ -97,19 +112,24 @@ public final class MarkdownUtil {
     /** Consumes the input and yields the formatted result. */
     String format() {
       boolean prefixContentWithSpace = false;
+      // Whether the previous line was paragraph text; see formatList.
+      boolean inParagraph = false;
       for (; currentLine < lines.size(); currentLine++) {
         if (formatParagraphBreak()) {
           prefixContentWithSpace = false;
+          inParagraph = false;
           continue;
         }
         if (prefixContentWithSpace) {
           result.append(" ");
         }
         prefixContentWithSpace = true;
-        if (formatFencedCodeBlock()) {
+        if (formatFencedCodeBlock() || formatList(inParagraph)) {
+          inParagraph = false;
           continue;
         }
         result.append(lines.get(currentLine));
+        inParagraph = true;
       }
       return result.toString();
     }
@@ -148,6 +168,140 @@ public final class MarkdownUtil {
       }
       // We did not find the closing fence.
       return false;
+    }
+
+    /**
+     * If a list begins at {@link #currentLine}, render it to {@link #result} as an HTML list,
+     * update {@link #currentLine} to point to the last line of the list, and return true.
+     *
+     * <p>The content of each item (its lines with the item's indentation removed) is formatted with
+     * a new {@link MarkdownCellFormatter}, which handles code blocks and nested lists in the item.
+     * Blank lines between items are dropped, so loose lists are rendered like tight ones.
+     *
+     * @param interruptsParagraph whether the list would interrupt a paragraph; in that case, an
+     *     ordered list must start with 1
+     */
+    private boolean formatList(boolean interruptsParagraph) {
+      // See https://github.github.com/gfm/#lists
+      ListItemStart item = ListItemStart.parse(lines.get(currentLine));
+      if (item == null || (interruptsParagraph && !item.canInterruptParagraph())) {
+        return false;
+      }
+      String tag = item.ordered ? "ol" : "ul";
+      result.append('<').append(tag);
+      if (item.ordered && item.number != 1) {
+        result.append(" start=\"").append(item.number).append('"');
+      }
+      result.append('>');
+      int itemStartLine = currentLine;
+      while (true) {
+        List<String> itemLines = new ArrayList<>();
+        itemLines.add(item.firstLineContent);
+        int lastItemLine = itemStartLine;
+        int blankLines = 0;
+        ListItemStart nextItem = null;
+        int i = itemStartLine + 1;
+        for (; i < lines.size(); i++) {
+          String line = lines.get(i);
+          if (line.isBlank()) {
+            blankLines++;
+            continue;
+          }
+          if (indentation(line) >= item.contentIndent) {
+            // Item content, possibly after blank lines.
+            for (; blankLines > 0; blankLines--) {
+              itemLines.add("");
+            }
+            itemLines.add(line.substring(item.contentIndent));
+            lastItemLine = i;
+            continue;
+          }
+          ListItemStart start = ListItemStart.parse(line);
+          if (start != null && start.continuesList(item)) {
+            nextItem = start;
+            break;
+          }
+          if (blankLines > 0
+              || (start != null && start.canInterruptParagraph())
+              || CODE_BLOCK_OPENING_FENCE.matcher(line).matches()
+              || THEMATIC_BREAK.matcher(line).matches()) {
+            break;
+          }
+          // See https://github.github.com/gfm/#lazy-continuation-line
+          itemLines.add(line.stripLeading());
+          lastItemLine = i;
+        }
+        result
+            .append("<li>")
+            .append(new MarkdownCellFormatter(ImmutableList.copyOf(itemLines)).format())
+            .append("</li>");
+        if (nextItem == null) {
+          currentLine = lastItemLine;
+          break;
+        }
+        result.append(' ');
+        item = nextItem;
+        itemStartLine = i;
+      }
+      result.append("</").append(tag).append('>');
+      return true;
+    }
+
+    private static int indentation(String line) {
+      int indentation = 0;
+      while (indentation < line.length() && line.charAt(indentation) == ' ') {
+        indentation++;
+      }
+      return indentation;
+    }
+
+    /** The first line of a list item. */
+    private static final class ListItemStart {
+      final boolean ordered;
+      // The bullet character, or the delimiter after the number of an ordered list item.
+      final char delimiter;
+      final int number;
+      // Indentation of the item's content; following lines indented this much belong to the item.
+      final int contentIndent;
+      final String firstLineContent;
+
+      private ListItemStart(
+          boolean ordered, char delimiter, int number, int contentIndent, String firstLineContent) {
+        this.ordered = ordered;
+        this.delimiter = delimiter;
+        this.number = number;
+        this.contentIndent = contentIndent;
+        this.firstLineContent = firstLineContent;
+      }
+
+      /** Returns null if the line does not start a non-empty list item. */
+      static ListItemStart parse(String line) {
+        Matcher matcher = LIST_ITEM_START.matcher(line);
+        if (!matcher.matches() || THEMATIC_BREAK.matcher(line).matches()) {
+          return null;
+        }
+        String marker = matcher.group("marker");
+        String number = matcher.group("number");
+        int markerEnd = matcher.end("marker");
+        int spaces = matcher.group("spaces").length();
+        // See https://github.github.com/gfm/#list-items: with 5 or more spaces after the marker,
+        // the content starts after the first space.
+        int contentIndent = markerEnd + (spaces <= 4 ? spaces : 1);
+        return new ListItemStart(
+            number != null,
+            marker.charAt(marker.length() - 1),
+            number != null ? Integer.parseInt(number) : 0,
+            contentIndent,
+            line.substring(contentIndent));
+      }
+
+      boolean canInterruptParagraph() {
+        return !ordered || number == 1;
+      }
+
+      boolean continuesList(ListItemStart first) {
+        return ordered == first.ordered && delimiter == first.delimiter;
+      }
     }
 
     /**
