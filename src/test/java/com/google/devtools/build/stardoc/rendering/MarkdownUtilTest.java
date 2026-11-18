@@ -77,6 +77,63 @@ public class MarkdownUtilTest {
   }
 
   @Test
+  public void markdownCellFormat_lists() {
+    assertThat(
+            MarkdownUtil.markdownCellFormat(
+                "Blah blah blah\n\nPossible values:\n* `\"x\"` - sets foo to x\n"
+                    + "* `\"y\"` - sets foo to y\n"))
+        .isEqualTo(
+            "Blah blah blah<br><br>Possible values: <ul><li>`\"x\"` - sets foo to x</li>"
+                + " <li>`\"y\"` - sets foo to y</li></ul>");
+    assertThat(
+            MarkdownUtil.markdownCellFormat(
+                "Options are:\n\n*   `ios`: architectures gathered\n    from `--ios_multi_cpus`.\n"
+                    + "*   `macos`: architectures gathered\n    from `--macos_cpus`."))
+        .isEqualTo(
+            "Options are:<br><br><ul><li>`ios`: architectures gathered from"
+                + " `--ios_multi_cpus`.</li> <li>`macos`: architectures gathered from"
+                + " `--macos_cpus`.</li></ul>");
+    assertThat(MarkdownUtil.markdownCellFormat("Options:\n\n- a\n\n- b\n\nMore text."))
+        .isEqualTo("Options:<br><br><ul><li>a</li> <li>b</li></ul><br><br>More text.");
+    assertThat(MarkdownUtil.markdownCellFormat("+ a | b\n+ c"))
+        .isEqualTo("<ul><li>a \\| b</li> <li>c</li></ul>");
+    assertThat(MarkdownUtil.markdownCellFormat("1. one\n2. two"))
+        .isEqualTo("<ol><li>one</li> <li>two</li></ol>");
+    assertThat(MarkdownUtil.markdownCellFormat("Steps:\n\n3) three\n4) four"))
+        .isEqualTo("Steps:<br><br><ol start=\"3\"><li>three</li> <li>four</li></ol>");
+    // A different bullet character or delimiter starts a new list.
+    assertThat(MarkdownUtil.markdownCellFormat("- a\n* b"))
+        .isEqualTo("<ul><li>a</li></ul> <ul><li>b</li></ul>");
+    assertThat(MarkdownUtil.markdownCellFormat("1. a\n1) b"))
+        .isEqualTo("<ol><li>a</li></ol> <ol><li>b</li></ol>");
+  }
+
+  @Test
+  public void markdownCellFormat_listItemContent() {
+    assertThat(MarkdownUtil.markdownCellFormat("- a\n  - b\n  - c\n- d"))
+        .isEqualTo("<ul><li>a <ul><li>b</li> <li>c</li></ul></li> <li>d</li></ul>");
+    assertThat(MarkdownUtil.markdownCellFormat("- a\n\n  more about a\n- b"))
+        .isEqualTo("<ul><li>a<br><br>more about a</li> <li>b</li></ul>");
+    assertThat(MarkdownUtil.markdownCellFormat("- example:\n  ```\n  foo()\n  ```\n- b"))
+        .isEqualTo("<ul><li>example: <pre><code>foo()</code></pre></li> <li>b</li></ul>");
+    // Lazy continuation line
+    assertThat(MarkdownUtil.markdownCellFormat("- a\nstill a\n- b"))
+        .isEqualTo("<ul><li>a still a</li> <li>b</li></ul>");
+    // A code block ends the list
+    assertThat(MarkdownUtil.markdownCellFormat("- a\n```\n- b\n```"))
+        .isEqualTo("<ul><li>a</li></ul> <pre><code>- b</code></pre>");
+  }
+
+  @Test
+  public void markdownCellFormat_notLists() {
+    // An ordered list can only interrupt a paragraph if it starts with 1.
+    assertThat(MarkdownUtil.markdownCellFormat("Released in\n2019. The end."))
+        .isEqualTo("Released in 2019. The end.");
+    assertThat(MarkdownUtil.markdownCellFormat("**bold**\n*emphasis*\n-flag\n---\n* * *\n-"))
+        .isEqualTo("**bold** *emphasis* -flag --- * * * -");
+  }
+
+  @Test
   public void markdownCellFormat_inlineMarkup() {
     assertThat(MarkdownUtil.markdownCellFormat("<b>bold</b> <i>italic</i>"))
         .isEqualTo("<b>bold</b> <i>italic</i>");
